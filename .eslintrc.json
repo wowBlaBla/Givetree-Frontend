@@ -3,10 +3,95 @@
     "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:next/recommended", // Uses the recommended rules from @eslint-plugin-next
+    "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
     "prettier/prettier",
-    "prettier",
-    "next/core-web-vitals"
+    "prettier"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "parserOptions": {
+    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports
+    "ecmaFeatures": {
+      "jsx": true // Allows for the parsing of JSX
+    }
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks"
+  ],
+  "rules": {
+    "import/no-default-export": [
+      "error"
+    ],
+    "import/no-duplicates": [
+      "error"
+    ],
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "group": "external",
+            "pattern": "react",
+            "position": "before"
+          },
+          {
+            "group": "external",
+            "pattern": "*"
+          },
+          {
+            "group": "internal",
+            "pattern": "components/**/*",
+            "position": "before"
+          },
+          {
+            "group": "internal",
+            "pattern": "../**/*"
+          },
+          {
+            "group": "internal",
+            "pattern": "./**/*",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ]
+      }
+    ],
+    "no-unused-vars": "off",
+    "react/jsx-boolean-value": 1,
+    "react/jsx-sort-props": [
+      1,
+      {
+        "callbacksLast": true,
+        "ignoreCase": true,
+        "reservedFirst": true,
+        "shorthandFirst": false,
+        "shorthandLast": true
+      }
+    ],
+    "react/prop-types": 0,
+    // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
+    // e.g. "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  }
 }

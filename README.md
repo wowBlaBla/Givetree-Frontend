@@ -1,17 +1,17 @@
 # Give Tree - Ares
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![code style: airbnb](https://img.shields.io/badge/code%20style-airbnb-blue.svg)](https://github.com/airbnb/javascript)
 
 **Welcome to Ares!**
 
-This project is a monorepo to house all the Front End Applications within Give Tree. Shared packages can be found in `packages` and applications in `apps`. You can read more project structure in the section below.
+This project is a monorepo to house all the Front End Applications within Give Tree. Shared packages can be found in `packages` and applications in `apps`. You can read more on the project structure in the section below.
 
 ## Projects / Applications / Environments
 
-| Branch       | Environment       | Name         |
-| ------------ | ----------------- | ------------ | 
-| `master`     | `dev`             | Development  |
+| Branch       | Environment       | Name             |
+| ------------ | ----------------- | ---------------- | 
+| `master`     | `dev`             | Development      |
 
 
 | Applications          | HTTP                          | Environment            |
@@ -41,7 +41,7 @@ yarn install
 Next, `cd` into the project you would like to develop and execute `yarn start`. For example:
 
 ```bash
-cd /apps/customer
+cd /apps/marketplace
 yarn start
 ```
 
@@ -76,7 +76,7 @@ This general structure looks like this:
 
 > Lerna is a tool that optimizes the workflow around managing multi-package repositories with git and npm
 
-We use `lerna` in combination with `yarn` workspaces. All packages are scoped with `@givetree-area`.
+We use `lerna` in combination with `yarn` workspaces. All packages are scoped with `@givetree-ares`.
 
 You can create a new package by executing these commands:
 
