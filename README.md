@@ -57,11 +57,9 @@ This general structure looks like this:
 ├── cypress.json
 ├── lerna.json
 ├── packages
-│   ├── ui
-│   └── utils
+│   └── storybook
 ├── tsconfig.json
 └── apps
-    ├── admin
     └── marketplace
         └── cypress
             ├── fixtures
