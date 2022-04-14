@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
-    <div className="bg-gray-900">
+    <div className="h-screen bg-gray-900">
       <Head>
         <title>Give Tree</title>
         <meta name="description" content="This is the Give Tree NFT Marketplace" />

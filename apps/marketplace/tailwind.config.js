@@ -1,7 +1,3 @@
-module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-};
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const tailwind = require("@givetree-ares/storybook/tailwind.config");
+module.exports = tailwind;

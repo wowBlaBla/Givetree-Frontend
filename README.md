@@ -49,23 +49,26 @@ yarn start
 
 This project uses `lerna` to manage multiple packages/applications in a single repository.
 
-This general structure looks like this:
+The general structure looks like this:
 
 ```
 .
-├── README.md
-├── cypress.json
-├── lerna.json
+├── apps
+│   ├── admin 
+│   └── marketplace
+│       ├── cypress
+│       ├── components
+│       ├── pages
+│       └── styles
 ├── packages
 │   └── storybook
-├── tsconfig.json
-└── apps
-    └── marketplace
-        └── cypress
-            ├── fixtures
-            ├── integration
-            ├── plugins
-            └── support
+│       ├── pages
+│       └── stories
+├── lerna.json
+├── package.json
+├── README.md
+└── tsconfig.json
+
 
 10 directories, 19 files
 ```
@@ -79,12 +82,12 @@ We use `lerna` in combination with `yarn` workspaces. All packages are scoped wi
 You can create a new package by executing these commands:
 
 ```bash
-mkdir packages/<pkg-name> && cd packages/<pkg-name>
+mkdir packages/<package-name> && cd packages/<package-name>
 yarn init -y
 
 ...
 
-lerna add @givetree-ares/<pkg-name> --scope=@givetree-ares/<pkg-name> --exact
+lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<package> --exact
 ```
 
 `...` represents all the additional work necessary to create the package. Such as configuring the `package.json`
@@ -96,7 +99,7 @@ Install dependencies:
 lerna add <dependency> --scope=@givetree-ares/<pkg-name> [--exact] [-D]
 ```
 
-Common `devDep` dependencies shared across multiple packages are installed at the root of the project:
+Common `dev` dependencies shared across multiple packages are installed at the root of the project:
 
 ```bash
 yarn add <package> [--exact] [-D] -W

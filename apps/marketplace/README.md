@@ -1,7 +1,6 @@
-# Give Tree - Ares
+# Ares - Marketplace
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![code style: airbnb](https://img.shields.io/badge/code%20style-airbnb-blue.svg)](https://github.com/airbnb/javascript)
 
 **Welcome to the Give Tree NFT Marketplace!**
 
@@ -15,13 +14,13 @@
 
 ## Available Scripts
 
+### `yarn dev`
 
-### `yarn start`
-
-Runs the appin the development mode.
+Runs the app in development mode.
 
 The page will reload if you make edits. If there are any lint errors, you will also see them in the console.
 
+
 ### `yarn cypress`
 
-Launches the test runner in the interactive watch mode. See the section about [running tests](https://nextjs.org/docs/testing) for more information
+Launches the test runner in the interactive watch mode. See the section about [running tests](https://nextjs.org/docs/testing) for more information.

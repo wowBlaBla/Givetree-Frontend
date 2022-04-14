@@ -1,10 +1,14 @@
-import Head from 'next/head';
-import Image from 'next/image';
+import type { NextPage } from "next";
+import Head from "next/head";
 
-const Home = () => {
+const Home: NextPage = () => {
   return (
-    <div className=" h-screen bg-gray-900">
-      <div></div>
+    <div className="h-screen bg-gray-900">
+      <Head>
+        <title>Give Tree</title>
+        <meta name="description" content="This is the Give Tree NFT Marketplace" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
     </div>
   );
 };

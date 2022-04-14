@@ -1,6 +1,6 @@
 {
-  "name": "give-tree-ares",
-  "version": "1.0.0",
+  "name": "givetree-ares",
+  "version": "0.1.0",
   "private": true,
   "workspaces": {
     "packages": [
