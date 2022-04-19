@@ -3,10 +3,10 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
-    <div className="h-screen bg-gray-900">
+    <div>
       <Head>
-        <title>Give Tree</title>
-        <meta name="description" content="This is the Give Tree NFT Marketplace" />
+        <title>GiveTree</title>
+        <meta name="description" content="This is the GiveTree NFT Marketplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
     </div>

@@ -1,11 +1,11 @@
-# Give Tree - Ares
+# GiveTree - Ares
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 **Welcome to Ares!**
 
-This project is a monorepo to house all the Front End Applications within Give Tree. Shared packages can be found in `packages` and applications in `apps`. You can read more on the project structure in the section below.
+This project is a monorepo to house all the Front End Applications within GiveTree. Shared packages can be found in `packages` and applications in `apps`. You can read more on the project structure in the section below.
 
 ## Projects / Applications / Environments
 
@@ -61,9 +61,9 @@ The general structure looks like this:
 │       ├── pages
 │       └── styles
 ├── packages
-│   └── storybook
-│       ├── pages
-│       └── stories
+│   └── ui
+│       ├── 
+│       └── 
 ├── lerna.json
 ├── package.json
 ├── README.md
@@ -87,7 +87,7 @@ yarn init -y
 
 ...
 
-lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<package> --exact
+lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<app-name> --exact
 ```
 
 `...` represents all the additional work necessary to create the package. Such as configuring the `package.json`
@@ -96,7 +96,7 @@ installing dependencies, actual implementation, and so on.
 Install dependencies:
 
 ```bash
-lerna add <dependency> --scope=@givetree-ares/<pkg-name> [--exact] [-D]
+lerna add <dependency> --scope=@givetree-ares/<app-name> --exact [-D]
 ```
 
 Common `dev` dependencies shared across multiple packages are installed at the root of the project:
