@@ -1,7 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { FacebookIcon } from "./icons/FacebookIcon";
-import { InstagramIcon } from "./icons/InstagramIcon";
-import { LinkedinIcon } from "./icons/LinkedinIcon";
+import { DiscordIcon } from "./icons/DiscordIcon";
 import { TwitterIcon } from "./icons/TwitterIcon";
 import { YoutubeIcon } from "./icons/YoutubeIcon";
 
@@ -12,7 +10,7 @@ interface SocialLinkProps {
 
 const SocialLink: FC<SocialLinkProps> = ({ link, socialIcon }) => (
   <a
-    className="mx-2 rounded-full text-white hover:bg-white hover:text-brand-orange transition ease-in-out duration-150"
+    className="mx-2 rounded-full text-white hover:bg-white hover:text-brand-orange cursor-pointer transition-hover"
     href={link}
     target="_blank"
     rel="noreferrer"
@@ -22,28 +20,22 @@ const SocialLink: FC<SocialLinkProps> = ({ link, socialIcon }) => (
 );
 
 export const AppFooter = () => (
-  <div className="bg-brand-black text-white p-3">
-    <div className="flex flex-col sm:flex-row justify-between items-center">
-      <p>All Rights Reserved GiveTree Pty Ltd {new Date().getFullYear()}</p>
+  <div className="bg-brand-black text-white p-2 sm:p-3">
+    <div className="flex flex-col-reverse sm:flex-row justify-between items-center">
+      <p className="mt-2 sm:mt-0 text-xs sm:text-base">
+        All Rights Reserved GiveTree Pty Ltd {new Date().getFullYear()}
+      </p>
       <div className="flex">
         <SocialLink
-          socialIcon={<InstagramIcon className="fill-current w-8 h-8" />}
-          link="https://www.instagram.com/givetreewagmi/"
+          socialIcon={<DiscordIcon className="fill-current w-6 h-6 sm:w-8 sm:h-8" />}
+          link="https://t.co/r2jNYwMmEt"
         />
         <SocialLink
-          socialIcon={<FacebookIcon className="fill-current w-8 h-8" />}
-          link="https://www.facebook.com/GiveTree"
-        />
-        <SocialLink
-          socialIcon={<TwitterIcon className="fill-current w-8 h-8" />}
+          socialIcon={<TwitterIcon className="fill-current w-6 h-6 sm:w-8 sm:h-8" />}
           link="https://twitter.com/GiveTreeWagmi"
         />
         <SocialLink
-          socialIcon={<LinkedinIcon className="fill-current w-8 h-8" />}
-          link="https://www.linkedin.com/company/givetreewagmi"
-        />
-        <SocialLink
-          socialIcon={<YoutubeIcon className="fill-current w-8 h-8" />}
+          socialIcon={<YoutubeIcon className="fill-current w-6 h-6 sm:w-8 sm:h-8" />}
           link="https://www.youtube.com/channel/UCKX2iQ5HgL2Zg4PsaMtMfZg"
         />
       </div>

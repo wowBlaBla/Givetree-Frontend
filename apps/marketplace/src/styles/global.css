@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "@solana/wallet-adapter-react-ui/styles.css";
+@import "./wallet.css";
 
-.wallet-button {
-  border: solid;
-  border-width: 1px;
+@layer components {
+  .transition-hover {
+    @apply transition ease-in-out duration-200;
+  }
+
+  .button-hover {
+    @apply bg-brand-orange-hover transition-hover;
+  }
 }
