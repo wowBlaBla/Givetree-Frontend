@@ -62,8 +62,6 @@ The general structure looks like this:
 │       └── styles
 ├── packages
 │   └── ui
-│       ├── 
-│       └── 
 ├── lerna.json
 ├── package.json
 ├── README.md
@@ -86,23 +84,27 @@ mkdir packages/<package-name> && cd packages/<package-name>
 yarn init -y
 
 ...
-
-lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<app-name> --exact
 ```
 
 `...` represents all the additional work necessary to create the package. Such as configuring the `package.json`
 installing dependencies, actual implementation, and so on.
 
+Install new package on existing apps:
+
+```bash
+lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<app-name> --exact
+```
+
 Install dependencies:
 
 ```bash
-lerna add <dependency> --scope=@givetree-ares/<app-name> --exact [-D]
+lerna add <dependency> --scope=@givetree-ares/<package-name> --exact [-D]
 ```
 
 Common `dev` dependencies shared across multiple packages are installed at the root of the project:
 
 ```bash
-yarn add <package> [--exact] [-D] -W
+yarn add <package> --exact [-D] -W
 ```
 
 _Note :warn Do not install common `dev` dependencies at the root!_
