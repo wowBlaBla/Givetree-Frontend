@@ -2,7 +2,7 @@ import React from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import cx from "classnames";
 import { GiveTreeLogo } from "./GiveTreeLogo";
-import { WalletMultiButton } from "./wallet";
+import { WalletMultiButton } from "./wallet/WalletMultiButton";
 
 export const AppHeader = () => {
   const { connected } = useWallet();

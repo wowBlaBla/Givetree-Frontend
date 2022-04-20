@@ -25,14 +25,6 @@
   @apply flex justify-center items-center w-5 h-5;
 }
 
-.wallet-adapter-button-end-icon {
-  @apply ml-3;
-}
-
-.wallet-adapter-button-start-icon {
-  @apply mr-3;
-}
-
 .wallet-adapter-collapse {
   @apply w-full;
 }
