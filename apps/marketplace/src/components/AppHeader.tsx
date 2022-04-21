@@ -9,7 +9,7 @@ export const AppHeader = () => {
 
   return (
     <div className="w-full bg-brand-black">
-      <div className="flex justify-between items-center max-w-screen-3xl mx-auto py-4">
+      <div className="flex justify-between items-center mx-auto py-4">
         <div className="mx-1 sm:mx-5">
           <GiveTreeLogo className="h-8 sm:h-10" />
         </div>

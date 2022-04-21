@@ -3,18 +3,19 @@ import Image from "next/image";
 import MainBannerImg from "./../images/main-banner.png";
 import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryButton } from "./PrimaryButton";
-import { BlendTop } from "./BoxBlends";
+import { LightBlendTop } from "./BoxBlends";
 
 export const MainBanner: FC = () => (
   <div className="relative min-w-full h-full">
-    <div className="relative sm:absolute inset-0">
+    <div className="relative lg:absolute inset-0">
       <Image
         className="object-cover w-full min-h-full"
         src={MainBannerImg}
         alt="main banner"
       />
-      <div className="absolute bottom-1 w-full sm:hidden">
-        <BlendTop />
+
+      <div className="absolute bottom-1 w-full lg:hidden">
+        <LightBlendTop />
       </div>
     </div>
 

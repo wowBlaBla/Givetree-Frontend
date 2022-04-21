@@ -11,7 +11,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <MainBanner />
+      <div className="relative lg::pb-24">
+        <MainBanner />
+      </div>
     </div>
   );
 };
