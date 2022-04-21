@@ -1,5 +1,5 @@
 .wallet-adapter-button {
-  @apply flex items-center py-2 px-4 rounded-md text-white text-sm font-medium tracking-wide cursor-pointer transition ease-in-out duration-150;
+  @apply flex items-center rounded-md py-2 px-3 sm:px-4 space-x-3 text-white text-sm font-medium tracking-wide cursor-pointer transition ease-in-out duration-150;
 }
 
 .wallet-adapter-button-active {
@@ -106,7 +106,7 @@
 }
 
 .wallet-adapter-modal-list .wallet-adapter-button {
-  @apply text-lg font-medium;
+  @apply py-1 px-2 text-base sm:text-lg font-medium;
 }
 
 .wallet-adapter-modal-list .wallet-adapter-button-end-icon,
@@ -121,11 +121,11 @@
 }
 
 .wallet-adapter-modal-list .wallet-adapter-button span {  
-  @apply ml-auto text-sm font-normal opacity-60;
+  @apply ml-auto text-xs sm:text-sm font-normal opacity-60;
 }
 
 .wallet-adapter-modal-list-more {
-  @apply flex items-center self-end pt-3 pb-6 pr-6 pl-3 text-white cursor-pointer border-none;
+  @apply flex items-center self-end pt-3 pb-6 pr-6 pl-3 text-sm sm:text-base text-white cursor-pointer border-none;
 }
 
 .wallet-adapter-modal-list-more svg {
@@ -141,5 +141,5 @@
 }
 
 .wallet-adapter-modal-middle-button {
-  @apply block w-full mt-12 p-3 bg-[#512da8] text-white text-lg rounded-md border-none cursor-pointer;
+  @apply block w-full mt-12 p-3 bg-[#512da8] text-white text-base sm:text-lg rounded-md border-none cursor-pointer;
 }

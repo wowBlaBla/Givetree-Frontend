@@ -10,6 +10,6 @@
   }
 
   .button-hover {
-    @apply bg-brand-orange-hover transition-hover;
+    @apply transition-hover hover:bg-brand-orange-hover;
   }
 }

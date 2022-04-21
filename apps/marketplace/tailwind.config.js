@@ -8,6 +8,12 @@ module.exports = {
         "brand-orange-hover": "#c2410c",
         "brand-orange-active": "#341a14",
       },
+      maxWidth: {
+        "screen-3xl": "1754px",
+      },
+      maxHeight: {
+        128: "32rem",
+      },
     },
   },
   plugins: [],

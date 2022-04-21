@@ -10,9 +10,9 @@ import { WalletContext } from "../components/wallet/WalletContext";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WalletContext network={WalletAdapterNetwork.Mainnet}>
-      <div className="flex flex-col h-screen">
+      <div className="flex flex-col h-screen bg-gray-50">
         <AppHeader />
-        <div className="flex flex-col flex-1 bg-gray-50">
+        <div className="flex flex-col flex-1 w-full max-w-screen-3xl mx-auto">
           <Component {...pageProps} />
         </div>
         <AppFooter />

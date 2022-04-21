@@ -35,7 +35,7 @@ export const WalletDisconnectButton: FC<ButtonProps> = ({
       onClick={handleClick}
       {...props}
     >
-      {content}
+      <div className="hidden sm:inline-block">{content}</div>
     </Button>
   );
 };

@@ -73,7 +73,7 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
         startIcon={<WalletIcon wallet={wallet} />}
         {...props}
       >
-        <div className="hidden sm:inline-block ml-0 sm:ml-3">{content}</div>
+        <div className="hidden sm:inline-block">{content}</div>
       </Button>
       <ul
         aria-label="dropdown-list"
