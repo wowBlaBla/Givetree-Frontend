@@ -7,9 +7,9 @@ export const LightBlendBottom = () => (
 );
 
 export const DarkBlendTop = () => (
-  <div className="relative w-full h-16 bg-gradient-to-t from-gray-50 to-transparent" />
+  <div className="relative w-full h-16 bg-gradient-to-t from-brand-black to-transparent" />
 );
 
 export const DarkBlendBottom = () => (
-  <div className="relative w-full h-16 bg-gradient-to-b from-transparent to-gray-50" />
+  <div className="relative w-full h-16 bg-gradient-to-b from-transparent to-brand-black" />
 );
