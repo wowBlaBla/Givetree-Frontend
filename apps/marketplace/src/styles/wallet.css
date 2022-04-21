@@ -121,7 +121,7 @@
 }
 
 .wallet-adapter-modal-list .wallet-adapter-button span {  
-  @apply ml-auto text-sm opacity-60;
+  @apply ml-auto text-sm font-normal opacity-60;
 }
 
 .wallet-adapter-modal-list-more {
