@@ -18,7 +18,7 @@ export const MainBanner: FC = () => (
       </div>
     </div>
 
-    <div className="flex justify-center lg:justify-start max-w-screen-xl mx-auto py-12 lg:py-16 px-5">
+    <div className="flex justify-center lg:justify-start max-w-screen-xl mx-auto md:py-12 lg:py-16 px-5">
       <div className="relative w-full max-w-lg p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white">
         <h2 className="text-3xl sm:text-4xl font-normal">
           The GiveTree NFT Marketplace & Metaverse Game-For-Good
