@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           Upcoming Collections
         </h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mt-6 sm:mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-12">
           <CollectionCard
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage}
@@ -47,8 +47,8 @@ const Home: NextPage = () => {
             creator="GenoPets"
             title="Genopets"
             eventDate="5 Days"
-            totalItems={4412}
-            mintPrice={5}
+            totalItems={5289}
+            mintPrice={6.5}
           />
 
           <CollectionCard
@@ -57,8 +57,8 @@ const Home: NextPage = () => {
             creator="GoodVibes"
             title="Friends Forever"
             eventDate="27 Days"
-            totalItems={4412}
-            mintPrice={5}
+            totalItems={19856}
+            mintPrice={3}
           />
 
           <CollectionCard
@@ -68,17 +68,19 @@ const Home: NextPage = () => {
             title="YAKU Corp."
             eventDate="11 Days"
             totalItems={4412}
-            mintPrice={5}
+            mintPrice={4.5}
           />
-          <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage}
-            creator="ZzTheArtist"
-            title="Zz"
-            eventDate="31 Days"
-            totalItems={4412}
-            mintPrice={5}
-          />
+          <div className="hidden lg:flex">
+            <CollectionCard
+              creatorImageAsset={CreatorImage}
+              imageAsset={ZzCollecitonImage}
+              creator="ZzTheArtist"
+              title="Zz"
+              eventDate="31 Days"
+              totalItems={9635}
+              mintPrice={2.5}
+            />
+          </div>
         </div>
         <div className="flex justify-center mt-6 sm:mt-12">
           <OutlineButton>View More Collections</OutlineButton>

@@ -49,10 +49,10 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => (
         <p className="text-base sm:text-lg">{props.title}</p>
         <p className="text-xs">{props.eventDate}</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 px-2 w-full py-2">
-          <div className="w-full text-sm rounded-md border border-white py-1 px-4 text-center">
+          <div className="w-full text-xs sm:text-sm rounded-md border border-white p-1 text-center">
             Items {props.totalItems}
           </div>
-          <div className="w-full text-sm rounded-md border border-white py-1 px-4 text-center">
+          <div className="w-full text-xs sm:text-sm rounded-md border border-white p-1 text-center">
             Price {props.mintPrice} SOL
           </div>
         </div>
