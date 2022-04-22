@@ -17,7 +17,7 @@ export const AppHeader = () => {
         <div className="mx-2 sm:mx-2">
           <WalletMultiButton
             className={cx({
-              "wallet-adapter-button uppercase bg-brand-orange": !connected,
+              "space-x-3 uppercase bg-brand-orange": !connected,
               "wallet-adapter-button-active": connected,
             })}
           />

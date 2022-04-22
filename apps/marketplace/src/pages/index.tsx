@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <MainBanner />
       </div>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-8 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 p-5">
         <h3 className="text-center text-2xl sm:text-3xl font-semibold">
           Upcoming Collections
         </h3>

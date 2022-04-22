@@ -5,6 +5,7 @@ import { useWalletModal } from "./useWalletModal";
 import { WalletConnectButton } from "./WalletConnectButton";
 import { WalletIcon } from "./WalletIcon";
 import { WalletModalButton } from "./WalletModalButton";
+import cx from "classnames";
 
 export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
   const { publicKey, wallet, disconnect } = useWallet();
@@ -15,8 +16,14 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
 
   const base58 = useMemo(() => publicKey?.toBase58(), [publicKey]);
   const content = useMemo(() => {
-    if (children) return children;
-    if (!wallet || !base58) return null;
+    if (children) {
+      return children;
+    }
+
+    if (!wallet || !base58) {
+      return null;
+    }
+
     return base58.slice(0, 4) + ".." + base58.slice(-4);
   }, [children, wallet, base58]);
 
@@ -41,12 +48,18 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
     closeDropdown();
   }, [closeDropdown, setVisible]);
 
+  const modalOnClick = () => {
+    setActive(false);
+  };
+
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       const node = ref.current;
 
       // Do nothing if clicking dropdown or its descendants
-      if (!node || node.contains(event.target as Node)) return;
+      if (!node || node.contains(event.target as Node)) {
+        return;
+      }
 
       closeDropdown();
     };
@@ -60,7 +73,12 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  if (!wallet) return <WalletModalButton {...props}>{children}</WalletModalButton>;
+  if (!wallet)
+    return (
+      <WalletModalButton onClick={modalOnClick} {...props}>
+        {children}
+      </WalletModalButton>
+    );
   if (!base58) return <WalletConnectButton {...props}>{children}</WalletConnectButton>;
 
   return (
@@ -77,9 +95,9 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
       </Button>
       <ul
         aria-label="dropdown-list"
-        className={`wallet-adapter-dropdown-list ${
-          active && "wallet-adapter-dropdown-list-active"
-        }`}
+        className={cx("wallet-adapter-dropdown-list", {
+          "wallet-adapter-dropdown-list-active": active,
+        })}
         ref={ref}
         role="menu"
       >
