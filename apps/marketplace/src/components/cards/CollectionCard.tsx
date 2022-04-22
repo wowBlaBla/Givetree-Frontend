@@ -13,7 +13,7 @@ interface CollectionCardProps {
 }
 
 export const CollectionCard: FC<CollectionCardProps> = (props) => (
-  <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden no-select">
+  <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden select-none pointer-events-none">
     <div className="absolute top-0 right-0 text-xs sm:text-base rounded-md bg-brand-black text-white bg-opacity-70 z-20 py-1 px-2 m-2">
       Featured
     </div>

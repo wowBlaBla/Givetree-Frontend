@@ -12,7 +12,7 @@ export const MainBanner: FC = () => (
 
     <div className="flex justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4">
       <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white">
-        <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal">
+        <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal leading-6">
           The GiveTree NFT Marketplace & Metaverse Game-For-Good
         </h2>
         <p className="mt-1 sm:mt-3 text-xs sm:text-sm xl:text-base">
