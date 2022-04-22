@@ -1,9 +1,9 @@
 .wallet-adapter-button {
-  @apply flex items-center rounded-md py-2 px-3 sm:px-4 space-x-3 text-white text-sm font-medium tracking-wide cursor-pointer transition ease-in-out duration-150;
+  @apply flex items-center rounded-md py-2 px-3 sm:px-4 text-white text-sm font-medium tracking-wide cursor-pointer transition ease-in-out duration-150;
 }
 
 .wallet-adapter-button-active {
-  @apply border border-brand-orange bg-brand-orange-active text-brand-orange;
+  @apply space-x-3 border border-brand-orange bg-brand-orange-active text-brand-orange;
 }
 
 .wallet-adapter-button-trigger {

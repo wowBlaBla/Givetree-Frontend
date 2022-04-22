@@ -41,7 +41,10 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => (
         </div>
 
         <p className="text-xs sm:text-sm text-white">
-          by <span className="text-brand-orange hover:underline">{props.creator}</span>
+          by{" "}
+          <a href="#" className="text-brand-orange hover:underline">
+            {props.creator}
+          </a>
         </p>
       </div>
 

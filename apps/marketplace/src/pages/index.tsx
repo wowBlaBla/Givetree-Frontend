@@ -4,14 +4,14 @@ import { CollectionCard } from "../components/cards/CollectionCard";
 import { MainBanner } from "../components/MainBanner";
 import { OutlineButton } from "../components/OutlineButton";
 
-import CreatorImage from "../images/mulga-the-artist.png";
-import MulgaKongzCollectionImage from "../images/mulgakongz-collection.png";
-import GenopetsCollectionImage from "../images/genopets-collection.png";
-import GenopetsCreatorImage from "../images/genopets-creator.png";
-import YakucorpCollectionImage from "../images/yakucorp-collection.png";
-import YakucorpCreatorImage from "../images/yakucorp-creator.jpeg";
-import ForeverFriendsCollecitonImage from "../images/ff-collection.png";
-import ZzCollecitonImage from "../images/zz-collection.png";
+import CreatorImage from "../assets/images/mulga-the-artist.png";
+import MulgaKongzCollectionImage from "../assets/images/mulgakongz-collection.png";
+import GenopetsCollectionImage from "../assets/images/genopets-collection.png";
+import GenopetsCreatorImage from "../assets/images/genopets-creator.png";
+import YakucorpCollectionImage from "../assets/images/yakucorp-collection.png";
+import YakucorpCreatorImage from "../assets/images/yakucorp-creator.jpeg";
+import ForeverFriendsCollecitonImage from "../assets/images/ff-collection.png";
+import ZzCollecitonImage from "../assets/images/zz-collection.png";
 
 const Home: NextPage = () => {
   return (
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
         <MainBanner />
       </div>
 
-      <div className="flex relative flex-col w-full mx-auto mt-6 sm:mt-6 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-6 p-5">
         <h3 className="text-center text-2xl sm:text-3xl font-semibold">
           Upcoming Collections
         </h3>

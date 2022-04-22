@@ -1,8 +1,7 @@
 import React, { FC } from "react";
-import MainBannerImg from "./../images/main-banner.png";
+import MainBannerImg from "./../assets/images/main-banner.png";
 import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryButton } from "./PrimaryButton";
-import { LightBlendTop } from "./BoxBlends";
 
 export const MainBanner: FC = () => (
   <div className="relative min-w-full min-h-full max-h-128 overflow-hidden">
@@ -10,13 +9,8 @@ export const MainBanner: FC = () => (
       className="bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${MainBannerImg.src})` }}
     />
-    {/* <div className="relative lg:absolute inset-0 h-auto sm:h-full">
-      <div className="absolute bottom-1 w-full lg:hidden">
-        <LightBlendTop />
-      </div>
-    </div> */}
 
-    <div className="flex justify-center lg:justify-start max-w-screen-2xl mx-auto py-16 px-5">
+    <div className="flex justify-center lg:justify-start max-w-screen-3xl mx-auto py-16 px-3">
       <div className="relative w-full max-w-lg p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white">
         <h2 className="text-3xl sm:text-4xl font-normal">
           The GiveTree NFT Marketplace & Metaverse Game-For-Good

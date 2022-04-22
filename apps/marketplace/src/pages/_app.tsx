@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import "../styles/global.css";
+import "../assets/styles/global.css";
 
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WalletContext network={WalletAdapterNetwork.Mainnet}>
       <div className="flex flex-col h-full min-h-screen bg-gray-50">
         <AppHeader />
-        <div className="flex flex-col flex-1 w-full max-w-screen-3xl mx-auto">
+        <div className="flex flex-col flex-1 w-full mx-auto">
           <Component {...pageProps} />
         </div>
         <AppFooter />
