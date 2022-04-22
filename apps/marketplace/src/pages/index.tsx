@@ -26,12 +26,12 @@ const Home: NextPage = () => {
         <MainBanner />
       </div>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-12 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-8 p-5">
         <h3 className="text-center text-2xl sm:text-3xl font-semibold">
           Upcoming Collections
         </h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-10">
           <CollectionCard
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage}
@@ -50,7 +50,6 @@ const Home: NextPage = () => {
             totalItems={5289}
             mintPrice={6.5}
           />
-
           <CollectionCard
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage}
@@ -60,7 +59,6 @@ const Home: NextPage = () => {
             totalItems={19856}
             mintPrice={3}
           />
-
           <CollectionCard
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage}
@@ -82,7 +80,7 @@ const Home: NextPage = () => {
 
           <div className="hidden lg:flex"></div>
         </div>
-        <div className="flex justify-center mt-6 sm:mt-12">
+        <div className="flex justify-center mt-6">
           <OutlineButton>View More Collections</OutlineButton>
         </div>
       </div>
