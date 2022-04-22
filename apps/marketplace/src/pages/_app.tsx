@@ -1,11 +1,10 @@
 import type { AppProps } from "next/app";
-import "../assets/styles/global.css";
-
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-
 import { AppFooter } from "../components/AppFooter";
 import { AppHeader } from "../components/AppHeader";
 import { WalletContext } from "../components/wallet/WalletContext";
+
+import "../assets/styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

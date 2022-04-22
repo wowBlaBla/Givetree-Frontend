@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Slider from "react-slick";
 import { CollectionCard } from "../components/cards/CollectionCard";
 import { MainBanner } from "../components/MainBanner";
 import { OutlineButton } from "../components/OutlineButton";
@@ -14,6 +15,16 @@ import ForeverFriendsCollecitonImage from "../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../assets/images/zz-collection.png";
 
 const Home: NextPage = () => {
+  const settings = {
+    autoplay: true,
+    autoplaySpeed: 5000,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="w-full mx-auto">
       <Head>
@@ -23,10 +34,14 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="relative">
-        <MainBanner />
+        <Slider {...settings}>
+          <MainBanner />
+          <MainBanner />
+          <MainBanner />
+        </Slider>
       </div>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-16 p-5">
         <h3 className="text-center text-2xl sm:text-3xl font-semibold">
           Upcoming Collections
         </h3>
@@ -77,10 +92,9 @@ const Home: NextPage = () => {
             totalItems={9635}
             mintPrice={2.5}
           />
-
-          <div className="hidden lg:flex"></div>
         </div>
-        <div className="flex justify-center mt-6">
+
+        <div className="flex justify-center mt-8">
           <OutlineButton>View More Collections</OutlineButton>
         </div>
       </div>
