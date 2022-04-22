@@ -27,3 +27,15 @@ export const PrimaryButton: FC<ButtonProps> = ({ children, className, type }) =>
     {children}
   </button>
 );
+
+interface PrimaryLinkProps {
+  to?: string;
+  className?: string;
+  children?: ReactNode;
+}
+
+export const PrimaryLink: FC<PrimaryLinkProps> = ({ children, className, to }) => (
+  <a className={cx(ButtonStyles, className)} href={to}>
+    {children}
+  </a>
+);

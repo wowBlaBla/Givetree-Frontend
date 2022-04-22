@@ -5,6 +5,8 @@ import { CollectionCard } from "../components/cards/CollectionCard";
 import { MainBanner } from "../components/MainBanner";
 import { OutlineButton } from "../components/OutlineButton";
 
+import GiveTreeBgImg from "./../assets/images/givtree-bg-image.png";
+import MulgaBgImg from "./../assets/images/mulga-bg-image.png";
 import CreatorImage from "../assets/images/mulga-the-artist.png";
 import MulgaKongzCollectionImage from "../assets/images/mulgakongz-collection.png";
 import GenopetsCollectionImage from "../assets/images/genopets-collection.png";
@@ -35,9 +37,22 @@ const Home: NextPage = () => {
 
       <div className="relative">
         <Slider {...settings}>
-          <MainBanner />
-          <MainBanner />
-          <MainBanner />
+          <MainBanner
+            imageAsset={GiveTreeBgImg.src}
+            title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
+            subtitle="A % of every single NFT transaction is donated to charity"
+            teaser="Lern more about GiveTree"
+            teaserLink="#"
+            ctaLink1="/"
+            ctaLink1Text="Go to launchpad"
+          />
+          <MainBanner
+            imageAsset={MulgaBgImg.src}
+            title="Mulgakongz by MulgaTheArtist"
+            subtitle="4% of every single NFT minted is donated to Kids Learn Art"
+            ctaLink1="/"
+            ctaLink1Text="Go to launchpad"
+          />
         </Slider>
       </div>
 
