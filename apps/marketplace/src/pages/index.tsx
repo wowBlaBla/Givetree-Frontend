@@ -26,12 +26,12 @@ const Home: NextPage = () => {
         <MainBanner />
       </div>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-6 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-12 p-5">
         <h3 className="text-center text-2xl sm:text-3xl font-semibold">
           Upcoming Collections
         </h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-16">
           <CollectionCard
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage}
@@ -70,17 +70,17 @@ const Home: NextPage = () => {
             totalItems={4412}
             mintPrice={4.5}
           />
-          <div className="hidden lg:flex">
-            <CollectionCard
-              creatorImageAsset={CreatorImage}
-              imageAsset={ZzCollecitonImage}
-              creator="ZzTheArtist"
-              title="Zz"
-              eventDate="31 Days"
-              totalItems={9635}
-              mintPrice={2.5}
-            />
-          </div>
+          <CollectionCard
+            creatorImageAsset={CreatorImage}
+            imageAsset={ZzCollecitonImage}
+            creator="ZzTheArtist"
+            title="Zz"
+            eventDate="31 Days"
+            totalItems={9635}
+            mintPrice={2.5}
+          />
+
+          <div className="hidden lg:flex"></div>
         </div>
         <div className="flex justify-center mt-6 sm:mt-12">
           <OutlineButton>View More Collections</OutlineButton>
