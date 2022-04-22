@@ -22,7 +22,7 @@ module.exports = {
         "screen-3xl": "1754px",
       },
       maxHeight: {
-        128: "32rem",
+        128: "38rem",
       },
     },
   },
