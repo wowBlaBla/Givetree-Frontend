@@ -21,7 +21,7 @@ module.exports = {
       maxWidth: {
         "screen-3xl": "1754px",
       },
-      maxHeight: {
+      height: {
         128: "38rem",
       },
     },
