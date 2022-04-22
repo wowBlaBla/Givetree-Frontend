@@ -22,7 +22,7 @@ module.exports = {
         "screen-3xl": "1754px",
       },
       height: {
-        128: "38rem",
+        128: "42rem",
       },
     },
   },

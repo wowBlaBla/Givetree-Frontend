@@ -4,13 +4,13 @@ import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryButton } from "./PrimaryButton";
 
 export const MainBanner: FC = () => (
-  <div className="relative min-w-full min-h-full max-h-128 xl:min-h-128 overflow-hidden">
+  <div className="relative min-w-full min-h-full xl:h-128 overflow-hidden">
     <div
       className="bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${MainBannerImg.src})` }}
     />
 
-    <div className="flex justify-center sm:justify-start max-w-screen-3xl mx-auto py-16 px-4">
+    <div className="flex justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4">
       <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white">
         <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal">
           The GiveTree NFT Marketplace & Metaverse Game-For-Good
