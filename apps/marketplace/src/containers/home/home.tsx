@@ -16,9 +16,9 @@ import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
 
 export const HomeContainer = () => {
-  const settings = {
+  const sliderProps = {
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     dots: true,
     infinite: true,
     speed: 500,
@@ -35,7 +35,7 @@ export const HomeContainer = () => {
       </Head>
 
       <div className="relative">
-        <Slider {...settings}>
+        <Slider {...sliderProps}>
           <HomeBanner
             imageAsset={GiveTreeBgImg.src}
             title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
@@ -43,7 +43,9 @@ export const HomeContainer = () => {
             teaser="Lern more about GiveTree"
             teaserLink="#"
             ctaLink1="/"
-            ctaLink1Text="Go to launchpad"
+            ctaLink1Text="Explore"
+            ctaLink2="/"
+            ctaLink2Text="Start minting"
           />
           <HomeBanner
             imageAsset={MulgaBgImg.src}
@@ -105,6 +107,53 @@ export const HomeContainer = () => {
             eventDate="31 Days"
             totalItems={9635}
             mintPrice={2.5}
+          />
+
+          <CollectionCard
+            creatorImageAsset={CreatorImage}
+            imageAsset={ZzCollecitonImage}
+            creator="ZzTheArtist"
+            title="Zz"
+            eventDate="31 Days"
+            totalItems={9635}
+            mintPrice={2.5}
+          />
+          <CollectionCard
+            creatorImageAsset={YakucorpCreatorImage}
+            imageAsset={YakucorpCollectionImage}
+            creator="YakuCorp"
+            title="YAKU Corp."
+            eventDate="11 Days"
+            totalItems={4412}
+            mintPrice={4.5}
+          />
+
+          <CollectionCard
+            creatorImageAsset={CreatorImage}
+            imageAsset={MulgaKongzCollectionImage}
+            creator="MulgaTheArtist"
+            title="Mulgakongz"
+            eventDate="3 days"
+            totalItems={4412}
+            mintPrice={5}
+          />
+          <CollectionCard
+            creatorImageAsset={GenopetsCreatorImage}
+            imageAsset={GenopetsCollectionImage}
+            creator="GenoPets"
+            title="Genopets"
+            eventDate="5 Days"
+            totalItems={5289}
+            mintPrice={6.5}
+          />
+          <CollectionCard
+            creatorImageAsset={CreatorImage}
+            imageAsset={ForeverFriendsCollecitonImage}
+            creator="GoodVibes"
+            title="Friends Forever"
+            eventDate="27 Days"
+            totalItems={19856}
+            mintPrice={3}
           />
         </div>
 
