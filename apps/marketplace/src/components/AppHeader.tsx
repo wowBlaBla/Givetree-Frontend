@@ -3,6 +3,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import cx from "classnames";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { WalletMultiButton } from "./wallet/WalletMultiButton";
+import { UserIcon } from "./icons/UserIcon";
 
 export const AppHeader = () => {
   const { connected } = useWallet();
@@ -13,6 +14,10 @@ export const AppHeader = () => {
         <div className="mx-1 sm:mx-2">
           <GiveTreeLogo className="h-8 sm:h-10" />
         </div>
+
+        {connected && (
+          <UserIcon className="text-gray-500 hover:text-gray-400 w-8 h-8 transition-hover select-none" />
+        )}
 
         <div className="mx-2 sm:mx-2">
           <WalletMultiButton
