@@ -14,6 +14,8 @@ import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { SectionTitle } from "../../components/SectionTitle";
+import Head from "next/head";
+import { MarketplaceRoute } from "../../configs/routes";
 
 export const CollectionListingsContainer = (): JSX.Element => {
   const sliderProps = {
@@ -28,6 +30,10 @@ export const CollectionListingsContainer = (): JSX.Element => {
 
   return (
     <div>
+      <Head>
+        <title>GiveTree - Expore all mints</title>
+      </Head>
+
       <div className="flex flex-col items-center my-6 sm:my-12 space-y-3 px-4">
         <SectionTitle>Explore all Mints</SectionTitle>
         <h3 className="text-center text-sm sm:text-base">
@@ -43,10 +49,10 @@ export const CollectionListingsContainer = (): JSX.Element => {
             subtitle="A % of every single NFT transaction is donated to charity"
             teaser="Lern more about GiveTree"
             teaserLink="#"
-            ctaLink1="/"
+            ctaLink1={MarketplaceRoute.CollectionsListing}
             ctaLink1Text="Explore"
             ctaLink2="/"
-            ctaLink2Text="Start minting"
+            ctaLink2Text="Start Minting"
             height="h-96"
           />
           <Banner

@@ -16,8 +16,8 @@ const AppNavLink: FC<AppNavLink> = ({ children, to }) => (
   <NavLink
     to={to}
     className={(isActive) =>
-      cx("text-white text-lg hover:underline transition-hover active:text-brand-orange", {
-        "": isActive,
+      cx("text-white text-lg transition-hover active:text-brand-orange", {
+        "font-bold": isActive,
       })
     }
   >

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import { DarkBlendTop } from "../BoxBlends";
+import { StatusBadge } from "../StatusBadge";
 
 interface CollectionCardProps {
   creator: string;
@@ -10,13 +11,16 @@ interface CollectionCardProps {
   eventDate: string;
   totalItems: number;
   mintPrice: number;
+  status?: string;
 }
 
 export const CollectionCard: FC<CollectionCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden select-none pointer-events-none cursor-pointer">
-    <div className="absolute top-0 right-0 text-xs sm:text-base rounded-md bg-brand-black text-white bg-opacity-70 z-20 py-1 px-2 m-2">
-      Featured
-    </div>
+    {props.status && (
+      <div className="absolute top-0 right-0 my-2.5 mx-2 z-20">
+        <StatusBadge status={props.status} />
+      </div>
+    )}
 
     <div className="flex flex-col justify-end h-full">
       <div className="flex relative flex-1 justify-center w-full">

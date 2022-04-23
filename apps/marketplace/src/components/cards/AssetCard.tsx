@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import { TrendingGraphIcon } from "../icons/TrendingGraphIcon";
 import { ClockIcon } from "../icons/ClockIcon";
+import { StatusBadge } from "../StatusBadge";
 
 interface AssetCardProps {
   collectionName: string;
@@ -10,10 +11,17 @@ interface AssetCardProps {
   imageAsset: string | StaticImageData;
   bidEndDate: string;
   bidPrice: number;
+  status?: string;
 }
 
 export const AssetCard: FC<AssetCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden cursor-pointer select-none">
+    {props.status && (
+      <div className="absolute top-0 right-0 my-2.5 mx-2 z-20">
+        <StatusBadge status={props.status} />
+      </div>
+    )}
+
     <div className="flex flex-col justify-end h-full">
       <div className="flex relative flex-1 justify-center w-full">
         <Image

@@ -22,6 +22,9 @@ module.exports = {
       maxWidth: {
         "screen-3xl": "1754px",
       },
+      minHeight: {
+        96: "28rem",
+      },
     },
   },
   plugins: [],

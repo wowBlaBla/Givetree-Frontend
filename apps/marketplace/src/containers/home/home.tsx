@@ -3,7 +3,7 @@ import Head from "next/head";
 import Slider from "react-slick";
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { Banner } from "../../components/Banner";
-import { OutlineButton } from "../../components/OutlineButton";
+import { OutlineLink } from "../../components/OutlineButton";
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
 import CreatorImage from "../../assets/images/mulga-the-artist.png";
@@ -15,6 +15,7 @@ import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
 import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
 import { SectionTitle } from "../../components/SectionTitle";
+import { MarketplaceRoute } from "../../configs/routes";
 
 export const HomeContainer = () => {
   const sliderProps = {
@@ -44,10 +45,10 @@ export const HomeContainer = () => {
             subtitle="A % of every single NFT transaction is donated to charity"
             teaser="Lern more about GiveTree"
             teaserLink="#"
-            ctaLink1="/"
+            ctaLink1={MarketplaceRoute.CollectionsListing}
             ctaLink1Text="Explore"
             ctaLink2="/"
-            ctaLink2Text="Start minting"
+            ctaLink2Text="Start Minting"
           />
           <Banner
             height="h-96 xl:h-128"
@@ -65,6 +66,7 @@ export const HomeContainer = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-10">
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage}
             creator="MulgaTheArtist"
@@ -74,6 +76,7 @@ export const HomeContainer = () => {
             mintPrice={5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage}
             creator="GenoPets"
@@ -83,6 +86,7 @@ export const HomeContainer = () => {
             mintPrice={6.5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage}
             creator="GoodVibes"
@@ -92,6 +96,7 @@ export const HomeContainer = () => {
             mintPrice={3}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage}
             creator="YakuCorp"
@@ -101,6 +106,7 @@ export const HomeContainer = () => {
             mintPrice={4.5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage}
             creator="ZzTheArtist"
@@ -111,6 +117,7 @@ export const HomeContainer = () => {
           />
 
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage}
             creator="ZzTheArtist"
@@ -120,6 +127,7 @@ export const HomeContainer = () => {
             mintPrice={2.5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage}
             creator="YakuCorp"
@@ -130,6 +138,7 @@ export const HomeContainer = () => {
           />
 
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage}
             creator="MulgaTheArtist"
@@ -139,6 +148,7 @@ export const HomeContainer = () => {
             mintPrice={5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage}
             creator="GenoPets"
@@ -148,6 +158,7 @@ export const HomeContainer = () => {
             mintPrice={6.5}
           />
           <CollectionCard
+            status="Featured"
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage}
             creator="GoodVibes"
@@ -159,7 +170,9 @@ export const HomeContainer = () => {
         </div>
 
         <div className="flex justify-center mt-8">
-          <OutlineButton>View More Collections</OutlineButton>
+          <OutlineLink to={MarketplaceRoute.CollectionsListing}>
+            View More Collections
+          </OutlineLink>
         </div>
       </div>
     </div>

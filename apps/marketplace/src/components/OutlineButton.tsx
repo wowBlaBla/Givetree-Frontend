@@ -1,5 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import cx from "classnames";
+import { Link } from "react-router-dom";
 
 const ButtonStyles = `
   border-2
@@ -14,6 +15,7 @@ const ButtonStyles = `
   text-brand-orange
   text-sm
   sm:text-base
+  xl:text-lg
 
   button-hover
 `;
@@ -28,4 +30,16 @@ export const OutlineButton: FC<ButtonProps> = ({ children, className, type }) =>
   <button className={cx(ButtonStyles, className)} type={type || "button"}>
     {children}
   </button>
+);
+
+interface OutlineLinkProps {
+  to: string;
+  className?: string;
+  children?: ReactNode;
+}
+
+export const OutlineLink: FC<OutlineLinkProps> = ({ children, className, to }) => (
+  <Link className={cx(ButtonStyles, className)} to={to}>
+    {children}
+  </Link>
 );
