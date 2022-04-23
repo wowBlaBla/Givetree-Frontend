@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Slider from "react-slick";
 import { CollectionCard } from "../../components/cards/CollectionCard";
-import { HomeBanner } from "../../components/HomeBanner";
+import { Banner } from "../../components/Banner";
 import { OutlineButton } from "../../components/OutlineButton";
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
@@ -14,6 +14,7 @@ import YakucorpCollectionImage from "../../assets/images/yakucorp-collection.png
 import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
 import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
+import { SectionTitle } from "../../components/SectionTitle";
 
 export const HomeContainer = () => {
   const sliderProps = {
@@ -36,7 +37,8 @@ export const HomeContainer = () => {
 
       <div className="relative">
         <Slider {...sliderProps}>
-          <HomeBanner
+          <Banner
+            height="h-96 xl:h-128"
             imageAsset={GiveTreeBgImg.src}
             title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
             subtitle="A % of every single NFT transaction is donated to charity"
@@ -47,7 +49,8 @@ export const HomeContainer = () => {
             ctaLink2="/"
             ctaLink2Text="Start minting"
           />
-          <HomeBanner
+          <Banner
+            height="h-96 xl:h-128"
             imageAsset={MulgaBgImg.src}
             title="Mulgakongz by MulgaTheArtist"
             subtitle="4% of every single NFT minted is donated to Kids Learn Art"
@@ -58,9 +61,7 @@ export const HomeContainer = () => {
       </div>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-16 p-5">
-        <h3 className="text-center text-2xl sm:text-3xl font-semibold">
-          Upcoming Collections
-        </h3>
+        <SectionTitle>Upcoming Collections</SectionTitle>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-10">
           <CollectionCard

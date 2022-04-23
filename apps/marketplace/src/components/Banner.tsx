@@ -1,8 +1,10 @@
 import React, { FC } from "react";
 import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryLink } from "./PrimaryButton";
+import cx from "classnames";
 
-interface HomeBannerProps {
+interface BannerProps {
+  height?: string;
   imageAsset?: string;
   title: string;
   subtitle: string;
@@ -14,16 +16,16 @@ interface HomeBannerProps {
   ctaLink2Text?: string;
 }
 
-export const HomeBanner: FC<HomeBannerProps> = (props) => (
-  <div className="relative min-w-full h-96 xl:h-128 overflow-hidden">
+export const Banner: FC<BannerProps> = (props) => (
+  <div className={cx("relative min-w-full min-h-full overflow-hidden", props.height)}>
     <div
       className="bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full"
       style={{ backgroundImage: `url(${props.imageAsset})` }}
     />
 
     <div className="flex justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4">
-      <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white">
-        <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal">{props.title}</h2>
+      <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white leading-10">
+        <h3 className="text-3xl sm:text-4xl xl:text-5xl font-normal">{props.title}</h3>
         <p className="mt-1 sm:mt-3 text-xs sm:text-sm xl:text-base">{props.subtitle}</p>
 
         <div className="mt-6 space-x-4">

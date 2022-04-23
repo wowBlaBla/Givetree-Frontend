@@ -4,15 +4,11 @@ import cx from "classnames";
 const ButtonStyles = `
   bg-brand-orange
   rounded-md
-  
-  py-1
+  py-2
   px-3
-  sm:py-2
   sm:px-4
-
   text-sm
   sm:text-base
-
   button-hover
 `;
 
