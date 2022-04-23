@@ -15,14 +15,14 @@ export const AppHeader = () => {
           <GiveTreeLogo className="h-8 sm:h-10" />
         </div>
 
-        {connected && (
-          <UserIcon className="text-gray-500 hover:text-gray-400 w-8 h-8 transition-hover select-none" />
-        )}
+        <div className="flex items-center space-x-3 mx-2 sm:mx-2">
+          {connected && (
+            <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
+          )}
 
-        <div className="mx-2 sm:mx-2">
           <WalletMultiButton
             className={cx({
-              "space-x-3 uppercase bg-brand-orange": !connected,
+              "bg-brand-orange": !connected,
               "wallet-adapter-button-active": connected,
             })}
           />

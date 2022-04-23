@@ -6,6 +6,7 @@ export interface WalletModalContextState {
 }
 
 const DEFAULT_CONTEXT = {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setVisible(open: boolean) {
     console.error(constructMissingProviderErrorMessage("call", "setVisible"));
   },
