@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryLink } from "./PrimaryButton";
 
-interface MainBannerProps {
+interface HomeBannerProps {
   imageAsset?: string;
   title: string;
   subtitle: string;
@@ -14,7 +14,7 @@ interface MainBannerProps {
   ctaLink2Text?: string;
 }
 
-export const MainBanner: FC<MainBannerProps> = (props) => (
+export const HomeBanner: FC<HomeBannerProps> = (props) => (
   <div className="relative min-w-full h-96 xl:h-128 overflow-hidden">
     <div
       className="bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full"

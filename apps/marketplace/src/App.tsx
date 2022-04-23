@@ -1,28 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HomeContainer } from "./containers/home/home";
 
-export default function App() {
-  return (
-    <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/">About</Link>
-          </li>
-        </ul>
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<HomeContainer />} />
+    </Routes>
+  </BrowserRouter>
+);
 
-        <Routes>
-          <Route path="/about">
-            <h2>About</h2>
-          </Route>
-          <Route path="/">
-            <h2>Home</h2>
-          </Route>
-        </Routes>
-      </div>
-    </Router>
-  );
-}
+export default App;
