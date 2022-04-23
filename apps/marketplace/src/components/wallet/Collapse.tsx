@@ -1,9 +1,9 @@
 import React, { FC, ReactChild, useLayoutEffect, useRef } from "react";
 
 export interface CollapseProps {
+  id: string;
   children?: ReactChild | null;
   expanded: boolean;
-  id: string;
 }
 
 export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) => {
