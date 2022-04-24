@@ -16,8 +16,8 @@ const AppNavLink: FC<AppNavLink> = ({ children, to }) => (
   <NavLink
     to={to}
     className={(isActive) =>
-      cx("text-white text-lg transition-hover active:text-brand-orange", {
-        "font-bold": isActive,
+      cx("text-white text-lg hover:text-brand-orange-hover transition-hover", {
+        "": isActive,
       })
     }
   >
@@ -29,7 +29,7 @@ export const AppHeader = () => {
   const { connected } = useWallet();
 
   return (
-    <div className="w-full bg-brand-black">
+    <div className="fixed w-full bg-brand-black z-50">
       <div className="flex justify-between items-center mx-auto py-4">
         <div className="mx-1 sm:mx-2">
           <GiveTreeLogo className="h-8 sm:h-10" />

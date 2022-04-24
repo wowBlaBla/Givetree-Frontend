@@ -92,7 +92,7 @@
 }
 
 .slick-dots {
-  @apply flex justify-center flex-nowrap absolute mt-3 w-full m-0 p-0 list-none text-center z-50;
+  @apply flex justify-center flex-nowrap absolute mt-3 w-full m-0 p-0 list-none text-center z-10;
 }
 
 .slick-dots li {

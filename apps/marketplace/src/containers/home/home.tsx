@@ -1,9 +1,14 @@
 import React from "react";
 import Head from "next/head";
 import Slider from "react-slick";
+import { MarketplaceRoute } from "../../configs/routes";
+
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { Banner } from "../../components/Banner";
 import { OutlineLink } from "../../components/OutlineButton";
+import { SectionTitle } from "../../components/SectionTitle";
+import { GridLayout } from "../../components/GridLayout";
+
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
 import CreatorImage from "../../assets/images/mulga-the-artist.png";
@@ -14,8 +19,6 @@ import YakucorpCollectionImage from "../../assets/images/yakucorp-collection.png
 import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
 import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
-import { SectionTitle } from "../../components/SectionTitle";
-import { MarketplaceRoute } from "../../configs/routes";
 
 export const HomeContainer = () => {
   const sliderProps = {
@@ -61,14 +64,14 @@ export const HomeContainer = () => {
         </Slider>
       </div>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-16 p-5">
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <SectionTitle>Upcoming Collections</SectionTitle>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mt-6 sm:mt-10">
+        <GridLayout>
           <CollectionCard
             status="Featured"
             creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage}
+            imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
             title="Mulgakongz"
             eventDate="3 days"
@@ -78,7 +81,7 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage}
+            imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
             title="Genopets"
             eventDate="5 Days"
@@ -88,7 +91,7 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage}
+            imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
             title="Friends Forever"
             eventDate="27 Days"
@@ -98,38 +101,7 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage}
-            creator="YakuCorp"
-            title="YAKU Corp."
-            eventDate="11 Days"
-            totalItems={4412}
-            mintPrice={4.5}
-          />
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage}
-            creator="ZzTheArtist"
-            title="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage}
-            creator="ZzTheArtist"
-            title="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
-          />
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage}
+            imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
             title="YAKU Corp."
             eventDate="11 Days"
@@ -140,7 +112,40 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage}
+            imageAsset={ZzCollecitonImage.src}
+            creator="ZzTheArtist"
+            title="Zz"
+            eventDate="31 Days"
+            totalItems={9635}
+            mintPrice={2.5}
+          />
+
+          <CollectionCard
+            status="Featured"
+            creatorImageAsset={YakucorpCreatorImage}
+            imageAsset={YakucorpCollectionImage.src}
+            creator="YakuCorp"
+            title="YAKU Corp."
+            eventDate="11 Days"
+            totalItems={4412}
+            mintPrice={4.5}
+          />
+
+          <CollectionCard
+            status="Featured"
+            creatorImageAsset={CreatorImage}
+            imageAsset={ZzCollecitonImage.src}
+            creator="ZzTheArtist"
+            title="Zz"
+            eventDate="31 Days"
+            totalItems={9635}
+            mintPrice={2.5}
+          />
+
+          <CollectionCard
+            status="Featured"
+            creatorImageAsset={CreatorImage}
+            imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
             title="Mulgakongz"
             eventDate="3 days"
@@ -150,7 +155,7 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage}
+            imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
             title="Genopets"
             eventDate="5 Days"
@@ -160,14 +165,14 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage}
+            imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
             title="Friends Forever"
             eventDate="27 Days"
             totalItems={19856}
             mintPrice={3}
           />
-        </div>
+        </GridLayout>
 
         <div className="flex justify-center mt-8">
           <OutlineLink to={MarketplaceRoute.CollectionsListing}>

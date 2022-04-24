@@ -1,9 +1,11 @@
 import React from "react";
 import Head from "next/head";
-import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
+import ClimateImpactPartnerImage from "../../assets/images/impact-partner-climate.png";
 import { SectionTitle } from "../../components/SectionTitle";
 import { ImpactPartnerCard } from "../../components/cards/ImpactPartnerCard";
 import { PrimaryButton } from "../../components/PrimaryButton";
+import { ImpactPartnerCategory } from "../../typed/enum/impactPartnerCategories";
+import { GridLayout } from "../../components/GridLayout";
 
 export const ImpactPartnerListingsContainer = () => {
   return (
@@ -19,68 +21,68 @@ export const ImpactPartnerListingsContainer = () => {
           <PrimaryButton className="w-auto">Register now</PrimaryButton>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-6 sm:mt-10">
+        <GridLayout>
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
           <ImpactPartnerCard
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            partnerName="Three Wise Monkeys"
-            category="Wildlife preservation"
+            imageAsset={ClimateImpactPartnerImage.src}
+            partnerName="Carbon Climate Change Society"
+            category={ImpactPartnerCategory.ClimateAction}
           />
-        </div>
+        </GridLayout>
       </div>
     </div>
   );

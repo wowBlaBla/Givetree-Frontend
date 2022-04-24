@@ -17,7 +17,7 @@ interface AssetCardProps {
 export const AssetCard: FC<AssetCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden cursor-pointer select-none">
     {props.status && (
-      <div className="absolute top-0 right-0 my-2.5 mx-2 z-20">
+      <div className="absolute top-0 right-0 my-2.5 mx-2 z-10">
         <StatusBadge status={props.status} />
       </div>
     )}

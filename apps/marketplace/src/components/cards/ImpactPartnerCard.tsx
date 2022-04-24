@@ -1,10 +1,11 @@
 import React, { FC } from "react";
+import { ImpactPartnerCategory } from "../../typed/enum/impactPartnerCategories";
 import { DarkBlendTop } from "../BoxBlends";
 import { StatusBadge } from "../StatusBadge";
 
 interface ImpactPartnerCardProps {
   imageAsset: string;
-  category: string;
+  category: ImpactPartnerCategory | string;
   partnerName: string;
 }
 
@@ -15,7 +16,7 @@ export const ImpactPartnerCard: FC<ImpactPartnerCardProps> = (props) => (
       style={{ backgroundImage: `url(${props.imageAsset})` }}
     />
 
-    <div className="absolute top-0 right-0 my-2.5 mx-2 z-20">
+    <div className="absolute top-0 right-0 my-2.5 mx-2 z-10">
       <StatusBadge status={props.category} />
     </div>
 
@@ -24,7 +25,7 @@ export const ImpactPartnerCard: FC<ImpactPartnerCardProps> = (props) => (
         <DarkBlendTop />
       </div>
 
-      <div className="absolute bottom-0 w-full flex flex-col items-center py-1 text-white z-20">
+      <div className="absolute bottom-0 w-full flex flex-col items-center py-1 text-white z-10">
         <p className="text-xs sm:text-lg px-1">{props.partnerName}</p>
       </div>
     </div>
