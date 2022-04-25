@@ -1,9 +1,9 @@
-# Give Tree - Ares
+# GiveTree - Ares
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![code style: airbnb](https://img.shields.io/badge/code%20style-airbnb-blue.svg)](https://github.com/airbnb/javascript)
 
-**Welcome to the Give Tree NFT Marketplace!**
+**Welcome to the GiveTree NFT Marketplace!**
 
 ## Tech Stack
 
@@ -16,7 +16,7 @@
 ## Available Scripts
 
 
-### `yarn start`
+### `yarn dev`
 
 Runs the appin the development mode.
 

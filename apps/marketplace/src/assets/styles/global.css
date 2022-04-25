@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./carousel.css";
+@import "./wallet.css";
+
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+img {
+  @apply select-none pointer-events-none;
+}
+
+.slick-dots li button::before {
+  
+}
+
+.slick-track {
+  @apply overflow-hidden;
+}
+
+@layer components {
+  .transition-hover {
+    @apply transition ease-in-out duration-200;
+  }
+
+  .button-hover {
+    @apply transition-hover hover:bg-brand-orange-hover hover:border-brand-orange-hover hover:text-white;
+  }
+}

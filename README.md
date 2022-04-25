@@ -1,11 +1,11 @@
-# Give Tree - Ares
+# GiveTree - Ares
 
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 **Welcome to Ares!**
 
-This project is a monorepo to house all the Front End Applications within Give Tree. Shared packages can be found in `packages` and applications in `apps`. You can read more on the project structure in the section below.
+This project is a monorepo to house all the Front End Applications within GiveTree. Shared packages can be found in `packages` and applications in `apps`. You can read more on the project structure in the section below.
 
 ## Projects / Applications / Environments
 
@@ -49,23 +49,24 @@ yarn start
 
 This project uses `lerna` to manage multiple packages/applications in a single repository.
 
-This general structure looks like this:
+The general structure looks like this:
 
 ```
 .
-├── README.md
-├── cypress.json
-├── lerna.json
+├── apps
+│   ├── admin 
+│   └── marketplace
+│       ├── cypress
+│       ├── components
+│       ├── pages
+│       └── styles
 ├── packages
-│   └── storybook
-├── tsconfig.json
-└── apps
-    └── marketplace
-        └── cypress
-            ├── fixtures
-            ├── integration
-            ├── plugins
-            └── support
+│   └── ui
+├── lerna.json
+├── package.json
+├── README.md
+└── tsconfig.json
+
 
 10 directories, 19 files
 ```
@@ -79,27 +80,31 @@ We use `lerna` in combination with `yarn` workspaces. All packages are scoped wi
 You can create a new package by executing these commands:
 
 ```bash
-mkdir packages/<pkg-name> && cd packages/<pkg-name>
+mkdir packages/<package-name> && cd packages/<package-name>
 yarn init -y
 
 ...
-
-lerna add @givetree-ares/<pkg-name> --scope=@givetree-ares/<pkg-name> --exact
 ```
 
 `...` represents all the additional work necessary to create the package. Such as configuring the `package.json`
 installing dependencies, actual implementation, and so on.
 
+Install new package on existing apps:
+
+```bash
+lerna add @givetree-ares/<package-name> --scope=@givetree-ares/<app-name> --exact
+```
+
 Install dependencies:
 
 ```bash
-lerna add <dependency> --scope=@givetree-ares/<pkg-name> [--exact] [-D]
+lerna add <dependency> --scope=@givetree-ares/<package-name> --exact [-D]
 ```
 
-Common `devDep` dependencies shared across multiple packages are installed at the root of the project:
+Common `dev` dependencies shared across multiple packages are installed at the root of the project:
 
 ```bash
-yarn add <package> [--exact] [-D] -W
+yarn add <package> --exact [-D] -W
 ```
 
 _Note :warn Do not install common `dev` dependencies at the root!_
