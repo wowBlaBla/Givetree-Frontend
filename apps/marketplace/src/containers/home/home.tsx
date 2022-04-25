@@ -46,7 +46,7 @@ export const HomeContainer = () => {
             imageAsset={GiveTreeBgImg.src}
             title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
             subtitle="A % of every single NFT transaction is donated to charity"
-            teaser="Lern more about GiveTree"
+            teaser="Learn more about GiveTree"
             teaserLink="#"
             ctaLink1={MarketplaceRoute.CollectionsListing}
             ctaLink1Text="Explore"

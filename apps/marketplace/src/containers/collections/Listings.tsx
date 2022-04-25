@@ -41,12 +41,12 @@ export const CollectionListingsContainer = (): JSX.Element => {
         subtitle="Discover current and upcoming mints for new NFT collections"
       />
 
-      <Slider className="relative" {...sliderProps}>
+      <Slider className="relative max-w-screen-3xl mx-auto" {...sliderProps}>
         <Banner
           imageAsset={GiveTreeBgImg.src}
           title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
           subtitle="A % of every single NFT transaction is donated to charity"
-          teaser="Lern more about GiveTree"
+          teaser="Learn more about GiveTree"
           teaserLink="#"
           ctaLink1={MarketplaceRoute.CollectionsListing}
           ctaLink1Text="Explore"
