@@ -41,7 +41,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
         subtitle="Discover current and upcoming mints for new NFT collections"
       />
 
-      <Slider className="relative max-w-screen-3xl mx-auto" {...sliderProps}>
+      <Slider className="relative mx-auto" {...sliderProps}>
         <Banner
           imageAsset={GiveTreeBgImg.src}
           title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
