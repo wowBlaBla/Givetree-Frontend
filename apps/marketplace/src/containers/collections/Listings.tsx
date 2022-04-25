@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import Slider from "react-slick";
 
-import { Banner } from "../../components/Banner";
+import { MainBanner } from "../../components/MainBanner";
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { GridLayout } from "../../components/GridLayout";
 import { SectionHeader } from "../../components/SectionHeader";
@@ -42,20 +42,20 @@ export const CollectionListingsContainer = (): JSX.Element => {
       />
 
       <Slider className="relative mx-auto" {...sliderProps}>
-        <Banner
+        <MainBanner
           imageAsset={GiveTreeBgImg.src}
           title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
           subtitle="A % of every single NFT transaction is donated to charity"
           teaser="Learn more about GiveTree"
           teaserLink="#"
-          ctaLink1={MarketplaceRoute.CollectionsListing}
+          ctaLink1={MarketplaceRoute.CollectionListing}
           ctaLink1Text="Explore"
           ctaLink2="/"
           ctaLink2Text="Start Minting"
           height="h-96"
         />
 
-        <Banner
+        <MainBanner
           imageAsset={MulgaBgImg.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
@@ -71,7 +71,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
-            title="Mulgakongz"
+            collectionName="Mulgakongz"
             eventDate="3 days"
             totalItems={4412}
             mintPrice={5}
@@ -81,7 +81,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
-            title="Genopets"
+            collectionName="Genopets"
             eventDate="5 Days"
             totalItems={5289}
             mintPrice={6.5}
@@ -91,7 +91,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
-            title="Friends Forever"
+            collectionName="Friends Forever"
             eventDate="27 Days"
             totalItems={19856}
             mintPrice={3}
@@ -101,7 +101,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
-            title="YAKU Corp."
+            collectionName="YAKU Corp."
             eventDate="11 Days"
             totalItems={4412}
             mintPrice={4.5}
@@ -111,7 +111,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage.src}
             creator="ZzTheArtist"
-            title="Zz"
+            collectionName="Zz"
             eventDate="31 Days"
             totalItems={9635}
             mintPrice={2.5}
@@ -121,7 +121,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
-            title="YAKU Corp."
+            collectionName="YAKU Corp."
             eventDate="11 Days"
             totalItems={4412}
             mintPrice={4.5}
@@ -131,7 +131,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage.src}
             creator="ZzTheArtist"
-            title="Zz"
+            collectionName="Zz"
             eventDate="31 Days"
             totalItems={9635}
             mintPrice={2.5}
@@ -141,7 +141,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
-            title="Mulgakongz"
+            collectionName="Mulgakongz"
             eventDate="3 days"
             totalItems={4412}
             mintPrice={5}
@@ -151,7 +151,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
-            title="Genopets"
+            collectionName="Genopets"
             eventDate="5 Days"
             totalItems={5289}
             mintPrice={6.5}
@@ -161,7 +161,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
-            title="Friends Forever"
+            collectionName="Friends Forever"
             eventDate="27 Days"
             totalItems={19856}
             mintPrice={3}

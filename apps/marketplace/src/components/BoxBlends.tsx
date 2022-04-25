@@ -1,15 +1,38 @@
-export const LightBlendTop = () => (
-  <div className="relative w-full h-16 bg-gradient-to-t from-gray-50 to-transparent" />
+import React, { FC } from "react";
+import cx from "classnames";
+
+interface BlendProps {
+  small?: boolean;
+  large?: boolean;
+  xlarge?: boolean;
+}
+
+export const DarkBlendTop: FC<BlendProps> = (props) => (
+  <div className="absolute bottom-0 w-full z-10">
+    <div
+      className={cx(
+        "relative w-full h-16 bg-gradient-to-t from-brand-black to-transparent",
+        {
+          "h-10": props.small,
+          "h-32": props.large,
+          "h-56": props.xlarge,
+        }
+      )}
+    />
+  </div>
 );
 
-export const LightBlendBottom = () => (
-  <div className="relative w-full h-16 bg-gradient-to-b from-transparent to-gray-50" />
-);
-
-export const DarkBlendTop = () => (
-  <div className="relative w-full h-16 bg-gradient-to-t from-brand-black to-transparent" />
-);
-
-export const DarkBlendBottom = () => (
-  <div className="relative w-full h-16 bg-gradient-to-b from-transparent to-brand-black" />
+export const DarkBlendBottom: FC<BlendProps> = (props) => (
+  <div className="absolute bottom-0 w-full z-10">
+    <div
+      className={cx(
+        "relative w-full h-16 bg-gradient-to-b from-transparent to-brand-black",
+        {
+          "h-10": props.small,
+          "h-32": props.large,
+          "h-56": props.xlarge,
+        }
+      )}
+    />
+  </div>
 );

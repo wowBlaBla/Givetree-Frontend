@@ -1,5 +1,6 @@
 export enum MarketplaceRoute {
   Home = "/",
-  CollectionsListing = "/explore",
-  ImpactPartnersListing = "/impact-partners",
+  CollectionDetails = "/collection/:collectionName",
+  CollectionListing = "/explore",
+  ImpactPartnerListing = "/impact-partners",
 }

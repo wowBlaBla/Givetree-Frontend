@@ -3,6 +3,7 @@ import Image, { StaticImageData } from "next/image";
 import { TrendingGraphIcon } from "../icons/TrendingGraphIcon";
 import { ClockIcon } from "../icons/ClockIcon";
 import { StatusBadge } from "../StatusBadge";
+import { BackgroundImage } from "../BackgroundImage";
 
 interface AssetCardProps {
   collectionName: string;
@@ -16,21 +17,12 @@ interface AssetCardProps {
 
 export const AssetCard: FC<AssetCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden cursor-pointer select-none">
-    {props.status && (
-      <div className="absolute top-0 right-0 my-2.5 mx-2 z-10">
-        <StatusBadge status={props.status} />
-      </div>
-    )}
+    <div className="relative pt-full">
+      <BackgroundImage imageAsset={props.imageAsset} />
+      <StatusBadge status={props.status} />
+    </div>
 
-    <div className="flex flex-col justify-end h-full">
-      <div className="flex relative flex-1 justify-center w-full">
-        <Image
-          className="object-cover min-w-full h-full"
-          src={props.imageAsset}
-          alt={props.assetName}
-        />
-      </div>
-
+    <div className="flex flex-col w-full">
       <div className="flex flex-col p-2 text-white">
         <div className="flex justify-between text-xs">
           <p>{props.collectionName}</p>

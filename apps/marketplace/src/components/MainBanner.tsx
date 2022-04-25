@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import { SmileyIcon } from "./icons/SmileyIcon";
 import { PrimaryLink } from "./PrimaryButton";
 import cx from "classnames";
+import { BackgroundImage } from "./BackgroundImage";
 
-interface BannerProps {
+interface MainBannerProps {
   height?: string;
-  imageAsset?: string;
+  imageAsset: string;
   title: string;
   subtitle: string;
   teaser?: string;
@@ -16,12 +17,9 @@ interface BannerProps {
   ctaLink2Text?: string;
 }
 
-export const Banner: FC<BannerProps> = (props) => (
+export const MainBanner: FC<MainBannerProps> = (props) => (
   <div className={cx("relative min-w-full min-h-full overflow-hidden", props.height)}>
-    <div
-      className="bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full"
-      style={{ backgroundImage: `url(${props.imageAsset})` }}
-    />
+    <BackgroundImage imageAsset={props.imageAsset} />
 
     <div className="flex justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4">
       <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-md bg-black bg-opacity-70 text-white leading-10">

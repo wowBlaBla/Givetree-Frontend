@@ -4,9 +4,14 @@ module.exports = {
     extend: {
       colors: {
         "brand-black": "#111111",
-        "brand-orange": "#fa5021",
+        "brand-green-active": "#38d05b",
+        "brand-orange": "#f95C32",
+        "brand-orange-active": "#d4674c",
         "brand-orange-hover": "#c2410c",
-        "brand-orange-active": "#341a14",
+        "brand-orange-light": "#fec066",
+        "brand-orange-secondary": "#fe8646",
+        "gradient-orange-from": "#f95c32",
+        "gradient-orange-to": "#fcAc4e",
       },
       fontSize: {
         none: "0",
@@ -24,6 +29,9 @@ module.exports = {
       },
       minHeight: {
         96: "28rem",
+      },
+      spacing: {
+        full: "100%",
       },
     },
   },

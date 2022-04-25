@@ -4,8 +4,9 @@ import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
 import { MarketplaceRoute } from "./configs/routes";
+import { CollectionDetailsContainer } from "./containers/collections/Details";
 import { CollectionListingsContainer } from "./containers/collections/Listings";
-import { HomeContainer } from "./containers/home/home";
+import { HomeContainer } from "./containers/home/Home";
 import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
 
 const App = () => (
@@ -18,13 +19,19 @@ const App = () => (
             <Routes>
               <Route path={MarketplaceRoute.Home} element={<HomeContainer />} />
               <Route
-                path={MarketplaceRoute.CollectionsListing}
+                path={MarketplaceRoute.CollectionDetails}
+                element={<CollectionDetailsContainer />}
+              />
+              <Route
+                path={MarketplaceRoute.CollectionListing}
                 element={<CollectionListingsContainer />}
               />
               <Route
-                path={MarketplaceRoute.ImpactPartnersListing}
+                path={MarketplaceRoute.ImpactPartnerListing}
                 element={<ImpactPartnerListingsContainer />}
               />
+
+              <Route path="*" element={<HomeContainer />} />
             </Routes>
           </div>
         </div>
