@@ -73,13 +73,17 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  if (!wallet)
+  if (!wallet) {
     return (
       <WalletModalButton onClick={modalOnClick} {...props}>
         {children}
       </WalletModalButton>
     );
-  if (!base58) return <WalletConnectButton {...props}>{children}</WalletConnectButton>;
+  }
+
+  if (!base58) {
+    return <WalletConnectButton {...props}>{children}</WalletConnectButton>;
+  }
 
   return (
     <div className="wallet-adapter-dropdown">
@@ -91,7 +95,7 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
         startIcon={<WalletIcon wallet={wallet} />}
         {...props}
       >
-        <div className="hidden sm:inline-block">{content}</div>
+        <span className="hidden sm:inline-block">{content}</span>
       </Button>
       <ul
         aria-label="dropdown-list"

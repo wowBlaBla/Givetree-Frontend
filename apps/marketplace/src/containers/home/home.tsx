@@ -65,7 +65,7 @@ export const HomeContainer = () => {
       </div>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
-        <SectionTitle>Upcoming Collections</SectionTitle>
+        <SectionTitle center>Upcoming Collections</SectionTitle>
 
         <GridLayout>
           <CollectionCard

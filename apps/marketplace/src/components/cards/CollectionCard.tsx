@@ -25,7 +25,7 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => (
   >
     <div className="relative pt-full">
       <BackgroundImage imageAsset={props.imageAsset} />
-      <StatusBadge status={props.status} />
+      <StatusBadge className="my-2.5 mx-2" status={props.status} />
       <DarkBlendTop />
     </div>
 
@@ -35,7 +35,7 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => (
       <div className="flex flex-col items-center space-y-1 text-white py-1">
         <p className="text-sm sm:text-lg">{props.collectionName}</p>
         <p className="text-xs">{props.eventDate}</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 px-2 w-full py-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full p-2">
           <div className="w-full text-xs sm:text-sm rounded-md border border-white p-1 text-center">
             Items {props.totalItems}
           </div>

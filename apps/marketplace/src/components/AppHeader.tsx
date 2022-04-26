@@ -33,9 +33,9 @@ export const AppHeader = () => {
 
   return (
     <div className="fixed w-full bg-brand-black z-50">
-      <div className="flex justify-between items-center mx-auto py-4">
-        <Link className="mx-1 sm:mx-2" to={MarketplaceRoute.Home}>
-          <GiveTreeLogo className="h-8 sm:h-10" />
+      <div className="flex justify-between items-center mx-4 py-5">
+        <Link to={MarketplaceRoute.Home}>
+          <GiveTreeLogo className="w-32 h-8 sm:h-12" />
         </Link>
 
         <div className="hidden sm:block space-x-24">
@@ -46,7 +46,7 @@ export const AppHeader = () => {
           </AppNavLink>
         </div>
 
-        <div className="flex items-center space-x-3 mx-2 sm:mx-2">
+        <div className="flex items-center space-x-3">
           {connected && (
             <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
           )}

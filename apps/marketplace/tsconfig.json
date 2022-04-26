@@ -13,7 +13,7 @@
     "**/*.tsx",
     "src/pages",
     "cypress"
-  ],
+, "src/api"  ],
   "exclude": [
     "node_modules"
   ]

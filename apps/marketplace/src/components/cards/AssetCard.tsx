@@ -19,7 +19,7 @@ export const AssetCard: FC<AssetCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden cursor-pointer select-none">
     <div className="relative pt-full">
       <BackgroundImage imageAsset={props.imageAsset} />
-      <StatusBadge status={props.status} />
+      <StatusBadge className="my-2.5 mx-2" status={props.status} />
     </div>
 
     <div className="flex flex-col w-full">

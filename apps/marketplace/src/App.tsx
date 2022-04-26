@@ -14,26 +14,24 @@ const App = () => (
     <ScrollToTop>
       <div className="flex flex-col h-full min-h-screen bg-gray-50">
         <AppHeader />
-        <div className="mt-16">
-          <div className="mt-3">
-            <Routes>
-              <Route path={MarketplaceRoute.Home} element={<HomeContainer />} />
-              <Route
-                path={MarketplaceRoute.CollectionDetails}
-                element={<CollectionDetailsContainer />}
-              />
-              <Route
-                path={MarketplaceRoute.CollectionListing}
-                element={<CollectionListingsContainer />}
-              />
-              <Route
-                path={MarketplaceRoute.ImpactPartnerListing}
-                element={<ImpactPartnerListingsContainer />}
-              />
+        <div className="flex flex-col flex-1 mt-20">
+          <Routes>
+            <Route path={MarketplaceRoute.Home} element={<HomeContainer />} />
+            <Route
+              path={MarketplaceRoute.CollectionDetails}
+              element={<CollectionDetailsContainer />}
+            />
+            <Route
+              path={MarketplaceRoute.CollectionListing}
+              element={<CollectionListingsContainer />}
+            />
+            <Route
+              path={MarketplaceRoute.ImpactPartnerListing}
+              element={<ImpactPartnerListingsContainer />}
+            />
 
-              <Route path="*" element={<HomeContainer />} />
-            </Routes>
-          </div>
+            <Route path="*" element={<HomeContainer />} />
+          </Routes>
         </div>
 
         <AppFooter />
