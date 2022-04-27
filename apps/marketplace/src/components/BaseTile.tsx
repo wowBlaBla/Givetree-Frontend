@@ -7,7 +7,7 @@ interface BaseTileProps {
 }
 
 export const BaseTile: FC<BaseTileProps> = (props) => (
-  <div className={cx("border rounded-xl shadow-lg p-8 sm:p-10", props.className)}>
+  <div className={cx("border rounded-xl shadow-lg p-8", props.className)}>
     {props.children}
   </div>
 );

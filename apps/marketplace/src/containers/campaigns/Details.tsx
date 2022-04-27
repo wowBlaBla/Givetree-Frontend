@@ -16,7 +16,8 @@ import MulgaAssetImg from "./../../assets/images/mulgakongz-bunny-ears.png";
 import MulgaHatImg from "./../../assets/images/mulgakongz-banana-hat.png";
 import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
 import { BaseTile } from "../../components/BaseTile";
-import { EventTile } from "../../components/EventTile";
+import { EventWrapperTile } from "../../components/EventWrapperTile";
+import { ItemBox } from "../../components/ItemBox";
 
 export const CampaignDetailsContainer: FC = () => {
   return (
@@ -25,14 +26,13 @@ export const CampaignDetailsContainer: FC = () => {
         <title>GiveTree - Mulgakongz</title>
       </Head>
 
-      <div className="relative min-w-full h-96 xl:h-128 overflow-hidden">
+      <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8">
         <BackgroundImage imageAsset={MulgaBgImg.src} />
-
         <div className="absolute bottom-0 w-full z-10">
           <DarkBlendTop xlarge />
         </div>
 
-        <div className="flex flex-1 flex-col justify-end w-full min-h-full max-w-screen-3xl mx-auto sm:py-12 px-4">
+        <div className="flex flex-col justify-end w-full max-w-screen-3xl min-h-full space-y-3 px-3">
           <div className="flex relative flex-col z-20">
             <div className="flex relative">
               <StatusBadge status="Featured Release" left large />
@@ -43,20 +43,22 @@ export const CampaignDetailsContainer: FC = () => {
                 This is <span className="text-brand-orange">Mulgakongz</span>
               </h3>
 
-              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-5">
+              <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-5 pt-3 sm:pt-0">
                 <div className="text-lg sm:text-2xl">Total Items 4557</div>
                 <div className="text-lg sm:text-2xl">Starting from 2.00 SOL per mint</div>
               </div>
 
-              <VerificationBadge className="mt-10 w-5 h-5 sm:w-24 sm:-24" />
+              <div className="flex">
+                <VerificationBadge />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-12 px-5">
+      <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-12 px-4 sm:px-5">
         <div className="flex flex-col sm:flex-row pb-12">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
+          <div className="flex flex-col sm:flex-row items-center sm:space-x-3">
             <div className="w-24 h-24 sm:w-32 sm:h-32">
               <Image
                 className="min-w-full min-h-full rounded-full"
@@ -65,13 +67,13 @@ export const CampaignDetailsContainer: FC = () => {
               />
             </div>
 
-            <div className="flex flex-col space-y-1">
+            <div className="flex flex-col items-center sm:items-start space-y-1">
               <h4 className="flex flex-nowrap items-center text-xl sm:text-2xl space-x-1 font-medium">
                 <span className="text-black">by</span>
                 <span className="text-brand-orange">MulgaTheArtist</span>
               </h4>
 
-              <VerificationBadge className="w-5 h-5 sm:w-24 sm:-24" />
+              <VerificationBadge />
             </div>
           </div>
 
@@ -91,23 +93,8 @@ export const CampaignDetailsContainer: FC = () => {
               <h3 className="text-5xl sm:text-6xl font-semibold">Mulgakongz</h3>
 
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 mt-6">
-                <div className="grid grid-cols-2 w-full max-w-xs shadow-md">
-                  <div className="text-base sm:text-xl text-center rounded-l-md border-2 border-b-2 bg-brand-orange bg-opacity-5 border-brand-orange text-brand-orange py-2 px-5">
-                    Total Items
-                  </div>
-                  <div className="text-base sm:text-xl text-center font-semibold rounded-r-md border-r-2 border-t-2 border-b-2 border-brand-orange text-brand-orange py-2 px-5">
-                    8888
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 w-full max-w-xs shadow-md">
-                  <div className="text-base sm:text-xl text-center rounded-l-md border-2 border-b-2 bg-brand-orange bg-opacity-5 border-brand-orange text-brand-orange py-2 px-5">
-                    Price
-                  </div>
-                  <div className="text-base sm:text-xl text-center font-semibold rounded-r-md border-r-2 border-t-2 border-b-2 border-brand-orange text-brand-orange py-2 px-5">
-                    2.00 SOL
-                  </div>
-                </div>
+                <ItemBox title="Total Items" value="8888" />
+                <ItemBox title="Price" value="2.00 SOL" />
               </div>
 
               <SocialLinkGrid
@@ -141,14 +128,14 @@ export const CampaignDetailsContainer: FC = () => {
               </div>
             </BaseTile>
 
-            <EventTile />
+            <EventWrapperTile />
           </div>
 
-          <div className="flex flex-col col-span-5 mt-12 sm:mt-0">
+          <div className="flex flex-col items-center col-span-5 mt-12 sm:mt-0">
             <div className="flex flex-col item-center pb-6 sm:pb-12">
               <div className="flex justify-center flex-1 w-full h-72">
                 <Image
-                  className="w-full min-h-full rounded-lg shadow-lg"
+                  className="rounded-lg shadow-lg"
                   src={MulgaAssetImg}
                   alt="mulgakongz asset"
                 />
@@ -159,8 +146,8 @@ export const CampaignDetailsContainer: FC = () => {
               </div>
             </div>
 
-            <div className="mt-6 px-6">
-              <div className="bg-gray-100 rounded-lg py-10">
+            <div className="mt-3 w-full sm:mt-6 sm:px-8">
+              <div className="bg-gray-100 shadow-lg rounded-xl py-10 px-5">
                 <p className="text-center text-lg sm:text-xl">
                   3% of Mulgakongz mints to go
                 </p>
@@ -184,11 +171,12 @@ export const CampaignDetailsContainer: FC = () => {
 
         <GradientDivider />
 
-        <div className="grid grid-cols-3 mt-16">
-          <div>
-            <Image src={MulgaHatImg} alt="mulga art" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 mt-12 sm:mt-16">
+          <div className="col-span-3 sm:col-span-1">
+            <Image className="rounded-lg shadow-lg" src={MulgaHatImg} alt="mulga art" />
           </div>
-          <div className="flex col-span-2 flex-col space-y-5 px-10">
+
+          <div className="flex col-span-3 sm:col-span-2 flex-col space-y-5 mt-2 sm:mt-0 px-2 sm:px-10">
             <h3 className="text-4xl sm:text-5xl font-semibold">Mulgakongz</h3>
             <SocialLinkGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
             <p>

@@ -27,7 +27,7 @@
 }
 
 .slick-track {
-  @apply block relative mx-auto;
+  @apply block relative mx-auto overflow-hidden;
 }
 
 .slick-track:before,

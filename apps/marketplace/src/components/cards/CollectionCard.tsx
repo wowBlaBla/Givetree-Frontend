@@ -41,7 +41,7 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => {
 
         <div className="flex flex-col items-center space-y-1 text-white py-1">
           <p className="text-xl sm:text-2xl">{props.collectionName}</p>
-          <p className="text-base sm:text-xl">{props.eventDate}</p>
+          <p className="text-base sm:text-xl">Starts in {props.eventDate}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full h-full p-2">
             <div className="w-full text-lg sm:text-xl rounded-md border border-white p-1 text-center">
               Items {props.totalItems}
