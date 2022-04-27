@@ -11,19 +11,11 @@ interface StatusBadgeProps {
 
 export const StatusBadge: FC<StatusBadgeProps> = (props) => (
   <div
-    className={cx("absolute top-0 z-10", props.className, {
-      hidden: !props.status,
-      "left-0": props.left,
-      "right-0": props.right || !props.left,
+    className={cx("rounded-md bg-brand-black text-white bg-opacity-70", {
+      "py-1 px-2 text-xs sm:text-base": !props.large,
+      "py-1 sm:py-2 px-2 sm:px-3 text-base sm:text-xl": props.large,
     })}
   >
-    <div
-      className={cx("rounded-md bg-brand-black text-white bg-opacity-70", {
-        "py-1 px-2 text-xs sm:text-base": !props.large,
-        "py-1 sm:py-2 px-2 sm:px-3 text-base sm:text-lg": props.large,
-      })}
-    >
-      {props.status}
-    </div>
+    {props.status}
   </div>
 );

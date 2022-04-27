@@ -15,12 +15,11 @@ export const ImpactPartnerListingsContainer = () => {
       </Head>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-12 p-5">
-        <SectionTitle center>Impact Partners</SectionTitle>
+        <SectionTitle>Impact Partners</SectionTitle>
 
-        {/* 
         <div className="flex justify-center mt-5">
           <PrimaryButton className="w-auto">Register now</PrimaryButton>
-        </div> */}
+        </div>
 
         <GridLayout>
           <ImpactPartnerCard

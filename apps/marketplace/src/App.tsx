@@ -4,7 +4,7 @@ import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
 import { MarketplaceRoute } from "./configs/routes";
-import { CollectionDetailsContainer } from "./containers/collections/Details";
+import { CampaignDetailsContainer } from "./containers/campaigns/Details";
 import { CollectionListingsContainer } from "./containers/collections/Listings";
 import { HomeContainer } from "./containers/home/Home";
 import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
@@ -18,8 +18,8 @@ const App = () => (
           <Routes>
             <Route path={MarketplaceRoute.Home} element={<HomeContainer />} />
             <Route
-              path={MarketplaceRoute.CollectionDetails}
-              element={<CollectionDetailsContainer />}
+              path={MarketplaceRoute.CampaignDetails}
+              element={<CampaignDetailsContainer />}
             />
             <Route
               path={MarketplaceRoute.CollectionListing}

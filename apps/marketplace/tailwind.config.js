@@ -17,18 +17,18 @@ module.exports = {
         none: "0",
       },
       height: {
-        96: "32rem",
+        96: "36rem",
         128: "42rem",
       },
       maxHeight: {
-        96: "32rem",
+        96: "36rem",
         128: "42rem",
       },
       maxWidth: {
         "screen-3xl": "1754px",
       },
       minHeight: {
-        96: "28rem",
+        96: "32rem",
       },
       spacing: {
         full: "100%",

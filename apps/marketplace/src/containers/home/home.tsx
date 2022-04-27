@@ -65,7 +65,7 @@ export const HomeContainer = () => {
       </div>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
-        <SectionTitle center>Upcoming Collections</SectionTitle>
+        <SectionTitle>Upcoming Collections</SectionTitle>
 
         <GridLayout>
           <CollectionCard
@@ -115,12 +115,12 @@ export const HomeContainer = () => {
           <CollectionCard
             status="Featured"
             creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage.src}
-            creator="ZzTheArtist"
-            collectionName="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
+            imageAsset={ForeverFriendsCollecitonImage.src}
+            creator="GoodVibes"
+            collectionName="Friends Forever"
+            eventDate="27 Days"
+            totalItems={19856}
+            mintPrice={3}
           />
 
           <CollectionCard
@@ -147,17 +147,6 @@ export const HomeContainer = () => {
 
           <CollectionCard
             status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage.src}
-            creator="MulgaTheArtist"
-            collectionName="Mulgakongz"
-            eventDate="3 days"
-            totalItems={4412}
-            mintPrice={5}
-          />
-
-          <CollectionCard
-            status="Featured"
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
@@ -165,17 +154,6 @@ export const HomeContainer = () => {
             eventDate="5 Days"
             totalItems={5289}
             mintPrice={6.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            creator="GoodVibes"
-            collectionName="Friends Forever"
-            eventDate="27 Days"
-            totalItems={19856}
-            mintPrice={3}
           />
         </GridLayout>
 
