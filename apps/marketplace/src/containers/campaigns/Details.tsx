@@ -15,6 +15,8 @@ import MulgaTheArtistImg from "./../../assets/images/mulga-the-artist.png";
 import MulgaAssetImg from "./../../assets/images/mulgakongz-bunny-ears.png";
 import MulgaHatImg from "./../../assets/images/mulgakongz-banana-hat.png";
 import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
+import { BaseTile } from "../../components/BaseTile";
+import { EventTile } from "../../components/EventTile";
 
 export const CampaignDetailsContainer: FC = () => {
   return (
@@ -85,7 +87,7 @@ export const CampaignDetailsContainer: FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-8 my-12 sm:my-16">
           <div className="flex flex-col col-span-7 space-y-5 sm:space-y-10">
-            <div className="border rounded-xl shadow-lg bg-white p-8 sm:p-10">
+            <BaseTile className="bg-white">
               <h3 className="text-5xl sm:text-6xl font-semibold">Mulgakongz</h3>
 
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 mt-6">
@@ -121,9 +123,9 @@ export const CampaignDetailsContainer: FC = () => {
                   characters hand-drawn on paper by Marvel comic artist Aleksa Gajic.
                 </p>
               </div>
-            </div>
+            </BaseTile>
 
-            <div className="border-2 border-green-400 rounded-xl shadow-lg bg-white p-8 sm:p-10">
+            <BaseTile className="bg-white border-2 border-green-400">
               <div className="text-lg font-semibold">
                 <p>Amazingly 3% of sale price goes towards these causes:</p>
               </div>
@@ -137,7 +139,9 @@ export const CampaignDetailsContainer: FC = () => {
                   Substantial materials
                 </div>
               </div>
-            </div>
+            </BaseTile>
+
+            <EventTile />
           </div>
 
           <div className="flex flex-col col-span-5 mt-12 sm:mt-0">
