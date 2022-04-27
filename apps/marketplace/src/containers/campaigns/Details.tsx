@@ -155,7 +155,7 @@ export const CampaignDetailsContainer: FC = () => {
               </div>
             </div>
 
-            <div className="mt-8 sm:my-12 px-16">
+            <div className="mt-6 px-6">
               <div className="bg-gray-100 rounded-lg py-10">
                 <p className="text-center text-lg sm:text-xl">
                   3% of Mulgakongz mints to go
@@ -180,9 +180,33 @@ export const CampaignDetailsContainer: FC = () => {
 
         <GradientDivider />
 
-        <div className="mt-16">
+        <div className="grid grid-cols-3 mt-16">
           <div>
             <Image src={MulgaHatImg} alt="mulga art" />
+          </div>
+          <div className="flex col-span-2 flex-col space-y-5 px-10">
+            <h3 className="text-4xl sm:text-5xl font-semibold">Mulgakongz</h3>
+            <SocialLinkGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
+            <p>
+              The Story Miners of Mars is a unique storytelling NFT collection that
+              transcends into the comic world and Tokenomics. All traits were hand-drawn
+              on paper by Marvel comic artist Aleksa Gajic.
+            </p>
+
+            <p>MoM Story</p>
+
+            <p>
+              They never knew the impact of losing their home planet until they felt it in
+              the depths of Mars.
+            </p>
+            <p>
+              Drilling Engineer Manuel Aronowsky, last day on the job, was tasked to
+              calculate the exact time of their death.
+            </p>
+            <p>
+              With only 18 months left to live they decided to create this archive as the
+              last evidence of human existence.
+            </p>
           </div>
         </div>
       </div>
