@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { LeafIcon } from "../icons/LeafIcon";
 import { BaseTile } from "./BaseTile";
 
 interface CausesTileProps {
@@ -7,7 +8,10 @@ interface CausesTileProps {
 }
 
 export const CausesTile: FC<CausesTileProps> = (props) => (
-  <BaseTile className="bg-white border-2 border-green-400">
+  <BaseTile className="relative bg-white border-2 border-green-400">
+    <div className="absolute top-0 right-0 p-3">
+      <LeafIcon className="w-8 h-8 text-brand-green-active fill-current" />
+    </div>
     <div className="text-lg font-semibold">
       <p>
         Amazingly {props.distributionPercentage}% of sale price goes towards these causes:

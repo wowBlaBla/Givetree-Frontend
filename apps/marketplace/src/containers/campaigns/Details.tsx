@@ -60,7 +60,9 @@ export const CampaignDetailsContainer: FC = () => {
             </div>
 
             <div className="flex">
-              <VerificationBadge />
+              <VerificationBadge
+                text={collection.isVerified ? "Verified Collection" : ""}
+              />
             </div>
           </div>
         </div>

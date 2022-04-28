@@ -9,7 +9,9 @@ const getReturnValues = (countDown: number) => {
   return [days, hours, minutes, seconds];
 };
 
-export const useCountDown = (date: Date) => {
+type CountdownType = Date | number;
+
+export const useCountDown = (date: CountdownType) => {
   const countDownDate = new Date(date).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());

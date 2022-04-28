@@ -17,6 +17,7 @@ export const EventsTile: FC = () => {
         <CountdownTimer
           className="mt-3 text-xl sm:text-2xl text-white"
           eventDate={nextEventDate}
+          mainTimer
         />
       </div>
 

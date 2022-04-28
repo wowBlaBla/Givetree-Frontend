@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import cx from "classnames";
 import { useCountDown } from "../hooks/useCountdown";
 
 const ExpiredNotice = () => {
@@ -11,20 +12,28 @@ const ExpiredNotice = () => {
 };
 
 interface ShowCounterProps {
+  mainTimer?: boolean;
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
 }
 
-const ShowCounter: FC<ShowCounterProps> = ({ days, hours, minutes, seconds }) => {
+const ShowCounter: FC<ShowCounterProps> = ({
+  mainTimer,
+  days,
+  hours,
+  minutes,
+  seconds,
+}) => {
   return (
     <div>
       <div className="flex items-center space-x-1 font-semibold">
         <div>Starting in</div>
         <div
-          className="bg-brand-orange rounded-md px-2 py-1 flex flex-1 space-x-2
-        "
+          className={cx("flex flex-1 space-x-2", {
+            "bg-brand-orange rounded-md px-2 py-1": mainTimer,
+          })}
         >
           <div>{days} days</div>
           <div>{hours} hours</div>
@@ -38,10 +47,15 @@ const ShowCounter: FC<ShowCounterProps> = ({ days, hours, minutes, seconds }) =>
 
 interface CountDownTimerProps {
   className?: string;
-  eventDate: Date | string | number;
+  eventDate: Date | number;
+  mainTimer?: boolean;
 }
 
-export const CountdownTimer: FC<CountDownTimerProps> = ({ className, eventDate }) => {
+export const CountdownTimer: FC<CountDownTimerProps> = ({
+  className,
+  eventDate,
+  mainTimer,
+}) => {
   const [days, hours, minutes, seconds] = useCountDown(eventDate);
 
   if (days + hours + minutes + seconds <= 0) {
@@ -53,7 +67,13 @@ export const CountdownTimer: FC<CountDownTimerProps> = ({ className, eventDate }
   } else {
     return (
       <div className={className}>
-        <ShowCounter days={days} hours={hours} minutes={minutes} seconds={seconds} />
+        <ShowCounter
+          mainTimer={mainTimer}
+          days={days}
+          hours={hours}
+          minutes={minutes}
+          seconds={seconds}
+        />
       </div>
     );
   }

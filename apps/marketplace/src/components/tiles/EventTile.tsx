@@ -39,41 +39,39 @@ const EventTypeTitle: FC<EventTypeTitleProps> = ({ type }) => {
 interface EventTileProps {
   type: EventType | string;
   description?: string;
-  eventDate?: Date;
+  eventDate?: Date | number;
   supplyCount: number;
   maxToken: number;
   mintPrice: number;
 }
 
-export const EventTile: FC<EventTileProps> = (props) => {
-  return (
-    <BaseTile className="mt-5 bg-white text-brand-black">
-      <div className="flex flex-col space-y-2">
-        <EventTypeTitle type={props.type} />
-        {props.type === EventType.WhitelistToken && (
-          <div className="flex items-center space-x-1">
-            <p className="text-sm sm:text-base">{props.description}</p>
-            <a
-              className="text-brand-orange text-sm sm:text-base transition-hover hover:underline"
-              href="#"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Learn more
-            </a>
-          </div>
-        )}
-      </div>
-
-      {props.eventDate && (
-        <CountdownTimer className="text-gray-800" eventDate={props.eventDate} />
+export const EventTile: FC<EventTileProps> = (props) => (
+  <BaseTile className="mt-5 bg-white text-brand-black">
+    <div className="flex flex-col space-y-2">
+      <EventTypeTitle type={props.type} />
+      {props.type === EventType.WhitelistToken && (
+        <div className="flex items-center space-x-1">
+          <p className="text-sm sm:text-base">{props.description}</p>
+          <a
+            className="text-brand-orange text-sm sm:text-base transition-hover hover:underline"
+            href="#"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Learn more
+          </a>
+        </div>
       )}
+    </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5">
-        <ItemBox title="Supply" value={props.supplyCount} />
-        <ItemBox title="Max Token" value={props.maxToken} />
-        <ItemBox title="Mint Price" value={`${props.mintPrice} SOL`} />
-      </div>
-    </BaseTile>
-  );
-};
+    {props.eventDate && (
+      <CountdownTimer className="mt-2 text-gray-800" eventDate={props.eventDate} />
+    )}
+
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-5">
+      <ItemBox title="Supply" value={props.supplyCount} />
+      <ItemBox title="Max Token" value={props.maxToken} />
+      <ItemBox title="Mint Price" value={`${props.mintPrice} SOL`} />
+    </div>
+  </BaseTile>
+);

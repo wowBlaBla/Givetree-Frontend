@@ -4,6 +4,7 @@ import { VerificationIcon } from "./icons/VerificationIcon";
 
 interface VerificationBadgeProps {
   className?: string;
+  text?: string;
 }
 
 export const VerificationBadge: FC<VerificationBadgeProps> = (props) => (
@@ -14,6 +15,6 @@ export const VerificationBadge: FC<VerificationBadgeProps> = (props) => (
     )}
   >
     <VerificationIcon className="fill-current" />
-    <span>Verified</span>
+    <span>{props.text ?? "Verified"}</span>
   </div>
 );
