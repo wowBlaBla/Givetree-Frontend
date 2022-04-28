@@ -19,9 +19,12 @@ const AppNavLink: FC<AppNavLink> = ({ children, to }) => {
   return (
     <NavLink
       to={to}
-      className={cx("text-white text-lg hover:text-brand-orange-hover transition-hover", {
-        "text-brand-orange-active": isMatch,
-      })}
+      className={cx(
+        "text-white lg:text-lg hover:text-brand-orange-hover transition-hover",
+        {
+          "text-brand-orange-active": isMatch,
+        }
+      )}
     >
       {children}
     </NavLink>
@@ -38,7 +41,7 @@ export const AppHeader = () => {
           <GiveTreeLogo className="w-32 h-8 sm:h-12" />
         </Link>
 
-        <div className="hidden sm:block space-x-24">
+        <div className="hidden md:block sm:space-x-1 lg:space-x-24">
           <AppNavLink to={MarketplaceRoute.CampaignListing}>Launchpad</AppNavLink>
           <AppNavLink to={MarketplaceRoute.CampaignListing}>Explore</AppNavLink>
           <AppNavLink to={MarketplaceRoute.ImpactPartnerListing}>

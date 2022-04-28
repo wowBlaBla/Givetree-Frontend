@@ -9,9 +9,9 @@ interface ImpactPartnerTileProps {
 }
 
 export const ImpactPartnerTile: FC<ImpactPartnerTileProps> = (props) => (
-  <BaseTile className="w-full bg-gray-100">
-    <div className="flex flex-col items-center">
-      <div className="flex justify-center w-48 h-48 sm:w-72 sm:h-72 mx-auto">
+  <BaseTile className="relative w-full bg-gray-100">
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex justify-center w-48 h-48 lg:w-72 lg:h-72 mx-auto">
         <Image
           className="w-full rounded-full"
           src={props.imageAsset}
@@ -19,8 +19,8 @@ export const ImpactPartnerTile: FC<ImpactPartnerTileProps> = (props) => (
         />
       </div>
 
-      <p className="mt-4 text-lg sm:text-lg">{props.description}</p>
-      <p className="mt-2 text-brand-orange font-semibold text-base sm:text-xl">
+      <p className="mt-4 text-center text-base lg:text-lg">{props.description}</p>
+      <p className="mt-2 text-brand-orange font-semibold text-center text-base lg:text-xl">
         {props.name}
       </p>
     </div>

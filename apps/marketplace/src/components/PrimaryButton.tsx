@@ -26,7 +26,7 @@ interface ButtonProps {
 export const PrimaryButton: FC<ButtonProps> = (props) => (
   <button
     className={cx(ButtonStyles, props.className, {
-      "text-lg sm:text-2xl": props.large,
+      "text-lg lg:text-2xl": props.large,
     })}
     type={props.type || "button"}
   >

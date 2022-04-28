@@ -6,7 +6,8 @@ import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png"
 export const genopets = {
   id: 2,
   title: "Genopets",
-  shortDescription: "",
+  shortDescription:
+    "Genopets is the world's first free NFT game with a Move-to-Earn feature, making it fun and rewarding for an active lifestyle. ",
   longDescription: "",
   backgroundImageUrl: AssetImg,
   assetImageUrl: AssetImg,
@@ -23,8 +24,10 @@ export const genopets = {
     avatarUrl: CreatorAvatarImg,
   },
   totalSupplyCount: 4557,
-  mintingStartDate: "",
-  mintingEndDate: "",
+  whitelistStartDate: new Date("April 28, 2022 12:00:00"),
+  whitelistEndDate: new Date("May 2, 2022 12:00:00"),
+  publicStartDate: new Date("May 2, 2022 12:00:00"),
+  publicEndDate: new Date("June 2, 2022 12:00:00"),
   websiteUrl: "#",
   discordUrl: "#",
   twitterUrl: "#",

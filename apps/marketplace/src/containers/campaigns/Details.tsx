@@ -5,20 +5,20 @@ import Image from "next/image";
 import { DarkBlendTop } from "../../components/BoxBlends";
 import { BackgroundImage } from "../../components/BackgroundImage";
 import { StatusBadge } from "../../components/StatusBadge";
-import { PrimaryButton } from "../../components/PrimaryButton";
 import { VerificationBadge } from "../../components/VerificationBadge";
 import { GradientDivider } from "../../components/GradientDivider";
 import { SocialLinkGrid } from "../../components/SocialLinkGrid";
 
 import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
-import { BaseTile } from "../../components/tiles/BaseTile";
 import { EventsTile } from "../../components/tiles/EventsTile";
-import { ItemBox } from "../../components/ItemBox";
 import { ImpactPartnerTile } from "../../components/tiles/ImpactPartnerTile";
 import { mulgakongz } from "../../api/data/collections/mulgakongz";
 import { genopets } from "../../api/data/collections/genopets";
 import { CausesTile } from "../../components/tiles/CausesTile";
-// import { BackgroundVideo } from "../../components/BackgroundVideo";
+import { CreatorTile } from "../../components/tiles/CreatorTile";
+import { CollectionTile } from "../../components/tiles/CollectionTile";
+import { GoToMintTile } from "../../components/tiles/GoToMintTile";
+import { BackgroundVideo } from "../../components/BackgroundVideo";
 
 export const CampaignDetailsContainer: FC = () => {
   // TODO: Remove after demo
@@ -34,9 +34,8 @@ export const CampaignDetailsContainer: FC = () => {
       <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
         {/* TODO: Remove after demo */}
         {collection.title === "Genopets" ? (
-          <BackgroundImage imageAsset={collection.backgroundImageUrl} />
+          <BackgroundVideo videoAsset="/videos/genopets-bg.mp4" />
         ) : (
-          // <BackgroundVideo videoAsset={collection.backgroundImageUrl} />
           <BackgroundImage imageAsset={collection.backgroundImageUrl} />
         )}
 
@@ -59,91 +58,49 @@ export const CampaignDetailsContainer: FC = () => {
               <h3>Starting from {collection.startingMintPrice} SOL per mint</h3>
             </div>
 
-            <div className="flex">
-              <VerificationBadge
-                text={collection.isVerified ? "Verified Collection" : ""}
-              />
-            </div>
+            {collection.isVerified && (
+              <div className="flex">
+                <VerificationBadge text="Verified Collection" />
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-8 px-4 sm:px-5">
-        <div className="flex flex-col sm:flex-row pb-12 border-b-[3px]">
-          <div className="flex flex-col sm:flex-row items-center sm:space-x-3">
-            <div className="w-24 h-24 sm:w-30 sm:h-30">
-              <Image
-                className="min-w-full min-h-full rounded-full"
-                src={collection.creator.avatarUrl}
-                alt="MulgaTheArtist"
-              />
-            </div>
+        <CreatorTile
+          name={collection.creator.name}
+          description={collection.creator.description}
+          imageAsset={collection.creator.avatarUrl}
+        />
 
-            <div className="flex flex-col items-center sm:items-start space-y-3">
-              <h4 className="flex flex-nowrap items-center text-xl sm:text-2xl space-x-1 font-medium">
-                <span className="text-black">by</span>
-                <span className="text-brand-orange">{collection.creator.name}</span>
-              </h4>
-
-              <VerificationBadge />
-            </div>
-          </div>
-
-          <div className="flex items-center max-w-7xl mt-5 sm:mt-0 sm:px-12">
-            <p className="text-xl text-gray-600 xl:leading-9">
-              {collection.creator.description}
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-8 my-12 sm:my-16">
-          <div className="flex flex-col col-span-7 space-y-5 sm:space-y-10">
-            <BaseTile className="bg-white">
-              <h3 className="text-4xl sm:text-5xl xl:text-6xl font-semibold">
-                {collection.title}
-              </h3>
-
-              <div className="flex flex-col sm:flex-row mt-6 space-y-3 sm:space-y-0 sm:space-x-6">
-                <ItemBox title="Total Items" value={collection.totalSupplyCount} />
-                <ItemBox title="Price" value={`${collection.startingMintPrice} SOL`} />
-              </div>
-
-              <SocialLinkGrid
-                websiteUrl="#"
-                twitterUrl="#"
-                discordUrl="#"
-                contractUrl="#"
-              />
-
-              <div className="mt-5 text-base sm:text-lg">
-                <p>
-                  Miners of Mars is a collection of 7000 algorithmically generated
-                  characters hand-drawn on paper by Marvel comic artist Aleksa Gajic.
-                </p>
-              </div>
-            </BaseTile>
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 space-y-10 lg:space-y-0 my-12 sm:my-16">
+          <div className="flex flex-col items-center w-full lg:col-span-7 space-y-5 sm:space-y-10">
+            <CollectionTile
+              title={collection.title}
+              totalSupplyCount={collection.totalSupplyCount}
+              mintingPrice={collection.startingMintPrice}
+              description={collection.shortDescription}
+            />
 
             <CausesTile
               distributionPercentage={collection.impactPartner.distributionPercentage}
               causes={collection.impactPartner.causes}
             />
 
-            <EventsTile />
+            {/* TODO: Remove condiitonal after showcase */}
+            <EventsTile
+              hasStarted={collection.title === "Genopets"}
+              collection={collection.title}
+              whitelistStartDate={collection.whitelistStartDate}
+              whitelistEndDate={collection.whitelistEndDate}
+              publicStartDate={collection.publicStartDate}
+              publicEndDate={collection.publicStartDate}
+            />
           </div>
 
-          <div className="flex flex-col items-center col-span-5 mt-12 sm:mt-0 sm:px-8">
-            <div className="flex flex-col item-center w-full pb-6 sm:pb-12">
-              <Image
-                className="w-full h-full rounded-lg shadow-lg"
-                src={collection.assetImageUrl}
-                alt="mulgakongz asset"
-              />
-
-              <div className="w-full mt-8 text-center">
-                <PrimaryButton large>Go To Minting Site</PrimaryButton>
-              </div>
-            </div>
-
+          <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5 mt-12 sm:mt-0 px-1">
+            <GoToMintTile imageAsset={collection.assetImageUrl.src} name="asset" />
             <ImpactPartnerTile
               name="Carbon Climate Change Society"
               description="3% of Mulgakongz mints to go"
@@ -155,11 +112,10 @@ export const CampaignDetailsContainer: FC = () => {
         <GradientDivider />
 
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12 sm:mt-16">
-          <div className="w-full col-span-3 sm:col-span-2">
-            <Image
-              className="rounded-lg shadow-lg"
-              src={collection.collectionImageUrl}
-              alt="mulga art"
+          <div className="relative w-full h-72 pt-full col-span-3 sm:col-span-2">
+            <BackgroundImage
+              className="rounded-xl shadow-lg"
+              imageAsset={collection.collectionImageUrl.src}
             />
           </div>
 
@@ -167,25 +123,41 @@ export const CampaignDetailsContainer: FC = () => {
             <h3 className="text-4xl sm:text-5xl font-semibold">{collection.title}</h3>
             <SocialLinkGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
             <p>
-              This is a unique storytelling NFT collection that transcends into the world
-              of art and pop culture. All traits were hand-drawn on paper by Marvel comic
-              artist Aleksa Gajic.
-            </p>
-
-            <p>MoM Story</p>
-
-            <p>
-              They never knew the impact of losing their home planet until they felt it in
-              the depths of Mars.
+              10 million years ago, a group of 8,888 mysterious gorilla like animals first
+              appeared on earth. Found commonly on the beaches, jungles and islands of
+              Australia, they weren’t just your regular Gorilla. Instead of eating bananas
+              and playing with sticks for fun like their close relatives, the gorillas,
+              now known as the “MulgaKongz” had evolved into drinking Mojitos, surfing,
+              and throwing the biggest and best beach party on the whole island.
             </p>
             <p>
-              Drilling Engineer Manuel Aronowsky, last day on the job, was tasked to
-              calculate the exact time of their death.
+              After many moons, the Kongz began to evolve forming 250 unique traits to
+              represent their fruity personality. Friends and good vibes are all what the
+              MulgaKongz stand for. They stand out from the rest due to their radiating
+              good vibes, bright and colourful style and their ingenious ways to throw
+              bigger and better parties in the future, certifying them as the coolest
+              Kongz in the world.
             </p>
             <p>
-              With only 18 months left to live they decided to create this archive as the
-              last evidence of human existence.
+              Speak closely with our team and engage in our community in our Discord
+              ecosystem. Follow our social media for exciting challenges, announcements
+              and interactions with other NFT communities!
             </p>
+            <p>LIVE</p>
+            <ul>
+              <li>Single-sided $IV Staking pool 200% APY</li>
+              <li>Yield Farming $IV/SOL LP 200%+ APY </li>
+              <li>Yield Farming $IV/USDC LP 200% APY</li>
+            </ul>
+            <p>IN DEVELOPMENT</p>
+            <ul>
+              <li>Partner projects tokens LP introductions</li>
+              <li>Stable-Coin introduction</li>
+              <li>Centralized Exchanges $IV listing</li>
+              <li></li>
+              <li>Lending/Borrowing</li>
+              <li>Buy Now Pay Later (BNPL)</li>
+            </ul>
           </div>
         </div>
       </div>

@@ -7,7 +7,8 @@ import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png"
 export const mulgakongz = {
   id: 1,
   title: "Mulgakongz",
-  shortDescription: "",
+  shortDescription:
+    "10 million years ago, a group of 8,888 mysterious gorilla like animals first appeared on earth. Found commonly on the beaches, jungles and islands of Australia, they weren’t just your regular Gorilla.",
   longDescription: "",
   backgroundImageUrl: MulgaBgImg.src,
   assetImageUrl: MulgaAssetImg,
@@ -19,13 +20,15 @@ export const mulgakongz = {
   creator: {
     name: "MulgaTheArtist",
     description:
-      "Inspired by Worms and Angry Birds, this new crazy videogame lets you challenge your friends with a barrage of carrots, exhausts and sperm whales!",
+      "Mulga is Joel Moore, renowned Australian street artist, freelance illustrator, muralist, published author and designer of the much loved Mulga product range. Known for his unique Australian creations and signature style of intricate line work and bright colours, Mulga’s creations grace walls and objects across the world.",
     isVerified: true,
     avatarUrl: MulgaTheArtistImg,
   },
   totalSupplyCount: 8888,
-  mintingStartDate: "",
-  mintingEndDate: "",
+  whitelistStartDate: new Date("May 6, 2022 12:00:00"),
+  whitelistEndDate: new Date("May 10, 2022 12:00:00"),
+  publicStartDate: new Date("May 10, 2022 12:00:00"),
+  publicEndDate: new Date("June 10, 2022 12:00:00"),
   websiteUrl: "#",
   discordUrl: "#",
   twitterUrl: "#",
