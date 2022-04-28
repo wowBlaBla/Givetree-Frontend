@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import React, { FC } from "react";
+import { BaseTile } from "./BaseTile";
 
 interface ImpactPartnerTileProps {
   name: string;
@@ -8,7 +9,7 @@ interface ImpactPartnerTileProps {
 }
 
 export const ImpactPartnerTile: FC<ImpactPartnerTileProps> = (props) => (
-  <div className="w-full bg-gray-100 shadow-lg rounded-xl py-10">
+  <BaseTile className="w-full bg-gray-100">
     <div className="flex flex-col items-center">
       <div className="flex justify-center w-48 h-48 sm:w-72 sm:h-72 mx-auto">
         <Image
@@ -23,5 +24,5 @@ export const ImpactPartnerTile: FC<ImpactPartnerTileProps> = (props) => (
         {props.name}
       </p>
     </div>
-  </div>
+  </BaseTile>
 );

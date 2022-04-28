@@ -22,10 +22,15 @@ const ShowCounter: FC<ShowCounterProps> = ({ days, hours, minutes, seconds }) =>
     <div>
       <div className="flex items-center space-x-1 font-semibold">
         <div>Starting in</div>
-        <div>{days} days</div>
-        <div>{hours} hours</div>
-        <div>{minutes} minutes</div>
-        <div>{seconds} seconds</div>
+        <div
+          className="bg-brand-orange rounded-md px-2 py-1 flex flex-1 space-x-2
+        "
+        >
+          <div>{days} days</div>
+          <div>{hours} hours</div>
+          <div>{minutes} minutes</div>
+          <div>{seconds} seconds</div>
+        </div>
       </div>
     </div>
   );

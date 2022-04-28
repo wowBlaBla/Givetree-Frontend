@@ -1,6 +1,6 @@
-import MulgaTheArtistImg from "../../../assets/images/mulga-the-artist.png";
-import MulgaAssetImg from "../../../assets/images/mulgakongz-bunny-ears.png";
-import MulgaHatImg from "../../../assets/images/mulgakongz-banana-hat.png";
+import CreatorAvatarImg from "../../../assets/images/genopets-creator.png";
+import AssetImg from "../../../assets/images/genopets-asset.png";
+import CollectionImg from "../../../assets/images/genopets-collection.png";
 import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png";
 
 export const genopets = {
@@ -8,10 +8,9 @@ export const genopets = {
   title: "Genopets",
   shortDescription: "",
   longDescription: "",
-  backgroundImageUrl:
-    "https://storage.googleapis.com/fractal_game_assets/genopets_banner_2.mp4",
-  assetImageUrl: MulgaAssetImg,
-  collectionImageUrl: MulgaHatImg,
+  backgroundImageUrl: AssetImg,
+  assetImageUrl: AssetImg,
+  collectionImageUrl: CollectionImg,
   isVerified: true,
   symbol: "GP",
   isExplicitContent: false,
@@ -21,7 +20,7 @@ export const genopets = {
     description:
       "Inspired by Worms and Angry Birds, this new crazy videogame lets you challenge your friends with a barrage of carrots, exhausts and sperm whales!",
     isVerified: true,
-    avatarUrl: MulgaTheArtistImg,
+    avatarUrl: CreatorAvatarImg,
   },
   totalSupplyCount: 4557,
   mintingStartDate: "",

@@ -10,15 +10,15 @@ import { VerificationBadge } from "../../components/VerificationBadge";
 import { GradientDivider } from "../../components/GradientDivider";
 import { SocialLinkGrid } from "../../components/SocialLinkGrid";
 
-import MulgaAssetImg from "./../../assets/images/mulgakongz-bunny-ears.png";
-import MulgaHatImg from "./../../assets/images/mulgakongz-banana-hat.png";
 import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
-import { BaseTile } from "../../components/BaseTile";
-import { EventsTile } from "../../components/EventsTile";
+import { BaseTile } from "../../components/tiles/BaseTile";
+import { EventsTile } from "../../components/tiles/EventsTile";
 import { ItemBox } from "../../components/ItemBox";
 import { ImpactPartnerTile } from "../../components/tiles/ImpactPartnerTile";
 import { mulgakongz } from "../../api/data/collections/mulgakongz";
 import { genopets } from "../../api/data/collections/genopets";
+import { CausesTile } from "../../components/tiles/CausesTile";
+// import { BackgroundVideo } from "../../components/BackgroundVideo";
 
 export const CampaignDetailsContainer: FC = () => {
   // TODO: Remove after demo
@@ -34,18 +34,9 @@ export const CampaignDetailsContainer: FC = () => {
       <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
         {/* TODO: Remove after demo */}
         {collection.title === "Genopets" ? (
-          <video
-            autoPlay
-            loop
-            playsInline
-            className="absolute top-0 min-w-full min-h-full z-0"
-          >
-            <source
-              src="https://storage.googleapis.com/fractal_game_assets/genopets_banner_2.mp4"
-              type="video/mp4"
-            />
-          </video>
+          <BackgroundImage imageAsset={collection.backgroundImageUrl} />
         ) : (
+          // <BackgroundVideo videoAsset={collection.backgroundImageUrl} />
           <BackgroundImage imageAsset={collection.backgroundImageUrl} />
         )}
 
@@ -130,21 +121,10 @@ export const CampaignDetailsContainer: FC = () => {
               </div>
             </BaseTile>
 
-            <BaseTile className="bg-white border-2 border-green-400">
-              <div className="text-lg font-semibold">
-                <p>Amazingly 3% of sale price goes towards these causes:</p>
-              </div>
-
-              <div className="flex w-auto space-x-3 mt-4">
-                <div className="text-sm sm:text-base font-semibold text-center rounded-md border-2 text-green-600 border-brand-green-active py-2 px-3">
-                  Climate Crisis
-                </div>
-
-                <div className="text-sm sm:text-base font-semibold text-center rounded-md border-2 text-green-600 border-brand-green-active py-2 px-3">
-                  Substantial materials
-                </div>
-              </div>
-            </BaseTile>
+            <CausesTile
+              distributionPercentage={collection.impactPartner.distributionPercentage}
+              causes={collection.impactPartner.causes}
+            />
 
             <EventsTile />
           </div>
@@ -153,7 +133,7 @@ export const CampaignDetailsContainer: FC = () => {
             <div className="flex flex-col item-center w-full pb-6 sm:pb-12">
               <Image
                 className="w-full h-full rounded-lg shadow-lg"
-                src={MulgaAssetImg}
+                src={collection.assetImageUrl}
                 alt="mulgakongz asset"
               />
 
@@ -174,7 +154,11 @@ export const CampaignDetailsContainer: FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12 sm:mt-16">
           <div className="w-full col-span-3 sm:col-span-2">
-            <Image className="rounded-lg shadow-lg" src={MulgaHatImg} alt="mulga art" />
+            <Image
+              className="rounded-lg shadow-lg"
+              src={collection.collectionImageUrl}
+              alt="mulga art"
+            />
           </div>
 
           <div className="flex col-span-3 sm:col-span-4 flex-col space-y-5 mt-2 sm:mt-0 px-2 sm:px-5">
