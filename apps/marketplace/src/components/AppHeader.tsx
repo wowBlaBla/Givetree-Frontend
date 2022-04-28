@@ -43,7 +43,7 @@ export const AppHeader = () => {
 
         <div className="hidden md:block sm:space-x-1 lg:space-x-24">
           <AppNavLink to={MarketplaceRoute.CampaignListing}>Launchpad</AppNavLink>
-          <AppNavLink to={MarketplaceRoute.CampaignListing}>Explore</AppNavLink>
+          <AppNavLink to={MarketplaceRoute.CollectionsListing}>Explore</AppNavLink>
           <AppNavLink to={MarketplaceRoute.ImpactPartnerListing}>
             Impact Partners
           </AppNavLink>

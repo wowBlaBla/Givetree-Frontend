@@ -12,7 +12,10 @@ export const BackgroundVideo: FC<BackgrounVideoProps> = (props) => (
       autoPlay
       loop
       muted
-      className={cx("absolute top-0 min-w-full min-h-full z-0", props.className)}
+      className={cx(
+        "absolute inset-0 z-10 w-auto min-w-full min-h-full max-w-none",
+        props.className
+      )}
     >
       <source src={props.videoAsset} type="video/mp4" />
     </video>

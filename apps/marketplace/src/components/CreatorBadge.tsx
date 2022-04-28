@@ -12,7 +12,7 @@ export const CreatorBadge: FC<CreatorBadgeProps> = (props) => (
       <Image className="rounded-full" src={props.imageAsset} alt={props.creatorName} />
     </div>
 
-    <p className="text-lg sm:text-xl text-white">
+    <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-white">
       by{" "}
       <span className="font-semibold text-brand-orange hover:underline hover:transition-hover">
         {props.creatorName}

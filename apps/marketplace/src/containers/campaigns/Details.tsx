@@ -111,11 +111,13 @@ export const CampaignDetailsContainer: FC = () => {
         <GradientDivider />
 
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12 sm:mt-16">
-          <div className="relative w-full h-72 pt-full col-span-3 sm:col-span-2">
-            <BackgroundImage
-              className="rounded-xl shadow-lg"
-              imageAsset={collection.collectionImageUrl.src}
-            />
+          <div className="col-span-3 sm:col-span-2">
+            <div className="relative w-full h-96">
+              <BackgroundImage
+                className="rounded-xl shadow-lg"
+                imageAsset={collection.collectionImageUrl.src}
+              />
+            </div>
           </div>
 
           <div className="flex col-span-3 sm:col-span-4 flex-col space-y-5 mt-2 sm:mt-0 px-2 sm:px-5">

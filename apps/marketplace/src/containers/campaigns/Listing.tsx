@@ -19,6 +19,9 @@ import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
 import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
 
+import CyberApeAvatarImage from "./../../assets/images/cyberape-avatar.jpeg";
+import CyberApeCollecitonImage from "./../../assets/images/cyberape-collection.png";
+
 export const CampaignListingContainer = (): JSX.Element => {
   const sliderProps = {
     autoplay: true,
@@ -138,13 +141,13 @@ export const CampaignListingContainer = (): JSX.Element => {
           />
 
           <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage.src}
-            creator="MulgaTheArtist"
-            collectionName="Mulgakongz"
+            creatorImageAsset={CyberApeAvatarImage}
+            imageAsset={CyberApeCollecitonImage.src}
+            creator="CyberApe"
+            collectionName="Cyber Ape Age"
             eventDate="3 days"
-            totalItems={4412}
-            mintPrice={5}
+            totalItems={3333}
+            mintPrice={8}
           />
         </GridLayout>
       </div>
