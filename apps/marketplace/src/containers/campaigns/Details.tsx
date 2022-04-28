@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import Image from "next/image";
 
 import { DarkBlendTop } from "../../components/BoxBlends";
 import { BackgroundImage } from "../../components/BackgroundImage";
