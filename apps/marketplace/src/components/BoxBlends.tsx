@@ -16,7 +16,7 @@ export const DarkBlendTop: FC<BlendProps> = (props) => (
       {
         "h-10": props.small,
         "h-32": props.large,
-        "h-56": props.xlarge,
+        "h-72": props.xlarge,
       }
     )}
   />

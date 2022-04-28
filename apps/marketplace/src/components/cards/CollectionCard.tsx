@@ -22,7 +22,7 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => {
   const navigate = useNavigate();
 
   const nextLocationOnClick = () => {
-    navigate(`${kebabCase(props.collectionName)}`);
+    navigate(`/${kebabCase(props.collectionName)}`);
   };
 
   return (

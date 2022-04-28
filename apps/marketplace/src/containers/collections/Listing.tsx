@@ -19,7 +19,7 @@ import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
 import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
 import ZzCollecitonImage from "../../assets/images/zz-collection.png";
 
-export const CollectionListingsContainer = (): JSX.Element => {
+export const CollectionsListingContainer = (): JSX.Element => {
   const sliderProps = {
     autoplay: true,
     autoplaySpeed: 5000,
@@ -48,7 +48,7 @@ export const CollectionListingsContainer = (): JSX.Element => {
           subtitle="A % of every single NFT transaction is donated to charity"
           teaser="Learn more about GiveTree"
           teaserLink="#"
-          ctaLink1={MarketplaceRoute.CollectionListing}
+          ctaLink1={MarketplaceRoute.CampaignListing}
           ctaLink1Text="Explore"
           ctaLink2="/"
           ctaLink2Text="Start Minting"

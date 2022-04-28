@@ -5,7 +5,7 @@ import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
 import { MarketplaceRoute } from "./configs/routes";
 import { CampaignDetailsContainer } from "./containers/campaigns/Details";
-import { CollectionListingsContainer } from "./containers/collections/Listings";
+import { CampaignListingContainer } from "./containers/campaigns/Listing";
 import { HomeContainer } from "./containers/home/Home";
 import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
 
@@ -22,8 +22,8 @@ const App = () => (
               element={<CampaignDetailsContainer />}
             />
             <Route
-              path={MarketplaceRoute.CollectionListing}
-              element={<CollectionListingsContainer />}
+              path={MarketplaceRoute.CampaignListing}
+              element={<CampaignListingContainer />}
             />
             <Route
               path={MarketplaceRoute.ImpactPartnerListing}

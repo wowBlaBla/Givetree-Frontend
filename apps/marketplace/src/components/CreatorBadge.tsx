@@ -13,7 +13,10 @@ export const CreatorBadge: FC<CreatorBadgeProps> = (props) => (
     </div>
 
     <p className="text-lg sm:text-xl text-white">
-      by <span className="text-brand-orange">{props.creatorName}</span>
+      by{" "}
+      <span className="font-semibold text-brand-orange hover:underline hover:transition-hover">
+        {props.creatorName}
+      </span>
     </p>
   </div>
 );
