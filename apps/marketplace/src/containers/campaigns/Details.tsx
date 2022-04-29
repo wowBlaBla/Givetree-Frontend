@@ -25,12 +25,12 @@ export const CampaignDetailsContainer: FC = () => {
   const collection = pathname === "/mulgakongz" ? mulgakongz : genopets;
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-col flex-1">
       <Head>
         <title>GiveTree - {collection.title}</title>
       </Head>
 
-      <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
+      <div className="relative min-w-full py-5 overflow-hidden h-96 xl:h-128 sm:py-8">
         {/* TODO: Remove after demo */}
         {collection.title === "Genopets" ? (
           <BackgroundVideo videoAsset="/videos/genopets-bg.mp4" />
@@ -38,21 +38,21 @@ export const CampaignDetailsContainer: FC = () => {
           <BackgroundImage imageAsset={collection.backgroundImageUrl} />
         )}
 
-        <div className="absolute bottom-0 w-full z-10">
+        <div className="absolute bottom-0 z-10 w-full">
           <DarkBlendTop className="bottom-0" xlarge />
         </div>
 
-        <div className="flex items-end w-full max-w-screen-3xl min-h-full mx-auto px-3">
-          <div className="flex flex-col space-y-3 text-white z-20">
-            <div className="flex relative">
+        <div className="flex items-end w-full min-h-full px-3 mx-auto max-w-screen-3xl">
+          <div className="z-20 flex flex-col space-y-3 text-white">
+            <div className="relative flex">
               <StatusBadge status="Featured Release" left large />
             </div>
 
-            <h3 className="text-5xl sm:text-6xl font-bold">
+            <h3 className="text-5xl font-bold sm:text-6xl">
               This is <span className="text-brand-orange">{collection.title}</span>
             </h3>
 
-            <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-5 pt-3 sm:pt-0 font-medium text-lg sm:text-2xl">
+            <div className="flex flex-col pt-3 space-y-1 text-lg font-medium sm:flex-row sm:items-center sm:space-y-0 sm:space-x-5 sm:pt-0 sm:text-2xl">
               <h3>Total items {collection.totalSupplyCount}</h3>
               <h3>Starting from {collection.startingMintPrice} SOL per mint</h3>
             </div>
@@ -66,16 +66,17 @@ export const CampaignDetailsContainer: FC = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-8 px-4 sm:px-5">
+      <div className="w-full px-4 py-6 mx-auto max-w-screen-3xl sm:py-8 sm:px-5">
         <CreatorTile
           name={collection.creator.name}
           description={collection.creator.description}
           imageAsset={collection.creator.avatarUrl}
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 space-y-10 lg:space-y-0 my-12 sm:my-16">
-          <div className="flex flex-col items-center w-full lg:col-span-7 space-y-5 sm:space-y-10">
+        <div className="grid grid-cols-1 my-12 space-y-10 lg:grid-cols-12 lg:gap-8 lg:space-y-0 sm:my-16">
+          <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7 sm:space-y-10">
             <CollectionTile
+              isLive={collection.title === "Genopets"}
               title={collection.title}
               totalSupplyCount={collection.totalSupplyCount}
               mintingPrice={collection.startingMintPrice}
@@ -98,7 +99,7 @@ export const CampaignDetailsContainer: FC = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5 mt-12 sm:mt-0 px-1">
+          <div className="flex flex-col items-center px-1 mt-12 sm:col-span-2 lg:col-span-5 sm:mt-0">
             <GoToMintTile imageAsset={collection.assetImageUrl.src} name="asset" />
             <ImpactPartnerTile
               name="Carbon Climate Change Society"
@@ -110,18 +111,18 @@ export const CampaignDetailsContainer: FC = () => {
 
         <GradientDivider />
 
-        <div className="grid grid-cols-1 sm:grid-cols-6 mt-12 sm:mt-16">
+        <div className="grid grid-cols-1 mt-12 sm:grid-cols-6 sm:mt-16">
           <div className="col-span-3 sm:col-span-2">
             <div className="relative w-full h-96">
               <BackgroundImage
-                className="rounded-xl shadow-lg"
+                className="shadow-lg rounded-xl"
                 imageAsset={collection.collectionImageUrl.src}
               />
             </div>
           </div>
 
-          <div className="flex col-span-3 sm:col-span-4 flex-col space-y-5 mt-2 sm:mt-0 px-2 sm:px-5">
-            <h3 className="text-4xl sm:text-5xl font-semibold">{collection.title}</h3>
+          <div className="flex flex-col col-span-3 px-2 mt-2 space-y-5 sm:col-span-4 sm:mt-0 sm:px-5">
+            <h3 className="text-3xl font-semibold sm:text-4xl">{collection.title}</h3>
             <SocialLinkGrid
               websiteUrl={collection.websiteUrl}
               twitterUrl={collection.twitterUrl}

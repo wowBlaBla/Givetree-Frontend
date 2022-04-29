@@ -10,6 +10,7 @@ import { CampaignDetailsContainer } from "./containers/campaigns/Details";
 import { CampaignListingContainer } from "./containers/campaigns/Listing";
 import { CollectionsListingContainer } from "./containers/collections/Listing";
 import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
+import { MintEventContainer } from "./containers/mint-event/MintEvent";
 
 const App = () => (
   <Router>
@@ -34,6 +35,10 @@ const App = () => (
             <Route
               path={MarketplaceRoute.ImpactPartnerListing}
               element={<ImpactPartnerListingsContainer />}
+            />
+            <Route
+              path={MarketplaceRoute.MintingEvent}
+              element={<MintEventContainer />}
             />
 
             <Route path="*" element={<HomeContainer />} />

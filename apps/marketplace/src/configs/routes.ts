@@ -5,4 +5,5 @@ export enum MarketplaceRoute {
   CollectionsListing = "/explore",
   ImpactPartnerListing = "/impact-partners",
   Launchpad = "/launchpad",
+  MintingEvent = "/minting/:collectionName",
 }
