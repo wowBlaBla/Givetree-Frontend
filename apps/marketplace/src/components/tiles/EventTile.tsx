@@ -6,6 +6,7 @@ import { CountdownTimer } from "../CountdownTimer";
 import { GlobeIcon } from "../icons/GlobeIcon";
 import { LockIcon } from "../icons/LockIcon";
 import { ItemBox } from "../ItemBox";
+import { LiveBadge } from "../LiveBadge";
 
 interface EventTypeTitleProps {
   type: EventType | string;
@@ -50,10 +51,16 @@ interface EventTileProps {
 
 export const EventTile: FC<EventTileProps> = (props) => (
   <BaseTile
-    className={cx("mt-5 bg-white text-brand-black", {
+    className={cx("relative mt-5 bg-white text-brand-black", {
       "border-[3px] border-red-600": props.hasStarted,
     })}
   >
+    {props.hasStarted && (
+      <div className="absolute top-0 right-0 p-2.5">
+        <LiveBadge className="text-red-600" />
+      </div>
+    )}
+
     <div className="flex flex-col space-y-2">
       <EventTypeTitle type={props.type} />
       {props.type === EventType.WhitelistToken && (

@@ -59,7 +59,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
           imageAsset={MulgaBgImg.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink1="/"
+          ctaLink1={MarketplaceRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
           height="h-96"
         />
@@ -72,7 +72,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
             collectionName="Mulgakongz"
-            eventDate="3 days"
+            eventDate="6 days"
             totalItems={4412}
             mintPrice={5}
           />
@@ -142,7 +142,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
             collectionName="Mulgakongz"
-            eventDate="3 days"
+            eventDate="6 days"
             totalItems={4412}
             mintPrice={5}
           />

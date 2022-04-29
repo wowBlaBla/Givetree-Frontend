@@ -122,14 +122,19 @@ export const CampaignDetailsContainer: FC = () => {
 
           <div className="flex col-span-3 sm:col-span-4 flex-col space-y-5 mt-2 sm:mt-0 px-2 sm:px-5">
             <h3 className="text-4xl sm:text-5xl font-semibold">{collection.title}</h3>
-            <SocialLinkGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
+            <SocialLinkGrid
+              websiteUrl={collection.websiteUrl}
+              twitterUrl={collection.twitterUrl}
+              discordUrl={collection.discordUrl}
+            />
+
             <p>
               10 million years ago, a group of 8,888 mysterious gorilla like animals first
               appeared on earth. Found commonly on the beaches, jungles and islands of
               Australia, they weren’t just your regular Gorilla. Instead of eating bananas
               and playing with sticks for fun like their close relatives, the gorillas,
-              now known as the “MulgaKongz” had evolved into drinking Mojitos, surfing,
-              and throwing the biggest and best beach party on the whole island.
+              now known as the <b>“MulgaKongz”</b> had evolved into drinking Mojitos,
+              surfing, and throwing the biggest and best beach party on the whole island.
             </p>
             <p>
               After many moons, the Kongz began to evolve forming 250 unique traits to
@@ -144,21 +149,76 @@ export const CampaignDetailsContainer: FC = () => {
               ecosystem. Follow our social media for exciting challenges, announcements
               and interactions with other NFT communities!
             </p>
-            <p>LIVE</p>
+            <p>
+              <b>LIVE</b>
+            </p>
             <ul>
               <li>Single-sided $IV Staking pool 200% APY</li>
               <li>Yield Farming $IV/SOL LP 200%+ APY </li>
               <li>Yield Farming $IV/USDC LP 200% APY</li>
             </ul>
-            <p>IN DEVELOPMENT</p>
+            <p>
+              <b>IN DEVELOPMENT</b>
+            </p>
             <ul>
               <li>Partner projects tokens LP introductions</li>
               <li>Stable-Coin introduction</li>
               <li>Centralized Exchanges $IV listing</li>
-              <li></li>
               <li>Lending/Borrowing</li>
               <li>Buy Now Pay Later (BNPL)</li>
             </ul>
+
+            <div className="space-y-5">
+              <h1 className="font-bold">
+                Phase 1: Staking of Pixel Panthers | Co-Own a Bank in the Metaverse!
+              </h1>
+              <ul>
+                <li>
+                  Launching a staking platform to allow holders to begin earning $PIXL,
+                  our governance-utility token.
+                </li>
+                <li>25% of the supply of $PIXL is allocated for project emissions.</li>
+              </ul>
+
+              <h1 className="font-bold">
+                Phase 2: Launch of Pixels.so | Borrow Against Your NFTs!
+              </h1>
+              <ul>
+                <li>
+                  Launching of the Peer-to-Peer NFT borrowing model. This will enable
+                  anyone to request to borrow against any of their NFTs.
+                </li>
+                <li>
+                  Launching of the Instant Borrowing model. This will enable anyone to
+                  instantly borrow up to 25% of their NFT, Digital Land, or Metaverse
+                  Asset. Holders will vote on which projects will be eligible for the
+                  Instant Borrowing Model. Only well-established projects, with a proven
+                  track-record, will be eligible.
+                </li>
+              </ul>
+              <h1 className="font-bold"></h1>
+              <h1 className="font-bold">Phase 3: Cross-Chain Support</h1>
+              <ul>
+                <li>
+                  Pixels.so | Borrow Against Your NFTs! will allow non-Solana assets such
+                  as ERC-721 projects, and non-Solana digital land to be eligible
+                  collateral under our Peer-to-Peer NFT Borrowing model and our Instant
+                  Borrowing model.
+                </li>
+              </ul>
+              <h1 className="font-bold"></h1>
+              <h1 className="font-bold">Phase 4: Bank of the Metaverse</h1>
+              <ul>
+                <li>
+                  Pixels.so | Borrow Against Your NFTs! will boast a full suite of
+                  advanced products centered around our core mission of building out the
+                  Bank of the Metaverse. The platform&apos;s future products will focus on
+                  fueling the integration of DeFi into the Metaverse. There are many
+                  innovative offerings to build out and we are more than excited to bring
+                  these to market in never-before-seen ways!
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

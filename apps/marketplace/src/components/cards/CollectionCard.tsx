@@ -6,8 +6,10 @@ import { CreatorBadge } from "../CreatorBadge";
 import { useNavigate } from "react-router-dom";
 import { kebabCase } from "lodash";
 import { BackgroundImage } from "../BackgroundImage";
+import { LiveBadge } from "../LiveBadge";
 
 interface CollectionCardProps {
+  hasStarted?: boolean;
   creator: string;
   imageAsset: string | StaticImageData;
   creatorImageAsset: string | StaticImageData;
@@ -25,6 +27,8 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => {
     navigate(`/${kebabCase(props.collectionName)}`);
   };
 
+  const eventTime = props.hasStarted ? "Ends in" : "Starts in";
+
   return (
     <div
       className="relative w-full rounded-md shadow-lg bg-brand-black select-none cursor-pointer"
@@ -33,6 +37,9 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => {
       <div className="relative pt-full">
         <BackgroundImage className="rounded-md" imageAsset={props.imageAsset} />
         <StatusBadge className="my-2.5 mx-2" status={props.status} />
+        {props.hasStarted && (
+          <LiveBadge className="absolute top-0 right-0 m-2.5 text-white" />
+        )}
         <DarkBlendTop />
       </div>
 
@@ -41,7 +48,9 @@ export const CollectionCard: FC<CollectionCardProps> = (props) => {
 
         <div className="flex flex-col items-center space-y-1 text-white pt-1 z-10">
           <p className="text-xl sm:text-2xl">{props.collectionName}</p>
-          <p className="text-base sm:text-xl">Starts in {props.eventDate}</p>
+          <p className="text-base sm:text-xl">
+            {eventTime} {props.eventDate}
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full h-full p-2">
             <div className="w-full text-sm sm:text-base rounded-md border border-white text-center">
               Items {props.totalItems}

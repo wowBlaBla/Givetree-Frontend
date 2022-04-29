@@ -58,7 +58,7 @@ export const HomeContainer = () => {
             imageAsset={MulgaBgImg.src}
             title="Mulgakongz by MulgaTheArtist"
             subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-            ctaLink1="/"
+            ctaLink1={MarketplaceRoute.CampaignListing}
             ctaLink1Text="Go to launchpad"
           />
         </Slider>
@@ -74,20 +74,9 @@ export const HomeContainer = () => {
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
             collectionName="Mulgakongz"
-            eventDate="3 days"
+            eventDate="6 days"
             totalItems={4412}
             mintPrice={5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage.src}
-            creator="GenoPets"
-            collectionName="Genopets"
-            eventDate="5 Days"
-            totalItems={5289}
-            mintPrice={6.5}
           />
 
           <CollectionCard
@@ -96,7 +85,7 @@ export const HomeContainer = () => {
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
             collectionName="Friends Forever"
-            eventDate="27 Days"
+            eventDate="8 Days"
             totalItems={19856}
             mintPrice={3}
           />
@@ -118,7 +107,7 @@ export const HomeContainer = () => {
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
             collectionName="Friends Forever"
-            eventDate="27 Days"
+            eventDate="21 Days"
             totalItems={19856}
             mintPrice={3}
           />
@@ -129,7 +118,7 @@ export const HomeContainer = () => {
             imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
             collectionName="YAKU Corp."
-            eventDate="11 Days"
+            eventDate="22 Days"
             totalItems={4412}
             mintPrice={4.5}
           />
@@ -151,8 +140,19 @@ export const HomeContainer = () => {
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
             collectionName="Genopets"
-            eventDate="5 Days"
+            eventDate="40 Days"
             totalItems={5289}
+            mintPrice={6.5}
+          />
+
+          <CollectionCard
+            status="Featured"
+            creatorImageAsset={GenopetsCreatorImage}
+            imageAsset={GenopetsCollectionImage.src}
+            creator="GenoPets"
+            collectionName="Genopets"
+            eventDate="43 Days"
+            totalItems={2114}
             mintPrice={6.5}
           />
         </GridLayout>

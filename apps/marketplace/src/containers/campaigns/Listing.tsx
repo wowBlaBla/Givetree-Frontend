@@ -62,7 +62,7 @@ export const CampaignListingContainer = (): JSX.Element => {
           imageAsset={MulgaBgImg.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink1="/"
+          ctaLink1={MarketplaceRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
           height="h-96"
         />
@@ -71,23 +71,24 @@ export const CampaignListingContainer = (): JSX.Element => {
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <GridLayout>
           <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage.src}
-            creator="MulgaTheArtist"
-            collectionName="Mulgakongz"
-            eventDate="3 days"
-            totalItems={4412}
-            mintPrice={5}
-          />
-
-          <CollectionCard
+            hasStarted
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
             collectionName="Genopets"
-            eventDate="5 Days"
+            eventDate="3 Days"
             totalItems={5289}
             mintPrice={6.5}
+          />
+
+          <CollectionCard
+            creatorImageAsset={CreatorImage}
+            imageAsset={MulgaKongzCollectionImage.src}
+            creator="MulgaTheArtist"
+            collectionName="Mulgakongz"
+            eventDate="6 days"
+            totalItems={4412}
+            mintPrice={5}
           />
 
           <CollectionCard

@@ -1,7 +1,7 @@
 import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
 import MulgaTheArtistImg from "../../../assets/images/mulga-the-artist.png";
 import MulgaAssetImg from "../../../assets/images/mulgakongz-bunny-ears.png";
-import MulgaHatImg from "../../../assets/images/mulgakongz-banana-hat.png";
+import MulgaHatImg from "../../../assets/images/mulga.png";
 import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png";
 
 export const mulgakongz = {
@@ -29,7 +29,7 @@ export const mulgakongz = {
   whitelistEndDate: new Date("May 10, 2022 12:00:00"),
   publicStartDate: new Date("May 10, 2022 12:00:00"),
   publicEndDate: new Date("June 10, 2022 12:00:00"),
-  websiteUrl: "#",
+  websiteUrl: "https://mulgakongz.com/",
   discordUrl: "#",
   twitterUrl: "#",
   contractUrl: "#",
