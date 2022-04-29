@@ -15,7 +15,7 @@ export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
     </div>
 
     <div className="relative w-full mt-8 text-center">
-      <PrimaryButton large>Go To Minting Site</PrimaryButton>
+      <PrimaryButton large>Go to minting site</PrimaryButton>
     </div>
   </div>
 );

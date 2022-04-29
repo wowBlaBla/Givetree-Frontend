@@ -22,8 +22,7 @@ const ShowCounter: FC<ShowCounterProps> = ({
   minutes,
   seconds,
 }) => {
-  console.log(hasStarted);
-  const counterType = hasStarted ? `${eventType} Ends in` : "Starts in";
+  const counterType = hasStarted ? `${eventType} ends in` : "Starts in";
 
   return (
     <div>

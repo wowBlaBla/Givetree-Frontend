@@ -53,7 +53,7 @@ export const CampaignDetailsContainer: FC = () => {
             </h3>
 
             <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-5 pt-3 sm:pt-0 font-medium text-lg sm:text-2xl">
-              <h3>Total Items {collection.totalSupplyCount}</h3>
+              <h3>Total items {collection.totalSupplyCount}</h3>
               <h3>Starting from {collection.startingMintPrice} SOL per mint</h3>
             </div>
 
