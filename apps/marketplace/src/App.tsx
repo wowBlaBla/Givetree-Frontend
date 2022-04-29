@@ -4,10 +4,11 @@ import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
 import { MarketplaceRoute } from "./configs/routes";
+
+import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/Details";
 import { CampaignListingContainer } from "./containers/campaigns/Listing";
 import { CollectionsListingContainer } from "./containers/collections/Listing";
-import { HomeContainer } from "./containers/home/Home";
 import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
 
 const App = () => (
