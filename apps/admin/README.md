@@ -3,7 +3,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![code style: airbnb](https://img.shields.io/badge/code%20style-airbnb-blue.svg)](https://github.com/airbnb/javascript)
 
-**Welcome to the GiveTree NFT Marketplace!**
+**Welcome to the GiveTree Admin Portal!**
 
 ## Tech Stack
 
@@ -11,10 +11,9 @@
 - Apollo + GraphQL for state management
 - [Tailwind](https://tailwindcss.com/) for styling
 - [React Router](https://v5.reactrouter.com/) for routing
-- [Cypress](https://docs.cypress.io/) for testing 
+- [Cypress](https://docs.cypress.io/) for testing
 
 ## Available Scripts
-
 
 ### `yarn start`
 
