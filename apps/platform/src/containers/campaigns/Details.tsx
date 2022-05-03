@@ -100,7 +100,11 @@ export const CampaignDetailsContainer: FC = () => {
           </div>
 
           <div className="flex flex-col items-center px-1 mt-12 sm:col-span-2 lg:col-span-5 sm:mt-0">
-            <GoToMintTile imageAsset={collection.assetImageUrl.src} name="asset" />
+            <GoToMintTile
+              collectionName={collection.title}
+              imageAsset={collection.assetImageUrl.src}
+              name="asset"
+            />
             <ImpactPartnerTile
               name="Carbon Climate Change Society"
               description="3% of Mulgakongz mints to go"

@@ -28,11 +28,12 @@ import { LiveBadge } from "../../components/LiveBadge";
 export const MintEventContainer: FC = () => {
   // TODO: Remove after demo
   const pathname = window.location.pathname;
-  const collection = pathname === "/mulgakongz" ? mulgakongz : genopets;
+  const collection = pathname === "/minting/mulgakongz" ? mulgakongz : genopets;
 
-  console.log(">>>>>>>>>>", collection);
-
-  const backgroundImage = collection.backgroundImageUrl as StaticImageData;
+  const backgroundImage =
+    collection.title === "Mulgakongz"
+      ? collection.backgroundImageUrl
+      : (collection.backgroundImageUrl as StaticImageData);
   const mainImage = collection.collectionImageUrl as StaticImageData;
   const creatorimage = collection.creator.avatarUrl as StaticImageData;
 
@@ -42,7 +43,12 @@ export const MintEventContainer: FC = () => {
         <title>GiveTree - {collection.title}</title>
       </Head>
 
-      <BackgroundImage imageAsset={backgroundImage.src} className="z-0 h-full h-screen" />
+      <BackgroundImage imageAsset={backgroundImage} className="z-0 h-full" />
+      {collection.title === "Mulgakongz" ? (
+        <BackgroundImage imageAsset={backgroundImage} className="z-0 h-full" />
+      ) : (
+        <BackgroundImage imageAsset={backgroundImage.src} className="z-0 h-full" />
+      )}
 
       <div className="absolute w-full h-screen">
         <div className="absolute top-0 z-50 w-full h-48 z-200 bg-gradient-to-b from-brand-black to-transparent" />
@@ -58,15 +64,22 @@ export const MintEventContainer: FC = () => {
           <div className="flex items-center justify-center flex-1 my-4 text-center">
             <span className="text-xl text-white">x</span>
           </div>
-          <h1 className="text-5xl font-bold text-white">Genopets</h1>
+          <h1 className="text-5xl font-bold text-white">{collection.title}</h1>
 
           <div className="flex flex-col items-center justify-center flex-1 mt-20">
-            <div className="relative flex flex-col w-1/3 w-full pb-6 item-center sm:pb-12">
+            <div className="relative flex flex-col w-1/3 pb-6 item-center sm:pb-12">
               <div className="relative pt-full">
-                <BackgroundImage
-                  className="shadow-lg rounded-xl"
-                  imageAsset={mainImage.src}
-                />
+                {collection.title === "Mulgakongz" ? (
+                  <BackgroundImage
+                    className="shadow-lg rounded-xl"
+                    imageAsset={mainImage}
+                  />
+                ) : (
+                  <BackgroundImage
+                    className="shadow-lg rounded-xl"
+                    imageAsset={mainImage.src}
+                  />
+                )}
               </div>
 
               <div className="relative w-full mt-8 text-center">

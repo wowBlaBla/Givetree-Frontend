@@ -4,6 +4,7 @@ import { PrimaryButton, PrimaryLink } from "../PrimaryButton";
 import { BackgroundImage } from "../BackgroundImage";
 
 interface GoToMintTileProps {
+  collectionName: string;
   name: string;
   imageAsset: StaticImageData | string;
 }
@@ -15,7 +16,9 @@ export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
     </div>
 
     <div className="relative w-full mt-8 text-center">
-      <PrimaryLink to="/minting/genopets">Go to minting site</PrimaryLink>
+      <PrimaryLink to={`/minting/${props.collectionName.toLowerCase()}`}>
+        Go to minting site
+      </PrimaryLink>
     </div>
   </div>
 );
