@@ -1,4 +1,4 @@
-export enum Causes {
+export enum Cause {
   CleanEarth = "Clean Earth",
   ClimateAction = "Climate Action",
   Environment = "Environment",

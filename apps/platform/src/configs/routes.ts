@@ -1,9 +1,9 @@
-export enum MarketplaceRoute {
+export enum PlatformRoute {
   Home = "/",
   CampaignDetails = "/:collectionName",
   CampaignListing = "/launchpad",
   CollectionsListing = "/explore",
-  ImpactPartnerListing = "/impact-partners",
+  CharityListing = "/impact-partners",
   Launchpad = "/launchpad",
   MintingEvent = "/minting/:collectionName",
 }

@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
-import { MarketplaceRoute } from "./configs/routes";
+import { PlatformRoute } from "./configs/routes";
 
 import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/Details";
 import { CampaignListingContainer } from "./containers/campaigns/Listing";
 import { CollectionsListingContainer } from "./containers/collections/Listing";
-import { ImpactPartnerListingsContainer } from "./containers/impact-partners/Listings";
+import { CharityListingsContainer } from "./containers/impact-partners/Listings";
 import { MintEventContainer } from "./containers/mint-event/MintEvent";
 
 const App = () => (
@@ -19,27 +19,24 @@ const App = () => (
         <AppHeader />
         <div className="flex flex-col flex-1 mt-20">
           <Routes>
-            <Route path={MarketplaceRoute.Home} element={<HomeContainer />} />
+            <Route path={PlatformRoute.Home} element={<HomeContainer />} />
             <Route
-              path={MarketplaceRoute.CampaignDetails}
+              path={PlatformRoute.CampaignDetails}
               element={<CampaignDetailsContainer />}
             />
             <Route
-              path={MarketplaceRoute.CampaignListing}
+              path={PlatformRoute.CampaignListing}
               element={<CampaignListingContainer />}
             />
             <Route
-              path={MarketplaceRoute.CollectionsListing}
+              path={PlatformRoute.CollectionsListing}
               element={<CollectionsListingContainer />}
             />
             <Route
-              path={MarketplaceRoute.ImpactPartnerListing}
-              element={<ImpactPartnerListingsContainer />}
+              path={PlatformRoute.CharityListing}
+              element={<CharityListingsContainer />}
             />
-            <Route
-              path={MarketplaceRoute.MintingEvent}
-              element={<MintEventContainer />}
-            />
+            <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
 
             <Route path="*" element={<HomeContainer />} />
           </Routes>

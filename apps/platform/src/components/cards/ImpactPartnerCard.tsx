@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import { Causes } from "../../typed/enum/causes";
+import { Causes } from "../../typed/enum/cause";
 import { BackgroundImage } from "../BackgroundImage";
 import { DarkBlendTop } from "../BoxBlends";
 import { StatusBadge } from "../StatusBadge";
 
-interface ImpactPartnerCardProps {
+interface CharityCardProps {
   imageAsset: string;
   category: Causes | string;
   partnerName: string;
 }
 
-export const ImpactPartnerCard: FC<ImpactPartnerCardProps> = (props) => (
+export const CharityCard: FC<CharityCardProps> = (props) => (
   <div className="relative rounded-md shadow-lg cursor-pointer">
     <div className="relative pt-full">
       <BackgroundImage className="rounded-md" imageAsset={props.imageAsset} />

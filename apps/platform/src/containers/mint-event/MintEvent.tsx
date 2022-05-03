@@ -8,9 +8,9 @@ import { VerificationBadge } from "../../components/VerificationBadge";
 import { GradientDivider } from "../../components/GradientDivider";
 import { SocialLinkGrid } from "../../components/SocialLinkGrid";
 
-import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
+import CharityImg from "./../../assets/images/impact-partner-climate.png";
 import { EventsTile } from "../../components/tiles/EventsTile";
-import { ImpactPartnerTile } from "../../components/tiles/ImpactPartnerTile";
+import { CharityTile } from "../../components/tiles/CharityTile";
 import { mulgakongz } from "../../api/data/collections/mulgakongz";
 import { genopets } from "../../api/data/collections/genopets";
 import { CausesTile } from "../../components/tiles/CausesTile";
@@ -19,7 +19,7 @@ import { CollectionTile } from "../../components/tiles/CollectionTile";
 import { GoToMintTile } from "../../components/tiles/GoToMintTile";
 import { BackgroundVideo } from "../../components/BackgroundVideo";
 import Image, { StaticImageData } from "next/image";
-import { MarketplaceRoute } from "../../configs/routes";
+import { PlatformRoute } from "../../configs/routes";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 import { Link } from "react-router-dom";
 import { PrimaryButton } from "../../components/PrimaryButton";
@@ -57,7 +57,7 @@ export const MintEventContainer: FC = () => {
             <LiveBadge className="text-white" />
           </div>
           <div className="flex justify-center mt-10">
-            <Link to={MarketplaceRoute.Home}>
+            <Link to={PlatformRoute.Home}>
               <GiveTreeLogo className="w-32 h-8 sm:h-12" />
             </Link>
           </div>

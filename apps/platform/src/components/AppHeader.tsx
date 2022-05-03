@@ -5,10 +5,10 @@ import { GiveTreeLogo } from "./GiveTreeLogo";
 import { WalletMultiButton } from "./wallet/WalletMultiButton";
 import { UserIcon } from "./icons/UserIcon";
 import { Link, NavLink, useMatch, useResolvedPath } from "react-router-dom";
-import { MarketplaceRoute } from "../configs/routes";
+import { PlatformRoute } from "../configs/routes";
 
 interface AppNavLink {
-  to: MarketplaceRoute;
+  to: PlatformRoute;
   children: ReactNode;
 }
 
@@ -37,16 +37,14 @@ export const AppHeader = () => {
   return (
     <div className="fixed w-full bg-brand-black z-50">
       <div className="flex justify-between items-center mx-4 py-5">
-        <Link to={MarketplaceRoute.Home}>
+        <Link to={PlatformRoute.Home}>
           <GiveTreeLogo className="w-32 h-8 sm:h-12" />
         </Link>
 
         <div className="hidden md:block sm:space-x-1 lg:space-x-24">
-          <AppNavLink to={MarketplaceRoute.CampaignListing}>Launchpad</AppNavLink>
-          <AppNavLink to={MarketplaceRoute.CollectionsListing}>Explore</AppNavLink>
-          <AppNavLink to={MarketplaceRoute.ImpactPartnerListing}>
-            Impact Partners
-          </AppNavLink>
+          <AppNavLink to={PlatformRoute.CampaignListing}>Launchpad</AppNavLink>
+          <AppNavLink to={PlatformRoute.CollectionsListing}>Explore</AppNavLink>
+          <AppNavLink to={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>
         </div>
 
         <div className="flex items-center space-x-3">

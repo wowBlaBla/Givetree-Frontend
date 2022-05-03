@@ -8,9 +8,9 @@ import { VerificationBadge } from "../../components/VerificationBadge";
 import { GradientDivider } from "../../components/GradientDivider";
 import { SocialLinkGrid } from "../../components/SocialLinkGrid";
 
-import ImpactPartnerImg from "./../../assets/images/impact-partner-climate.png";
+import CharityImg from "./../../assets/images/impact-partner-climate.png";
 import { EventsTile } from "../../components/tiles/EventsTile";
-import { ImpactPartnerTile } from "../../components/tiles/ImpactPartnerTile";
+import { CharityTile } from "../../components/tiles/CharityTile";
 import { mulgakongz } from "../../api/data/collections/mulgakongz";
 import { genopets } from "../../api/data/collections/genopets";
 import { CausesTile } from "../../components/tiles/CausesTile";
@@ -53,8 +53,8 @@ export const CampaignDetailsContainer: FC = () => {
             </h3>
 
             <div className="flex flex-col pt-3 space-y-1 text-lg font-medium sm:flex-row sm:items-center sm:space-y-0 sm:space-x-5 sm:pt-0 sm:text-2xl">
-              <h3>Total items {collection.totalSupplyCount}</h3>
-              <h3>Starting from {collection.startingMintPrice} SOL per mint</h3>
+              <h3>Total items {collection.totalSupply}</h3>
+              <h3>Starting from {collection.floorPrice} SOL per mint</h3>
             </div>
 
             {collection.isVerified && (
@@ -78,8 +78,8 @@ export const CampaignDetailsContainer: FC = () => {
             <CollectionTile
               isLive={collection.title === "Genopets"}
               title={collection.title}
-              totalSupplyCount={collection.totalSupplyCount}
-              mintingPrice={collection.startingMintPrice}
+              totalSupply={collection.totalSupply}
+              mintingPrice={collection.floorPrice}
               description={collection.shortDescription}
             />
 
@@ -105,10 +105,10 @@ export const CampaignDetailsContainer: FC = () => {
               imageAsset={collection.assetImageUrl.src}
               name="asset"
             />
-            <ImpactPartnerTile
+            <CharityTile
               name="Carbon Climate Change Society"
               description="3% of Mulgakongz mints to go"
-              imageAsset={ImpactPartnerImg}
+              imageAsset={CharityImg}
             />
           </div>
         </div>

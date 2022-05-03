@@ -1,5 +1,5 @@
 import { Creator } from "./creator";
-import { ImpactPartner } from "./impactPartner";
+import { Charity } from "./impactPartner";
 
 export interface Collection {
   id: string;
@@ -10,14 +10,14 @@ export interface Collection {
   creator: Creator;
   backgroundImageUrl: string;
   collectionImageUrl: string;
-  startingMintPrice: number;
-  totalSupplyCount: number;
-  expectedMintDate: Date;
+  floorPrice: number;
+  totalSupply: number;
+  startMintDate: Date;
   isVerified: boolean;
   websiteUrl: string;
   discordUrl: string;
   twitterUrl: string;
   contractUrl: string;
   mintingUrl: string;
-  impactPartner: ImpactPartner;
+  impactPartner: Charity;
 }

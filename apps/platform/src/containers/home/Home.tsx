@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import Slider from "react-slick";
-import { MarketplaceRoute } from "../../configs/routes";
+import { PlatformRoute } from "../../configs/routes";
 
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { MainBanner } from "../../components/MainBanner";
@@ -48,7 +48,7 @@ export const HomeContainer = () => {
             subtitle="A % of every single NFT transaction is donated to charity"
             teaser="Learn more about GiveTree"
             teaserLink="#"
-            ctaLink1={MarketplaceRoute.CampaignListing}
+            ctaLink1={PlatformRoute.CampaignListing}
             ctaLink1Text="Explore"
             ctaLink2="/"
             ctaLink2Text="Start Minting"
@@ -58,7 +58,7 @@ export const HomeContainer = () => {
             imageAsset={MulgaBgImg.src}
             title="Mulgakongz by MulgaTheArtist"
             subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-            ctaLink1={MarketplaceRoute.CampaignListing}
+            ctaLink1={PlatformRoute.CampaignListing}
             ctaLink1Text="Go to launchpad"
           />
         </Slider>
@@ -158,7 +158,7 @@ export const HomeContainer = () => {
         </GridLayout>
 
         <div className="flex justify-center mt-8">
-          <OutlineLink to={MarketplaceRoute.CampaignListing}>
+          <OutlineLink to={PlatformRoute.CampaignListing}>
             View More Collections
           </OutlineLink>
         </div>

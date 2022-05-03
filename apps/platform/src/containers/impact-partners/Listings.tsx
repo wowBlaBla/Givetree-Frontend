@@ -2,17 +2,17 @@ import React from "react";
 import Head from "next/head";
 
 import { SectionTitle } from "../../components/SectionTitle";
-import { ImpactPartnerCard } from "../../components/cards/ImpactPartnerCard";
+import { CharityCard } from "../../components/cards/CharityCard";
 import { PrimaryButton } from "../../components/PrimaryButton";
-import { Causes } from "../../typed/enum/causes";
+import { Causes } from "../../typed/enum/cause";
 import { GridLayout } from "../../components/GridLayout";
 
-import ClimateImpactPartnerImage from "../../assets/images/impact-partner-climate.png";
+import ClimateCharityImage from "../../assets/images/impact-partner-climate.png";
 import ZambiImage from "../../assets/images/zambi.png";
 import OceanCleanupImage from "../../assets/images/ocean-cleanup.png";
 import YTIUImage from "../../assets/images/ytiu.png";
 
-export const ImpactPartnerListingsContainer = () => {
+export const CharityListingsContainer = () => {
   return (
     <div className="w-full mx-auto">
       <Head>
@@ -27,62 +27,62 @@ export const ImpactPartnerListingsContainer = () => {
         </div>
 
         <GridLayout>
-          <ImpactPartnerCard
-            imageAsset={ClimateImpactPartnerImage.src}
+          <CharityCard
+            imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
             category={Causes.ClimateAction}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
             category={Causes.WildlifePreservation}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
             category={Causes.Environment}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
             category={Causes.FightHomelessness}
           />
-          <ImpactPartnerCard
-            imageAsset={ClimateImpactPartnerImage.src}
+          <CharityCard
+            imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
             category={Causes.ClimateAction}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
             category={Causes.WildlifePreservation}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
             category={Causes.Environment}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
             category={Causes.FightHomelessness}
           />
-          <ImpactPartnerCard
-            imageAsset={ClimateImpactPartnerImage.src}
+          <CharityCard
+            imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
             category={Causes.ClimateAction}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
             category={Causes.WildlifePreservation}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
             category={Causes.Environment}
           />
-          <ImpactPartnerCard
+          <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
             category={Causes.FightHomelessness}

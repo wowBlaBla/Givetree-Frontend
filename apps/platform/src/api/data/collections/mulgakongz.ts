@@ -2,7 +2,7 @@ import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
 import MulgaTheArtistImg from "../../../assets/images/mulga-the-artist.png";
 import MulgaAssetImg from "../../../assets/images/mulgakongz-bunny-ears.png";
 import MulgaHatImg from "../../../assets/images/mulga.png";
-import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png";
+import CharityImg from "../../../assets/images/impact-partner-climate.png";
 
 export const mulgakongz = {
   id: 1,
@@ -16,7 +16,7 @@ export const mulgakongz = {
   isVerified: true,
   symbol: "MKZ",
   isExplicitContent: false,
-  startingMintPrice: 2,
+  floorPrice: 2,
   creator: {
     name: "MulgaTheArtist",
     description:
@@ -24,7 +24,7 @@ export const mulgakongz = {
     isVerified: true,
     avatarUrl: MulgaTheArtistImg,
   },
-  totalSupplyCount: 8888,
+  totalSupply: 8888,
   whitelistStartDate: new Date("May 6, 2022 12:00:00"),
   whitelistEndDate: new Date("May 10, 2022 12:00:00"),
   publicStartDate: new Date("May 10, 2022 12:00:00"),
@@ -36,7 +36,7 @@ export const mulgakongz = {
   mintingUrl: "#",
   impactPartner: {
     id: 1,
-    avatarUrl: ImpactPartnerImg,
+    avatarUrl: CharityImg,
     name: "Carbon Climate Change Society",
     causes: ["Climate Crisis", "Substantial materials"],
     distributionPercentage: 3,

@@ -6,7 +6,7 @@ import { MainBanner } from "../../components/MainBanner";
 import { CollectionCard } from "../../components/cards/CollectionCard";
 import { GridLayout } from "../../components/GridLayout";
 import { SectionHeader } from "../../components/SectionHeader";
-import { MarketplaceRoute } from "../../configs/routes";
+import { PlatformRoute } from "../../configs/routes";
 
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
@@ -48,7 +48,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
           subtitle="A % of every single NFT transaction is donated to charity"
           teaser="Learn more about GiveTree"
           teaserLink="#"
-          ctaLink1={MarketplaceRoute.CampaignListing}
+          ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Explore"
           ctaLink2="/"
           ctaLink2Text="Start Minting"
@@ -59,7 +59,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
           imageAsset={MulgaBgImg.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink1={MarketplaceRoute.CampaignListing}
+          ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
           height="h-96"
         />

@@ -1,7 +1,7 @@
 import CreatorAvatarImg from "../../../assets/images/genopets-creator.png";
 import AssetImg from "../../../assets/images/genopets-asset.png";
 import CollectionImg from "../../../assets/images/genopets-collection.png";
-import ImpactPartnerImg from "../../../assets/images/impact-partner-climate.png";
+import CharityImg from "../../../assets/images/impact-partner-climate.png";
 
 export const genopets = {
   id: 2,
@@ -15,7 +15,7 @@ export const genopets = {
   isVerified: true,
   symbol: "GP",
   isExplicitContent: false,
-  startingMintPrice: 2,
+  floorPrice: 2,
   creator: {
     name: "Genopets",
     description:
@@ -23,7 +23,7 @@ export const genopets = {
     isVerified: true,
     avatarUrl: CreatorAvatarImg,
   },
-  totalSupplyCount: 4557,
+  totalSupply: 4557,
   whitelistStartDate: new Date("April 28, 2022 12:00:00"),
   whitelistEndDate: new Date("May 2, 2022 12:00:00"),
   publicStartDate: new Date("May 2, 2022 12:00:00"),
@@ -35,7 +35,7 @@ export const genopets = {
   mintingUrl: "#",
   impactPartner: {
     id: 1,
-    avatarUrl: ImpactPartnerImg,
+    avatarUrl: CharityImg,
     name: "Carbon Climate Change Society",
     causes: ["Climate Crisis", "Substantial materials"],
     distributionPercentage: 3,
