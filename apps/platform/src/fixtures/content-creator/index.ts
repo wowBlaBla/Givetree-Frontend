@@ -1,6 +1,6 @@
 import { ContentCreator } from "../../typed/content-creator";
-import MulgaTheArtistImg from "../../../assets/images/mulga-the-artist.png";
-import GenopetsPreviewImg from "../../../assets/images/genopets-creator.png";
+import MulgaTheArtistImg from "../../assets/images/mulga-the-artist.png";
+import GenopetsPreviewImg from "../../assets/images/genopets-creator.png";
 
 import { faker as gen } from "@faker-js/faker";
 

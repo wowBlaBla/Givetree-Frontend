@@ -1,9 +1,9 @@
 import { Campaign } from "../../typed/campaign";
 import { faker as gen } from "@faker-js/faker";
 
-import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
-import MulgaAssetImg from "../../../assets/images/mulgakongz-bunny-ears.png";
-import MulgaHatImg from "../../../assets/images/mulga.png";
+import MulgaBgImg from "../../assets/images/mulga-bg-image.png";
+import MulgaAssetImg from "../../assets/images/mulgakongz-bunny-ears.png";
+import MulgaHatImg from "../../assets/images/mulga.png";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
 import { genRoyalty } from "../royalties";

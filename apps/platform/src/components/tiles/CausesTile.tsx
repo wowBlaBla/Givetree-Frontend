@@ -19,7 +19,7 @@ export const CausesTile: FC<CausesTileProps> = (props) => (
     </div>
 
     <div className="flex flex-wrap w-auto mt-4">
-      {props.causes.map((cause, idx) => (
+      {props.Cause.map((cause, idx) => (
         <div
           key={idx}
           className="m-1 text-sm lg:text-base font-semibold text-center rounded-md border-2 text-green-600 border-brand-green-active py-2 px-3"

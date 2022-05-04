@@ -1,5 +1,5 @@
-import AssetImg from "../../../assets/images/genopets-asset.png";
-import CollectionImg from "../../../assets/images/genopets-collection.png";
+import AssetImg from "../../assets/images/genopets-asset.png";
+import CollectionImg from "../../assets/images/genopets-collection.png";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { Campaign } from "../../typed/campaign";
 

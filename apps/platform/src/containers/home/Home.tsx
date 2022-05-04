@@ -3,7 +3,7 @@ import Head from "next/head";
 import Slider from "react-slick";
 import { PlatformRoute } from "../../configs/routes";
 
-import { CollectionCard } from "../../components/cards/CollectionCard";
+import { CampaignCard } from "../../components/cards/CampaignCard";
 import { MainBanner } from "../../components/MainBanner";
 import { OutlineLink } from "../../components/OutlineButton";
 import { SectionTitle } from "../../components/SectionTitle";
@@ -11,14 +11,7 @@ import { GridLayout } from "../../components/GridLayout";
 
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
-import CreatorImage from "../../assets/images/mulga-the-artist.png";
-import MulgaKongzCollectionImage from "../../assets/images/mulgakongz-collection.png";
-import GenopetsCollectionImage from "../../assets/images/genopets-collection.png";
-import GenopetsCreatorImage from "../../assets/images/genopets-creator.png";
-import YakucorpCollectionImage from "../../assets/images/yakucorp-collection.png";
-import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
-import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
-import ZzCollecitonImage from "../../assets/images/zz-collection.png";
+import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
 
 export const HomeContainer = () => {
   const sliderProps = {
@@ -68,93 +61,7 @@ export const HomeContainer = () => {
         <SectionTitle>Upcoming Collections</SectionTitle>
 
         <GridLayout>
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage.src}
-            creator="MulgaTheArtist"
-            collectionName="Mulgakongz"
-            eventDate="6 days"
-            totalItems={4412}
-            mintPrice={5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            creator="GoodVibes"
-            collectionName="Friends Forever"
-            eventDate="8 Days"
-            totalItems={19856}
-            mintPrice={3}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage.src}
-            creator="YakuCorp"
-            collectionName="YAKU Corp."
-            eventDate="11 Days"
-            totalItems={4412}
-            mintPrice={4.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            creator="GoodVibes"
-            collectionName="Friends Forever"
-            eventDate="21 Days"
-            totalItems={19856}
-            mintPrice={3}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage.src}
-            creator="YakuCorp"
-            collectionName="YAKU Corp."
-            eventDate="22 Days"
-            totalItems={4412}
-            mintPrice={4.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage.src}
-            creator="ZzTheArtist"
-            collectionName="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage.src}
-            creator="GenoPets"
-            collectionName="Genopets"
-            eventDate="40 Days"
-            totalItems={5289}
-            mintPrice={6.5}
-          />
-
-          <CollectionCard
-            status="Featured"
-            creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage.src}
-            creator="GenoPets"
-            collectionName="Genopets"
-            eventDate="43 Days"
-            totalItems={2114}
-            mintPrice={6.5}
-          />
+          <CampaignCard campaign={genMulgakongzCampaignData()} />
         </GridLayout>
 
         <div className="flex justify-center mt-8">

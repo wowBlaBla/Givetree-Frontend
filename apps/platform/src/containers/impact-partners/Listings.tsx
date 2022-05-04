@@ -4,7 +4,7 @@ import Head from "next/head";
 import { SectionTitle } from "../../components/SectionTitle";
 import { CharityCard } from "../../components/cards/CharityCard";
 import { PrimaryButton } from "../../components/PrimaryButton";
-import { Causes } from "../../typed/enum/cause";
+import { Cause } from "../../typed/enum/cause";
 import { GridLayout } from "../../components/GridLayout";
 
 import ClimateCharityImage from "../../assets/images/impact-partner-climate.png";
@@ -30,62 +30,62 @@ export const CharityListingsContainer = () => {
           <CharityCard
             imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
-            category={Causes.ClimateAction}
+            category={Cause.ClimateAction}
           />
           <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
-            category={Causes.WildlifePreservation}
+            category={Cause.WildlifePreservation}
           />
           <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
-            category={Causes.Environment}
+            category={Cause.Environment}
           />
           <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
-            category={Causes.FightHomelessness}
+            category={Cause.FightHomelessness}
           />
           <CharityCard
             imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
-            category={Causes.ClimateAction}
+            category={Cause.ClimateAction}
           />
           <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
-            category={Causes.WildlifePreservation}
+            category={Cause.WildlifePreservation}
           />
           <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
-            category={Causes.Environment}
+            category={Cause.Environment}
           />
           <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
-            category={Causes.FightHomelessness}
+            category={Cause.FightHomelessness}
           />
           <CharityCard
             imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
-            category={Causes.ClimateAction}
+            category={Cause.ClimateAction}
           />
           <CharityCard
             imageAsset={ZambiImage.src}
             partnerName="Zambi Native Wildlife Sanctuary"
-            category={Causes.WildlifePreservation}
+            category={Cause.WildlifePreservation}
           />
           <CharityCard
             imageAsset={OceanCleanupImage.src}
             partnerName="The Ocean Cleanup"
-            category={Causes.Environment}
+            category={Cause.Environment}
           />
           <CharityCard
             imageAsset={YTIUImage.src}
             partnerName="You Turn It Up Charity"
-            category={Causes.FightHomelessness}
+            category={Cause.FightHomelessness}
           />
         </GridLayout>
       </div>

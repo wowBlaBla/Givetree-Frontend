@@ -3,7 +3,7 @@ import Head from "next/head";
 import Slider from "react-slick";
 
 import { MainBanner } from "../../components/MainBanner";
-import { CollectionCard } from "../../components/cards/CollectionCard";
+import { CampaignCard } from "../../components/cards/CampaignCard";
 import { GridLayout } from "../../components/GridLayout";
 import { SectionHeader } from "../../components/SectionHeader";
 import { PlatformRoute } from "../../configs/routes";
@@ -67,7 +67,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <GridLayout>
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
@@ -77,7 +77,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
@@ -87,7 +87,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={6.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"
@@ -97,7 +97,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={3}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
@@ -107,7 +107,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={4.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage.src}
             creator="ZzTheArtist"
@@ -117,7 +117,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={2.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={YakucorpCreatorImage}
             imageAsset={YakucorpCollectionImage.src}
             creator="YakuCorp"
@@ -127,7 +127,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={4.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={ZzCollecitonImage.src}
             creator="ZzTheArtist"
@@ -137,7 +137,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={2.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={MulgaKongzCollectionImage.src}
             creator="MulgaTheArtist"
@@ -147,7 +147,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={GenopetsCreatorImage}
             imageAsset={GenopetsCollectionImage.src}
             creator="GenoPets"
@@ -157,7 +157,7 @@ export const CollectionsListingContainer = (): JSX.Element => {
             mintPrice={6.5}
           />
 
-          <CollectionCard
+          <CampaignCard
             creatorImageAsset={CreatorImage}
             imageAsset={ForeverFriendsCollecitonImage.src}
             creator="GoodVibes"

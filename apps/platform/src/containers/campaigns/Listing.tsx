@@ -3,24 +3,14 @@ import Head from "next/head";
 import Slider from "react-slick";
 
 import { MainBanner } from "../../components/MainBanner";
-import { CollectionCard } from "../../components/cards/CollectionCard";
+import { CampaignCard } from "../../components/cards/CampaignCard";
 import { GridLayout } from "../../components/GridLayout";
 import { SectionHeader } from "../../components/SectionHeader";
 import { PlatformRoute } from "../../configs/routes";
 
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
-import CreatorImage from "../../assets/images/mulga-the-artist.png";
-import MulgaKongzCollectionImage from "../../assets/images/mulgakongz-collection.png";
-import GenopetsCollectionImage from "../../assets/images/genopets-collection.png";
-import GenopetsCreatorImage from "../../assets/images/genopets-creator.png";
-import YakucorpCollectionImage from "../../assets/images/yakucorp-collection.png";
-import YakucorpCreatorImage from "../../assets/images/yakucorp-creator.jpeg";
-import ForeverFriendsCollecitonImage from "../../assets/images/ff-collection.png";
-import ZzCollecitonImage from "../../assets/images/zz-collection.png";
-
-import CyberApeAvatarImage from "./../../assets/images/cyberape-avatar.jpeg";
-import CyberApeCollecitonImage from "./../../assets/images/cyberape-collection.png";
+import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
 
 export const CampaignListingContainer = (): JSX.Element => {
   const sliderProps = {
@@ -70,86 +60,7 @@ export const CampaignListingContainer = (): JSX.Element => {
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <GridLayout>
-          <CollectionCard
-            hasStarted
-            creatorImageAsset={GenopetsCreatorImage}
-            imageAsset={GenopetsCollectionImage.src}
-            creator="GenoPets"
-            collectionName="Genopets"
-            eventDate="3 Days"
-            totalItems={5289}
-            mintPrice={6.5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={MulgaKongzCollectionImage.src}
-            creator="MulgaTheArtist"
-            collectionName="Mulgakongz"
-            eventDate="6 days"
-            totalItems={4412}
-            mintPrice={5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={ForeverFriendsCollecitonImage.src}
-            creator="GoodVibes"
-            collectionName="Friends Forever"
-            eventDate="27 Days"
-            totalItems={19856}
-            mintPrice={3}
-          />
-
-          <CollectionCard
-            creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage.src}
-            creator="YakuCorp"
-            collectionName="YAKU Corp."
-            eventDate="11 Days"
-            totalItems={4412}
-            mintPrice={4.5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage.src}
-            creator="ZzTheArtist"
-            collectionName="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={YakucorpCreatorImage}
-            imageAsset={YakucorpCollectionImage.src}
-            creator="YakuCorp"
-            collectionName="YAKU Corp."
-            eventDate="11 Days"
-            totalItems={4412}
-            mintPrice={4.5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={CreatorImage}
-            imageAsset={ZzCollecitonImage.src}
-            creator="ZzTheArtist"
-            collectionName="Zz"
-            eventDate="31 Days"
-            totalItems={9635}
-            mintPrice={2.5}
-          />
-
-          <CollectionCard
-            creatorImageAsset={CyberApeAvatarImage}
-            imageAsset={CyberApeCollecitonImage.src}
-            creator="CyberApe"
-            collectionName="Cyber Ape Age"
-            eventDate="3 days"
-            totalItems={3333}
-            mintPrice={8}
-          />
+          <CampaignCard campaign={genMulgakongzCampaignData()} />
         </GridLayout>
       </div>
     </div>
