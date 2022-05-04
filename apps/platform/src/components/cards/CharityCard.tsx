@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { Causes } from "../../typed/enum/cause";
+import { Cause } from "../../typed/enum/cause";
 import { BackgroundImage } from "../BackgroundImage";
 import { DarkBlendTop } from "../BoxBlends";
 import { StatusBadge } from "../StatusBadge";
 
 interface CharityCardProps {
   imageAsset: string;
-  category: Causes | string;
+  category: Cause | string;
   partnerName: string;
 }
 
