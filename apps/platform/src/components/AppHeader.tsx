@@ -37,7 +37,7 @@ export const AppHeader = () => {
   return (
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
       <div className="grid grid-cols-2 sm:grid-cols-4 w-full">
-        <Link to={PlatformRoute.Home}>
+        <Link className="flex items-center" to={PlatformRoute.Home}>
           <GiveTreeLogo className="w-32 h-8 sm:h-12" />
         </Link>
 
