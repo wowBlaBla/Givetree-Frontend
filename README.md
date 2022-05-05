@@ -59,7 +59,7 @@ The general structure looks like this:
 │       ├── pages
 │       └── styles
 ├── packages
-│   └── ui
+│   └──
 ├── lerna.json
 ├── package.json
 ├── README.md

@@ -12,6 +12,7 @@ import { GridLayout } from "../../components/GridLayout";
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
 import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
+import { genGenopetsCampaignData } from "../../fixtures/campaign/genopets";
 
 export const HomeContainer = () => {
   const sliderProps = {
@@ -62,6 +63,7 @@ export const HomeContainer = () => {
 
         <GridLayout>
           <CampaignCard campaign={genMulgakongzCampaignData()} />
+          <CampaignCard campaign={genGenopetsCampaignData()} />
         </GridLayout>
 
         <div className="flex justify-center mt-8">

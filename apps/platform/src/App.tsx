@@ -8,7 +8,6 @@ import { PlatformRoute } from "./configs/routes";
 import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/Details";
 import { CampaignListingContainer } from "./containers/campaigns/Listing";
-import { CollectionsListingContainer } from "./containers/collections/Listing";
 import { CharityListingsContainer } from "./containers/impact-partners/Listings";
 import { MintEventContainer } from "./containers/mint-event/MintEvent";
 
@@ -17,26 +16,27 @@ const App = () => (
     <ScrollToTop>
       <div className="flex flex-col h-full min-h-screen bg-gray-50">
         <AppHeader />
-        <div className="flex flex-col flex-1 mt-20">
+
+        <div className="flex flex-1 flex-col mt-14 sm:mt-16">
           <Routes>
             <Route path={PlatformRoute.Home} element={<HomeContainer />} />
+
             <Route
               path={PlatformRoute.CampaignDetails}
               element={<CampaignDetailsContainer />}
             />
+
             <Route
               path={PlatformRoute.CampaignListing}
               element={<CampaignListingContainer />}
             />
-            <Route
-              path={PlatformRoute.CollectionsListing}
-              element={<CollectionsListingContainer />}
-            />
+
+            <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
+
             <Route
               path={PlatformRoute.CharityListing}
               element={<CharityListingsContainer />}
             />
-            <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
 
             <Route path="*" element={<HomeContainer />} />
           </Routes>

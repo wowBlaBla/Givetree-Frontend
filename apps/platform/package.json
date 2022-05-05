@@ -11,6 +11,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
+    "@apollo/client": "3.6.2",
     "@faker-js/faker": "6.3.1",
     "@nfteyez/sol-rayz": "0.10.2",
     "@solana/wallet-adapter-base": "0.9.4",

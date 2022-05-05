@@ -10,7 +10,7 @@ import { genCampaignEvent } from "../event";
 
 import { faker as gen } from "@faker-js/faker";
 
-export const genGenopetsCampaign = (x?: Partial<Campaign>): Campaign => ({
+export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
   title: "Genopets",
   name: "Genopets",
