@@ -1,23 +1,10 @@
 import React, { FC } from "react";
 import Head from "next/head";
 
-import { DarkBlendTop } from "../../components/BoxBlends";
 import { BackgroundImage } from "../../components/BackgroundImage";
-import { StatusBadge } from "../../components/StatusBadge";
-import { VerificationBadge } from "../../components/VerificationBadge";
-import { GradientDivider } from "../../components/GradientDivider";
-import { SocialLinkGrid } from "../../components/SocialLinkGrid";
 
-import CharityImg from "./../../assets/images/impact-partner-climate.png";
-import { EventsTile } from "../../components/tiles/EventsTile";
-import { CharityTile } from "../../components/tiles/CharityTile";
-import { mulgakongz } from "../../api/data/collections/mulgakongz";
-import { genopets } from "../../api/data/collections/genopets";
-import { CausesTile } from "../../components/tiles/CausesTile";
-import { CreatorTile } from "../../components/tiles/CreatorTile";
-import { CollectionTile } from "../../components/tiles/CollectionTile";
-import { GoToMintTile } from "../../components/tiles/GoToMintTile";
-import { BackgroundVideo } from "../../components/BackgroundVideo";
+import { VerificationBadge } from "../../components/VerificationBadge";
+
 import Image, { StaticImageData } from "next/image";
 import { PlatformRoute } from "../../configs/routes";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
@@ -26,20 +13,9 @@ import { PrimaryButton } from "../../components/PrimaryButton";
 import { LiveBadge } from "../../components/LiveBadge";
 
 export const MintEventContainer: FC = () => {
-  // TODO: Remove after demo
-  const pathname = window.location.pathname;
-  const collection = pathname === "/minting/mulgakongz" ? mulgakongz : genopets;
-
-  const backgroundImage =
-    collection.title === "Mulgakongz"
-      ? collection.backgroundImageUrl
-      : (collection.backgroundImageUrl as StaticImageData);
-  const mainImage = collection.collectionImageUrl as StaticImageData;
-  const creatorimage = collection.creator.avatarUrl as StaticImageData;
-
   return (
     <div className="relative flex flex-col flex-1 overflow-auto">
-      <Head>
+      {/* <Head>
         <title>GiveTree - {collection.title}</title>
       </Head>
 
@@ -106,7 +82,7 @@ export const MintEventContainer: FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

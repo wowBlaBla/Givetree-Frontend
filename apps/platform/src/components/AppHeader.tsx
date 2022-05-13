@@ -41,7 +41,7 @@ export const AppHeader = () => {
           <GiveTreeLogo className="w-32 h-8 sm:h-12" />
         </Link>
 
-        <div className="hidden col-span-2 sm:flex justify-center items-center w-full space-x-5 xl:space-x-24">
+        <div className="hidden col-span-2 sm:flex justify-center items-center w-full space-x-6 md:space-x-16 xl:space-x-24">
           <AppNavLink to={PlatformRoute.Home}>Home</AppNavLink>
           <AppNavLink to={PlatformRoute.CampaignListing}>Launchpad</AppNavLink>
           <AppNavLink to={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>

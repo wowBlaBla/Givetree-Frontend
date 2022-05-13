@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Image, { StaticImageData } from "next/image";
 import { TrendingGraphIcon } from "../icons/TrendingGraphIcon";
 import { ClockIcon } from "../icons/ClockIcon";
-import { StatusBadge } from "../StatusBadge";
+import { FeaturedBadge } from "../FeaturedBadge";
 import { BackgroundImage } from "../BackgroundImage";
 
 interface AssetCardProps {
@@ -19,7 +19,7 @@ export const AssetCard: FC<AssetCardProps> = (props) => (
   <div className="relative bg-brand-black rounded-md shadow-lg overflow-hidden cursor-pointer select-none">
     <div className="relative pt-full">
       <BackgroundImage imageAsset={props.imageAsset} />
-      <StatusBadge className="my-2.5 mx-2" status={props.status} />
+      <FeaturedBadge className="my-2.5 mx-2" text={props.status} />
     </div>
 
     <div className="flex flex-col w-full">

@@ -1,28 +1,18 @@
 import React from "react";
 import Head from "next/head";
-import Slider from "react-slick";
 
-import { MainBanner } from "../../components/MainBanner";
-import { CampaignCard } from "../../components/cards/CampaignCard";
-import { GridLayout } from "../../components/GridLayout";
-import { SectionHeader } from "../../components/SectionHeader";
-import { PlatformRoute } from "../../configs/routes";
+import { MainBanner } from "../../../components/MainBanner";
+import { CampaignCard } from "../../../components/cards/CampaignCard";
+import { CardGrid } from "../../../components/CardGrid";
+import { SectionHeader } from "../../../components/SectionHeader";
+import { PlatformRoute } from "../../../configs/routes";
 
-import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
-import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
-import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
+import GiveTreeBgImg from "../../../assets/images/givtree-bg-image.png";
+import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
+import { genMulgakongzCampaignData } from "../../../fixtures/campaign/mulgakongz";
+import { Carousel } from "../../../components/Carousel";
 
 export const CampaignListingContainer = (): JSX.Element => {
-  const sliderProps = {
-    autoplay: true,
-    autoplaySpeed: 5000,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
-
   return (
     <div>
       <Head>
@@ -34,7 +24,7 @@ export const CampaignListingContainer = (): JSX.Element => {
         subtitle="Discover current and upcoming mints for new NFT collections"
       />
 
-      <Slider className="relative mx-auto" {...sliderProps}>
+      <Carousel>
         <MainBanner
           imageAsset={GiveTreeBgImg.src}
           title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
@@ -56,12 +46,12 @@ export const CampaignListingContainer = (): JSX.Element => {
           ctaLink1Text="Go to launchpad"
           height="h-96"
         />
-      </Slider>
+      </Carousel>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
-        <GridLayout>
+        <CardGrid>
           <CampaignCard campaign={genMulgakongzCampaignData()} />
-        </GridLayout>
+        </CardGrid>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Cause } from "../../typed/enum/cause";
 import { BackgroundImage } from "../BackgroundImage";
 import { DarkBlendTop } from "../BoxBlends";
-import { StatusBadge } from "../StatusBadge";
+import { FeaturedBadge } from "../FeaturedBadge";
 
 interface CharityCardProps {
   imageAsset: string;
@@ -14,7 +14,7 @@ export const CharityCard: FC<CharityCardProps> = (props) => (
   <div className="relative rounded-md shadow-lg cursor-pointer">
     <div className="relative pt-full">
       <BackgroundImage className="rounded-md" imageAsset={props.imageAsset} />
-      <StatusBadge className="my-2.5 mx-2" status={props.category} />
+      <FeaturedBadge className="my-2.5 mx-2" text={props.category} />
       <DarkBlendTop className="rounded-b-md" />
     </div>
 

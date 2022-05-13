@@ -1,7 +1,11 @@
+import { RoundType } from "./enum/eventType";
+
 export interface CampaignEventRound {
   id: string;
   name: string;
+  type: RoundType;
   supply: number;
+  maxLimit: number;
   mintPrice: number;
   whitelistCondition?: string;
   startDate: Date;

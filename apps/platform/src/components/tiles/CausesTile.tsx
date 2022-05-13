@@ -1,30 +1,28 @@
 import React, { FC } from "react";
+import { Cause } from "../../typed/enum/cause";
 import { LeafIcon } from "../icons/LeafIcon";
 import { BaseTile } from "./BaseTile";
 
 interface CausesTileProps {
-  distributionPercentage: number;
-  causes: string[];
+  charityRoyaltyPercentage: number | undefined;
+  causes: Cause[];
 }
 
-export const CausesTile: FC<CausesTileProps> = (props) => (
-  <BaseTile className="relative w-full bg-white border-2 border-green-400">
-    <div className="absolute top-0 right-0 p-3">
-      <LeafIcon className="w-8 h-8 text-brand-green-active fill-current" />
-    </div>
-    <div className="text-lg font-semibold">
-      <p>
-        Amazingly {props.distributionPercentage}% of sale price goes towards these causes:
-      </p>
-    </div>
+export const CausesTile: FC<CausesTileProps> = ({ charityRoyaltyPercentage, causes }) => (
+  <BaseTile className="bg-white border-2 border-green-400">
+    <LeafIcon className="float-right w-8 h-8 text-brand-green-active fill-current" />
 
-    <div className="flex flex-wrap w-auto mt-4">
-      {props.Cause.map((cause, idx) => (
+    <p className="text-lg font-semibold">
+      Amazingly {charityRoyaltyPercentage}% of sale price goes towards these causes:
+    </p>
+
+    <div className="flex w-auto mt-3">
+      {causes.map((cause, idx) => (
         <div
           key={idx}
-          className="m-1 text-sm lg:text-base font-semibold text-center rounded-md border-2 text-green-600 border-brand-green-active py-2 px-3"
+          className="m-1 py-2 px-3 rounded-full border-2 text-green-600 border-brand-green-active text-xs lg:text-sm font-semibold text-center "
         >
-          {cause}
+          {Cause[cause as keyof typeof Cause]}
         </div>
       ))}
     </div>

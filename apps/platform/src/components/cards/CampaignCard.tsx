@@ -1,25 +1,37 @@
 import React, { FC } from "react";
-import { DarkBlendTop } from "../BoxBlends";
-import { StatusBadge } from "../StatusBadge";
-import { CreatorBadge } from "../CreatorBadge";
+import { useNavigate } from "react-router-dom";
+import { kebabCase } from "lodash";
+
 import { BackgroundImage } from "../BackgroundImage";
+import { DarkBlendTop } from "../BoxBlends";
+import { CreatorBadge } from "../CreatorBadge";
 import { LiveBadge } from "../LiveBadge";
-import { Campaign } from "../../typed/campaign";
+import { FeaturedBadge } from "../FeaturedBadge";
 import { CurrencyIcon } from "../icons/CurrencyIcon";
+import { Campaign } from "../../typed/campaign";
 
 interface CampaignCardProps {
   campaign: Campaign;
 }
 
 export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    return navigate(`campaign/${kebabCase(campaign.title)}`);
+  };
+
   return (
-    <div className="relative w-full rounded-md shadow-lg bg-brand-black select-none cursor-pointer">
+    <div
+      onClick={onClick}
+      className="relative w-full rounded-md shadow-lg bg-brand-black select-none cursor-pointer"
+    >
       <div className="relative pt-full">
         <BackgroundImage
           className="rounded-md"
           imageAsset={campaign.media.campaignTilePreviewUrl}
         />
-        <StatusBadge className="my-2.5 mx-2" status="Featured" />
+        <FeaturedBadge className="my-2.5 mx-2" text="Featured" />
         {campaign.startMintDate < new Date() && (
           <LiveBadge className="absolute top-0 right-0 m-2.5 text-white" />
         )}

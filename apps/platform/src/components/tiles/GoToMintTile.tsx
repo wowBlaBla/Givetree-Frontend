@@ -1,12 +1,10 @@
 import React, { FC } from "react";
-import { StaticImageData } from "next/image";
-import { PrimaryButton, PrimaryLink } from "../PrimaryButton";
+import { PrimaryLink } from "../PrimaryButton";
 import { BackgroundImage } from "../BackgroundImage";
 
 interface GoToMintTileProps {
-  collectionName: string;
-  name: string;
-  imageAsset: StaticImageData | string;
+  linkTo: string;
+  imageAsset: string;
 }
 
 export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
@@ -16,9 +14,7 @@ export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
     </div>
 
     <div className="relative w-full mt-8 text-center">
-      <PrimaryLink to={`/minting/${props.collectionName.toLowerCase()}`}>
-        Go to minting site
-      </PrimaryLink>
+      <PrimaryLink to={`/minting/${props.linkTo}`}>Go to minting site</PrimaryLink>
     </div>
   </div>
 );

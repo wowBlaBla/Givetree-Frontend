@@ -5,7 +5,7 @@ import { SectionTitle } from "../../components/SectionTitle";
 import { CharityCard } from "../../components/cards/CharityCard";
 import { PrimaryButton } from "../../components/PrimaryButton";
 import { Cause } from "../../typed/enum/cause";
-import { GridLayout } from "../../components/GridLayout";
+import { CardGrid } from "../../components/CardGrid";
 
 import ClimateCharityImage from "../../assets/images/impact-partner-climate.png";
 import ZambiImage from "../../assets/images/zambi.png";
@@ -26,7 +26,7 @@ export const CharityListingsContainer = () => {
           <PrimaryButton className="w-auto">Register now</PrimaryButton>
         </div>
 
-        <GridLayout>
+        <CardGrid>
           <CharityCard
             imageAsset={ClimateCharityImage.src}
             partnerName="Carbon Climate Change Society"
@@ -87,7 +87,7 @@ export const CharityListingsContainer = () => {
             partnerName="You Turn It Up Charity"
             category={Cause.FightHomelessness}
           />
-        </GridLayout>
+        </CardGrid>
       </div>
     </div>
   );

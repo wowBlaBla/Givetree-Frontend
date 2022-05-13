@@ -1,29 +1,39 @@
 import React from "react";
 import Head from "next/head";
-import Slider from "react-slick";
 import { PlatformRoute } from "../../configs/routes";
 
 import { CampaignCard } from "../../components/cards/CampaignCard";
 import { MainBanner } from "../../components/MainBanner";
 import { OutlineLink } from "../../components/OutlineButton";
 import { SectionTitle } from "../../components/SectionTitle";
-import { GridLayout } from "../../components/GridLayout";
+import { CardGrid } from "../../components/CardGrid";
 
 import GiveTreeBgImg from "./../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "./../../assets/images/mulga-bg-image.png";
-import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
-import { genGenopetsCampaignData } from "../../fixtures/campaign/genopets";
+import { gql, useQuery } from "@apollo/client";
+import { Campaign } from "../../typed/campaign";
+import { Carousel } from "../../components/Carousel";
+
+interface GetCampaignsDataQuery {
+  campaigns: Campaign[];
+}
+
+const GET_CAMPAIGNS_DATA = gql`
+  query GetCampaigns {
+    campaigns @client
+  }
+`;
 
 export const HomeContainer = () => {
-  const sliderProps = {
-    autoplay: true,
-    autoplaySpeed: 5000,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  const { data, loading } = useQuery<GetCampaignsDataQuery>(GET_CAMPAIGNS_DATA);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No Campaigns Found</div>;
+  }
 
   return (
     <div className="w-full mx-auto">
@@ -34,7 +44,7 @@ export const HomeContainer = () => {
       </Head>
 
       <div className="relative">
-        <Slider {...sliderProps}>
+        <Carousel>
           <MainBanner
             height="h-96 xl:h-128"
             imageAsset={GiveTreeBgImg.src}
@@ -55,16 +65,17 @@ export const HomeContainer = () => {
             ctaLink1={PlatformRoute.CampaignListing}
             ctaLink1Text="Go to launchpad"
           />
-        </Slider>
+        </Carousel>
       </div>
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <SectionTitle>Upcoming Collections</SectionTitle>
 
-        <GridLayout>
-          <CampaignCard campaign={genMulgakongzCampaignData()} />
-          <CampaignCard campaign={genGenopetsCampaignData()} />
-        </GridLayout>
+        <CardGrid>
+          {data.campaigns.map((campaign, idx) => (
+            <CampaignCard key={idx} campaign={campaign} />
+          ))}
+        </CardGrid>
 
         <div className="flex justify-center mt-8">
           <OutlineLink to={PlatformRoute.CampaignListing}>

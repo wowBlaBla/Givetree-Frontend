@@ -7,7 +7,7 @@ import { SupportedPlatform } from "./enum/supportedPlatform";
 export interface Campaign {
   id: string;
   title: string;
-  name: string;
+  slug: string;
   shortDescription?: string;
   longDescription?: string;
   media: {
@@ -22,12 +22,13 @@ export interface Campaign {
   floorPrice: number;
   totalSupply: number;
   startMintDate: Date;
+  endMintDate: Date;
   isVerified?: boolean;
   websiteUrl?: string;
   discordUrl?: string;
   twitterUrl?: string;
   contractUrl?: string;
-  nomatedChartiy: Charity;
+  nominatedCharity: Charity;
   royalties: RoyaltyDetails[];
   creators: ContentCreator[];
   whitelistMemo?: string;

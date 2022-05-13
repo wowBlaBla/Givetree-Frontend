@@ -31,10 +31,10 @@ interface GenRoyaltyParams {
 }
 
 export const genRoyalty = (x?: Partial<GenRoyaltyParams>): RoyaltyDetails[] => {
-  const platform = x?.platform ?? genGiveTreeRoyalty();
-  const charity = x?.charity ?? genCharityRoyalty();
+  const platform = x?.platform || genGiveTreeRoyalty();
+  const charity = x?.charity || genCharityRoyalty();
   const contentCreator =
-    x?.contentCreator ??
+    x?.contentCreator ||
     genContentCreatorRoyalty({
       amountInPercentage: 100 - platform.amountInPercentage - charity.amountInPercentage,
     });
