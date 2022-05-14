@@ -2,20 +2,23 @@ import React, { FC } from "react";
 import cx from "classnames";
 
 import { BaseTile } from "./BaseTile";
-// import { CountdownTimer } from "../CountdownTimer";
+import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundTitle } from "../EventRoundTitle";
 import { LiveBadge } from "../LiveBadge";
 import { PillBox } from "../PillBox";
 import { RoundType } from "../../typed/enum/eventType";
+import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 
 interface EventRoundTileProps {
-  type: RoundType | string;
+  type: RoundType;
   whitelistCondition?: string;
   startDate: Date | number;
   endDate: Date | number;
   supplyCount: number;
   maxToken: number;
   mintPrice: number;
+  currency: SupportedPlatform;
+  isFirstRound?: boolean;
 }
 
 export const EventRoundTile: FC<EventRoundTileProps> = ({
@@ -26,6 +29,8 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
   supplyCount,
   maxToken,
   mintPrice,
+  currency,
+  isFirstRound,
 }) => {
   const currentDate = new Date();
   const hasStarted = currentDate < startDate && currentDate > endDate;
@@ -44,6 +49,7 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
 
       <div className="flex flex-col space-y-2">
         <EventRoundTitle type={type} />
+
         {type === RoundType.WhitelistToken && (
           <p className="space-x-1 text-sm sm:text-base">
             <span>{whitelistCondition}</span>
@@ -59,18 +65,18 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
         )}
       </div>
 
-      {/* {type !== RoundType.WhitelistToken && (
-      <CountdownTimer
-        className="mt-2 text-gray-800"
-        startDate={startDate}
-        endDate={endDate}
-      />
-    )} */}
+      {type !== RoundType.WhitelistToken && !isFirstRound && (
+        <CountdownTimer
+          className="mt-2 text-gray-800"
+          startDate={startDate}
+          endDate={endDate}
+        />
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-4 mt-5">
         <PillBox title="Supply" value={supplyCount} />
         <PillBox title="Max Token" value={maxToken} />
-        <PillBox title="Mint Price" value={`${mintPrice} SOL`} />
+        <PillBox title="Mint Price" value={mintPrice} currency={currency} />
       </div>
     </BaseTile>
   );

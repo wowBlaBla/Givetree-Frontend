@@ -1,34 +1,23 @@
 import React, { FC } from "react";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
+import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
 // import * as yup from "yup";
 
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
-
-// import { DarkBlendTop } from "../../../components/BoxBlends";
 import { BackgroundImage } from "../../../components/BackgroundImage";
-// import { FeaturedBadge } from "../../../components/FeaturedBadge";
-// import { VerificationBadge } from "../../../components/VerificationBadge";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SocialsGrid } from "../../../components/SocialsGrid";
-// import { CurrencyIcon } from "../../../components/icons/CurrencyIcon";
-// import { EventRoundListingTile } from "../../../components/tiles/EventRoundListingTile";
+import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
 import { CharityTile } from "../../../components/tiles/CharityTile";
 import { CausesTile } from "../../../components/tiles/CausesTile";
 import { ContentCreatorTile } from "../../../components/tiles/ContentCreatorTile";
 import { CollectionDetailTile } from "../../../components/tiles/CollectionDetailTile";
 import { GoToMintTile } from "../../../components/tiles/GoToMintTile";
-// import { genCharityRoyalty, genRoyalty } from "../../../fixtures/royalties";
-// import ReactMarkdown from "react-markdown";
-// import { BaseTile } from "../../../components/tiles/BaseTile";
-// import { CountdownTimer } from "../../../components/CountdownTimer";
-// import { EventRoundTile } from "../../../components/tiles/EventRoundTile";
-// import { RoundType } from "../../../typed/enum/eventType";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
-import { EventRoundListingTile } from "../../../components/tiles/EventRoundListingTile";
 
 // interface CampaignDetailsParams {
 //   campaignName: string;
@@ -105,10 +94,11 @@ export const CampaignDetailsContainer: FC = () => {
               causes={data.campaign.nominatedCharity.causes}
             />
 
-            <EventRoundListingTile
+            <MintingEventTile
               rounds={data.campaign.event.rounds}
               startDate={data.campaign.startMintDate}
               endDate={data.campaign.endMintDate}
+              currency={data.campaign.currency}
             />
           </div>
 
@@ -148,9 +138,9 @@ export const CampaignDetailsContainer: FC = () => {
               twitterUrl={data.campaign.twitterUrl}
               discordUrl={data.campaign.discordUrl}
             />
-          </div>
 
-          {/* <ReactMarkdown>{data.campaign.longDescription}</ReactMarkdown> */}
+            <ReactMarkdown>{data.campaign.longDescription}</ReactMarkdown>
+          </div>
         </div>
       </div>
     </div>

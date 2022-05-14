@@ -11,7 +11,7 @@ export const genGiveTreeRoyalty = (x?: Partial<RoyaltyDetails>): RoyaltyDetails 
 export const genCharityRoyalty = (x?: Partial<RoyaltyDetails>): RoyaltyDetails => ({
   type: RoyaltyType.CharityDonation,
   walletAddress: gen.datatype.uuid(),
-  amountInPercentage: gen.datatype.number(10),
+  amountInPercentage: gen.datatype.number({ min: 1, max: 10 }),
   ...x,
 });
 
@@ -20,7 +20,7 @@ export const genContentCreatorRoyalty = (
 ): RoyaltyDetails => ({
   type: RoyaltyType.ContentCreator,
   walletAddress: gen.datatype.uuid(),
-  amountInPercentage: gen.datatype.number(10),
+  amountInPercentage: gen.datatype.number({ min: 1, max: 98 }),
   ...x,
 });
 

@@ -9,9 +9,9 @@ interface ContentCreatorTileProps {
 }
 
 export const ContentCreatorTile: FC<ContentCreatorTileProps> = (props) => (
-  <div className="flex flex-col lg:flex-row pb-10 border-b-[3px]">
+  <div className="flex flex-col lg:flex-row lg:items-start pb-10 border-b-[3px]">
     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start sm:space-x-3">
-      <div className="relative w-24 h-24 sm:w-30 sm:h-30">
+      <div className="relative w-24 h-24">
         <BackgroundImage
           className="min-w-full min-h-full rounded-full"
           imageAsset={props.imageAsset}
@@ -19,12 +19,12 @@ export const ContentCreatorTile: FC<ContentCreatorTileProps> = (props) => (
       </div>
 
       <div className="flex flex-col items-center sm:items-start space-y-3">
-        <h4 className="flex items-center text-xl sm:text-2xl space-x-1 font-medium">
+        <h4 className="flex items-center text-lg sm:text-xl space-x-1 font-medium">
           <span className="text-black">by</span>
           <span className="whitespace-nowrap text-brand-orange">{props.name}</span>
         </h4>
 
-        <VerificationBadge />
+        <VerificationBadge text="Verified Creator" />
       </div>
     </div>
 

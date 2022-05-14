@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "./BackgroundImage";
-import { DarkBlendTop } from "./BoxBlends";
+import { DarkBlend } from "./BoxBlends";
 import { FeaturedBadge } from "./FeaturedBadge";
 import { CurrencyIcon } from "./icons/CurrencyIcon";
 import { SupportedPlatform } from "../typed/enum/supportedPlatform";
@@ -30,7 +30,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
       <BackgroundImage imageAsset={backgroundImage} />
 
       <div className="absolute bottom-0 w-full z-10">
-        <DarkBlendTop xlarge />
+        <DarkBlend bottom xlarge />
       </div>
 
       <div className="flex items-end w-full min-h-full mx-auto max-w-screen-3xl">
@@ -50,13 +50,8 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 
             <h3 className="flex items-center whitespace-nowrap">
               Starting from {floorPrice}{" "}
-              {
-                <CurrencyIcon
-                  className="w-5 h-5 sm:w-8 sm:h-8 mx-1"
-                  currency={currency}
-                />
-              }{" "}
-              per mint
+              {<CurrencyIcon className="w-5 h-5 mx-1 xl:mx-2" currency={currency} />} per
+              mint
             </h3>
           </div>
 

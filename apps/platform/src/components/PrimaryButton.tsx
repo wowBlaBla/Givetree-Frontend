@@ -23,14 +23,14 @@ interface ButtonProps {
   large?: boolean;
 }
 
-export const PrimaryButton: FC<ButtonProps> = (props) => (
+export const PrimaryButton: FC<ButtonProps> = ({ className, large, type, children }) => (
   <button
-    className={cx(ButtonStyles, props.className, {
-      "text-lg lg:text-xl": props.large,
+    className={cx(ButtonStyles, className, {
+      "text-lg lg:text-xl": large,
     })}
-    type={props.type || "button"}
+    type={type || "button"}
   >
-    {props.children}
+    {children}
   </button>
 );
 

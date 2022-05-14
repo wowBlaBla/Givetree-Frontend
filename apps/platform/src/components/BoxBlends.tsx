@@ -2,37 +2,29 @@ import React, { FC } from "react";
 import cx from "classnames";
 
 interface BlendProps {
+  className?: string;
   small?: boolean;
   large?: boolean;
   xlarge?: boolean;
+  top?: boolean;
+  bottom?: boolean;
 }
 
-export const DarkBlendTop: FC<BlendProps> = (props) => (
-  <div className="absolute bottom-0 w-full z-10">
-    <div
-      className={cx(
-        "relative w-full h-16 bg-gradient-to-t from-brand-black to-transparent",
-        {
-          "h-10": props.small,
-          "h-32": props.large,
-          "h-72": props.xlarge,
-        }
-      )}
-    />
-  </div>
-);
-
-export const DarkBlendBottom: FC<BlendProps> = (props) => (
-  <div className="absolute bottom-0 w-full z-10">
-    <div
-      className={cx(
-        "relative w-full h-16 bg-gradient-to-b from-transparent to-brand-black",
-        {
-          "h-10": props.small,
-          "h-32": props.large,
-          "h-72": props.xlarge,
-        }
-      )}
-    />
-  </div>
+export const DarkBlend: FC<BlendProps> = ({
+  className,
+  small,
+  large,
+  xlarge,
+  top,
+  bottom,
+}) => (
+  <div
+    className={cx("absolute w-full from-brand-black to-transparent", className, {
+      "top-0 bg-gradient-to-b": top,
+      "bottom-0 bg-gradient-to-t": bottom,
+      "h-16": small,
+      "h-12 sm:h-32": large,
+      "h-12 sm:h-72": xlarge,
+    })}
+  />
 );

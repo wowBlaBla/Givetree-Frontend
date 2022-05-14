@@ -2,12 +2,15 @@ import React, { FC } from "react";
 import cx from "classnames";
 import { useCountDown } from "../hooks/useCountdown";
 import { RoundType } from "../typed/enum/eventType";
+import { string } from "yup";
+import { getEventRoundStatus } from "../utils/getEventRoundStatus";
 
 interface ShowCounterProps {
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
+  text?: string;
   includeBgColor?: boolean;
 }
 
@@ -16,6 +19,7 @@ const ShowCounter: FC<ShowCounterProps> = ({
   hours,
   minutes,
   seconds,
+  text,
   includeBgColor,
 }) => {
   return (
@@ -24,7 +28,7 @@ const ShowCounter: FC<ShowCounterProps> = ({
         "bg-brand-orange rounded-md px-2 py-1": includeBgColor,
       })}
     >
-      {days} days {hours} hours {minutes} minutes {seconds} seconds
+      {text} {days} days {hours} hours {minutes} minutes {seconds} seconds
     </div>
   );
 };
@@ -42,19 +46,16 @@ export const CountdownTimer: FC<CountDownTimerProps> = ({
 }) => {
   const eventStartDate = useCountDown(startDate);
   const eventEndDate = useCountDown(endDate);
-
-  const hasEventStarted =
-    eventStartDate.reduce((accumulator, time) => accumulator + time) <= 0;
-  const hasEventEnded =
-    eventEndDate.reduce((accumulator, time) => accumulator + time) <= 0;
+  const hasEventStarted = getEventRoundStatus(eventStartDate);
+  const hasEventEnded = getEventRoundStatus(eventEndDate);
 
   if (hasEventEnded) {
     return <div className={className}>Event has ended</div>;
   } else if (hasEventStarted) {
     return (
       <div className={className}>
-        Ends in
         <ShowCounter
+          text="Ends in"
           days={eventEndDate[0]}
           hours={eventEndDate[1]}
           minutes={eventEndDate[2]}
@@ -65,8 +66,8 @@ export const CountdownTimer: FC<CountDownTimerProps> = ({
   } else {
     return (
       <div className={className}>
-        Starts in
         <ShowCounter
+          text="Starts in"
           days={eventStartDate[0]}
           hours={eventStartDate[1]}
           minutes={eventStartDate[2]}

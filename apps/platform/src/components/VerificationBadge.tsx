@@ -18,8 +18,8 @@ export const VerificationBadge: FC<VerificationBadgeProps> = ({
       "flex items-center py-1 px-2 space-x-1 text-brand-green-active border-hexagon border-brand-green-active text-sm font-semibold",
       className,
       {
-        "text-xs sm:text-sm xl:text-base": !large,
-        "text-base sm:text-lg xl:text-xl": large,
+        "text-xs sm:text-sm": !large,
+        "text-base sm:text-lg": large,
       }
     )}
   >

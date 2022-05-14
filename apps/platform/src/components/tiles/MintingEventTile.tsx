@@ -3,19 +3,23 @@ import { BaseTile } from "./BaseTile";
 import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundTile } from "./EventRoundTile";
 import { CampaignEventRound } from "../../typed/campaign-event";
+import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 
-interface EventRoundListingTileProps {
+interface MintingEventTileProps {
   startDate: Date;
   endDate: Date;
   rounds: CampaignEventRound[];
+  currency: SupportedPlatform;
 }
 
-export const EventRoundListingTile: FC<EventRoundListingTileProps> = ({
+export const MintingEventTile: FC<MintingEventTileProps> = ({
   rounds,
   startDate,
   endDate,
+  currency,
 }) => {
   const hasMintStarted = startDate < new Date();
+
   return (
     <BaseTile className="w-full bg-brand-black text-white">
       <h3 className="text-2xl lg:text-3xl font-semibold">Minting event</h3>
@@ -36,6 +40,8 @@ export const EventRoundListingTile: FC<EventRoundListingTileProps> = ({
         mintPrice={rounds[0].mintPrice}
         startDate={rounds[0].startDate}
         endDate={rounds[0].endDate}
+        currency={currency}
+        isFirstRound
       />
 
       <h6 className="my-4 sm:my-6 text-lg sm:text-xl font-medium">Followed by</h6>
@@ -52,6 +58,7 @@ export const EventRoundListingTile: FC<EventRoundListingTileProps> = ({
                 mintPrice={round.mintPrice}
                 startDate={round.startDate}
                 endDate={round.endDate}
+                currency={currency}
               />
             </div>
           );

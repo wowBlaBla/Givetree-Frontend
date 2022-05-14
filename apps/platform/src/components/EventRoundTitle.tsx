@@ -5,7 +5,7 @@ import { LockIcon } from "./icons/LockIcon";
 import { RoundType } from "../typed/enum/eventType";
 
 interface EventRoundTitleProps {
-  type: RoundType | string;
+  type: RoundType;
 }
 
 export const EventRoundTitle: FC<EventRoundTitleProps> = ({ type }) => {
