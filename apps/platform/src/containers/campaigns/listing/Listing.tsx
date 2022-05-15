@@ -9,10 +9,31 @@ import { PlatformRoute } from "../../../configs/routes";
 
 import GiveTreeBgImg from "../../../assets/images/givtree-bg-image.png";
 import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
-import { genMulgakongzCampaignData } from "../../../fixtures/campaign/mulgakongz";
 import { Carousel } from "../../../components/Carousel";
+import { gql, useQuery } from "@apollo/client";
+import { Campaign } from "../../../typed/campaign";
+
+interface GetCampaignsDataQuery {
+  campaigns: Campaign[];
+}
+
+const GET_CAMPAIGNS_DATA = gql`
+  query GetCampaigns {
+    campaigns @client
+  }
+`;
 
 export const CampaignListingContainer = (): JSX.Element => {
+  const { data, loading } = useQuery<GetCampaignsDataQuery>(GET_CAMPAIGNS_DATA);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <div>No Campaigns Found</div>;
+  }
+
   return (
     <div>
       <Head>
@@ -50,7 +71,9 @@ export const CampaignListingContainer = (): JSX.Element => {
 
       <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
         <CardGrid>
-          <CampaignCard campaign={genMulgakongzCampaignData()} />
+          {data.campaigns.map((campaign, idx) => (
+            <CampaignCard key={idx} campaign={campaign} />
+          ))}
         </CardGrid>
       </div>
     </div>
