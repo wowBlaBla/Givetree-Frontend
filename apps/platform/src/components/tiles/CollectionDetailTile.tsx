@@ -31,7 +31,7 @@ export const CollectionDetailTile: FC<CollectionDetailTileProps> = ({
   discordUrl,
   contractUrl,
 }) => (
-  <BaseTile className="relative w-full bg-white">
+  <BaseTile className="bg-white">
     {isLive && (
       <LiveBadge
         className="absolute top-0 right-0 m-2.5 text-red-600"

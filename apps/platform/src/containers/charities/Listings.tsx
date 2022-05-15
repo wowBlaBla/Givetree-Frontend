@@ -29,63 +29,23 @@ export const CharityListingsContainer = () => {
         <CardGrid>
           <CharityCard
             imageAsset={ClimateCharityImage.src}
-            partnerName="Carbon Climate Change Society"
-            category={Cause.ClimateAction}
+            name="Carbon Climate Change Society"
+            cause={Cause.ClimateAction}
           />
           <CharityCard
             imageAsset={ZambiImage.src}
-            partnerName="Zambi Native Wildlife Sanctuary"
-            category={Cause.WildlifePreservation}
+            name="Zambi Native Wildlife Sanctuary"
+            cause={Cause.WildlifePreservation}
           />
           <CharityCard
             imageAsset={OceanCleanupImage.src}
-            partnerName="The Ocean Cleanup"
-            category={Cause.Environment}
+            name="The Ocean Cleanup"
+            cause={Cause.Environment}
           />
           <CharityCard
             imageAsset={YTIUImage.src}
-            partnerName="You Turn It Up Charity"
-            category={Cause.FightHomelessness}
-          />
-          <CharityCard
-            imageAsset={ClimateCharityImage.src}
-            partnerName="Carbon Climate Change Society"
-            category={Cause.ClimateAction}
-          />
-          <CharityCard
-            imageAsset={ZambiImage.src}
-            partnerName="Zambi Native Wildlife Sanctuary"
-            category={Cause.WildlifePreservation}
-          />
-          <CharityCard
-            imageAsset={OceanCleanupImage.src}
-            partnerName="The Ocean Cleanup"
-            category={Cause.Environment}
-          />
-          <CharityCard
-            imageAsset={YTIUImage.src}
-            partnerName="You Turn It Up Charity"
-            category={Cause.FightHomelessness}
-          />
-          <CharityCard
-            imageAsset={ClimateCharityImage.src}
-            partnerName="Carbon Climate Change Society"
-            category={Cause.ClimateAction}
-          />
-          <CharityCard
-            imageAsset={ZambiImage.src}
-            partnerName="Zambi Native Wildlife Sanctuary"
-            category={Cause.WildlifePreservation}
-          />
-          <CharityCard
-            imageAsset={OceanCleanupImage.src}
-            partnerName="The Ocean Cleanup"
-            category={Cause.Environment}
-          />
-          <CharityCard
-            imageAsset={YTIUImage.src}
-            partnerName="You Turn It Up Charity"
-            category={Cause.FightHomelessness}
+            name="You Turn It Up Charity"
+            cause={Cause.FightHomelessness}
           />
         </CardGrid>
       </div>

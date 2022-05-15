@@ -45,10 +45,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
       )}
 
       <div className="relative pt-full">
-        <BackgroundImage
-          className="rounded-t-xl"
-          imageAsset={campaign.media.campaignTilePreviewUrl}
-        />
+        <BackgroundImage imageAsset={campaign.media.campaignTilePreviewUrl} />
 
         <DarkBlend bottom small />
       </div>

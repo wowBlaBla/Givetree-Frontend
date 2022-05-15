@@ -11,14 +11,15 @@ interface CharityCardProps {
 }
 
 export const CharityCard: FC<CharityCardProps> = ({ cause, imageAsset, name }) => (
-  <div className="relative rounded-lg shadow-lg cursor-pointer overflow-hidden">
+  <div className="relative w-full rounded-xl shadow-lg cursor-pointer overflow-hidden">
     <div className="relative pt-full">
-      <BackgroundImage imageAsset={imageAsset} />
       <FeaturedBadge className="my-2.5 mx-2" text={cause} />
-      <DarkBlend bottom small />
+      <BackgroundImage imageAsset={imageAsset} />
     </div>
 
-    <p className="absolute bottom-0 w-full rounded-md text-center py-2 text-white text-xs sm:text-lg z-10">
+    <DarkBlend bottom small />
+
+    <p className="absolute bottom-0 w-full rounded-md text-center py-2  text-white text-xs sm:text-lg z-10">
       {name}
     </p>
   </div>

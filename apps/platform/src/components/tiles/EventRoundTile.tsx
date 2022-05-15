@@ -37,7 +37,7 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
 
   return (
     <BaseTile
-      className={cx("relative mt-5 bg-white text-brand-black", {
+      className={cx("mt-5 bg-white text-brand-black", {
         "border-[3px] border-red-600": isLive,
       })}
     >

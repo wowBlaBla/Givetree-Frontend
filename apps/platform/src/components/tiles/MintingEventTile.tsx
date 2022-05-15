@@ -21,7 +21,7 @@ export const MintingEventTile: FC<MintingEventTileProps> = ({
   const hasMintStarted = startDate > new Date();
 
   return (
-    <BaseTile className="w-full bg-brand-black text-white">
+    <BaseTile className="bg-brand-black text-white">
       <h3 className="text-2xl lg:text-3xl font-semibold">Minting event</h3>
 
       {!hasMintStarted && (

@@ -8,7 +8,7 @@ interface GoToMintTileProps {
 }
 
 export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
-  <div className="relative flex flex-col w-full pb-6 item-center sm:pb-12">
+  <div className="flex relative flex-col item-center w-full pb-6 sm:pb-12">
     <div className="relative pt-full">
       <BackgroundImage className="shadow-lg rounded-xl" imageAsset={props.imageAsset} />
     </div>

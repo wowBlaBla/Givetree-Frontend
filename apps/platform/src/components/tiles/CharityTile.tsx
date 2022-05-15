@@ -9,7 +9,7 @@ interface CharityTileProps {
 }
 
 export const CharityTile: FC<CharityTileProps> = (props) => (
-  <BaseTile className="relative w-full bg-gray-100">
+  <BaseTile className="bg-gray-100">
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center w-48 h-48 lg:w-72 lg:h-72 mx-auto">
         <BackgroundImage className="w-full rounded-full" imageAsset={props.imageAsset} />
