@@ -13,7 +13,7 @@ export const BackButton: FC<BackButtonProps> = ({ className }) => {
   return (
     <div
       className={cx(
-        "flex items-center space-x-1 whitespace-nowrap font-semibold text-base sm:text-lg hover:text-brand-orange transition-hover",
+        "flex items-center space-x-1 whitespace-nowrap font-semibold text-base sm:text-lg hover:text-brand-orange transition-hover cursor-pointer",
         className
       )}
       onClick={goBack}

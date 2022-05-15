@@ -26,7 +26,7 @@ interface SocialsGridProps {
 }
 
 export const SocialsGrid: FC<SocialsGridProps> = (props) => (
-  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4 mt-5">
+  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4 w-full max-w-lg mt-5">
     {props.websiteUrl && <ExternalLink href={props.websiteUrl}>Website</ExternalLink>}
     {props.twitterUrl && <ExternalLink href={props.twitterUrl}>Twitter</ExternalLink>}
     {props.discordUrl && <ExternalLink href={props.discordUrl}>Discord</ExternalLink>}

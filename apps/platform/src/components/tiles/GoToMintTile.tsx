@@ -13,7 +13,7 @@ export const GoToMintTile: FC<GoToMintTileProps> = (props) => (
       <BackgroundImage className="shadow-lg rounded-xl" imageAsset={props.imageAsset} />
     </div>
 
-    <div className="relative w-full mt-8 text-center">
+    <div className="relative w-full mt-8 sm:mt-12 text-center">
       <PrimaryLink to={`/minting/${props.linkTo}`}>Go to minting site</PrimaryLink>
     </div>
   </div>

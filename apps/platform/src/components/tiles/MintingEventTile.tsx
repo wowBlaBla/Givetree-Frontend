@@ -18,7 +18,7 @@ export const MintingEventTile: FC<MintingEventTileProps> = ({
   endDate,
   currency,
 }) => {
-  const hasMintStarted = startDate < new Date();
+  const hasMintStarted = startDate > new Date();
 
   return (
     <BaseTile className="w-full bg-brand-black text-white">
