@@ -12,6 +12,7 @@ import {
   TorusWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { MetaMaskProvider } from "metamask-react";
 
 interface WalletContextProps {
   network: WalletAdapterNetwork;
@@ -42,7 +43,9 @@ export const WalletContext: FC<WalletContextProps> = ({ network, children }) => 
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>{children}</WalletModalProvider>
+        <MetaMaskProvider>
+          <WalletModalProvider>{children}</WalletModalProvider>
+        </MetaMaskProvider>
       </WalletProvider>
     </ConnectionProvider>
   );

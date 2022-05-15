@@ -27,6 +27,7 @@ export const WalletModal: FC<WalletModalProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { wallets, select } = useWallet();
+
   const { setVisible } = useWalletModal();
   const [expanded, setExpanded] = useState(false);
   const [fadeIn, setFadeIn] = useState(false);
@@ -166,7 +167,7 @@ export const WalletModal: FC<WalletModalProps> = ({
             {installedWallets.length ? (
               <>
                 <h1 className="wallet-adapter-modal-title">
-                  Connect a wallet on Solana to continue
+                  Connect a wallet to continue
                 </h1>
                 <ul className="wallet-adapter-modal-list">
                   {installedWallets.map((wallet) => (
