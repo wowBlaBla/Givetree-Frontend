@@ -4,6 +4,7 @@ import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundTile } from "./EventRoundTile";
 import { CampaignEventRound } from "../../typed/campaign-event";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
+import { isEventLive } from "../../utils/getEventStatus";
 
 interface MintingEventTileProps {
   startDate: Date;
@@ -18,13 +19,13 @@ export const MintingEventTile: FC<MintingEventTileProps> = ({
   endDate,
   currency,
 }) => {
-  const hasMintStarted = startDate > new Date();
+  const isLive = isEventLive(new Date(startDate), new Date(endDate));
 
   return (
     <BaseTile className="bg-brand-black text-white">
       <h3 className="text-2xl lg:text-3xl font-semibold">Minting event</h3>
 
-      {!hasMintStarted && (
+      {!isLive && (
         <CountdownTimer
           className="sm:whitespace-nowrap space-x-2 mt-3 text-white text-lg sm:text-xl xl:text-2xl font-semibold"
           startDate={startDate}
