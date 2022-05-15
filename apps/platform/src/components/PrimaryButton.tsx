@@ -1,12 +1,11 @@
 import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
-import { props } from "cypress/types/bluebird";
 
 const ButtonStyles = `
   bg-brand-orange
   text-white
-  rounded-md
+  rounded-lg
   py-2
   px-3
   sm:px-4

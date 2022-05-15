@@ -6,14 +6,14 @@ interface LiveBadgeProps {
   text?: string;
 }
 
-export const LiveBadge: FC<LiveBadgeProps> = (props) => (
+export const LiveBadge: FC<LiveBadgeProps> = ({ className, text }) => (
   <div
     className={cx(
-      "flex items-center space-x-1 whitespace-nowrap font-semibold border-2 rounded-md border-red-600 text-sm py-1 px-2",
-      props.className
+      "flex items-center space-x-1 whitespace-nowrap font-semibold border-2 rounded-lg border-red-600 text-sm py-1 px-2",
+      className
     )}
   >
     <span className="bg-red-600 p-1 rounded-full animate-pulse" />
-    <span>{props.text ?? "Live"}</span>
+    <span>{text ?? "Live"}</span>
   </div>
 );

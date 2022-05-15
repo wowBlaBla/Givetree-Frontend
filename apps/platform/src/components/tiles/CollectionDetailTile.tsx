@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { BaseTile } from "./BaseTile";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { PillBox } from "../PillBox";
-import { LiveBadge } from "../LiveBadge";
+import { LiveBadge } from "../badges/LiveBadge";
 import { SocialsGrid } from "../SocialsGrid";
 
 interface CollectionDetailTileProps {

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import cx from "classnames";
-import { VerificationIcon } from "./icons/VerificationIcon";
+import { VerificationIcon } from "../icons/VerificationIcon";
 
 interface VerificationBadgeProps {
   className?: string;
@@ -15,7 +15,7 @@ export const VerificationBadge: FC<VerificationBadgeProps> = ({
 }) => (
   <div
     className={cx(
-      "flex items-center py-1 px-2 space-x-1 text-brand-green-active border-hexagon border-brand-green-active text-sm font-semibold",
+      "flex items-center py-1 px-2 space-x-1 text-brand-green-active border-2 rounded-lg border-brand-green-active text-sm font-semibold",
       className,
       {
         "text-xs sm:text-sm": !large,

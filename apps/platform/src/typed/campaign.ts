@@ -21,8 +21,8 @@ export interface Campaign {
   currency: SupportedPlatform;
   floorPrice: number;
   totalSupply: number;
-  startMintDate: Date;
-  endMintDate: Date;
+  mintStartDate: Date;
+  mintEndDate: Date;
   isVerified?: boolean;
   websiteUrl?: string;
   discordUrl?: string;

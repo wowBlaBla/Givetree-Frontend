@@ -6,10 +6,11 @@ import ScrollToTop from "./components/ScrollToTop";
 import { PlatformRoute } from "./configs/routes";
 
 import { HomeContainer } from "./containers/home/Home";
-import { CampaignDetailsContainer } from "./containers/campaigns/details/Details";
+import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
 import { CharityListingsContainer } from "./containers/charities/Listings";
 import { MintEventContainer } from "./containers/mint-event/MintEvent";
+import { CharityDetailsContainer } from "./containers/charities/detail/Details";
 
 const App = () => (
   <Router>
@@ -36,6 +37,11 @@ const App = () => (
             <Route
               path={PlatformRoute.CharityListing}
               element={<CharityListingsContainer />}
+            />
+
+            <Route
+              path={PlatformRoute.CharityDetails}
+              element={<CharityDetailsContainer />}
             />
 
             <Route path="*" element={<HomeContainer />} />

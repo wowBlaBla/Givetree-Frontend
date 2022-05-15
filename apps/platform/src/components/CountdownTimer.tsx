@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import cx from "classnames";
 import { useCountDown } from "../hooks/useCountdown";
-import { RoundType } from "../typed/enum/eventType";
-import { string } from "yup";
-import { getEventRoundStatus } from "../utils/getEventRoundStatus";
+import { getEventRoundStatus } from "../utils/getEventStatus";
 
 interface ShowCounterProps {
   days: number;

@@ -1,21 +1,19 @@
 import React, { FC } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
-import { Link, useParams } from "react-router-dom";
 
 import { GetMintingEventDataQuery, GET_MINTING_EVENT_DATA } from "./MintEventData";
 
 import { BackgroundImage } from "../../components/BackgroundImage";
-import { VerificationBadge } from "../../components/VerificationBadge";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 import { PrimaryButton } from "../../components/PrimaryButton";
-import { LiveBadge } from "../../components/LiveBadge";
-import { PlatformRoute } from "../../configs/routes";
-import { CurrencyIcon } from "../../components/icons/CurrencyIcon";
-import { getCurrency } from "../../utils/getCurrency";
+import { LiveBadge } from "../../components/badges/LiveBadge";
 import { Currency } from "../../components/Currency";
-import { DarkBlendBottom, DarkBlend } from "../../components/BoxBlends";
-import { ContentCreatorBadge } from "../../components/ContentCreatorBadge";
+import { DarkBlend } from "../../components/BoxBlends";
+import { ContentCreatorBadge } from "../../components/badges/ContentCreatorBadge";
+import { PlatformRoute } from "../../configs/routes";
+import { BackButton } from "../../components/BackButton";
 
 export const MintEventContainer: FC = () => {
   const params = useParams();
@@ -43,10 +41,11 @@ export const MintEventContainer: FC = () => {
       <div className="flex flex-1 justify-center items-center w-full h-full m-auto py-10 p-5">
         <div className="absolute top-0 w-full h-48 z-20 bg-gradient-to-b from-brand-black to-transparent" />
 
-        <div className="flex justify-center relative rounded-lg w-full max-w-3xl m-auto p-5 text-center">
+        <div className="flex justify-center relative rounded-lg w-full max-w-3xl m-auto text-center">
           <div className="absolute w-full h-full bg-black bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl z-0"></div>
+          <BackButton className="absolute top-0 left-0 m-3 sm:m-5 z-50 text-white" />
 
-          <div className="flex relative flex-col justify-center items-center pt-10 pb-5 z-40">
+          <div className="flex relative flex-col justify-center items-center w-full sm:w-2/5 pt-10 pb-5 z-40">
             <div className="flex justify-center mt-5">
               <LiveBadge className="text-white" />
             </div>
@@ -67,7 +66,7 @@ export const MintEventContainer: FC = () => {
               </h1>
             </div>
 
-            <div className="flex flex-col space-y-10 sm:space-y-12 justify-center items-center w-full mt-12">
+            <div className="flex flex-col space-y-10 sm:space-y-12 justify-center items-center w-full mt-12 px-3">
               <div className="flex flex-col w-full item-center">
                 <div className="relative w-full h-full pt-full">
                   <BackgroundImage
@@ -93,8 +92,7 @@ export const MintEventContainer: FC = () => {
               <ContentCreatorBadge
                 avatarUrl={data.campaign.creators[0].media.previewUrl}
                 name={data.campaign.creators[0].name}
-                large
-                isVerified
+                isVerified={data.campaign.creators[0].isVerified}
               />
             </div>
           </div>

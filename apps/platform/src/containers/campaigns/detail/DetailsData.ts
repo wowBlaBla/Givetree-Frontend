@@ -24,8 +24,8 @@ export const GET_CAMPAIGN_DETAILS_DATA = gql`
       currency
       floorPrice
       totalSupply
-      startMintDate
-      endMintDate
+      mintStartDate
+      mintEndDate
       isVerified
       websiteUrl
       discordUrl

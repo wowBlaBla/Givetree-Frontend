@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "./BackgroundImage";
 import { DarkBlend } from "./BoxBlends";
-import { FeaturedBadge } from "./FeaturedBadge";
+import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { CurrencyIcon } from "./icons/CurrencyIcon";
 import { SupportedPlatform } from "../typed/enum/supportedPlatform";
-import { VerificationBadge } from "./VerificationBadge";
+import { VerificationBadge } from "./badges/VerificationBadge";
 
 interface CampaignBannerHeaderProps {
   backgroundImage: string;

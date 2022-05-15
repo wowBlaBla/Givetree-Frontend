@@ -4,11 +4,12 @@ import { kebabCase } from "lodash";
 
 import { BackgroundImage } from "../BackgroundImage";
 import { DarkBlend } from "../BoxBlends";
-import { ContentCreatorBadge } from "../ContentCreatorBadge";
-import { LiveBadge } from "../LiveBadge";
-import { FeaturedBadge } from "../FeaturedBadge";
+import { ContentCreatorBadge } from "../badges/ContentCreatorBadge";
+import { LiveBadge } from "../badges/LiveBadge";
+import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { CurrencyIcon } from "../icons/CurrencyIcon";
 import { Campaign } from "../../typed/campaign";
+import { isEventLive } from "../../utils/getEventStatus";
 
 interface ItemBoxProps {
   children: ReactNode;
@@ -26,6 +27,7 @@ interface CampaignCardProps {
 
 export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const navigate = useNavigate();
+  const isLive = isEventLive(campaign.mintStartDate, campaign.mintEndDate);
 
   const onClick = () => {
     return navigate(`campaign/${kebabCase(campaign.title)}`);
@@ -36,38 +38,40 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
       onClick={onClick}
       className="relative w-full rounded-xl shadow-lg bg-brand-black select-none cursor-pointer overflow-hidden"
     >
+      {isLive ? (
+        <LiveBadge className="absolute top-0 right-0 m-2.5 text-white z-10" />
+      ) : (
+        <FeaturedBadge className="absolute top-0 right-0 m-2.5 z-10" text="Featured" />
+      )}
+
       <div className="relative pt-full">
         <BackgroundImage
           className="rounded-t-xl"
           imageAsset={campaign.media.campaignTilePreviewUrl}
         />
-        <FeaturedBadge className="my-2.5 mx-2" text="Featured" />
-        {campaign.startMintDate < new Date() && (
-          <LiveBadge className="absolute top-0 right-0 m-2.5 text-white" />
-        )}
+
         <DarkBlend bottom small />
       </div>
 
-      <div className="flex flex-col w-full rounded-lg justify-end bg-brand-black mt-12">
+      <div className="flex flex-col w-full rounded-lg justify-end bg-brand-black -mt-16">
         <ContentCreatorBadge
           avatarUrl={campaign.creators[0].media.previewUrl}
           name={campaign.creators[0].name}
         />
 
-        <div className="flex flex-col justify-center items-center space-y-1 text-white pt-1 z-10">
-          <p className="text-lg sm:text-xl">{campaign.title}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full p-2">
-            <ItemBox>
-              <span>Total items</span>
-              <span className="font-semibold">{campaign.totalSupply}</span>
-            </ItemBox>
-            <ItemBox>
-              <span>
-                Price from <b>{campaign.floorPrice}</b>
-              </span>
-              <CurrencyIcon currency={campaign.currency} className="w-3 h-3" />
-            </ItemBox>
-          </div>
+        <p className="text-center text-white text-lg sm:text-xl">{campaign.title}</p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full p-2 text-white mt-1">
+          <ItemBox>
+            <span>Total items</span>
+            <span className="font-semibold">{campaign.totalSupply}</span>
+          </ItemBox>
+          <ItemBox>
+            <span>
+              Price from <b>{campaign.floorPrice}</b>
+            </span>
+            <CurrencyIcon currency={campaign.currency} className="w-3 h-3" />
+          </ItemBox>
         </div>
       </div>
     </div>

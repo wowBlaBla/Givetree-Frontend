@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const ButtonStyles = `
   border-2
   border-brand-orange
-  rounded-md
+  rounded-lg
 
   py-1
   px-3

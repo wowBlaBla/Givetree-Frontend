@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "../BackgroundImage";
-import { VerificationBadge } from "../VerificationBadge";
+import { VerificationBadge } from "../badges/VerificationBadge";
 
 interface ContentCreatorTileProps {
   name: string;

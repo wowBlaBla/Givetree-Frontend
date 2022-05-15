@@ -13,26 +13,6 @@ img {
   @apply select-none pointer-events-none;
 }
 
-.border-hexagon {
-  @apply border-2 rounded-lg;
-}
-
-.border-hexagon:before,
-.border-hexagon:after {
-  content: "";
-  position: absolute;
-  width: 0;
-}
-
-.border-hexagon:before {
-  bottom: 100%;
-}
-
-.border-hexagon:after {
-  top: 100%;
-  width: 0;
-}
-
 @layer components {
   .transition-hover {
     @apply transition ease-in-out duration-200;

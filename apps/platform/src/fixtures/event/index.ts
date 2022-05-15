@@ -13,7 +13,7 @@ export const genCampaignEventRound = (
   mintPrice: gen.datatype.number({ min: 3, max: 10 }),
   maxLimit: gen.datatype.number({ min: 1, max: 3 }),
   whitelistCondition: gen.lorem.paragraph(),
-  startDate: gen.date.future(2),
+  startDate: gen.date.future(1),
   endDate: gen.date.future(3),
   ...x,
 });
