@@ -14,19 +14,15 @@ export const WalletListItem: FC<WalletListItemProps> = ({
   handleClick,
   tabIndex,
   wallet,
-}) => {
-  return (
-    <li>
-      <Button
-        onClick={handleClick}
-        startIcon={<WalletIcon wallet={wallet} />}
-        tabIndex={tabIndex}
-      >
-        <>
-          {wallet.adapter.name}
-          {wallet.readyState === WalletReadyState.Installed && <span>Detected</span>}
-        </>
-      </Button>
-    </li>
-  );
-};
+}) => (
+  <li>
+    <Button
+      onClick={handleClick}
+      startIcon={<WalletIcon wallet={wallet} />}
+      tabIndex={tabIndex}
+    >
+      {wallet.adapter.name}
+      {wallet.readyState === WalletReadyState.Installed && <span>Detected</span>}
+    </Button>
+  </li>
+);

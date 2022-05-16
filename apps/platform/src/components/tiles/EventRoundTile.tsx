@@ -75,8 +75,8 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-4 mt-5">
         <PillBox title="Supply" value={supplyCount} />
-        <PillBox title="Max Token" value={maxToken} />
-        <PillBox title="Mint Price" value={mintPrice} currency={currency} />
+        <PillBox title="Max token" value={maxToken} />
+        <PillBox title="Mint price" value={mintPrice} currency={currency} />
       </div>
     </BaseTile>
   );

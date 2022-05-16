@@ -23,7 +23,7 @@ const ShowCounter: FC<ShowCounterProps> = ({
   return (
     <div
       className={cx("font-semibold", {
-        "bg-brand-orange rounded-md px-2 py-1": includeBgColor,
+        "bg-brand-orange rounded-lg px-2 py-1": includeBgColor,
       })}
     >
       {text} {days} days {hours} hours {minutes} minutes {seconds} seconds

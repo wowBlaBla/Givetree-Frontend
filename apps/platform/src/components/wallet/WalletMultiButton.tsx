@@ -1,31 +1,43 @@
-import { useWallet } from "@solana/wallet-adapter-react";
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import cx from "classnames";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "./modal/useWalletModal";
+import { WalletModalButton } from "./modal/WalletModalButton";
 import { Button, ButtonProps } from "./Button";
-import { useWalletModal } from "./useWalletModal";
 import { WalletConnectButton } from "./WalletConnectButton";
 import { WalletIcon } from "./WalletIcon";
-import { WalletModalButton } from "./WalletModalButton";
-import cx from "classnames";
+import { useMetaMask } from "metamask-react";
 
 export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
+  const ref = useRef<HTMLUListElement>(null);
   const { publicKey, wallet, disconnect } = useWallet();
+  const { account } = useMetaMask();
   const { setVisible } = useWalletModal();
+
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
-  const ref = useRef<HTMLUListElement>(null);
 
-  const base58 = useMemo(() => publicKey?.toBase58(), [publicKey]);
+  const base58 = useMemo(() => {
+    if (account) {
+      return account;
+    }
+
+    if (publicKey) {
+      return publicKey.toBase58();
+    }
+  }, [account, publicKey]);
+
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if (!wallet || !base58) {
+    if ((!wallet && !account) || !base58) {
       return null;
     }
 
     return base58.slice(0, 4) + ".." + base58.slice(-4);
-  }, [children, wallet, base58]);
+  }, [children, wallet, account, base58]);
 
   const copyAddress = useCallback(async () => {
     if (base58) {
@@ -73,7 +85,7 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  if (!wallet) {
+  if (!wallet && !account) {
     return (
       <WalletModalButton onClick={modalOnClick} {...props}>
         {children}

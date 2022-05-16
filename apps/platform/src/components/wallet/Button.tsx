@@ -2,13 +2,13 @@ import React, {
   CSSProperties,
   FC,
   MouseEventHandler,
-  ReactChild,
   ReactElement,
+  ReactNode,
 } from "react";
 import cx from "classnames";
 
 export interface ButtonProps {
-  children?: ReactChild | null;
+  children?: ReactNode;
   className?: string;
   disabled?: boolean;
   endIcon?: ReactElement;
@@ -18,18 +18,26 @@ export interface ButtonProps {
   tabIndex?: number;
 }
 
-export const Button: FC<ButtonProps> = (props) => (
+export const Button: FC<ButtonProps> = ({
+  className,
+  children,
+  disabled,
+  endIcon,
+  startIcon,
+  onClick,
+  style,
+  tabIndex,
+}) => (
   <button
-    className={cx("wallet-adapter-button", props.className)}
-    disabled={props.disabled}
-    onClick={props.onClick}
-    tabIndex={props.tabIndex || 0}
+    className={cx("wallet-adapter-button", className)}
+    disabled={disabled}
+    onClick={onClick}
+    tabIndex={tabIndex || 0}
     type="button"
+    style={style}
   >
-    {props.startIcon && (
-      <i className="wallet-adapter-button-start-icon">{props.startIcon}</i>
-    )}
-    {props.children}
-    {props.endIcon && <i className="wallet-adapter-button-end-icon">{props.endIcon}</i>}
+    {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
+    {children}
+    {endIcon && <i className="wallet-adapter-button-end-icon">{endIcon}</i>}
   </button>
 );

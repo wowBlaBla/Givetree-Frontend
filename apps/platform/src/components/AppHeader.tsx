@@ -6,6 +6,8 @@ import { WalletMultiButton } from "./wallet/WalletMultiButton";
 import { UserIcon } from "./icons/UserIcon";
 import { Link, NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { PlatformRoute } from "../configs/routes";
+import { useMetaMask } from "metamask-react";
+import { MetaButton } from "./MetaButton";
 
 interface AppNavLink {
   to: PlatformRoute;
@@ -33,6 +35,7 @@ const AppNavLink: FC<AppNavLink> = ({ children, to }) => {
 
 export const AppHeader = () => {
   const { connected } = useWallet();
+  const { status } = useMetaMask();
 
   return (
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
@@ -48,7 +51,7 @@ export const AppHeader = () => {
         </div>
 
         <div className="flex justify-end w-full items-center space-x-3">
-          {connected && (
+          {(connected || status === "connected") && (
             <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
           )}
 

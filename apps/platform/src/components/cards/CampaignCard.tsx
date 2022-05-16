@@ -16,7 +16,7 @@ interface ItemBoxProps {
 }
 
 const ItemBox: FC<ItemBoxProps> = ({ children }) => (
-  <div className="flex justify-center items-center space-x-1 w-full text-xs xl:text-sm rounded-md border border-white text-center p-1">
+  <div className="flex justify-center items-center space-x-1 w-full text-xs xl:text-sm rounded-lg border border-white text-center p-1">
     {children}
   </div>
 );

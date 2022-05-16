@@ -11,22 +11,24 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import cx from "classnames";
-import { Collapse } from "./Collapse";
+import { Collapse } from "../Collapse";
 import { useWalletModal } from "./useWalletModal";
-import { WalletListItem } from "./WalletListItem";
-import { WalletSVG } from "./WalletSVG";
+import { WalletListItem } from "../WalletListItem";
+import { WalletSVG } from "../WalletSVG";
+import { Button } from "../Button";
+import { useMetaMask } from "metamask-react";
+import { MetaMaskIcon } from "../../icons/MetaMaskIcon";
+import { EthWalletReadyState } from "../../../typed/enum/ethWalletReadyState";
 
 export interface WalletModalProps {
   className?: string;
   container?: string;
 }
 
-export const WalletModal: FC<WalletModalProps> = ({
-  className = "",
-  container = "body",
-}) => {
+export const WalletModal: FC<WalletModalProps> = ({ className, container = "body" }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { wallets, select } = useWallet();
+  const { status, connect, account } = useMetaMask();
 
   const { setVisible } = useWalletModal();
   const [expanded, setExpanded] = useState(false);
@@ -55,12 +57,8 @@ export const WalletModal: FC<WalletModalProps> = ({
     return installedWallets.length
       ? installedWallets[0]
       : wallets.find(
-          (wallet: { adapter: { name: WalletName } }) => wallet.adapter.name === "Torus"
+          (wallet: { adapter: { name: WalletName } }) => wallet.adapter.name === "Phantom"
         ) ||
-          wallets.find(
-            (wallet: { adapter: { name: WalletName } }) =>
-              wallet.adapter.name === "Phantom"
-          ) ||
           wallets.find(
             (wallet: { readyState: WalletReadyState | undefined }) =>
               wallet.readyState === WalletReadyState.Loadable
@@ -81,12 +79,20 @@ export const WalletModal: FC<WalletModalProps> = ({
     [hideModal]
   );
 
-  const handleWalletClick = useCallback(
+  const handleSolWalletClick = useCallback(
     (event: MouseEvent, walletName: WalletName) => {
       select(walletName);
       handleClose(event);
     },
     [select, handleClose]
+  );
+
+  const handleEthWalletClick = useCallback(
+    (event: MouseEvent) => {
+      connect();
+      handleClose(event);
+    },
+    [connect, handleClose]
   );
 
   const handleCollapseClick = useCallback(() => setExpanded(!expanded), [expanded]);
@@ -169,12 +175,29 @@ export const WalletModal: FC<WalletModalProps> = ({
                 <h1 className="wallet-adapter-modal-title">
                   Connect a wallet to continue
                 </h1>
+
+                <h3 className="flex w-full px-5 text-gray-400 text-lg">Ethereum</h3>
+                <ul className="wallet-adapter-modal-list">
+                  <li>
+                    <Button
+                      onClick={(event) => handleEthWalletClick(event)}
+                      startIcon={<MetaMaskIcon className="w-9 h-9" />}
+                    >
+                      MetaMask
+                      {status ===
+                        (EthWalletReadyState.NotConnected ||
+                          EthWalletReadyState.Connected) && <span>Detected</span>}
+                    </Button>
+                  </li>
+                </ul>
+
+                <h3 className="flex w-full px-5 text-gray-400 text-lg">Solana</h3>
                 <ul className="wallet-adapter-modal-list">
                   {installedWallets.map((wallet) => (
                     <WalletListItem
                       key={wallet.adapter.name}
                       handleClick={(event) =>
-                        handleWalletClick(event, wallet.adapter.name)
+                        handleSolWalletClick(event, wallet.adapter.name)
                       }
                       wallet={wallet}
                     />
@@ -186,7 +209,7 @@ export const WalletModal: FC<WalletModalProps> = ({
                           <WalletListItem
                             key={wallet.adapter.name}
                             handleClick={(event) =>
-                              handleWalletClick(event, wallet.adapter.name)
+                              handleSolWalletClick(event, wallet.adapter.name)
                             }
                             tabIndex={expanded ? 0 : -1}
                             wallet={wallet}
@@ -228,7 +251,7 @@ export const WalletModal: FC<WalletModalProps> = ({
                     type="button"
                     className="wallet-adapter-modal-middle-button"
                     onClick={(event) =>
-                      handleWalletClick(event, getStartedWallet.adapter.name)
+                      handleSolWalletClick(event, getStartedWallet.adapter.name)
                     }
                   >
                     Get started
@@ -262,7 +285,7 @@ export const WalletModal: FC<WalletModalProps> = ({
                           <WalletListItem
                             key={wallet.adapter.name}
                             handleClick={(event) =>
-                              handleWalletClick(event, wallet.adapter.name)
+                              handleSolWalletClick(event, wallet.adapter.name)
                             }
                             tabIndex={expanded ? 0 : -1}
                             wallet={wallet}

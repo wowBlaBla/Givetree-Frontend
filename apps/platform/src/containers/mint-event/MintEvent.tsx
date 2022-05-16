@@ -42,7 +42,7 @@ export const MintEventContainer: FC = () => {
         <div className="absolute top-0 w-full h-48 z-20 bg-gradient-to-b from-brand-black to-transparent" />
 
         <div className="flex justify-center relative rounded-lg w-full max-w-3xl m-auto text-center">
-          <div className="absolute w-full h-full bg-black bg-opacity-20 backdrop-blur-lg shadow-lg rounded-xl z-0"></div>
+          <div className="absolute w-full h-full bg-black bg-opacity-20 backdrop-blur-lg shadow-lg rounded-lg z-0"></div>
           <BackButton className="absolute top-0 left-0 m-3 sm:m-5 z-50 text-white" />
 
           <div className="flex relative flex-col justify-center items-center w-full sm:w-2/5 pt-10 pb-5 z-40">
@@ -70,7 +70,7 @@ export const MintEventContainer: FC = () => {
               <div className="flex flex-col w-full item-center">
                 <div className="relative w-full h-full pt-full">
                   <BackgroundImage
-                    className="shadow-lg rounded-xl"
+                    className="shadow-lg rounded-lg"
                     imageAsset={data.campaign.media.mintingCollectionPreviewUrl}
                   />
                 </div>

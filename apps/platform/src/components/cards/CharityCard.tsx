@@ -19,7 +19,7 @@ export const CharityCard: FC<CharityCardProps> = ({ cause, imageAsset, name }) =
 
     <DarkBlend bottom small />
 
-    <p className="absolute bottom-0 w-full rounded-md text-center py-2  text-white text-xs sm:text-lg z-10">
+    <p className="absolute bottom-0 w-full rounded-lg text-center py-2  text-white text-xs sm:text-lg z-10">
       {name}
     </p>
   </div>

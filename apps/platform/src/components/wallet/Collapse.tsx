@@ -6,10 +6,9 @@ export interface CollapseProps {
   expanded: boolean;
 }
 
-export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) => {
+export const Collapse: FC<CollapseProps> = ({ children, expanded = false, id }) => {
   const ref = useRef<HTMLDivElement>(null);
   const instant = useRef(true);
-  const transition = "height 250ms ease-out";
 
   const openCollapse = () => {
     const node = ref.current;
@@ -45,20 +44,20 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
     const node = ref.current;
     if (!node) return;
 
-    function handleComplete() {
+    const handleComplete = () => {
       if (!node) return;
 
       node.style.overflow = expanded ? "initial" : "hidden";
       if (expanded) {
         node.style.height = "auto";
       }
-    }
+    };
 
-    function handleTransitionEnd(event: TransitionEvent) {
+    const handleTransitionEnd = (event: TransitionEvent) => {
       if (node && event.target === node && event.propertyName === "height") {
         handleComplete();
       }
-    }
+    };
 
     if (instant.current) {
       handleComplete();
@@ -75,7 +74,10 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
       id={id}
       ref={ref}
       role="region"
-      style={{ height: 0, transition: instant.current ? undefined : transition }}
+      style={{
+        height: 0,
+        transition: instant.current ? undefined : "height 250ms ease-out",
+      }}
     >
       {children}
     </div>
