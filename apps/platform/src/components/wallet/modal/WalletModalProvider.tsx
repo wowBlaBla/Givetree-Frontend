@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useState } from "react";
-import { WalletModalContext } from "./useWalletModal";
+import { WalletModalContext } from "../../../hooks/useWalletModal";
 import { WalletModal, WalletModalProps } from "./WalletModal";
 
 export interface WalletModalProviderProps extends WalletModalProps {

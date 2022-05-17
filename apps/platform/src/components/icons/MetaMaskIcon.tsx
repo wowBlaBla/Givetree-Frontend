@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import cx from "classnames";
 
 interface Props {
   className?: string;
@@ -6,7 +7,7 @@ interface Props {
 
 export const MetaMaskIcon: FC<Props> = ({ className }) => (
   <svg
-    className={className}
+    className={cx("w-6 h-6", className)}
     xmlns="http://www.w3.org/2000/svg"
     width="212"
     height="189"

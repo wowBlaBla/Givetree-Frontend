@@ -3,7 +3,7 @@ import { BaseTile } from "./BaseTile";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { PillBox } from "../PillBox";
 import { LiveBadge } from "../badges/LiveBadge";
-import { SocialsGrid } from "../SocialsGrid";
+import { SocialGrid } from "../SocialGrid";
 
 interface CollectionDetailTileProps {
   currency: SupportedPlatform;
@@ -31,7 +31,7 @@ export const CollectionDetailTile: FC<CollectionDetailTileProps> = ({
   discordUrl,
   contractUrl,
 }) => (
-  <BaseTile className="bg-white">
+  <BaseTile className="border bg-white">
     {isLive && (
       <LiveBadge
         className="absolute top-0 right-0 m-2.5 text-red-600"
@@ -46,7 +46,7 @@ export const CollectionDetailTile: FC<CollectionDetailTileProps> = ({
       <PillBox title="Price from" value={floorPrice} currency={currency} />
     </div>
 
-    <SocialsGrid
+    <SocialGrid
       websiteUrl={websiteUrl}
       twitterUrl={twitterUrl}
       discordUrl={discordUrl}

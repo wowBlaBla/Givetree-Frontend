@@ -5,13 +5,13 @@ interface ScrollToTopProps {
   children?: ReactNode;
 }
 
-const ScrollToTop: FC<ScrollToTopProps> = (props) => {
+const ScrollToTop: FC<ScrollToTopProps> = ({ children }) => {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  return <div>{props.children}</div>;
+  return <div>{children}</div>;
 };
 
 export default ScrollToTop;

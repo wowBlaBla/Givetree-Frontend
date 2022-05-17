@@ -90,7 +90,7 @@
 }
 
 .wallet-adapter-modal-wrapper {
-  @apply flex relative flex-col flex-1 items-center px-2 bg-brand-black box-border shadow-lg rounded-lg z-10 max-w-md;
+  @apply flex relative flex-col flex-1 items-center px-2 bg-brand-black box-border shadow-lg rounded-xl z-10 max-w-md;
 }
 
 .wallet-adapter-modal-wrapper .wallet-adapter-button {

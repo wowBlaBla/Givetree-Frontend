@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
 import { BackgroundImage } from "../../../components/BackgroundImage";
 import { GradientDivider } from "../../../components/GradientDivider";
-import { SocialsGrid } from "../../../components/SocialsGrid";
+import { SocialGrid } from "../../../components/SocialGrid";
 import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
 import { CharityTile } from "../../../components/tiles/CharityTile";
 import { CausesTile } from "../../../components/tiles/CausesTile";
@@ -73,8 +73,8 @@ export const CampaignDetailsContainer: FC = () => {
           imageAsset={data.campaign.creators[0].media.previewUrl}
         />
 
-        <div className="grid grid-cols-1 my-12 space-y-6 lg:grid-cols-12 lg:gap-8 lg:space-y-0 sm:my-16">
-          <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7 sm:space-y-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 my-12 space-y-6 sm:space-y-8 lg:space-y-0">
+          <div className="flex flex-col items-center w-full space-y-6 lg:col-span-7 sm:space-y-8">
             <CollectionDetailTile
               description={data.campaign.shortDescription}
               floorPrice={data.campaign.floorPrice}
@@ -104,7 +104,7 @@ export const CampaignDetailsContainer: FC = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center px-1 sm:col-span-2 lg:col-span-5 sm:mt-0">
+          <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5">
             <GoToMintTile
               linkTo={data.campaign.slug}
               imageAsset={data.campaign.media.campaignCollectionPreviewUrl}
@@ -135,7 +135,7 @@ export const CampaignDetailsContainer: FC = () => {
 
           <div className="flex flex-col col-span-3 px-2 mt-2 space-y-5 sm:col-span-4 sm:mt-0 sm:px-5">
             <h3 className="text-3xl font-semibold sm:text-4xl">{data.campaign.title}</h3>
-            <SocialsGrid
+            <SocialGrid
               websiteUrl={data.campaign.websiteUrl}
               twitterUrl={data.campaign.twitterUrl}
               discordUrl={data.campaign.discordUrl}

@@ -3,7 +3,7 @@ import cx from "classnames";
 
 import { BaseTile } from "./BaseTile";
 import { CountdownTimer } from "../CountdownTimer";
-import { EventRoundTitle } from "../EventRoundTitle";
+import { EventRoundSectionTitle } from "../EventRoundSectionTitle";
 import { LiveBadge } from "../badges/LiveBadge";
 import { PillBox } from "../PillBox";
 import { RoundType } from "../../typed/enum/eventType";
@@ -48,7 +48,7 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
       )}
 
       <div className="flex flex-col space-y-2">
-        <EventRoundTitle type={type} />
+        <EventRoundSectionTitle type={type} />
 
         {type === RoundType.WhitelistToken && (
           <p className="space-x-1 text-sm sm:text-base">

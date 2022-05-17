@@ -1,41 +1,16 @@
-import React, { FC, ReactNode } from "react";
-import { useWallet } from "@solana/wallet-adapter-react";
+import React from "react";
 import cx from "classnames";
+import { Link } from "react-router-dom";
+import { useWallet } from "@solana/wallet-adapter-react";
+
+import { AppNavLink } from "./AppNavLink";
 import { GiveTreeLogo } from "./GiveTreeLogo";
-import { WalletMultiButton } from "./wallet/WalletMultiButton";
 import { UserIcon } from "./icons/UserIcon";
-import { Link, NavLink, useMatch, useResolvedPath } from "react-router-dom";
+import { WalletButton } from "./wallet/WalletButton";
 import { PlatformRoute } from "../configs/routes";
-import { useMetaMask } from "metamask-react";
-import { MetaButton } from "./MetaButton";
 
-interface AppNavLink {
-  to: PlatformRoute;
-  children: ReactNode;
-}
-
-const AppNavLink: FC<AppNavLink> = ({ children, to }) => {
-  const resolved = useResolvedPath(to);
-  const isMatch = useMatch({ path: resolved.pathname, end: true });
-
-  return (
-    <NavLink
-      to={to}
-      className={cx(
-        "text-white lg:text-lg hover:text-brand-orange-hover transition-hover",
-        {
-          "text-brand-orange-active": isMatch,
-        }
-      )}
-    >
-      {children}
-    </NavLink>
-  );
-};
-
-export const AppHeader = () => {
+export const AppHeader = (): JSX.Element => {
   const { connected } = useWallet();
-  const { status } = useMetaMask();
 
   return (
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
@@ -51,11 +26,11 @@ export const AppHeader = () => {
         </div>
 
         <div className="flex justify-end w-full items-center space-x-3">
-          {(connected || status === "connected") && (
+          {connected && (
             <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
           )}
 
-          <WalletMultiButton
+          <WalletButton
             className={cx({
               "bg-brand-orange": !connected,
               "wallet-adapter-button-active": connected,

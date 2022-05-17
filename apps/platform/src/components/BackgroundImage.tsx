@@ -7,12 +7,12 @@ interface BackgroundImageProps {
   imageAsset: string | StaticImageData;
 }
 
-export const BackgroundImage: FC<BackgroundImageProps> = (props) => (
+export const BackgroundImage: FC<BackgroundImageProps> = ({ className, imageAsset }) => (
   <div
     className={cx(
       "bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
-      props.className
+      className
     )}
-    style={{ backgroundImage: `url(${props.imageAsset})` }}
+    style={{ backgroundImage: `url(${imageAsset})` }}
   />
 );

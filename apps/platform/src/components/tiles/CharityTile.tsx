@@ -8,16 +8,19 @@ interface CharityTileProps {
   description: string;
 }
 
-export const CharityTile: FC<CharityTileProps> = (props) => (
-  <BaseTile className="bg-gray-100">
+export const CharityTile: FC<CharityTileProps> = ({ description, imageAsset, name }) => (
+  <BaseTile className="border bg-gray-100">
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center w-48 h-48 lg:w-72 lg:h-72 mx-auto">
-        <BackgroundImage className="w-full rounded-full" imageAsset={props.imageAsset} />
+        <BackgroundImage
+          className="object-fit w-full rounded-full"
+          imageAsset={imageAsset}
+        />
       </div>
 
-      <p className="mt-4 text-center text-base lg:text-lg">{props.description}</p>
+      <p className="mt-4 text-center text-base lg:text-lg">{description}</p>
       <p className="mt-2 text-brand-orange font-semibold text-center text-base lg:text-xl">
-        {props.name}
+        {name}
       </p>
     </div>
   </BaseTile>

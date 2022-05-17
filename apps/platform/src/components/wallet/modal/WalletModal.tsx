@@ -1,5 +1,3 @@
-import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
-import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 import React, {
   FC,
   MouseEvent,
@@ -11,14 +9,16 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import cx from "classnames";
+
+import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
+import { useWallet, Wallet } from "@solana/wallet-adapter-react";
+
+import { Button } from "../Button";
 import { Collapse } from "../Collapse";
-import { useWalletModal } from "./useWalletModal";
+import { useWalletModal } from "../../../hooks/useWalletModal";
 import { WalletListItem } from "../WalletListItem";
 import { WalletSVG } from "../WalletSVG";
-import { Button } from "../Button";
-import { useMetaMask } from "metamask-react";
 import { MetaMaskIcon } from "../../icons/MetaMaskIcon";
-import { EthWalletReadyState } from "../../../typed/enum/ethWalletReadyState";
 
 export interface WalletModalProps {
   className?: string;
@@ -28,7 +28,6 @@ export interface WalletModalProps {
 export const WalletModal: FC<WalletModalProps> = ({ className, container = "body" }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { wallets, select } = useWallet();
-  const { status, connect, account } = useMetaMask();
 
   const { setVisible } = useWalletModal();
   const [expanded, setExpanded] = useState(false);
@@ -89,10 +88,9 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
 
   const handleEthWalletClick = useCallback(
     (event: MouseEvent) => {
-      connect();
       handleClose(event);
     },
-    [connect, handleClose]
+    [handleClose]
   );
 
   const handleCollapseClick = useCallback(() => setExpanded(!expanded), [expanded]);
@@ -176,7 +174,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                   Connect a wallet to continue
                 </h1>
 
-                <h3 className="flex w-full px-5 text-gray-400 text-lg">Ethereum</h3>
+                <h3 className="flex w-full px-3 text-gray-400 text-lg">Ethereum</h3>
                 <ul className="wallet-adapter-modal-list">
                   <li>
                     <Button
@@ -184,14 +182,11 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                       startIcon={<MetaMaskIcon className="w-9 h-9" />}
                     >
                       MetaMask
-                      {status ===
-                        (EthWalletReadyState.NotConnected ||
-                          EthWalletReadyState.Connected) && <span>Detected</span>}
                     </Button>
                   </li>
                 </ul>
 
-                <h3 className="flex w-full px-5 text-gray-400 text-lg">Solana</h3>
+                <h3 className="flex w-full px-3 text-gray-400 text-lg">Solana</h3>
                 <ul className="wallet-adapter-modal-list">
                   {installedWallets.map((wallet) => (
                     <WalletListItem

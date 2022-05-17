@@ -11,7 +11,6 @@ export interface ButtonProps {
   children?: ReactNode;
   className?: string;
   disabled?: boolean;
-  endIcon?: ReactElement;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   startIcon?: ReactElement;
   style?: CSSProperties;
@@ -22,7 +21,7 @@ export const Button: FC<ButtonProps> = ({
   className,
   children,
   disabled,
-  endIcon,
+
   startIcon,
   onClick,
   style,
@@ -38,6 +37,5 @@ export const Button: FC<ButtonProps> = ({
   >
     {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
     {children}
-    {endIcon && <i className="wallet-adapter-button-end-icon">{endIcon}</i>}
   </button>
 );

@@ -6,8 +6,8 @@ export interface SectionTitleProps {
   children: ReactNode;
 }
 
-export const SectionTitle: FC<SectionTitleProps> = (props) => (
-  <h1 className={cx("text-2xl sm:text-3xl text-center font-semibold", props.className)}>
-    {props.children}
+export const SectionTitle: FC<SectionTitleProps> = ({ className, children }) => (
+  <h1 className={cx("text-2xl sm:text-3xl text-center font-semibold", className)}>
+    {children}
   </h1>
 );

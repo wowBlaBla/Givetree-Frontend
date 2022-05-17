@@ -9,14 +9,15 @@ export interface SectionHeaderProps {
   subtitle?: string;
 }
 
-export const SectionHeader: FC<SectionHeaderProps> = (props) => (
+export const SectionHeader: FC<SectionHeaderProps> = ({
+  className,
+  mainTitle,
+  subtitle,
+}) => (
   <div
-    className={cx(
-      "flex flex-col items-center my-6 sm:my-12 space-y-3 px-4",
-      props.className
-    )}
+    className={cx("flex flex-col items-center my-6 sm:my-12 space-y-3 px-4", className)}
   >
-    <SectionTitle>{props.mainTitle}</SectionTitle>
-    <SectionSubtitle>{props.subtitle}</SectionSubtitle>
+    <SectionTitle>{mainTitle}</SectionTitle>
+    <SectionSubtitle>{subtitle}</SectionSubtitle>
   </div>
 );

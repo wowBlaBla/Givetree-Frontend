@@ -18,6 +18,8 @@
     "@solana/wallet-adapter-react": "^0.15.3",
     "@solana/wallet-adapter-wallets": "0.15.3",
     "@solana/web3.js": "1.36.0",
+    "@web3-react/core": "6.1.9",
+    "@web3-react/injected-connector": "6.0.7",
     "classnames": "2.3.1",
     "date-fns": "2.28.0",
     "graphql": "16.4.0",

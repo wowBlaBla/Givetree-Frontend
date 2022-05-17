@@ -4,9 +4,9 @@ interface Props {
   className?: string;
 }
 
-export const VerificationIcon: FC<Props> = (props) => (
+export const VerificationIcon: FC<Props> = ({ className }) => (
   <svg
-    className={props.className}
+    className={className}
     width="20"
     height="20"
     viewBox="0 0 18 20"

@@ -1,43 +1,38 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import cx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "./modal/useWalletModal";
+import { useWalletModal } from "../../hooks/useWalletModal";
 import { WalletModalButton } from "./modal/WalletModalButton";
 import { Button, ButtonProps } from "./Button";
 import { WalletConnectButton } from "./WalletConnectButton";
 import { WalletIcon } from "./WalletIcon";
-import { useMetaMask } from "metamask-react";
 
-export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
+export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   const ref = useRef<HTMLUListElement>(null);
-  const { publicKey, wallet, disconnect } = useWallet();
-  const { account } = useMetaMask();
-  const { setVisible } = useWalletModal();
 
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
-  const base58 = useMemo(() => {
-    if (account) {
-      return account;
-    }
+  const { publicKey, wallet, disconnect } = useWallet();
+  const { setVisible } = useWalletModal();
 
+  const base58 = useMemo(() => {
     if (publicKey) {
       return publicKey.toBase58();
     }
-  }, [account, publicKey]);
+  }, [publicKey]);
 
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if ((!wallet && !account) || !base58) {
+    if (!wallet || !base58) {
       return null;
     }
 
     return base58.slice(0, 4) + ".." + base58.slice(-4);
-  }, [children, wallet, account, base58]);
+  }, [children, wallet, base58]);
 
   const copyAddress = useCallback(async () => {
     if (base58) {
@@ -85,7 +80,7 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  if (!wallet && !account) {
+  if (!wallet) {
     return (
       <WalletModalButton onClick={modalOnClick} {...props}>
         {children}
@@ -109,6 +104,7 @@ export const WalletMultiButton: FC<ButtonProps> = ({ children, ...props }) => {
       >
         <span className="hidden sm:inline-block">{content}</span>
       </Button>
+
       <ul
         aria-label="dropdown-list"
         className={cx("wallet-adapter-dropdown-list", {

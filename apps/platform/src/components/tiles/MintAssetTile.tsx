@@ -8,21 +8,15 @@ interface CharityTileProps {
   imageAsset: StaticImageData | string;
 }
 
-export const CharityTile: FC<CharityTileProps> = (props) => (
+export const CharityTile: FC<CharityTileProps> = ({ name, description, imageAsset }) => (
   <BaseTile className="bg-gray-100">
     <div className="flex flex-col items-center">
       <div className="flex justify-center w-48 h-48 sm:w-72 sm:h-72 mx-auto">
-        <Image
-          className="w-full rounded-full"
-          src={props.imageAsset}
-          alt="mulgakongz asset"
-        />
+        <Image className="w-full rounded-full" src={imageAsset} alt="mulgakongz asset" />
       </div>
 
-      <p className="mt-4 text-lg sm:text-lg">{props.description}</p>
-      <p className="mt-2 text-brand-orange font-semibold text-base sm:text-xl">
-        {props.name}
-      </p>
+      <p className="mt-4 text-lg sm:text-lg">{description}</p>
+      <p className="mt-2 text-brand-orange font-semibold text-base sm:text-xl">{name}</p>
     </div>
   </BaseTile>
 );

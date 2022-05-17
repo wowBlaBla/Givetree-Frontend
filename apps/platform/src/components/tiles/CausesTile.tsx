@@ -16,11 +16,11 @@ export const CausesTile: FC<CausesTileProps> = ({ charityRoyaltyPercentage, caus
       Amazingly {charityRoyaltyPercentage}% of sale price goes towards these causes:
     </p>
 
-    <div className="flex w-auto mt-3">
+    <div className="flex space-x-1 w-auto mt-3">
       {causes.map((cause, idx) => (
         <div
           key={idx}
-          className="m-1 py-2 px-3 rounded-full border-2 text-green-600 border-brand-green-active text-xs lg:text-sm font-semibold text-center "
+          className="py-1 px-2 rounded-full border-2 border-brand-green-active text-green-600 text-xs lg:text-sm font-semibold text-center"
         >
           {Cause[cause as keyof typeof Cause]}
         </div>

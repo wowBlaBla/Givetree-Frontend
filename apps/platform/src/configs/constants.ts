@@ -1,3 +1,5 @@
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+
 // const getEnv = (key: string) => {
 //   const value = process.env[key];
 
@@ -8,5 +10,5 @@
 //   return value;
 // };
 
-export const SOL_NETWORK = "mainnet-beta";
+export const SOL_NETWORK = WalletAdapterNetwork.Mainnet;
 export const ETH_NETWORK = "mainnet";

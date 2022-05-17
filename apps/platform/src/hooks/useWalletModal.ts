@@ -28,10 +28,13 @@ function constructMissingProviderErrorMessage(action: string, valueName: string)
     WalletModalContext`;
 }
 
-export const WalletModalContext = createContext<WalletModalContextState>(
-  DEFAULT_CONTEXT as WalletModalContextState
-);
+export const WalletModalContext = createContext<WalletModalContextState>({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  setVisible(open: boolean) {
+    console.error(constructMissingProviderErrorMessage("call", "setVisible"));
+  },
+  visible: false,
+});
 
-export function useWalletModal(): WalletModalContextState {
-  return useContext(WalletModalContext);
-}
+export const useWalletModal = (): WalletModalContextState =>
+  useContext(WalletModalContext);

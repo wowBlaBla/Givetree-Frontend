@@ -4,9 +4,9 @@ interface Props {
   className?: string;
 }
 
-export const ExternalLinkIcon: FC<Props> = (props) => (
+export const ExternalLinkIcon: FC<Props> = ({ className }) => (
   <svg
-    className={props.className}
+    className={className}
     enableBackground="new 0 0 515.283 515.283"
     width="512"
     height="512"
