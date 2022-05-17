@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "re
 import cx from "classnames";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "../../hooks/useWalletModal";
-import { WalletModalButton } from "./modal/WalletModalButton";
+import { WalletModalButton } from "./WalletModalButton";
 import { Button, ButtonProps } from "./Button";
 import { WalletConnectButton } from "./WalletConnectButton";
 import { WalletIcon } from "./WalletIcon";

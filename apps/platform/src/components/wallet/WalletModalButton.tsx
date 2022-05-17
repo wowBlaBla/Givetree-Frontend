@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent, useCallback } from "react";
-import { ConnectWalletIcon } from "../../icons/ConnectWalletIcon";
-import { Button, ButtonProps } from "../Button";
-import { useWalletModal } from "../../../hooks/useWalletModal";
+import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
+import { Button, ButtonProps } from "./Button";
+import { useWalletModal } from "../../hooks/useWalletModal";
 
 export const WalletModalButton: FC<ButtonProps> = ({
   children = "Connect Wallet",

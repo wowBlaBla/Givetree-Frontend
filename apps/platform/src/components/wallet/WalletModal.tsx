@@ -9,16 +9,14 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 import cx from "classnames";
-
 import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
 import { useWallet, Wallet } from "@solana/wallet-adapter-react";
-
-import { Button } from "../Button";
-import { Collapse } from "../Collapse";
-import { useWalletModal } from "../../../hooks/useWalletModal";
-import { WalletListItem } from "../WalletListItem";
-import { WalletSVG } from "../WalletSVG";
-import { MetaMaskIcon } from "../../icons/MetaMaskIcon";
+import { Button } from "./Button";
+import { Collapse } from "./Collapse";
+import { useWalletModal } from "../../hooks/useWalletModal";
+import { WalletListItem } from "./WalletListItem";
+import { WalletSVG } from "./WalletSVG";
+import { MetaMaskIcon } from "../icons/MetaMaskIcon";
 
 export interface WalletModalProps {
   className?: string;
@@ -155,9 +153,9 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
       <div
         aria-labelledby="wallet-adapter-modal-title"
         aria-modal="true"
-        className={`wallet-adapter-modal ${
-          fadeIn && "wallet-adapter-modal-fade-in"
-        } ${className}`}
+        className={cx("wallet-adapter-modal", className, {
+          "opacity-100": fadeIn,
+        })}
         ref={ref}
         role="dialog"
       >

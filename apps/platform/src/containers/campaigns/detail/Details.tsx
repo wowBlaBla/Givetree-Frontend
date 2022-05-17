@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
-import ReactMarkdown from "react-markdown";
 import { useParams } from "react-router-dom";
-// import * as yup from "yup";
 
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
 import { BackgroundImage } from "../../../components/BackgroundImage";
@@ -18,18 +16,14 @@ import { GoToMintTile } from "../../../components/tiles/GoToMintTile";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
-import { getEventStatus, isEventLive } from "../../../utils/getEventStatus";
+import { getEventStatus } from "../../../utils/getEventStatus";
 
-// interface CampaignDetailsParams {
-//   campaignName: string;
-// }
-
-// const CampaignDetialsParamsSchema: yup.SchemaOf<CampaignDetailsParams> = yup.object({
-//   campaignName: yup.string().required(),
-// });
+type CampaignDetailsParamTypes = {
+  campaignName: string;
+};
 
 export const CampaignDetailsContainer: FC = () => {
-  const params = useParams();
+  const params = useParams<CampaignDetailsParamTypes>();
 
   const { data, loading, error } = useQuery<GetCampaignDetailsDataQuery>(
     GET_CAMPAIGN_DETAILS_DATA,
@@ -51,7 +45,7 @@ export const CampaignDetailsContainer: FC = () => {
   }
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-1 flex-col">
       <Head>
         <title>GiveTree - {data.campaign.title}</title>
       </Head>
@@ -66,7 +60,7 @@ export const CampaignDetailsContainer: FC = () => {
         isFeatured
       />
 
-      <div className="w-full max-w-screen-3xl  mx-auto py-6 sm:py-8 px-3 sm:px-5">
+      <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-8">
         <ContentCreatorTile
           name={data.campaign.creators[0].name}
           description={data.campaign.creators[0].description}
@@ -139,7 +133,7 @@ export const CampaignDetailsContainer: FC = () => {
               discordUrl={data.campaign.discordUrl}
             />
 
-            <ReactMarkdown>{data.campaign.longDescription}</ReactMarkdown>
+            <p>{data.campaign.longDescription}</p>
           </div>
         </div>
       </div>
