@@ -60,7 +60,7 @@ export const CampaignDetailsContainer: FC = () => {
         isFeatured
       />
 
-      <div className="w-full max-w-screen-3xl mx-auto py-6 sm:py-8">
+      <div className="flex flex-col w-full max-w-screen-3xl mx-auto space-y-12 sm:py-8 px-3">
         <ContentCreatorTile
           name={data.campaign.creators[0].name}
           description={data.campaign.creators[0].description}
@@ -115,7 +115,7 @@ export const CampaignDetailsContainer: FC = () => {
 
         <GradientDivider />
 
-        <div className="grid grid-cols-1 mt-12 sm:grid-cols-6 sm:mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-6 mt-12">
           <div className="col-span-3 sm:col-span-2">
             <div className="relative w-full h-96">
               <BackgroundImage
