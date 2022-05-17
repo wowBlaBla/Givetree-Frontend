@@ -27,8 +27,6 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   floorPrice: gen.datatype.number({ min: 3, max: 5 }),
   currency: SupportedPlatform.ETH,
   totalSupply: gen.datatype.number({ min: 100, max: 10000 }),
-  mintStartDate: gen.date.future(1),
-  mintEndDate: gen.date.future(1),
   isVerified: true,
   websiteUrl: gen.internet.url(),
   discordUrl: gen.internet.url(),

@@ -9,7 +9,7 @@ import { LiveBadge } from "../badges/LiveBadge";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { CurrencyIcon } from "../icons/CurrencyIcon";
 import { Campaign } from "../../typed/campaign";
-import { isEventLive } from "../../utils/getEventStatus";
+import { getEventStatus } from "../../utils/getEventStatus";
 
 interface ItemBoxProps {
   children: ReactNode;
@@ -27,7 +27,7 @@ interface CampaignCardProps {
 
 export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const navigate = useNavigate();
-  const isLive = isEventLive(campaign.mintStartDate, campaign.mintEndDate);
+  const isLive = getEventStatus(campaign.event.rounds).isLive;
 
   const onClick = () => {
     return navigate(`campaign/${kebabCase(campaign.title)}`);

@@ -5,16 +5,16 @@ export interface CampaignEventRound {
   name: string;
   type: RoundType;
   supply: number;
-  maxLimit: number;
+  maxToken: number;
   mintPrice: number;
   whitelistCondition?: string;
   startDate: Date;
   endDate: Date;
+  eventNameOverride?: string;
 }
 
 export interface CampaignEvent {
   id: string;
-  startDate?: Date;
   name: string;
   rounds: CampaignEventRound[];
   contractAddress?: string;

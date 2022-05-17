@@ -24,8 +24,6 @@ export const GET_CAMPAIGN_DETAILS_DATA = gql`
       currency
       floorPrice
       totalSupply
-      mintStartDate
-      mintEndDate
       isVerified
       websiteUrl
       discordUrl
@@ -57,7 +55,6 @@ export const GET_CAMPAIGN_DETAILS_DATA = gql`
       }
       event {
         id
-        startDate
         name
         rounds {
           id
@@ -65,7 +62,7 @@ export const GET_CAMPAIGN_DETAILS_DATA = gql`
           type
           supply
           mintPrice
-          maxLimit
+          maxToken
           whitelistCondition
           startDate
           endDate

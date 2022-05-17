@@ -1,4 +1,4 @@
 export enum RoundType {
-  WhitelistToken = "Whitelist token event",
-  PublicSale = "Public sale event",
+  WhitelistToken = "whitelist_token",
+  PublicSale = "public_sale",
 }

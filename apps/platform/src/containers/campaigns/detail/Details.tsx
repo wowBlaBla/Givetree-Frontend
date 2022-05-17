@@ -18,7 +18,7 @@ import { GoToMintTile } from "../../../components/tiles/GoToMintTile";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
-import { isEventLive } from "../../../utils/getEventStatus";
+import { getEventStatus, isEventLive } from "../../../utils/getEventStatus";
 
 // interface CampaignDetailsParams {
 //   campaignName: string;
@@ -85,7 +85,7 @@ export const CampaignDetailsContainer: FC = () => {
               discordUrl={data.campaign.discordUrl}
               twitterUrl={data.campaign.twitterUrl}
               contractUrl={data.campaign.contractUrl}
-              isLive={isEventLive(data.campaign.mintStartDate, data.campaign.mintEndDate)}
+              isLive={getEventStatus(data.campaign.event.rounds).isLive}
             />
 
             <CausesTile
@@ -98,8 +98,6 @@ export const CampaignDetailsContainer: FC = () => {
 
             <MintingEventTile
               rounds={data.campaign.event.rounds}
-              startDate={data.campaign.mintStartDate}
-              endDate={data.campaign.mintEndDate}
               currency={data.campaign.currency}
             />
           </div>

@@ -8,32 +8,21 @@ import { LiveBadge } from "../badges/LiveBadge";
 import { PillBox } from "../PillBox";
 import { RoundType } from "../../typed/enum/eventType";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
-import { isEventLive } from "../../utils/getEventStatus";
+import { isEventRoundLive } from "../../utils/getEventStatus";
+import { CampaignEventRound } from "../../typed/campaign-event";
 
 interface EventRoundTileProps {
-  type: RoundType;
-  whitelistCondition?: string;
-  startDate: Date | number;
-  endDate: Date | number;
-  supplyCount: number;
-  maxToken: number;
-  mintPrice: number;
+  round: CampaignEventRound;
   currency: SupportedPlatform;
   isFirstRound?: boolean;
 }
 
 export const EventRoundTile: FC<EventRoundTileProps> = ({
-  type,
-  whitelistCondition,
-  startDate,
-  endDate,
-  supplyCount,
-  maxToken,
-  mintPrice,
+  round,
   currency,
   isFirstRound,
 }) => {
-  const isLive = isEventLive(new Date(startDate), new Date(endDate));
+  const isLive = isEventRoundLive(round.startDate, round.endDate);
 
   return (
     <BaseTile
@@ -48,11 +37,11 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
       )}
 
       <div className="flex flex-col space-y-2">
-        <EventRoundSectionTitle type={type} />
+        <EventRoundSectionTitle type={round.type} />
 
-        {type === RoundType.WhitelistToken && (
+        {round.type === RoundType.WhitelistToken && (
           <p className="space-x-1 text-sm sm:text-base">
-            <span>{whitelistCondition}</span>
+            <span>{round.whitelistCondition}</span>
             <a
               className="text-brand-orange text-sm sm:text-base transition-hover hover:underline"
               href="#"
@@ -64,19 +53,19 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
           </p>
         )}
 
-        {((type !== RoundType.WhitelistToken && !isFirstRound) || isLive) && (
+        {((round.type !== RoundType.WhitelistToken && !isFirstRound) || isLive) && (
           <CountdownTimer
             className="mt-2 text-gray-800"
-            startDate={startDate}
-            endDate={endDate}
+            startDate={round.startDate}
+            endDate={round.endDate}
           />
         )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-4 mt-5">
-        <PillBox title="Supply" value={supplyCount} />
-        <PillBox title="Max token" value={maxToken} />
-        <PillBox title="Mint price" value={mintPrice} currency={currency} />
+        <PillBox title="Supply" value={round.supply} />
+        <PillBox title="Max token" value={round.maxToken} />
+        <PillBox title="Mint price" value={round.mintPrice} currency={currency} />
       </div>
     </BaseTile>
   );
