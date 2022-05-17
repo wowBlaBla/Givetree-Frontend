@@ -1,15 +1,14 @@
 import React, { FC, MouseEventHandler, useCallback, useMemo } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { useMetaMask } from "metamask-react";
 import { Button, ButtonProps } from "./Button";
 import { WalletIcon } from "./WalletIcon";
+import { MetaMaskIcon } from "../icons/MetaMaskIcon";
+import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
 
-export const WalletConnectButton: FC<ButtonProps> = ({
-  children,
-  disabled,
-  onClick,
-  ...props
-}) => {
+export const WalletConnectButton: FC<ButtonProps> = ({ children, onClick, ...props }) => {
   const { wallet, connect, connecting, connected } = useWallet();
+  const { account, status: metaMaskStatus } = useMetaMask();
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
@@ -22,21 +21,33 @@ export const WalletConnectButton: FC<ButtonProps> = ({
 
   const content = useMemo(() => {
     if (children) return children;
-    if (connecting) return "Connecting ...";
-    if (connected) return "Connected";
+    if (connecting || metaMaskStatus === MetaMaskStatus.Connecting)
+      return "Connecting ...";
+    if (connected || metaMaskStatus === MetaMaskStatus.Connected) return "Connected";
     if (wallet) return "Connect";
     return "Connect Wallet";
-  }, [children, connecting, connected, wallet]);
+  }, [children, connecting, connected, wallet, metaMaskStatus]);
+
+  const walletIcon = () => {
+    if (wallet) {
+      return <WalletIcon wallet={wallet} />;
+    }
+
+    if (account) {
+      return <MetaMaskIcon />;
+    }
+
+    return undefined;
+  };
 
   return (
     <Button
       className="wallet-adapter-button-trigger"
-      disabled={disabled || !wallet || connecting || connected}
-      startIcon={wallet ? <WalletIcon wallet={wallet} /> : undefined}
+      startIcon={walletIcon()}
       onClick={handleClick}
       {...props}
     >
-      <div className="hidden sm:inline-block">{content}</div>
+      <div className="hidden sm:inline-block ml-2">{content}</div>
     </Button>
   );
 };

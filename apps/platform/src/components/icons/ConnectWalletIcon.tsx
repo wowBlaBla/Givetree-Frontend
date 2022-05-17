@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import cx from "classnames";
 
 interface Props {
   className?: string;
@@ -6,7 +7,7 @@ interface Props {
 
 export const ConnectWalletIcon: FC<Props> = ({ className }) => (
   <svg
-    className={className}
+    className={cx("w-6 h-6 text-white fill-current", className)}
     id="Layer_1"
     enableBackground="new 0 0 507.246 507.246"
     height="512"

@@ -60,7 +60,7 @@ export const CampaignDetailsContainer: FC = () => {
         isFeatured
       />
 
-      <div className="flex flex-col w-full max-w-screen-3xl mx-auto space-y-12 sm:py-8 px-3">
+      <div className="flex flex-col w-full max-w-screen-3xl mx-auto space-y-12 my-6 sm:my-8 px-3">
         <ContentCreatorTile
           name={data.campaign.creators[0].name}
           description={data.campaign.creators[0].description}

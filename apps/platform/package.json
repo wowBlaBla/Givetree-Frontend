@@ -13,7 +13,7 @@
   "dependencies": {
     "@apollo/client": "3.6.2",
     "@faker-js/faker": "6.3.1",
-    "@nfteyez/sol-rayz": "0.10.2",
+    "@metamask/providers": "8.1.1",
     "@solana/wallet-adapter-base": "0.9.4",
     "@solana/wallet-adapter-react": "^0.15.3",
     "@solana/wallet-adapter-wallets": "0.15.3",
@@ -22,6 +22,7 @@
     "@web3-react/injected-connector": "6.0.7",
     "classnames": "2.3.1",
     "date-fns": "2.28.0",
+    "ethers": "5.6.6",
     "graphql": "16.4.0",
     "lodash": "4.17.21",
     "metamask-react": "2.3.0",

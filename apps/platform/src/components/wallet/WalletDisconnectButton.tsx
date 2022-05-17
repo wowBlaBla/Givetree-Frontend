@@ -1,4 +1,5 @@
 import { useWallet } from "@solana/wallet-adapter-react";
+// import { useMetaMask } from "metamask-react";
 import React, { FC, MouseEventHandler, useCallback, useMemo } from "react";
 import { Button, ButtonProps } from "./Button";
 import { WalletIcon } from "./WalletIcon";
@@ -10,6 +11,7 @@ export const WalletDisconnectButton: FC<ButtonProps> = ({
   ...props
 }) => {
   const { wallet, disconnect, disconnecting } = useWallet();
+  // const { account, connect } = useMetaMask();
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {

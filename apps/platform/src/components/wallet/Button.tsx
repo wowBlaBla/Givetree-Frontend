@@ -21,7 +21,6 @@ export const Button: FC<ButtonProps> = ({
   className,
   children,
   disabled,
-
   startIcon,
   onClick,
   style,

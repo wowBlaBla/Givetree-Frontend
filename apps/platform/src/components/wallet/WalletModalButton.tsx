@@ -25,12 +25,10 @@ export const WalletModalButton: FC<ButtonProps> = ({
 
   return (
     <Button className="wallet-adapter-button-trigger" onClick={handleClick} {...props}>
-      <div>
-        <div className="inline-block mt-1 sm:hidden">
-          <ConnectWalletIcon className="w-4 h-4 text-white fill-current" />
-        </div>
-        <div className="hidden sm:inline-block">{children}</div>
+      <div className="inline-block mt-1 sm:hidden">
+        <ConnectWalletIcon className="w-6 h-6" />
       </div>
+      <div className="hidden sm:inline-block">{children}</div>
     </Button>
   );
 };

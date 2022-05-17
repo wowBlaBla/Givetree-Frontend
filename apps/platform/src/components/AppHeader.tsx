@@ -2,15 +2,17 @@ import React from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 import { useWallet } from "@solana/wallet-adapter-react";
-
 import { AppNavLink } from "./AppNavLink";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { UserIcon } from "./icons/UserIcon";
 import { WalletButton } from "./wallet/WalletButton";
 import { PlatformRoute } from "../configs/routes";
+import { useMetaMask } from "metamask-react";
+import { MetaMaskStatus } from "../typed/enum/metaMaskStatus";
 
 export const AppHeader = (): JSX.Element => {
   const { connected } = useWallet();
+  const { status } = useMetaMask();
 
   return (
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
@@ -26,14 +28,15 @@ export const AppHeader = (): JSX.Element => {
         </div>
 
         <div className="flex justify-end w-full items-center space-x-3">
-          {connected && (
+          {(connected || status === MetaMaskStatus.Connected) && (
             <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
           )}
 
           <WalletButton
             className={cx({
-              "bg-brand-orange": !connected,
-              "wallet-adapter-button-active": connected,
+              "bg-brand-orange": status !== MetaMaskStatus.Connected && !connected,
+              "wallet-adapter-button-active":
+                connected || status === MetaMaskStatus.Connected,
             })}
           />
         </div>
