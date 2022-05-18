@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "cypress"
+    ],
+    "resolveJsonModule": true,
+    "incremental": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/pages",
+    "cypress"
+, "src/api", "src/apollo"  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

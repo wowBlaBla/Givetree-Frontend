@@ -1,0 +1,113 @@
+/* Slider */
+.slick-slider {
+  @apply block relative box-border select-none touch-pan-y;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+  @apply block relative mx-0 overflow-x-hidden; 
+}
+
+.slick-list:focus {
+  @apply outline-none;
+}
+
+.slick-list.dragging {
+  @apply cursor-pointer;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+  @apply block relative mx-auto overflow-hidden;
+}
+
+.slick-track:before,
+.slick-track:after {
+  display: table;
+  content: '';
+}
+
+.slick-track:after {
+  @apply clear-both;
+}
+
+.slick-loading .slick-track {
+  @apply invisible;
+}
+
+.slick-slide {
+  @apply hidden float-left h-full;
+}
+
+[dir='rtl'] .slick-slide {
+  @apply float-right;
+}
+
+.slick-slide img {
+  @apply block;
+}
+
+.slick-slide.slick-loading img {
+  @apply hidden;
+}
+
+.slick-slide.dragging img {
+  @apply pointer-events-none;
+}
+
+.slick-initialized .slick-slide {
+  @apply block;
+}
+
+.slick-loading .slick-slide {
+  @apply invisible;
+}
+
+.slick-vertical .slick-slide {
+  @apply block h-auto border border-transparent;
+}
+
+.slick-arrow.slick-hidden {
+  @apply hidden;
+}
+
+/* Arrows have been removed as they are not part of the UI design */
+.slick-prev,
+.slick-next {
+  @apply hidden absolute top-0 p-0 text-none text-transparent;
+}
+
+/* Dots */
+.slick-dotted.slick-slider {
+  @apply mb-8;
+}
+
+.slick-dots {
+  @apply flex justify-center flex-nowrap absolute mt-3 w-full m-0 p-0 list-none text-center z-10;
+}
+
+.slick-dots li {
+  @apply relative inline-block w-24 lg:w-56 h-2 cursor-pointer mx-1;
+}
+
+.slick-dots li button {
+  @apply block leading-none w-full h-full border-none rounded-sm bg-brand-black bg-opacity-30 text-none; 
+}
+
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  @apply outline-none opacity-100;
+}
+
+.slick-dots li.slick-active button {
+  @apply bg-brand-orange;
+}

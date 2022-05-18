@@ -9,20 +9,18 @@ This project is a monorepo to house all the Front End Applications within GiveTr
 
 ## Projects / Applications / Environments
 
-| Branch       | Environment       | Name             |
-| ------------ | ----------------- | ---------------- | 
-| `master`     | `dev`             | Development      |
+| Branch   | Environment | Name        |
+| -------- | ----------- | ----------- |
+| `master` | `dev`       | Development |
 
-
-| Applications          | HTTP                          | Environment            |
-| --------------------- | ----------------------------- | ---------------------- |
-| marketplace           | ...                           | `dev`                  | 
-| marketplace (TBD)     | ...                           | `stg`                  | 
-| marketplace (TBD)     | ...                           | `prd`                  |
-| admin (TBD)           | ...                           | `dev`                  |
-| admin (TBD)           | ...                           | `stg`                  |
-| admin (TBD)           | ...                           | `prd`                  |
-
+| Applications   | HTTP | Environment |
+| -------------- | ---- | ----------- |
+| platform       | ...  | `dev`       |
+| platform (TBD) | ...  | `stg`       |
+| platform (TBD) | ...  | `prd`       |
+| admin (TBD)    | ...  | `dev`       |
+| admin (TBD)    | ...  | `stg`       |
+| admin (TBD)    | ...  | `prd`       |
 
 ## Getting Started
 
@@ -41,7 +39,7 @@ yarn install
 Next, `cd` into the project you would like to develop and execute `yarn start`. For example:
 
 ```bash
-cd /apps/marketplace
+cd /apps/platform
 yarn start
 ```
 
@@ -54,14 +52,14 @@ The general structure looks like this:
 ```
 .
 ├── apps
-│   ├── admin 
-│   └── marketplace
+│   ├── admin
+│   └── platform
 │       ├── cypress
 │       ├── components
 │       ├── pages
 │       └── styles
 ├── packages
-│   └── ui
+│   └──
 ├── lerna.json
 ├── package.json
 ├── README.md
