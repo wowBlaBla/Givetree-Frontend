@@ -6,9 +6,10 @@ import { Campaign } from "../../typed/campaign";
 import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
 import { genRoyalty } from "../royalties";
 import { genGenopetsContentCreator } from "../content-creator";
-import { genCampaignEvent } from "../event";
+import { genCampaignEvent, genCampaignEventRound } from "../event";
 
 import { faker as gen } from "@faker-js/faker";
+import { EventRoundType } from "../../typed/enum/eventType";
 
 export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -36,6 +37,17 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   royalties: genRoyalty(),
   creators: [genGenopetsContentCreator()],
   whitelistMemo: gen.datatype.uuid(),
-  event: genCampaignEvent(),
+  event: genCampaignEvent({
+    rounds: [
+      genCampaignEventRound({
+        type: EventRoundType.WhitelistToken,
+        startDate: gen.date.past(),
+      }),
+      genCampaignEventRound({
+        type: EventRoundType.PublicSale,
+        startDate: gen.date.future(),
+      }),
+    ],
+  }),
   ...x,
 });

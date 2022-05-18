@@ -6,7 +6,7 @@ import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundSectionTitle } from "../EventRoundSectionTitle";
 import { LiveBadge } from "../badges/LiveBadge";
 import { PillBox } from "../PillBox";
-import { RoundType } from "../../typed/enum/eventType";
+import { EventRoundType } from "../../typed/enum/eventType";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { isEventRoundLive } from "../../utils/getEventStatus";
 import { CampaignEventRound } from "../../typed/campaign-event";
@@ -39,7 +39,15 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
       <div className="flex flex-col space-y-2">
         <EventRoundSectionTitle type={round.type} />
 
-        {round.type === RoundType.WhitelistToken && (
+        {((round.type !== EventRoundType.WhitelistToken && !isFirstRound) || isLive) && (
+          <CountdownTimer
+            className="mt-2 text-gray-800"
+            startDate={round.startDate}
+            endDate={round.endDate}
+          />
+        )}
+
+        {round.type === EventRoundType.WhitelistToken && (
           <p className="space-x-1 text-sm sm:text-base">
             <span>{round.whitelistCondition}</span>
             <a
@@ -51,14 +59,6 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
               Learn more
             </a>
           </p>
-        )}
-
-        {((round.type !== RoundType.WhitelistToken && !isFirstRound) || isLive) && (
-          <CountdownTimer
-            className="mt-2 text-gray-800"
-            startDate={round.startDate}
-            endDate={round.endDate}
-          />
         )}
       </div>
 

@@ -2,10 +2,10 @@ import React, { FC } from "react";
 
 import { GlobeIcon } from "./icons/GlobeIcon";
 import { LockIcon } from "./icons/LockIcon";
-import { RoundType } from "../typed/enum/eventType";
+import { EventRoundType } from "../typed/enum/eventType";
 
 interface EventRoundSectionTitleProps {
-  type: RoundType;
+  type: EventRoundType;
   eventNameOverride?: string;
 }
 
@@ -23,14 +23,14 @@ export const EventRoundSectionTitle: FC<EventRoundSectionTitleProps> = ({
   }
 
   switch (type) {
-    case RoundType.PublicSale:
+    case EventRoundType.PublicSale:
       return (
         <div className="flex items-center space-x-1">
           <GlobeIcon className="w-5 h-5" />
           <h4 className="text-lg sm:text-xl font-semibold">Public sale event</h4>
         </div>
       );
-    case RoundType.WhitelistToken:
+    case EventRoundType.WhitelistToken:
       return (
         <div className="flex items-center space-x-1">
           <LockIcon className="w-5 h-5" />

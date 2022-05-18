@@ -1,9 +1,9 @@
-import { RoundType } from "./enum/eventType";
+import { EventRoundType } from "./enum/eventType";
 
 export interface CampaignEventRound {
   id: string;
   name: string;
-  type: RoundType;
+  type: EventRoundType;
   supply: number;
   maxToken: number;
   mintPrice: number;
