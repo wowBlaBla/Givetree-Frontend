@@ -7,10 +7,10 @@ import { PrimaryButton } from "../../components/PrimaryButton";
 import { Cause } from "../../typed/enum/cause";
 import { CardGrid } from "../../components/CardGrid";
 
-import ClimateCharityImage from "../../assets/images/impact-partner-climate.png";
-import ZambiImage from "../../assets/images/zambi.png";
-import OceanCleanupImage from "../../assets/images/ocean-cleanup.png";
-import YTIUImage from "../../assets/images/ytiu.png";
+import ClimateCharityImage from "../../temp/images/impact-partner-climate.png";
+import ZambiImage from "../../temp/images/zambi.png";
+import OceanCleanupImage from "../../temp/images/ocean-cleanup.png";
+import YTIUImage from "../../temp/images/ytiu.png";
 
 export const CharityListingsContainer = () => {
   return (
