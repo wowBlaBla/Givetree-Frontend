@@ -32,7 +32,7 @@ export const MainBanner: FC<MainBannerProps> = ({
   <div className={cx("relative min-w-full min-h-full overflow-hidden", height)}>
     <BackgroundAsset asset={imageAsset} />
 
-    <div className="flex justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4">
+    <div className="flex relative justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4 z-10">
       <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-xl bg-black bg-opacity-70 text-white">
         <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal">{title}</h2>
         <p className="mt-1 sm:mt-3 text-xs sm:text-sm xl:text-base">{subtitle}</p>
