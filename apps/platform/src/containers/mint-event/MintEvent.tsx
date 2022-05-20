@@ -70,8 +70,8 @@ export const MintEventContainer: FC = () => {
               <div className="flex flex-col w-full item-center">
                 <div className="relative w-full h-full pt-full">
                   <BackgroundAsset
-                    className="shadow-lg rounded-lg"
                     asset={data.campaign.media.mintingCollectionPreviewUrl}
+                    className="shadow-lg rounded-lg"
                   />
                 </div>
 

@@ -17,8 +17,8 @@ export const ContentCreatorTile: FC<ContentCreatorTileProps> = ({
     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start sm:space-x-3">
       <div className="relative w-24 h-24">
         <BackgroundAsset
+          asset={imageAsset}
           className="min-w-full min-h-full rounded-full"
-          imageAsset={imageAsset}
         />
       </div>
 
