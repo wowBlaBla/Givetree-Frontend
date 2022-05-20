@@ -71,7 +71,7 @@ export const MintEventContainer: FC = () => {
                 <div className="relative w-full h-full pt-full">
                   <BackgroundAsset
                     className="shadow-lg rounded-lg"
-                    imageAsset={data.campaign.media.mintingCollectionPreviewUrl}
+                    asset={data.campaign.media.mintingCollectionPreviewUrl}
                   />
                 </div>
 
