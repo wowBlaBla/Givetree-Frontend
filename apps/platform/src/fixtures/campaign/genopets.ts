@@ -42,6 +42,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
       genCampaignEventRound({
         type: EventRoundType.WhitelistToken,
         startDate: gen.date.recent(),
+        endDate: gen.date.soon(),
       }),
       genCampaignEventRound({
         type: EventRoundType.PublicSale,
