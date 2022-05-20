@@ -119,8 +119,8 @@ export const CampaignDetailsContainer: FC = () => {
           <div className="col-span-3 sm:col-span-2">
             <div className="relative w-full h-96">
               <BackgroundAsset
-                className="shadow-lg rounded-lg"
                 asset={data.campaign.media.campaignDetailsUrl}
+                className="shadow-lg rounded-lg"
               />
             </div>
           </div>
