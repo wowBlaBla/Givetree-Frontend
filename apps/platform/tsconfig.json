@@ -9,11 +9,12 @@
   },
   "include": [
     "next-env.d.ts",
+    "custom.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "src/pages",
     "cypress"
-, "src/api", "src/apollo"  ],
+, "src/api", ],
   "exclude": [
     "node_modules"
   ]

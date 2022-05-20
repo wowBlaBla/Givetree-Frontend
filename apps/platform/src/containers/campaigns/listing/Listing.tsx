@@ -1,29 +1,22 @@
 import React from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import Head from "next/head";
+
+import { GetCampaignListingDataQuery, GET_CAMPAIGN_LISTING_DATA } from "./ListingData";
+
 import { PlatformRoute } from "../../../configs/routes";
 import { CampaignCard } from "../../../components/cards/CampaignCard";
 import { CardGrid } from "../../../components/CardGrid";
 import { Carousel } from "../../../components/Carousel";
 import { MainBanner } from "../../../components/MainBanner";
 import { SectionHeader } from "../../../components/SectionHeader";
-import { Campaign } from "../../../typed/campaign";
 
-// import GiveTreeBannerImage from "../../../assets/images/givtree-bg-image.png";
-import MulgaBannerImage from "../../../temp/images/mulga-bg-image.png";
-
-interface GetCampaignsDataQuery {
-  campaigns: Campaign[];
-}
-
-const GET_CAMPAIGNS_DATA = gql`
-  query GetCampaigns {
-    campaigns @client
-  }
-`;
+import MulgaBannerImage from "../../../temp/images/campaigns/mulgakongz-bg.png";
 
 export const CampaignListingContainer = (): JSX.Element => {
-  const { data, loading } = useQuery<GetCampaignsDataQuery>(GET_CAMPAIGNS_DATA);
+  const { data, loading } = useQuery<GetCampaignListingDataQuery>(
+    GET_CAMPAIGN_LISTING_DATA
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,21 +39,19 @@ export const CampaignListingContainer = (): JSX.Element => {
 
       <Carousel>
         <MainBanner
-          height="h-96 xl:h-128"
-          imageAsset="/videos/genopets-bg.mp4"
+          backgroundAsset="/videos/genopets-bg.mp4"
           title="Genopets By Genopets Official"
           subtitle="3% of every single NFT minted is donated to charity"
-          ctaLink1={`${PlatformRoute.CampaignListing}`}
+          ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
         />
 
         <MainBanner
-          imageAsset={MulgaBannerImage.src}
+          backgroundAsset={MulgaBannerImage.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
           ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
-          height="h-96"
         />
       </Carousel>
 

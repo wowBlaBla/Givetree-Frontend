@@ -8,7 +8,7 @@ import { PlatformRoute } from "./configs/routes";
 import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
-import { CharityListingsContainer } from "./containers/charities/Listings";
+import { CharityListingContainer } from "./containers/charities/listing/Listing";
 import { MintEventContainer } from "./containers/mint-event/MintEvent";
 import { CharityDetailsContainer } from "./containers/charities/detail/Details";
 
@@ -36,7 +36,7 @@ const App = () => (
 
             <Route
               path={PlatformRoute.CharityListing}
-              element={<CharityListingsContainer />}
+              element={<CharityListingContainer />}
             />
 
             <Route
