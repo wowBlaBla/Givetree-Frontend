@@ -8,6 +8,7 @@ import YouturnYouthSupportImage from "../../temp/images/charities/youturn-youth-
 export const genYouturnYouthSupportData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
   name: "Youturn Youth Support",
+  slug: "youturn-youth-support",
   media: {
     tileUrl: YouturnYouthSupportImage.src,
     previewUrl: YouturnYouthSupportImage.src,

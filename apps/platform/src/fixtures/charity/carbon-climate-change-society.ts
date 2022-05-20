@@ -8,6 +8,7 @@ import CharityImg from "../../temp/images/charities/carbon-climate-change-societ
 export const genCarbonClimateChangeSocietyData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
   name: "Carbon Climate Change Society",
+  slug: "carbon-climate-change-society",
   media: {
     tileUrl: CharityImg.src,
     previewUrl: CharityImg.src,

@@ -28,7 +28,7 @@ export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) 
       {assetType === AssetType.Image && (
         <div
           className={cx(
-            "bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
+            "absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
             className
           )}
           style={{ backgroundImage: `url(${asset})` }}

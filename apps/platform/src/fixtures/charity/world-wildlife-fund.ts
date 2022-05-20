@@ -8,6 +8,7 @@ import WorldWildlifeFundImage from "../../temp/images/charities/world-wildlife-f
 export const genWorldWildlifeFundData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
   name: "World Wildlife Fund",
+  slug: "world-wildlife-fund",
   media: {
     tileUrl: WorldWildlifeFundImage.src,
     previewUrl: WorldWildlifeFundImage.src,

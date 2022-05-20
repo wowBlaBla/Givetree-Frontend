@@ -3,6 +3,7 @@ import { Cause } from "./enum/cause";
 export interface Charity {
   id: string;
   name: string;
+  slug: string;
   media: {
     tileUrl: string;
     previewUrl: string;
