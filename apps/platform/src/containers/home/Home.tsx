@@ -45,7 +45,7 @@ export const HomeContainer = () => {
 
       <div className="relative">
         <Carousel>
-          <MainBanner
+          {/* <MainBanner
             height="h-96 xl:h-128"
             imageAsset={GiveTreeBannerImage.src}
             title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
@@ -56,7 +56,7 @@ export const HomeContainer = () => {
             ctaLink1Text="Explore"
             ctaLink2="/"
             ctaLink2Text="Start Minting"
-          />
+          /> */}
           <MainBanner
             height="h-96 xl:h-128"
             imageAsset={MulgaBannerImage.src}

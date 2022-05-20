@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { BackgroundImage } from "./BackgroundImage";
+import { BackgroundAsset } from "./BackgroundAsset";
 import { DarkBlend } from "./BoxBlends";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { CurrencyIcon } from "./icons/CurrencyIcon";
@@ -27,7 +27,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 }) => {
   return (
     <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
-      <BackgroundImage imageAsset={backgroundImage} />
+      <BackgroundAsset asset={backgroundImage} />
 
       <div className="absolute bottom-0 w-full z-10">
         <DarkBlend bottom xlarge />

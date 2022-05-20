@@ -18,7 +18,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   shortDescription: gen.lorem.paragraphs(),
   longDescription: gen.lorem.paragraphs(),
   media: {
-    campaignBannerUrl: AssetImage.src,
+    campaignBannerUrl: "/videos/genopets-bg.mp4",
     campaignCollectionPreviewUrl: CollectionImage.src,
     campaignDetailsUrl: CollectionImage.src,
     campaignTilePreviewUrl: CollectionImage.src,
@@ -41,11 +41,11 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
     rounds: [
       genCampaignEventRound({
         type: EventRoundType.WhitelistToken,
-        startDate: gen.date.past(),
+        startDate: gen.date.recent(),
       }),
       genCampaignEventRound({
         type: EventRoundType.PublicSale,
-        startDate: gen.date.future(),
+        startDate: gen.date.soon(),
       }),
     ],
   }),

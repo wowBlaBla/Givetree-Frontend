@@ -2,7 +2,7 @@ import { faker as gen } from "@faker-js/faker";
 
 import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
 import { genMulgaTheArtistContentCreator } from "../content-creator";
-import { genCampaignEvent } from "../event";
+import { genCampaignEvent, genCampaignEventRound } from "../event";
 import { genRoyalty } from "../royalties";
 import { Campaign } from "../../typed/campaign";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
@@ -10,6 +10,7 @@ import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import MulgaBannerImage from "../../temp/images/mulga-bg-image.png";
 import MulgaAssetImage from "../../temp/images/mulgakongz-bunny-ears.png";
 import MulgaAsset2Image from "../../temp/images/mulga.png";
+import { EventRoundType } from "../../typed/enum/eventType";
 
 export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -37,6 +38,17 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   royalties: genRoyalty(),
   creators: [genMulgaTheArtistContentCreator()],
   whitelistMemo: gen.datatype.uuid(),
-  event: genCampaignEvent({}),
+  event: genCampaignEvent({
+    rounds: [
+      genCampaignEventRound({
+        type: EventRoundType.WhitelistToken,
+        startDate: gen.date.soon(),
+      }),
+      genCampaignEventRound({
+        type: EventRoundType.PublicSale,
+        startDate: gen.date.soon(),
+      }),
+    ],
+  }),
   ...x,
 });

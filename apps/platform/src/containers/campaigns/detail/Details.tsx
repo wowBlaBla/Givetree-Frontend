@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
-import { BackgroundImage } from "../../../components/BackgroundImage";
+import { BackgroundAsset } from "../../../components/BackgroundAsset";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
@@ -118,7 +118,7 @@ export const CampaignDetailsContainer: FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12">
           <div className="col-span-3 sm:col-span-2">
             <div className="relative w-full h-96">
-              <BackgroundImage
+              <BackgroundAsset
                 className="shadow-lg rounded-lg"
                 imageAsset={data.campaign.media.campaignDetailsUrl}
               />

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Cause } from "../../typed/enum/cause";
-import { BackgroundImage } from "../BackgroundImage";
+import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 
@@ -14,7 +14,7 @@ export const CharityCard: FC<CharityCardProps> = ({ cause, imageAsset, name }) =
   <div className="relative w-full rounded-xl shadow-lg cursor-pointer overflow-hidden">
     <div className="relative pt-full">
       <FeaturedBadge className="my-2.5 mx-2" text={cause} />
-      <BackgroundImage imageAsset={imageAsset} />
+      <BackgroundAsset asset={imageAsset} />
     </div>
 
     <DarkBlend bottom small />
