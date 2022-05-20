@@ -3,7 +3,7 @@ import { sample } from "lodash";
 import { Cause } from "../../typed/enum/cause";
 import { faker as gen } from "@faker-js/faker";
 
-import CharityImg from "../../assets/images/impact-partner-climate.png";
+import CharityImg from "../../temp/images/impact-partner-climate.png";
 
 export const genCarbonClimateChangeSociety = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { BackgroundImage } from "../BackgroundImage";
+import { BackgroundAsset } from "../BackgroundAsset";
 import { BaseTile } from "./BaseTile";
 
 interface CharityTileProps {
@@ -12,10 +12,7 @@ export const CharityTile: FC<CharityTileProps> = ({ description, imageAsset, nam
   <BaseTile className="border bg-gray-100">
     <div className="flex flex-col justify-center items-center">
       <div className="flex relative justify-center w-48 h-48 lg:w-72 lg:h-72 mx-auto">
-        <BackgroundImage
-          className="object-fit w-full rounded-full"
-          imageAsset={imageAsset}
-        />
+        <BackgroundAsset asset={imageAsset} className="object-fit w-full rounded-full" />
       </div>
 
       <p className="mt-4 text-center text-base lg:text-lg">{description}</p>

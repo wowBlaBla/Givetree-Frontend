@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import { kebabCase } from "lodash";
 
-import { BackgroundImage } from "../BackgroundImage";
+import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
 import { ContentCreatorBadge } from "../badges/ContentCreatorBadge";
 import { LiveBadge } from "../badges/LiveBadge";
@@ -45,7 +45,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
       )}
 
       <div className="relative pt-full">
-        <BackgroundImage imageAsset={campaign.media.campaignTilePreviewUrl} />
+        <BackgroundAsset asset={campaign.media.campaignTilePreviewUrl} />
 
         <DarkBlend bottom small />
       </div>

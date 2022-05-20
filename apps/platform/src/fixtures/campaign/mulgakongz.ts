@@ -1,14 +1,16 @@
-import { Campaign } from "../../typed/campaign";
 import { faker as gen } from "@faker-js/faker";
 
-import MulgaBgImg from "../../assets/images/mulga-bg-image.png";
-import MulgaAssetImg from "../../assets/images/mulgakongz-bunny-ears.png";
-import MulgaHatImg from "../../assets/images/mulga.png";
-import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
-import { genRoyalty } from "../royalties";
 import { genMulgaTheArtistContentCreator } from "../content-creator";
-import { genCampaignEvent } from "../event";
+import { genCampaignEvent, genCampaignEventRound } from "../event";
+import { genRoyalty } from "../royalties";
+import { Campaign } from "../../typed/campaign";
+import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
+
+import MulgaBannerImage from "../../temp/images/mulga-bg-image.png";
+import MulgaAssetImage from "../../temp/images/mulgakongz-bunny-ears.png";
+import MulgaAsset2Image from "../../temp/images/mulga.png";
+import { EventRoundType } from "../../typed/enum/eventType";
 
 export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -17,12 +19,12 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   shortDescription: gen.lorem.paragraph(),
   longDescription: gen.lorem.paragraphs(),
   media: {
-    campaignBannerUrl: MulgaBgImg.src,
-    campaignCollectionPreviewUrl: MulgaAssetImg.src,
-    campaignDetailsUrl: MulgaHatImg.src,
-    campaignTilePreviewUrl: MulgaAssetImg.src,
-    mintingBannerUrl: MulgaBgImg.src,
-    mintingCollectionPreviewUrl: MulgaAssetImg.src,
+    campaignBannerUrl: MulgaBannerImage.src,
+    campaignCollectionPreviewUrl: MulgaAssetImage.src,
+    campaignDetailsUrl: MulgaAsset2Image.src,
+    campaignTilePreviewUrl: MulgaAssetImage.src,
+    mintingBannerUrl: MulgaBannerImage.src,
+    mintingCollectionPreviewUrl: MulgaAssetImage.src,
   },
   floorPrice: gen.datatype.number({ min: 3, max: 5 }),
   currency: SupportedPlatform.ETH,
@@ -36,6 +38,17 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   royalties: genRoyalty(),
   creators: [genMulgaTheArtistContentCreator()],
   whitelistMemo: gen.datatype.uuid(),
-  event: genCampaignEvent(),
+  event: genCampaignEvent({
+    rounds: [
+      genCampaignEventRound({
+        type: EventRoundType.WhitelistToken,
+        startDate: gen.date.soon(),
+      }),
+      genCampaignEventRound({
+        type: EventRoundType.PublicSale,
+        startDate: gen.date.soon(),
+      }),
+    ],
+  }),
   ...x,
 });

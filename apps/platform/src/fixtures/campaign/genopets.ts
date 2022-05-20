@@ -1,15 +1,15 @@
-import AssetImg from "../../assets/images/genopets-asset.png";
-import CollectionImg from "../../assets/images/genopets-collection.png";
-import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
-import { Campaign } from "../../typed/campaign";
+import { faker as gen } from "@faker-js/faker";
 
 import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
 import { genRoyalty } from "../royalties";
 import { genGenopetsContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
-
-import { faker as gen } from "@faker-js/faker";
+import { Campaign } from "../../typed/campaign";
 import { EventRoundType } from "../../typed/enum/eventType";
+import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
+
+import AssetImage from "../../temp/images/genopets-asset.png";
+import CollectionImage from "../../temp/images/genopets-collection.png";
 
 export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -18,12 +18,12 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   shortDescription: gen.lorem.paragraphs(),
   longDescription: gen.lorem.paragraphs(),
   media: {
-    campaignBannerUrl: AssetImg.src,
-    campaignCollectionPreviewUrl: CollectionImg.src,
-    campaignDetailsUrl: CollectionImg.src,
-    campaignTilePreviewUrl: CollectionImg.src,
-    mintingBannerUrl: AssetImg.src,
-    mintingCollectionPreviewUrl: CollectionImg.src,
+    campaignBannerUrl: "/videos/genopets-bg.mp4",
+    campaignCollectionPreviewUrl: CollectionImage.src,
+    campaignDetailsUrl: CollectionImage.src,
+    campaignTilePreviewUrl: CollectionImage.src,
+    mintingBannerUrl: AssetImage.src,
+    mintingCollectionPreviewUrl: CollectionImage.src,
   },
   floorPrice: gen.datatype.number({ min: 3, max: 5 }),
   currency: SupportedPlatform.SOL,
@@ -41,11 +41,12 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
     rounds: [
       genCampaignEventRound({
         type: EventRoundType.WhitelistToken,
-        startDate: gen.date.past(),
+        startDate: gen.date.recent(),
+        endDate: gen.date.soon(),
       }),
       genCampaignEventRound({
         type: EventRoundType.PublicSale,
-        startDate: gen.date.future(),
+        startDate: gen.date.soon(),
       }),
     ],
   }),

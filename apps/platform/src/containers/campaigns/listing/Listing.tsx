@@ -1,17 +1,16 @@
 import React from "react";
+import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
-
-import { MainBanner } from "../../../components/MainBanner";
+import { PlatformRoute } from "../../../configs/routes";
 import { CampaignCard } from "../../../components/cards/CampaignCard";
 import { CardGrid } from "../../../components/CardGrid";
-import { SectionHeader } from "../../../components/SectionHeader";
-import { PlatformRoute } from "../../../configs/routes";
-
-import GiveTreeBgImg from "../../../assets/images/givtree-bg-image.png";
-import MulgaBgImg from "../../../assets/images/mulga-bg-image.png";
 import { Carousel } from "../../../components/Carousel";
-import { gql, useQuery } from "@apollo/client";
+import { MainBanner } from "../../../components/MainBanner";
+import { SectionHeader } from "../../../components/SectionHeader";
 import { Campaign } from "../../../typed/campaign";
+
+// import GiveTreeBannerImage from "../../../assets/images/givtree-bg-image.png";
+import MulgaBannerImage from "../../../temp/images/mulga-bg-image.png";
 
 interface GetCampaignsDataQuery {
   campaigns: Campaign[];
@@ -47,20 +46,16 @@ export const CampaignListingContainer = (): JSX.Element => {
 
       <Carousel>
         <MainBanner
-          imageAsset={GiveTreeBgImg.src}
-          title="The GiveTree NFT Marketplace & Metaverse Game-For-Good"
-          subtitle="A % of every single NFT transaction is donated to charity"
-          teaser="Learn more about GiveTree"
-          teaserLink="#"
-          ctaLink1={PlatformRoute.CampaignListing}
-          ctaLink1Text="Explore"
-          ctaLink2="/"
-          ctaLink2Text="Start Minting"
-          height="h-96"
+          height="h-96 xl:h-128"
+          imageAsset="/videos/genopets-bg.mp4"
+          title="Genopets By Genopets Official"
+          subtitle="3% of every single NFT minted is donated to charity"
+          ctaLink1={`${PlatformRoute.CampaignListing}`}
+          ctaLink1Text="Go to launchpad"
         />
 
         <MainBanner
-          imageAsset={MulgaBgImg.src}
+          imageAsset={MulgaBannerImage.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
           ctaLink1={PlatformRoute.CampaignListing}

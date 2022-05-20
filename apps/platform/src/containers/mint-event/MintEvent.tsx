@@ -5,7 +5,7 @@ import Head from "next/head";
 
 import { GetMintingEventDataQuery, GET_MINTING_EVENT_DATA } from "./MintEventData";
 
-import { BackgroundImage } from "../../components/BackgroundImage";
+import { BackgroundAsset } from "../../components/BackgroundAsset";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 import { PrimaryButton } from "../../components/PrimaryButton";
 import { LiveBadge } from "../../components/badges/LiveBadge";
@@ -35,7 +35,7 @@ export const MintEventContainer: FC = () => {
         <title>GiveTree - {data.campaign.title}</title>
       </Head>
 
-      <BackgroundImage imageAsset={data.campaign.media.mintingBannerUrl} />
+      <BackgroundAsset asset={data.campaign.media.mintingBannerUrl} />
       <DarkBlend top xlarge />
 
       <div className="flex flex-1 justify-center items-center w-full h-full m-auto py-10 p-5">
@@ -69,7 +69,7 @@ export const MintEventContainer: FC = () => {
             <div className="flex flex-col space-y-10 sm:space-y-12 justify-center items-center w-full mt-12 px-3">
               <div className="flex flex-col w-full item-center">
                 <div className="relative w-full h-full pt-full">
-                  <BackgroundImage
+                  <BackgroundAsset
                     className="shadow-lg rounded-lg"
                     imageAsset={data.campaign.media.mintingCollectionPreviewUrl}
                   />
