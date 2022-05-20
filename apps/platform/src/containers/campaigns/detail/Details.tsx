@@ -120,7 +120,7 @@ export const CampaignDetailsContainer: FC = () => {
             <div className="relative w-full h-96">
               <BackgroundAsset
                 className="shadow-lg rounded-lg"
-                imageAsset={data.campaign.media.campaignDetailsUrl}
+                asset={data.campaign.media.campaignDetailsUrl}
               />
             </div>
           </div>
