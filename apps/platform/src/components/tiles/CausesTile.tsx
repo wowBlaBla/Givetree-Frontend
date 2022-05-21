@@ -9,8 +9,8 @@ interface CausesTileProps {
 }
 
 export const CausesTile: FC<CausesTileProps> = ({ charityRoyaltyPercentage, causes }) => (
-  <BaseTile className="bg-white border-2 border-green-400">
-    <LeafIcon className="float-right w-8 h-8 text-brand-green-active fill-current" />
+  <BaseTile className="bg-green-500 text-white">
+    <LeafIcon className="float-right w-8 h-8 fill-current" />
 
     <p className="text-lg font-semibold">
       Amazingly {charityRoyaltyPercentage}% of sale price goes towards these causes:
@@ -20,9 +20,9 @@ export const CausesTile: FC<CausesTileProps> = ({ charityRoyaltyPercentage, caus
       {causes.map((cause, idx) => (
         <div
           key={idx}
-          className="py-1 px-2 rounded-full border-2 border-brand-green-active text-green-600 text-xs lg:text-sm font-semibold text-center"
+          className="py-1 px-3 rounded-full border-2 border-white text-xs lg:text-sm font-semibold text-center"
         >
-          {Cause[cause as keyof typeof Cause]}
+          {cause}
         </div>
       ))}
     </div>
