@@ -12,11 +12,11 @@ import { CharityTile } from "../../../components/tiles/CharityTile";
 import { CausesTile } from "../../../components/tiles/CausesTile";
 import { ContentCreatorTile } from "../../../components/tiles/ContentCreatorTile";
 import { CollectionDetailTile } from "../../../components/tiles/CollectionDetailTile";
-import { GoToMintTile } from "../../../components/tiles/GoToMintTile";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
 import { getEventStatus } from "../../../utils/getEventStatus";
+import { PrimaryLink } from "../../../components/PrimaryButton";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -68,7 +68,7 @@ export const CampaignDetailsContainer: FC = () => {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 my-12 space-y-6 sm:space-y-8 lg:space-y-0">
-          <div className="flex flex-col items-center w-full space-y-6 lg:col-span-7 sm:space-y-8">
+          <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7">
             <CollectionDetailTile
               description={data.campaign.shortDescription}
               floorPrice={data.campaign.floorPrice}
@@ -83,7 +83,7 @@ export const CampaignDetailsContainer: FC = () => {
             />
 
             <CausesTile
-              charityRoyaltyPercentage={getRoyaltyPercentage(
+              royaltyPercentage={getRoyaltyPercentage(
                 data.campaign.royalties,
                 RoyaltyType.CharityDonation
               )}
@@ -97,10 +97,20 @@ export const CampaignDetailsContainer: FC = () => {
           </div>
 
           <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5">
-            <GoToMintTile
-              linkTo={data.campaign.slug}
-              imageAsset={data.campaign.media.campaignCollectionPreviewUrl}
-            />
+            <div className="flex relative flex-col item-center w-full">
+              <div className="relative pt-full">
+                <BackgroundAsset
+                  asset={data.campaign.media.campaignCollectionPreviewUrl}
+                  className="rounded-xl shadow-lg"
+                />
+              </div>
+
+              <div className="w-full mt-5 text-center">
+                <PrimaryLink to={`/minting/${data.campaign.slug}`} large>
+                  Go to minting site
+                </PrimaryLink>
+              </div>
+            </div>
 
             <CharityTile
               name={data.campaign.nominatedCharity.name}
@@ -117,10 +127,10 @@ export const CampaignDetailsContainer: FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12">
           <div className="col-span-3 sm:col-span-2">
-            <div className="relative w-full h-96">
+            <div className="relative pt-full">
               <BackgroundAsset
                 asset={data.campaign.media.campaignDetailsUrl}
-                className="shadow-lg rounded-lg"
+                className="rounded-xl shadow-lg"
               />
             </div>
           </div>

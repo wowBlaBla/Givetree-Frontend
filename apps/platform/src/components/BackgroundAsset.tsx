@@ -11,15 +11,15 @@ export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) 
   const assetType = getAssetType(asset);
 
   return (
-    <div>
+    <>
       {assetType === AssetType.Video && (
-        <div className={className}>
-          <video
-            autoPlay
-            loop
-            muted
-            className="absolute inset-0 z-10 w-auto min-w-full min-h-full max-w-none object-cover"
-          >
+        <div
+          className={cx(
+            "absolute inset-0 z-10 w-auto min-w-full min-h-full bg-brand-black",
+            className
+          )}
+        >
+          <video autoPlay loop muted className="w-auto min-w-full min-h-full max-w-none">
             <source src={asset} type="video/mp4" />
           </video>
         </div>
@@ -28,12 +28,12 @@ export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) 
       {assetType === AssetType.Image && (
         <div
           className={cx(
-            "bg-brand-black absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
+            "absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
             className
           )}
           style={{ backgroundImage: `url(${asset})` }}
         />
       )}
-    </div>
+    </>
   );
 };

@@ -24,7 +24,7 @@ export const DarkBlend: FC<BlendProps> = ({
       "bottom-0 bg-gradient-to-t": bottom,
       "h-16": small,
       "h-12 sm:h-32": large,
-      "h-12 sm:h-72": xlarge,
+      "h-72 sm:h-72": xlarge,
     })}
   />
 );

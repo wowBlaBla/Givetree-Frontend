@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
+import { boolean } from "yup";
 
 const ButtonStyles = `
   bg-brand-orange
@@ -37,10 +38,16 @@ interface PrimaryLinkProps {
   to: string;
   className?: string;
   children?: ReactNode;
+  large?: boolean;
 }
 
-export const PrimaryLink: FC<PrimaryLinkProps> = ({ children, className, to }) => (
-  <Link className={cx(ButtonStyles, className)} to={to}>
+export const PrimaryLink: FC<PrimaryLinkProps> = ({ children, className, large, to }) => (
+  <Link
+    className={cx(ButtonStyles, className, {
+      "text-lg lg:text-xl": large,
+    })}
+    to={to}
+  >
     {children}
   </Link>
 );

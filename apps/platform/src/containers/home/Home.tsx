@@ -11,8 +11,7 @@ import { OutlineLink } from "../../components/OutlineButton";
 import { SectionTitle } from "../../components/SectionTitle";
 import { Campaign } from "../../typed/campaign";
 
-// import GiveTreeBannerImage from "./../../assets/images/givtree-bg-image.png";
-import MulgaBannerImage from "./../../temp/images/mulga-bg-image.png";
+import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
 
 interface GetCampaignsDataQuery {
   campaigns: Campaign[];
@@ -46,16 +45,14 @@ export const HomeContainer = () => {
       <div className="relative">
         <Carousel>
           <MainBanner
-            height="h-96 xl:h-128"
-            imageAsset="/videos/genopets-bg.mp4"
+            backgroundAsset="/videos/genopets-bg.mp4"
             title="Genopets By Genopets Official"
             subtitle="3% of every single NFT minted is donated to charity"
             ctaLink1={`${PlatformRoute.CampaignListing}`}
             ctaLink1Text="Go to launchpad"
           />
           <MainBanner
-            height="h-96 xl:h-128"
-            imageAsset={MulgaBannerImage.src}
+            backgroundAsset={MulgaBannerImage.src}
             title="Mulgakongz by MulgaTheArtist"
             subtitle="4% of every single NFT minted is donated to Kids Learn Art"
             ctaLink1={PlatformRoute.CampaignListing}

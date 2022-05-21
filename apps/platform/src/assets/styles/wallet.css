@@ -105,13 +105,6 @@
   @apply normal-case text-lg sm:text-xl font-semibold;
 }
 
-.wallet-adapter-modal-list .wallet-adapter-button-end-icon,
-.wallet-adapter-modal-list .wallet-adapter-button-start-icon,
-.wallet-adapter-modal-list .wallet-adapter-button-end-icon img,
-.wallet-adapter-modal-list .wallet-adapter-button-start-icon img {
-  @apply w-6 h-6;
-}
-
 .wallet-adapter-modal-list .wallet-adapter-button-start-icon {
   @apply mr-3;
 }

@@ -1,6 +1,6 @@
 import { faker as gen } from "@faker-js/faker";
 
-import { genCarbonClimateChangeSociety } from "../charity/carbon-climate-change-society";
+import { genCarbonClimateChangeSocietyData } from "../charity/carbon-climate-change-society";
 import { genRoyalty } from "../royalties";
 import { genGenopetsContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
@@ -8,8 +8,8 @@ import { Campaign } from "../../typed/campaign";
 import { EventRoundType } from "../../typed/enum/eventType";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 
-import AssetImage from "../../temp/images/genopets-asset.png";
-import CollectionImage from "../../temp/images/genopets-collection.png";
+import GenopetsCollectionImage from "../../temp/images/campaigns/genopets-collection.png";
+import GenopetsCollection2Image from "../../temp/images/campaigns/genopets-collection-2.png";
 
 export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -19,11 +19,11 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: "/videos/genopets-bg.mp4",
-    campaignCollectionPreviewUrl: CollectionImage.src,
-    campaignDetailsUrl: CollectionImage.src,
-    campaignTilePreviewUrl: CollectionImage.src,
-    mintingBannerUrl: AssetImage.src,
-    mintingCollectionPreviewUrl: CollectionImage.src,
+    campaignCollectionPreviewUrl: "/videos/genopets-collection-2.mp4",
+    campaignDetailsUrl: GenopetsCollectionImage.src,
+    campaignTilePreviewUrl: GenopetsCollectionImage.src,
+    mintingBannerUrl: GenopetsCollection2Image.src,
+    mintingCollectionPreviewUrl: GenopetsCollectionImage.src,
   },
   floorPrice: gen.datatype.number({ min: 3, max: 5 }),
   currency: SupportedPlatform.SOL,
@@ -33,7 +33,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   discordUrl: gen.internet.url(),
   twitterUrl: gen.internet.url(),
   contractUrl: gen.internet.url(),
-  nominatedCharity: genCarbonClimateChangeSociety(),
+  nominatedCharity: genCarbonClimateChangeSocietyData(),
   royalties: genRoyalty(),
   creators: [genGenopetsContentCreator()],
   whitelistMemo: gen.datatype.uuid(),

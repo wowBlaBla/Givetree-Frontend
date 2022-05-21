@@ -31,6 +31,7 @@ module.exports = {
         "screen-3xl": "1754px",
       },
       minHeight: {
+        72: "20rem",
         96: "32rem",
       },
       spacing: {
