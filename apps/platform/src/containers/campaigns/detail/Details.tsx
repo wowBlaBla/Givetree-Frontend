@@ -68,7 +68,7 @@ export const CampaignDetailsContainer: FC = () => {
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 my-12 space-y-6 sm:space-y-8 lg:space-y-0">
-          <div className="flex flex-col items-center w-full space-y-6 lg:col-span-7 sm:space-y-8">
+          <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7">
             <CollectionDetailTile
               description={data.campaign.shortDescription}
               floorPrice={data.campaign.floorPrice}
@@ -105,8 +105,8 @@ export const CampaignDetailsContainer: FC = () => {
                 />
               </div>
 
-              <div className="w-full mt-8 text-center">
-                <PrimaryLink to={`/minting/${data.campaign.slug}`}>
+              <div className="w-full mt-5 text-center">
+                <PrimaryLink to={`/minting/${data.campaign.slug}`} large>
                   Go to minting site
                 </PrimaryLink>
               </div>
