@@ -83,7 +83,7 @@ export const CampaignDetailsContainer: FC = () => {
             />
 
             <CausesTile
-              charityRoyaltyPercentage={getRoyaltyPercentage(
+              royaltyPercentage={getRoyaltyPercentage(
                 data.campaign.royalties,
                 RoyaltyType.CharityDonation
               )}
