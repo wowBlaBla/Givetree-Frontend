@@ -26,11 +26,11 @@ export const MainBanner: FC<MainBannerProps> = ({
     <BackgroundAsset asset={backgroundAsset} />
 
     <div className="flex relative justify-center items-center lg:justify-start max-w-screen-3xl h-full mx-auto py-16 px-4 z-10">
-      <div className="relative w-full max-w-lg xl:max-w-2xl p-6 sm:p-10 rounded-xl bg-black bg-opacity-70 text-white">
+      <div className="relative w-full max-w-lg xl:max-w-2xl rounded-xl p-6 pb-10 sm:pb-12 sm:p-10 bg-brand-black bg-opacity-70 text-white">
         <h2 className="text-3xl sm:text-4xl xl:text-5xl font-normal">{title}</h2>
         <h4 className="mt-1 sm:mt-3 text-xs sm:text-sm xl:text-base">{subtitle}</h4>
 
-        <div className="mt-6 space-x-4">
+        <div className="mt-6">
           {ctaLink1 && <PrimaryLink to={ctaLink1}>{ctaLink1Text}</PrimaryLink>}
           {ctaLink2 && <PrimaryLink to={ctaLink2}>{ctaLink2Text}</PrimaryLink>}
         </div>
