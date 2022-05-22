@@ -83,11 +83,11 @@ export const CampaignDetailsContainer: FC = () => {
             />
 
             <CausesTile
-              royaltyPercentage={getRoyaltyPercentage(
+              causes={data.campaign.nominatedCharity.causes}
+              description={`${getRoyaltyPercentage(
                 data.campaign.royalties,
                 RoyaltyType.CharityDonation
-              )}
-              causes={data.campaign.nominatedCharity.causes}
+              )}% of sale price goes towards these causes:`}
             />
 
             <MintingEventTile

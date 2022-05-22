@@ -9,7 +9,7 @@ export const genCarbonClimateChangeSocietyData = (x?: Partial<Charity>): Charity
   id: gen.datatype.uuid(),
   name: "Carbon Climate Change Society",
   slug: "carbon-climate-change-society",
-  description: gen.lorem.paragraphs(),
+  description: gen.lorem.paragraphs(12),
   media: {
     tileUrl: CharityImg.src,
     previewUrl: CharityImg.src,

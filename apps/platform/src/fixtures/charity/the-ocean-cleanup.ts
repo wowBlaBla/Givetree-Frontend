@@ -9,7 +9,7 @@ export const genTheOceanCleanupData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
   name: "The Ocean Cleanup",
   slug: "the-ocean-cleanup",
-  description: gen.lorem.paragraphs(),
+  description: gen.lorem.paragraphs(11),
   media: {
     tileUrl: TheOceanCleanupImage.src,
     previewUrl: TheOceanCleanupImage.src,
