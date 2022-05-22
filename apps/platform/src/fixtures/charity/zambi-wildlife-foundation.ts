@@ -9,6 +9,7 @@ export const genZambiWildlifeFoundationData = (x?: Partial<Charity>): Charity =>
   id: gen.datatype.uuid(),
   name: "Zambi Wildlife Foundation",
   slug: "zambi-wildlife-foundation",
+  description: gen.lorem.paragraphs(),
   media: {
     tileUrl: ZambiWildlifeFoundationImage.src,
     previewUrl: ZambiWildlifeFoundationImage.src,

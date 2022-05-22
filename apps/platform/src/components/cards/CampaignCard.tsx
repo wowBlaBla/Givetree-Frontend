@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { kebabCase } from "lodash";
 
 import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
@@ -30,7 +29,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const isLive = getEventStatus(campaign.event.rounds).isLive;
 
   const onClick = () => {
-    return navigate(`campaign/${kebabCase(campaign.title)}`);
+    return navigate(`campaign/${campaign.slug}`);
   };
 
   return (

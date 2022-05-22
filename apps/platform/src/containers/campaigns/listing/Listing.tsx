@@ -14,12 +14,16 @@ import { SectionHeader } from "../../../components/SectionHeader";
 import MulgaBannerImage from "../../../temp/images/campaigns/mulgakongz-bg.png";
 
 export const CampaignListingContainer = (): JSX.Element => {
-  const { data, loading } = useQuery<GetCampaignListingDataQuery>(
+  const { data, loading, error } = useQuery<GetCampaignListingDataQuery>(
     GET_CAMPAIGN_LISTING_DATA
   );
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
   }
 
   if (!data) {
