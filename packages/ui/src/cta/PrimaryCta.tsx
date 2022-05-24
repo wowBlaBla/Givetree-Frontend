@@ -15,14 +15,19 @@ const ButtonStyles = `
   button-hover
 `;
 
-interface ButtonProps {
-  type?: "button" | "submit" | "reset" | undefined;
+interface BaseCtaProps {
+  children: ReactNode;
   className?: string;
-  children?: ReactNode;
   large?: boolean;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ className, large, type, children }) => (
+///////////////////////////////// Button
+
+interface ButtonProps extends BaseCtaProps {
+  type?: "button" | "submit" | "reset" | undefined;
+}
+
+export const PrimaryCta: FC<ButtonProps> = ({ className, large, type, children }) => (
   <button
     className={cx(ButtonStyles, className, {
       "text-lg lg:text-xl": large,
@@ -33,14 +38,18 @@ export const PrimaryButton: FC<ButtonProps> = ({ className, large, type, childre
   </button>
 );
 
-interface PrimaryLinkProps {
+///////////////////////////////// Link
+
+interface PrimaryLinkProps extends BaseCtaProps {
   to: string;
-  className?: string;
-  children?: ReactNode;
-  large?: boolean;
 }
 
-export const PrimaryLink: FC<PrimaryLinkProps> = ({ children, className, large, to }) => (
+export const PrimaryLinkCta: FC<PrimaryLinkProps> = ({
+  children,
+  className,
+  large,
+  to,
+}) => (
   <Link
     className={cx(ButtonStyles, className, {
       "text-lg lg:text-xl": large,
