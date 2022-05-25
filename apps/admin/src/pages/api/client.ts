@@ -1,30 +1,38 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloLink, createHttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import axios from "axios";
-import { GQL_ENDPOINT } from "../../configs/constants";
+import { onError, ErrorResponse } from "@apollo/client/link/error";
+import {
+  HASURA_GRAPHQL_ENDPOINT,
+  HASURA_GRAPHQL_ADMIN_SECRET,
+} from "../../configs/constants";
+import { hasGraphQLError } from "../../utils/hasGraphQLError";
+import { localState as cache } from "../../utils/localState";
 
-const httpLink = createHttpLink({
-  uri: GQL_ENDPOINT,
-  fetch: (...args) => fetch(...args),
-});
+const httpLink = createHttpLink({ uri: HASURA_GRAPHQL_ENDPOINT });
 
-async function fetchSession() {
-  const res = await axios.get(`/api/session`);
-  return res.data.session.idToken;
-}
+const authLink = setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+    "x-hasura-admin-secret": HASURA_GRAPHQL_ADMIN_SECRET,
+  },
+}));
 
-const authLink = setContext((_, { headers }) => {
-  return fetchSession().then((token) => ({
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  }));
+const operationLink = setContext(({ operationName }, { headers }) => ({
+  headers: { ...headers, operation: operationName },
+}));
+
+const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse): void => {
+  if (hasGraphQLError("UNAUTHENTICATED", graphQLErrors)) {
+    window.location.reload();
+  }
+
+  if (networkError) {
+    console.log(`[Network error]: ${networkError}`);
+  }
 });
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  uri: HASURA_GRAPHQL_ENDPOINT,
+  link: ApolloLink.from([operationLink, authLink, errorLink, httpLink]),
+  cache: cache,
 });
-
-export default client;

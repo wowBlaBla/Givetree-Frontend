@@ -1,27 +1,21 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { OutlineButton } from "./OutlineButton";
 import { PrimaryButton } from "./PrimaryButton";
+import { unsetToken } from "../utils/auth";
+import { GIVETREE_ADMIN_AUTH_KEY } from "../configs/constants";
 
 export const AppHeader: FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
-  useEffect(() => {
-    if (isLoading) {
-      return setLoading(false);
-    }
+  const handleLogout = () => {
+    unsetToken(GIVETREE_ADMIN_AUTH_KEY);
 
-    setLoading(false);
-  }, [isLoading]);
-
-  const handleLogin = () => loginWithRedirect();
-
-  const handleLogout = () =>
     logout({
       returnTo: window.location.origin,
     });
+  };
 
   return (
     <div className="grid grid-cols-2 w-full bg-brand-black p-3 z-50">
@@ -31,12 +25,10 @@ export const AppHeader: FC = () => {
       </div>
 
       <div className="flex flex-row-reverse w-full h-12">
-        {!loading && isAuthenticated && (
-          <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
-        )}
+        {<OutlineButton onClick={handleLogout}>Log out</OutlineButton>}
 
-        {!loading && !isAuthenticated && (
-          <PrimaryButton onClick={handleLogin}>Log In</PrimaryButton>
+        {!isLoading && !isAuthenticated && (
+          <PrimaryButton onClick={loginWithRedirect}>Log In</PrimaryButton>
         )}
       </div>
     </div>
