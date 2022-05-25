@@ -1,11 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { OutlineButton } from "./OutlineButton";
 import { PrimaryButton } from "./PrimaryButton";
 
 export const AppHeader: FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+
+  useEffect(() => {
+    if (isLoading) {
+      return setLoading(false);
+    }
+
+    setLoading(false);
+  }, [isLoading]);
 
   const handleLogin = () => loginWithRedirect();
 
@@ -22,11 +31,11 @@ export const AppHeader: FC = () => {
       </div>
 
       <div className="flex flex-row-reverse w-full h-12">
-        {!isLoading && isAuthenticated && (
+        {!loading && isAuthenticated && (
           <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
         )}
 
-        {!isLoading && !isAuthenticated && (
+        {!loading && !isAuthenticated && (
           <PrimaryButton onClick={handleLogin}>Log In</PrimaryButton>
         )}
       </div>

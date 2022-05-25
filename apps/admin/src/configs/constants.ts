@@ -6,7 +6,11 @@ const getEnv = (key: string, defaultValue?: string): string => {
   return value;
 };
 
-export const GQL_ENDPOINT = getEnv("GQL_ENDPOINT", "https://zeus.hasura.app/v1/graphql");
+export const GIVETREE_ADMIN_AUTH_KEY = "givetree-admin-auth";
+export const GQL_ENDPOINT = getEnv(
+  "GQL_ENDPOINT",
+  "https://givetree-zeus.hasura.app/v1/graphql"
+);
 export const AUTH0_DOMAIN = getEnv("AUTH0_DOMAIN", "givetree.au.auth0.com");
 export const AUTH0_CLIENT_ID = getEnv(
   "AUTH0_CLIENT_ID",

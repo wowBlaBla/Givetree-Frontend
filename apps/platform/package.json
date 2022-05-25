@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001=0",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,7 +13,7 @@
   "dependencies": {
     "@apollo/client": "3.6.2",
     "@faker-js/faker": "6.3.1",
-      "@givetree-ares/ui": "0.1.1",
+    "@givetree-ares/ui": "0.1.1",
     "@metamask/providers": "8.1.1",
     "@solana/wallet-adapter-base": "0.9.4",
     "@solana/wallet-adapter-react": "^0.15.3",
