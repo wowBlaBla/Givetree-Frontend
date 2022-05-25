@@ -1,8 +1,7 @@
 import { ApolloClient, ApolloLink, createHttpLink } from "@apollo/client";
 import { ErrorResponse, onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
-import { GIVETREE_ADMIN_AUTH_KEY, GQL_ENDPOINT } from "./constants";
-import { getAuthToken, unsetToken } from "../utils/auth";
+import { GQL_ENDPOINT } from "./constants";
 import { hasGraphQLError } from "../utils/hasGraphQLError";
 import { localState as cache } from "../utils/localState";
 
@@ -16,11 +15,7 @@ const authLink = setContext((_, { headers, token }) => ({
 }));
 
 const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse): void => {
-  if (
-    hasGraphQLError("UNAUTHENTICATED", graphQLErrors) &&
-    getAuthToken(GIVETREE_ADMIN_AUTH_KEY)
-  ) {
-    unsetToken(GIVETREE_ADMIN_AUTH_KEY);
+  if (hasGraphQLError("UNAUTHENTICATED", graphQLErrors)) {
     window.location.reload();
   }
 
@@ -33,12 +28,8 @@ const operationLink = setContext(({ operationName }, { headers }) => ({
   headers: { ...headers, operation: operationName },
 }));
 
-const withTokenLink = setContext(() => ({
-  token: getAuthToken(GIVETREE_ADMIN_AUTH_KEY),
-}));
-
 export const client = new ApolloClient({
   cache: cache,
-  link: ApolloLink.from([authLink, errorLink, operationLink, withTokenLink, httpLink]),
+  link: ApolloLink.from([authLink, errorLink, operationLink, httpLink]),
   uri: GQL_ENDPOINT,
 });
