@@ -2,6 +2,7 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![code style: airbnb](https://img.shields.io/badge/code%20style-airbnb-blue.svg)](https://github.com/airbnb/javascript)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d23f9a94-9de7-4e34-9bc8-1c2cde25c18f/deploy-status)](https://app.netlify.com/sites/givetree-admin/deploys)
 
 **Welcome to the GiveTree Admin Portal!**
 
