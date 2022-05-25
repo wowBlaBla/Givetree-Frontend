@@ -33,7 +33,7 @@ export const InputGroup: FC<InputGroupProps> = ({
 
   return (
     <div className="flex flex-col">
-      <label htmlFor={name} className="block text-base text-brand-black">
+      <label htmlFor={name} className="block text-base text-brand-black font-semibold">
         {label}
       </label>
 

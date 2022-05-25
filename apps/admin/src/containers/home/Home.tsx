@@ -1,6 +1,6 @@
 import React from "react";
-// import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
+// import { gql, useQuery } from "@apollo/client";
 
 export const HomeContainer = () => {
   return (
@@ -11,7 +11,9 @@ export const HomeContainer = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div>Home</div>
+      <div className="w-full text-center text-4xl font-semibold tracking-wide">
+        Welcome to GiveTree Partnerships
+      </div>
     </div>
   );
 };

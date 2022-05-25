@@ -1,18 +1,15 @@
 import React, { FC } from "react";
-import { ApolloProvider } from "@apollo/client";
 import type { AppProps } from "next/app";
-import { client } from "../client";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../configs/client";
 
 import "../assets/styles/global.css";
-import { AuthProvider } from "../AuthProvider";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={client}>
-    <AuthProvider>
-      <div className="flex flex-col flex-1 w-full mx-auto" suppressHydrationWarning>
-        <Component {...pageProps} />
-      </div>
-    </AuthProvider>
+    <div className="flex flex-col flex-1 w-full mx-auto" suppressHydrationWarning>
+      <Component {...pageProps} />
+    </div>
   </ApolloProvider>
 );
 

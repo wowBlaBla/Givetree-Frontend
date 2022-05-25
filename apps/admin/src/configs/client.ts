@@ -1,10 +1,12 @@
 import { ApolloClient, ApolloLink, createHttpLink } from "@apollo/client";
 import { ErrorResponse, onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
-import { GIVETREE_ADMIN_AUTH_KEY, GQL_ENDPOINT } from "./configs/constants";
-import { getAuthToken, unsetToken } from "./utils/auth";
-import { hasGraphQLError } from "./utils/hasGraphQLError";
-import { localState as cache } from "./utils/localState";
+import { GIVETREE_ADMIN_AUTH_KEY, GQL_ENDPOINT } from "./constants";
+import { getAuthToken, unsetToken } from "../utils/auth";
+import { hasGraphQLError } from "../utils/hasGraphQLError";
+import { localState as cache } from "../utils/localState";
+
+const httpLink = createHttpLink({ uri: GQL_ENDPOINT });
 
 const authLink = setContext((_, { headers, token }) => ({
   headers: {
@@ -27,8 +29,6 @@ const errorLink = onError(({ graphQLErrors, networkError }: ErrorResponse): void
   }
 });
 
-const httpLink = createHttpLink({ uri: `${GQL_ENDPOINT}/graphql` });
-
 const operationLink = setContext(({ operationName }, { headers }) => ({
   headers: { ...headers, operation: operationName },
 }));
@@ -39,6 +39,6 @@ const withTokenLink = setContext(() => ({
 
 export const client = new ApolloClient({
   cache: cache,
-  link: ApolloLink.from([authLink, errorLink, httpLink, operationLink, withTokenLink]),
+  link: ApolloLink.from([authLink, errorLink, operationLink, withTokenLink, httpLink]),
   uri: GQL_ENDPOINT,
 });

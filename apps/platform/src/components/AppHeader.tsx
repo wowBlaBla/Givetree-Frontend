@@ -18,7 +18,7 @@ export const AppHeader = (): JSX.Element => {
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
       <div className="grid grid-cols-2 sm:grid-cols-4 w-full">
         <Link className="flex items-center" to={PlatformRoute.Home}>
-          <GiveTreeLogo className="w-32 h-8 sm:h-12" />
+          <GiveTreeLogo className="w-32 h-8 sm:h-12 text-white" withText />
         </Link>
 
         <div className="hidden col-span-2 sm:flex justify-center items-center w-full space-x-6 md:space-x-16 xl:space-x-24">

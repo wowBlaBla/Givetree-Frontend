@@ -1,39 +1,17 @@
-import React, { FC, ReactNode, useContext } from "react";
-import { LoginFormContainer } from "../login/LoginForm";
-import { GIVETREE_ADMIN_AUTH_KEY } from "../../configs/constants";
-import { AdminRoute } from "../../configs/routes";
-import { AuthContext } from "../../AuthContext";
-import { AuthToken, setAuthToken } from "../../utils/auth";
+import React, { FC, ReactNode } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface ProtectedContainerProps {
   children: ReactNode;
-  onLoginSuccess?: (authToken: AuthToken) => void;
 }
 
-export const ProtectedContainer: FC<ProtectedContainerProps> = ({
-  children,
-  onLoginSuccess,
-}) => {
-  const authenticated = useContext(AuthContext);
+export const ProtectedContainer: FC<ProtectedContainerProps> = ({ children }) => {
+  const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
 
-  const onAuthenticated = (authToken: AuthToken): void => {
-    if (authenticated) {
-      return;
-    }
+  if (!isLoading && !isAuthenticated) {
+    loginWithRedirect();
 
-    setAuthToken(GIVETREE_ADMIN_AUTH_KEY, authToken);
-
-    if (onLoginSuccess) {
-      onLoginSuccess(authToken);
-    }
-
-    if (AdminRoute.LOGIN || AdminRoute.Home) {
-      return;
-    }
-  };
-
-  if (!authenticated) {
-    return <LoginFormContainer onAuthenticated={onAuthenticated} />;
+    return null;
   }
 
   return <div>{children}</div>;

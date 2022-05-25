@@ -1,9 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { GiveTreeLogo } from "./GiveTreeLogo";
-import { UserIcon } from "./UserIcon";
-// import { AdminRoute } from "../configs/routes";
+import { OutlineButton } from "./OutlineButton";
+import { PrimaryButton } from "./PrimaryButton";
 
-export const AppHeader = (): JSX.Element => {
+export const AppHeader: FC = () => {
+  const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+
+  const handleLogin = () => loginWithRedirect();
+
+  const handleLogout = () =>
+    logout({
+      returnTo: window.location.origin,
+    });
+
   return (
     <div className="grid grid-cols-2 w-full bg-brand-black p-3 z-50">
       <div className="flex items-center space-x-2">
@@ -11,8 +21,14 @@ export const AppHeader = (): JSX.Element => {
         <span className="text-white text-xl font-bold tracking-wider">Partnerships</span>
       </div>
 
-      <div className="flex flex-row-reverse w-full">
-        <UserIcon className="w-9 h-9 text-gray-400 hover:text-white cursor-pointer transition ease-in-out duration-150" />
+      <div className="flex flex-row-reverse w-full h-12">
+        {!isLoading && isAuthenticated && (
+          <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
+        )}
+
+        {!isLoading && !isAuthenticated && (
+          <PrimaryButton onClick={handleLogin}>Log In</PrimaryButton>
+        )}
       </div>
     </div>
   );
