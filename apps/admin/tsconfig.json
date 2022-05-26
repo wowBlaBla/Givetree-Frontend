@@ -13,7 +13,7 @@
     "**/*.tsx",
     "src/pages",
     "cypress"
-, "src/configs/auth0-config.js"  ],
+  ],
   "exclude": [
     "node_modules"
   ]
