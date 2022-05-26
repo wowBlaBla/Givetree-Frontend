@@ -13,30 +13,6 @@ module.exports = {
         "gradient-orange-from": "#f95c32",
         "gradient-orange-to": "#fcAc4e",
       },
-      fontSize: {
-        none: "0",
-      },
-      height: {
-        96: "36rem",
-        128: "42rem",
-      },
-      lineHeight: {
-        15: "5rem",
-      },
-      maxHeight: {
-        96: "36rem",
-        128: "42rem",
-      },
-      maxWidth: {
-        "screen-3xl": "1754px",
-      },
-      minHeight: {
-        72: "20rem",
-        96: "32rem",
-      },
-      spacing: {
-        full: "100%",
-      },
     },
   },
   plugins: [],
