@@ -6,7 +6,7 @@ interface ProtectedContainerProps {
 }
 
 export const ProtectedContainer: FC<ProtectedContainerProps> = ({ children }) => {
-  const { isLoading, isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   if (!isLoading && !isAuthenticated) {
     loginWithRedirect();

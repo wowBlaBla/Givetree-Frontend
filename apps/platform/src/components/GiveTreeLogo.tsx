@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { boolean } from "yup";
 
 interface Props {
   className?: string;

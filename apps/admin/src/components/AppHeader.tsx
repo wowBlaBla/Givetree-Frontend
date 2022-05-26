@@ -7,12 +7,11 @@ import { PrimaryButton } from "./PrimaryButton";
 export const AppHeader: FC = () => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
-  const handleLogin = () => loginWithRedirect();
-
-  const handleLogout = () =>
+  const handleLogout = () => {
     logout({
       returnTo: window.location.origin,
     });
+  };
 
   return (
     <div className="grid grid-cols-2 w-full bg-brand-black p-3 z-50">
@@ -22,12 +21,10 @@ export const AppHeader: FC = () => {
       </div>
 
       <div className="flex flex-row-reverse w-full h-12">
-        {!isLoading && isAuthenticated && (
-          <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
-        )}
+        {<OutlineButton onClick={handleLogout}>Log out</OutlineButton>}
 
         {!isLoading && !isAuthenticated && (
-          <PrimaryButton onClick={handleLogin}>Log In</PrimaryButton>
+          <PrimaryButton onClick={loginWithRedirect}>Log In</PrimaryButton>
         )}
       </div>
     </div>
