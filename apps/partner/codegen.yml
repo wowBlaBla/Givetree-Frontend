@@ -1,0 +1,13 @@
+overwrite: true
+schema:
+  - "https://givetree-zeus.hasura.app/v1/graphql":  
+      headers:
+        "x-hasura-role": "user"
+        "x-hasura-admin-secret": ${REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET}
+documents: "src/**/*.graphql"
+generates:
+  src/typed/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
