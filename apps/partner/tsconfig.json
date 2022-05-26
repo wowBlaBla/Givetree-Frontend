@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "cypress",
+      "node"
+    ],
+    "resolveJsonModule": true,
+    "incremental": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src",
+    "cypress"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

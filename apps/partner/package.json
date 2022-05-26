@@ -1,26 +1,28 @@
 {
-  "name": "@givetree-ares/admin",
+  "name": "@givetree-ares/partner",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3001",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "cypress": "cypress open"
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
-    "@apollo/client": "3.6.4",
+    "@apollo/client": "3.6.2",
     "@auth0/auth0-react": "1.10.1",
-    "@givetree-ares/ui": "0.1.1",
-    "auth0": "2.42.0",
+    "@faker-js/faker": "6.3.1",
     "classnames": "2.3.1",
+    "cra-template-typescript": "1.2.0",
+    "date-fns": "2.28.0",
     "formik": "2.2.9",
-    "graphql": "16.5.0",
-    "next": "12.1.5",
+    "graphql": "16.4.0",
+    "lodash": "4.17.21",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-router-dom": "6.3.0"
+    "react-router-dom": "6.3.0",
+    "react-scripts": "5.0.1",
+    "yup": "0.32.11"
   },
   "devDependencies": {
     "@types/auth0": "2.34.20",
@@ -33,7 +35,6 @@
     "autoprefixer": "10.4.4",
     "cypress": "9.5.4",
     "eslint": "8.13.0",
-    "eslint-config-next": "12.1.5",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.30.0",
@@ -41,5 +42,23 @@
     "prettier": "2.6.2",
     "tailwindcss": "3.0.23",
     "typescript": "4.6.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
