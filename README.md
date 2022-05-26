@@ -52,14 +52,14 @@ The general structure looks like this:
 ```
 .
 ├── apps
-│   ├── admin
+│   ├── partner
 │   └── platform
 │       ├── cypress
 │       ├── components
 │       ├── pages
 │       └── styles
 ├── packages
-│   └──
+│   └── ui
 ├── lerna.json
 ├── package.json
 ├── README.md
