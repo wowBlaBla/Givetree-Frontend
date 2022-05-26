@@ -3,15 +3,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { OutlineButton } from "./OutlineButton";
 import { PrimaryButton } from "./PrimaryButton";
-import { unsetToken } from "../utils/auth";
-import { GIVETREE_ADMIN_AUTH_KEY } from "../configs/constants";
 
 export const AppHeader: FC = () => {
   const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
 
   const handleLogout = () => {
-    unsetToken(GIVETREE_ADMIN_AUTH_KEY);
-
     logout({
       returnTo: window.location.origin,
     });
