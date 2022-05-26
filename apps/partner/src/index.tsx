@@ -16,7 +16,7 @@ import {
 import { hasGraphQLError } from "./utils/hasGraphQLError";
 import { localState as cache } from "./utils/localState";
 
-import "../src/assets/styles/index.css";
+import "../src/assets/styles/global.css";
 
 const httpLink = createHttpLink({ uri: HASURA_GRAPHQL_ENDPOINT });
 
