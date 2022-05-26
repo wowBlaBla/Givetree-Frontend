@@ -5,7 +5,7 @@ export interface GetUserDataQuery {
   users_by_pk: User;
 }
 
-export const GET_USER_DATA = gql`
+export const GET_USER_DATA_QUERY = gql`
   query GetUser($userId: String!) {
     users_by_pk(userId: $userId) {
       id
@@ -21,11 +21,11 @@ export const GET_USER_DATA = gql`
   }
 `;
 
-export interface CreateUserMutation {
-  user: User;
+export interface CreateUserDataMutation {
+  insert_users_one: User;
 }
 
-export const CREATE_USER = gql`
+export const CREATE_USER_DATA_MUTATION = gql`
   mutation CreateUser(
     $userId: String!
     $role: String!
@@ -55,11 +55,11 @@ export const CREATE_USER = gql`
   }
 `;
 
-export interface UpdateUserMutation {
-  user: User;
+export interface UpdateUserDataMutation {
+  update_users_by_pk: User;
 }
 
-export const UPDATE_USER = gql`
+export const UPDATE_USER_DATA_MUTATION = gql`
   mutation UpdateUser(
     $userId: String!
     $name: String
