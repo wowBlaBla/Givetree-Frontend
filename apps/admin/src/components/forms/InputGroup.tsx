@@ -28,6 +28,7 @@ export const InputGroup: FC<InputGroupProps> = ({
   testId,
   touched,
   type,
+  value,
 }) => {
   const hasError = touched && !isEmpty(error);
 
@@ -46,6 +47,7 @@ export const InputGroup: FC<InputGroupProps> = ({
           placeholder={placeholder}
           testId={testId || kebabCase(name)}
           type={type}
+          value={value}
         >
           {children}
         </Field>

@@ -2,39 +2,90 @@ import { gql } from "@apollo/client";
 import { User } from "../../typed/user";
 
 export interface GetUserDataQuery {
-  users: User[];
+  users_by_pk: User;
 }
 
 export const GET_USER_DATA = gql`
-  query GetUsers {
-    users {
+  query GetUser($userId: String!) {
+    users_by_pk(userId: $userId) {
       id
       userId
       name
+      role
+      email
       description
       websiteUrl
+      twitterUrl
+      discordUrl
     }
   }
 `;
 
+export interface CreateUserMutation {
+  user: User;
+}
+
 export const CREATE_USER = gql`
   mutation CreateUser(
-    $name: String!
-    $description: String!
-    $websiteUrl: String!
     $userId: String!
-    $email: String!
+    $role: String!
+    $name: String
+    $email: String
+    $description: String
+    $websiteUrl: String
+    $discordUrl: String
+    $twitterUrl: String
   ) {
-    insert_user_one(
+    insert_users_one(
       object: {
+        userId: $userId
+        role: $role
         name: $name
+        email: $email
         description: $description
         websiteUrl: $websiteUrl
-        email: $email
-        userId: $userId
+        discordUrl: $discordUrl
+        twitterUrl: $twitterUrl
       }
     ) {
-      id
+      userId
+      name
+      description
+    }
+  }
+`;
+
+export interface UpdateUserMutation {
+  user: User;
+}
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser(
+    $userId: String!
+    $name: String
+    $description: String
+    $email: String
+    $role: String
+    $websiteUrl: String
+    $discordUrl: String
+    $twitterUrl: String
+  ) {
+    update_users_by_pk(
+      pk_columns: { userId: $userId }
+      _set: {
+        name: $name
+        description: $description
+        email: $email
+        role: $role
+        websiteUrl: $websiteUrl
+        discordUrl: $discordUrl
+        twitterUrl: $twitterUrl
+      }
+    ) {
+      name
+      email
+      description
+      websiteUrl
     }
   }
 `;

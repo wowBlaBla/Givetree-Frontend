@@ -1,17 +1,23 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { withFormik, FormikProps, Form } from "formik";
 import * as yup from "yup";
 
 import { InputGroup } from "../../components/forms/InputGroup";
 import { PrimaryButton } from "../../components/PrimaryButton";
-import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_USER, GetUserDataQuery, GET_USER_DATA } from "./OnboardingData";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import {
+  CreateUserMutation,
+  CREATE_USER,
+  GetUserDataQuery,
+  GET_USER_DATA,
+  UpdateUserMutation,
+  UPDATE_USER,
+} from "./OnboardingData";
 import { useAuth0 } from "@auth0/auth0-react";
 
 interface OnboardingFormValues {
   name: string;
   description?: string;
-  email: string;
   websiteUrl?: string;
   discordUrl?: string;
   twitterUrl?: string;
@@ -20,10 +26,17 @@ interface OnboardingFormValues {
 const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   errors,
   touched,
+  values,
 }) => (
   <Form>
     <div className="flex flex-col space-y-1">
-      <InputGroup error={errors.name} label="Name" name="name" touched={touched.name} />
+      <InputGroup
+        error={errors.name}
+        label="Name"
+        name="name"
+        touched={touched.name}
+        value={values.name}
+      />
 
       <InputGroup
         as="textarea"
@@ -31,6 +44,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         label="Tell us about you"
         name="description"
         touched={touched.description}
+        value={values.description}
       />
 
       <InputGroup
@@ -38,6 +52,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         label="Website Url"
         name="websiteUrl"
         touched={touched.websiteUrl}
+        value={values.websiteUrl}
       />
 
       <InputGroup
@@ -45,6 +60,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         label="Discord Url"
         name="discordUrl"
         touched={touched.discordUrl}
+        value={values.discordUrl}
       />
 
       <InputGroup
@@ -52,6 +68,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         label="Twitter Url"
         name="twitterUrl"
         touched={touched.twitterUrl}
+        value={values.twitterUrl}
       />
 
       <PrimaryButton className="w-full" type="submit">
@@ -63,22 +80,22 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
 interface OnboardingFormProps {
   initialValues: OnboardingFormValues;
-  onSubmit: () => void;
+  onSubmit: (values: OnboardingFormValues) => void;
 }
 
 const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValues>({
-  handleSubmit: (values, { props }) => {
-    console.log(values, props);
+  handleSubmit: (values, { props: { onSubmit } }) => {
+    onSubmit(values);
   },
   mapPropsToValues: ({ initialValues }) => ({
     name: initialValues.name || "",
-    email: initialValues.email || "",
     description: initialValues.description || "",
     websiteUrl: initialValues.websiteUrl || "",
+    discordUrl: initialValues.discordUrl || "",
+    twitterUrl: initialValues.twitterUrl || "",
   }),
   validationSchema: yup.object().shape({
     name: yup.string().required("Required"),
-    email: yup.string().email().required("Required"),
     description: yup.string().required("Required"),
     websiteUrl: yup.string(),
     discordUrl: yup.string(),
@@ -88,16 +105,51 @@ const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValues>({
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
-  const { data, loading, error } = useQuery<GetUserDataQuery>(GET_USER_DATA);
 
-  const [createUser, { loading: loadingUserData, error: errorUserData }] = useMutation(
-    CREATE_USER,
-    {
-      refetchQueries: [{ query: GET_USER_DATA }],
+  const [getUser, { data, loading, error }] =
+    useLazyQuery<GetUserDataQuery>(GET_USER_DATA);
+
+  const [
+    createUser,
+    { data: createUserData, loading: loadingCreateUserData, error: errorCreateUserData },
+  ] = useMutation<CreateUserMutation>(CREATE_USER);
+
+  const [
+    updateUser,
+    { data: updateUserData, loading: loadingUpdateUserData, error: errorUpdateUserData },
+  ] = useMutation<UpdateUserMutation>(UPDATE_USER);
+
+  useEffect(() => {
+    if (user) {
+      getUser({
+        variables: {
+          userId: user?.sub,
+        },
+      });
     }
-  );
+  }, [user, getUser]);
 
-  if (isLoading || loading || loadingUserData) {
+  useEffect(() => {
+    if (createUserData && user) {
+      getUser({
+        variables: {
+          userId: user.sub,
+        },
+      });
+    }
+  }, [createUserData, user, getUser]);
+
+  useEffect(() => {
+    if (updateUserData && user) {
+      getUser({
+        variables: {
+          userId: user?.sub,
+        },
+      });
+    }
+  }, [updateUserData, user, getUser]);
+
+  if (isLoading || loading || loadingCreateUserData || loadingUpdateUserData) {
     return <div>Loading...</div>;
   }
 
@@ -105,8 +157,12 @@ export const OnboardingContainer: FC = () => {
     return <div>{error.message}.</div>;
   }
 
-  if (errorUserData) {
-    return <div>{errorUserData.message}.</div>;
+  if (errorCreateUserData) {
+    return <div>{errorCreateUserData.message}.</div>;
+  }
+
+  if (errorUpdateUserData) {
+    return <div>{errorUpdateUserData.message}.</div>;
   }
 
   if (!data) {
@@ -115,20 +171,17 @@ export const OnboardingContainer: FC = () => {
 
   const getInitialValues = (): OnboardingFormValues => {
     if (data) {
-      const currentUser = data.users.find((u) => u.userId === user?.sub);
       return {
-        name: currentUser?.name || "",
-        email: currentUser?.email || "",
-        description: currentUser?.description || "",
-        websiteUrl: currentUser?.websiteUrl || "",
-        discordUrl: currentUser?.discordUrl || "",
-        twitterUrl: currentUser?.twitterUrl || "",
+        name: data.users_by_pk?.name || "",
+        description: data.users_by_pk?.description || "",
+        websiteUrl: data.users_by_pk?.websiteUrl || "",
+        discordUrl: data.users_by_pk?.discordUrl || "",
+        twitterUrl: data.users_by_pk?.twitterUrl || "",
       };
     }
 
     return {
       name: "",
-      email: "",
       description: "",
       websiteUrl: "",
       discordUrl: "",
@@ -136,17 +189,35 @@ export const OnboardingContainer: FC = () => {
     };
   };
 
-  const handleOnSubmit = () => {
-    createUser({
-      variables: {},
-    });
+  const handleOnSubmit = (values: OnboardingFormValues) => {
+    if (data.users_by_pk) {
+      updateUser({
+        variables: {
+          userId: data.users_by_pk.userId,
+          email: user?.email,
+          role: "user",
+          ...values,
+        },
+      });
+    } else {
+      createUser({
+        variables: {
+          userId: user?.sub,
+          email: user?.email,
+          role: "user",
+          ...values,
+        },
+      });
+    }
   };
 
   return (
-    <div className="flex flex-1 flex-col w-full max-w-xl min-h-screen mx-auto">
-      <h3 className="text-center text-4xl font-semibold">Your Profile</h3>
-      <div className="mt-12">
-        <OnboardingForm initialValues={getInitialValues()} onSubmit={handleOnSubmit} />
+    <div className="flex flex-1 flex-col w-full min-h-screen mx-auto">
+      <div className="p-10 w-full max-w-3xl mx-auto border rounded-xl shadow-lg bg-white">
+        <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
+        <div className="mt-12">
+          <OnboardingForm initialValues={getInitialValues()} onSubmit={handleOnSubmit} />
+        </div>
       </div>
     </div>
   );
