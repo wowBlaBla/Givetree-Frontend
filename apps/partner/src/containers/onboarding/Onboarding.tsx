@@ -6,7 +6,8 @@ import {
   useUpdateUserMutation,
 } from "../../typed/index";
 import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
-import { GiveTreeLogo } from "../../components/GiveTreeLogo";
+import { LoadingScreen } from "../../components/LoadingScreen";
+import { AppContainer } from "../../components/AppContainer";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
@@ -15,12 +16,12 @@ export const OnboardingContainer: FC = () => {
 
   const [
     createUser,
-    { data: createUserData, loading: loadingCreateUserData, error: errorCreateUserData },
+    { data: createUserData, loading: createUserLoading, error: createUserError },
   ] = useCreateUserMutation();
 
   const [
     updateUser,
-    { data: updateUserData, loading: loadingUpdateUserData, error: errorUpdateUserData },
+    { data: updateUserData, loading: updateUserLoading, error: updateUserError },
   ] = useUpdateUserMutation();
 
   useEffect(() => {
@@ -33,15 +34,8 @@ export const OnboardingContainer: FC = () => {
     }
   }, [isLoading, user, getUser]);
 
-  if (isLoading || loading || loadingCreateUserData || loadingUpdateUserData) {
-    return (
-      <div className="flex flex-1 flex-col w-full mx-auto space-x-3">
-        <div className="flex flex-1 justify-center items-center w-full space-x-3">
-          <GiveTreeLogo className="w-12 h-12 animate-pulse" />
-          <h3 className="text-gray-600 font-semibold">Loading...</h3>
-        </div>
-      </div>
-    );
+  if (isLoading || loading || createUserLoading || updateUserLoading) {
+    return <LoadingScreen text="Loading partner information..." />;
   }
 
   if (error) {
@@ -54,59 +48,89 @@ export const OnboardingContainer: FC = () => {
     );
   }
 
-  if (errorCreateUserData) {
-    return <div>{errorCreateUserData.message}.</div>;
+  if (createUserError) {
+    return <div>{createUserError.message}.</div>;
   }
 
-  if (errorUpdateUserData) {
-    return <div>{errorUpdateUserData.message}.</div>;
+  if (updateUserError) {
+    return <div>{updateUserError.message}.</div>;
   }
 
   if (!data) {
     return <div>No data</div>;
   }
 
-  const getInitialValues = (): OnboardingFormValues => {
-    const currentUser = () => {
-      if (updateUserData) return updateUserData.update_users_by_pk;
-      if (data) return data.users_by_pk;
-      if (createUserData) return createUserData.insert_users_one;
-      return undefined;
-    };
+  const getCurrentUser = () => {
+    if (updateUserData) return updateUserData.update_users_by_pk;
+    if (data) return data.users_by_pk;
+    if (createUserData) return createUserData.insert_users_one;
+    return undefined;
+  };
 
-    if (currentUser()) {
+  const getInitialValues = (): OnboardingFormValues => {
+    const currentUser = getCurrentUser();
+
+    if (currentUser) {
       return {
-        aliasName: currentUser()?.aliasName || "",
-        description: currentUser()?.description || "",
-        websiteUrl: currentUser()?.websiteUrl || "",
-        discordUrl: currentUser()?.discordUrl || "",
-        twitterUrl: currentUser()?.twitterUrl || "",
+        aliasName: currentUser.aliasName || "",
+        contactNumber: currentUser.contactNumber || "",
+        country: currentUser.country || "",
+        cryptoActivityRating: currentUser.cryptoActivityRating || 1,
+        cryptoConfidenceRating: currentUser.cryptoConfidenceRating || 1,
+        cryptoExperienceRating: currentUser.cryptoExperienceRating || 1,
+        cryptoOffRampStrategy: currentUser.cryptoOffRampStrategy || "",
+        description: currentUser.description || "",
+        discordUrl: currentUser.discordUrl || "",
+        email: currentUser.email || "",
+        ethWalletAddress: currentUser.ethWalletAddress || "",
+        expectedReleaseDate: currentUser.expectedReleaseDate || null,
+        firstName: currentUser.firstName || "",
+        isArtworkReady: currentUser.isArtworkReady || false,
+        lastName: currentUser.lastName || "",
+        logoUrl: currentUser.logoUrl || "",
+        solWalletAddress: currentUser.solWalletAddress || "",
+        twitterUrl: currentUser.twitterUrl || "",
+        userType: currentUser.userType || "",
+        websiteUrl: currentUser.websiteUrl || "",
       };
     }
 
     return {
       aliasName: "",
+      contactNumber: "",
+      country: "",
+      cryptoActivityRating: 1,
+      cryptoConfidenceRating: 1,
+      cryptoExperienceRating: 1,
+      cryptoOffRampStrategy: "",
       description: "",
-      websiteUrl: "",
       discordUrl: "",
+      email: "",
+      ethWalletAddress: "",
+      expectedReleaseDate: "",
+      firstName: "",
+      isArtworkReady: false,
+      lastName: "",
+      logoUrl: "",
+      solWalletAddress: "",
       twitterUrl: "",
+      userType: "",
+      websiteUrl: "",
     };
   };
 
-  const handleOnSubmit = async (values: OnboardingFormValues) => {
+  const handleOnSubmit = (values: OnboardingFormValues) => {
     if (data.users_by_pk) {
-      await updateUser({
+      updateUser({
         variables: {
           userId: data.users_by_pk.userId,
-          email: user?.email,
           ...values,
         },
       });
     } else {
-      await createUser({
+      createUser({
         variables: {
-          userId: user?.sub ?? "",
-          email: user?.email,
+          userId: user?.sub || "",
           role: "user",
           ...values,
         },
@@ -115,13 +139,13 @@ export const OnboardingContainer: FC = () => {
   };
 
   return (
-    <div className="flex flex-1 flex-col w-full min-h-full mx-auto">
-      <div className="p-10 w-full max-w-3xl mx-auto border rounded-xl shadow-lg bg-white">
+    <AppContainer>
+      <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
         <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
         <div className="mt-12">
           <OnboardingForm initialValues={getInitialValues()} onSubmit={handleOnSubmit} />
         </div>
       </div>
-    </div>
+    </AppContainer>
   );
 };

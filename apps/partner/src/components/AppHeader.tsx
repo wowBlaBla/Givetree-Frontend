@@ -21,7 +21,9 @@ export const AppHeader: FC = () => {
       </div>
 
       <div className="flex flex-row-reverse w-full h-12">
-        {<OutlineButton onClick={handleLogout}>Log out</OutlineButton>}
+        {!isLoading && isAuthenticated && (
+          <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
+        )}
 
         {!isLoading && !isAuthenticated && (
           <PrimaryButton onClick={loginWithRedirect}>Log In</PrimaryButton>

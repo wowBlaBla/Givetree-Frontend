@@ -14,7 +14,7 @@ interface InputGroupProps {
   testId?: string;
   touched?: boolean;
   type?: string;
-  value?: number | string | null;
+  value?: number | string | boolean | null;
 }
 
 export const InputGroup: FC<InputGroupProps> = ({
@@ -33,12 +33,12 @@ export const InputGroup: FC<InputGroupProps> = ({
   const hasError = touched && !isEmpty(error);
 
   return (
-    <div className="flex flex-col">
-      <label htmlFor={name} className="block text-base text-brand-black font-semibold">
+    <div className="flex flex-col my-1">
+      <label htmlFor={name} className="block text-base text-gray-800 font-semibold">
         {label}
       </label>
 
-      <div className="flex flex-1 flex-row items-center mt-1">
+      <div className="mt-1">
         <Field
           as={as}
           isDisabled={disabled}

@@ -2,24 +2,6 @@ import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Field as FormikField } from "formik";
 
-export const FieldStyles = `
-  block
-  w-full
-  border
-  border-gray-300
-  rounded-md
-  shadow-sm
-  px-4
-  py-2
-  md:py-3
-  appearance-none
-  placeholder-gray-400
-
-  focus:border-brand-black
-  focus:outline-none
-  focus:ring-brand-black
-`;
-
 interface FieldProps {
   as?: string;
   children: ReactNode;
@@ -29,7 +11,7 @@ interface FieldProps {
   placeholder?: string;
   testId?: string;
   type?: string;
-  value?: null | number | string;
+  value?: string | number | boolean | null;
 }
 
 export const Field: FC<FieldProps> = ({
@@ -43,10 +25,13 @@ export const Field: FC<FieldProps> = ({
   type,
   value,
 }) => {
-  const className = cx(FieldStyles, {
-    "border-red-300 placeholder-red-400": isError,
-    "bg-gray-100": isDisabled,
-  });
+  const className = cx(
+    "block w-full border border-gray-400 rounded-lg shadow-sm py-2 px-3 text-base text-brand-black placeholder-gray-500 appearance-none focus:border-brand-black focus:outline-none focus:ring-brand-black",
+    {
+      "border-red-300 placeholder-red-400": isError,
+      "bg-gray-100": isDisabled,
+    }
+  );
 
   return (
     <FormikField

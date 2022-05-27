@@ -1,81 +1,177 @@
 query GetUser($userId: String!) {
   users_by_pk(userId: $userId) {
-    id
-    userId
     aliasName
-    role
-    email
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
     description
-    websiteUrl
-    twitterUrl
     discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
   }
 }
 
 mutation CreateUser(
-  $userId: String!
-  $role: String!
   $aliasName: String
-  $email: String
+  $contactNumber: String
+  $country: String
+  $cryptoActivityRating: Int
+  $cryptoConfidenceRating: Int
+  $cryptoExperienceRating: Int
+  $cryptoOffRampStrategy: String
   $description: String
-  $websiteUrl: String
   $discordUrl: String
+  $email: String
+  $ethWalletAddress: String
+  $expectedReleaseDate: timestamptz
+  $firstName: String
+  $isArtworkReady: Boolean
+  $lastName: String
+  $logoUrl: String
+  $role: String!
+  $solWalletAddress: String
   $twitterUrl: String
+  $userId: String!
+  $userType: String
+  $websiteUrl: String
 ) {
   insert_users_one(
     object: {
-      userId: $userId
-      role: $role
       aliasName: $aliasName
-      email: $email
+      contactNumber: $contactNumber
+      country: $country
+      cryptoActivityRating: $cryptoActivityRating
+      cryptoConfidenceRating: $cryptoConfidenceRating
+      cryptoExperienceRating: $cryptoExperienceRating
+      cryptoOffRampStrategy: $cryptoOffRampStrategy
       description: $description
-      websiteUrl: $websiteUrl
       discordUrl: $discordUrl
+      email: $email
+      ethWalletAddress: $ethWalletAddress
+      expectedReleaseDate: $expectedReleaseDate
+      firstName: $firstName
+      isArtworkReady:   $isArtworkReady
+      lastName: $lastName
+      logoUrl: $logoUrl
+      role: $role
+      solWalletAddress: $solWalletAddress
       twitterUrl: $twitterUrl
+      userId: $userId
+      userType: $userType
+      websiteUrl: $websiteUrl
     }
   ) {
-    id
-    userId
     aliasName
-    role
-    email
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
     description
-    websiteUrl
-    twitterUrl
     discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
   }
 }
 
 mutation UpdateUser(
-  $userId: String!
   $aliasName: String
+  $contactNumber: String
+  $country: String
+  $cryptoActivityRating: Int
+  $cryptoConfidenceRating: Int
+  $cryptoExperienceRating: Int
+  $cryptoOffRampStrategy: String
   $description: String
-  $email: String
-  $role: String
-  $websiteUrl: String
   $discordUrl: String
+  $email: String
+  $ethWalletAddress: String
+  $expectedReleaseDate: timestamptz
+  $firstName: String
+  $isArtworkReady: Boolean
+  $lastName: String
+  $logoUrl: String
+  $solWalletAddress: String
   $twitterUrl: String
+  $userId: String!
+  $userType: String
+  $websiteUrl: String
 ) {
   update_users_by_pk(
     pk_columns: { userId: $userId }
     _set: {
       aliasName: $aliasName
+      contactNumber: $contactNumber
+      country: $country
+      cryptoActivityRating: $cryptoActivityRating
+      cryptoConfidenceRating: $cryptoConfidenceRating
+      cryptoExperienceRating: $cryptoExperienceRating
+      cryptoOffRampStrategy: $cryptoOffRampStrategy
       description: $description
-      email: $email
-      role: $role
-      websiteUrl: $websiteUrl
       discordUrl: $discordUrl
+      email: $email
+      ethWalletAddress: $ethWalletAddress
+      expectedReleaseDate: $expectedReleaseDate
+      firstName: $firstName
+      isArtworkReady: $isArtworkReady
+      lastName: $lastName
+      logoUrl: $logoUrl
+      solWalletAddress: $solWalletAddress
       twitterUrl: $twitterUrl
+      userType: $userType
+      websiteUrl: $websiteUrl
     }
   ) {
-    id
-    userId
     aliasName
-    role
-    email
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
     description
-    websiteUrl
-    twitterUrl
     discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
   }
 }

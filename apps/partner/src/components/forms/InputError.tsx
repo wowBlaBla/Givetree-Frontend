@@ -6,7 +6,7 @@ interface InputErrorProps {
 }
 
 export const InputError: FC<InputErrorProps> = ({ message }) => (
-  <div className="flexflex-grow mx-auto h-auto py-2 px-3 rounded border border-red-100 bg-red-50">
+  <div className="flexflex-grow mx-auto py-2 px-3 rounded-lg border border-red-100 bg-red-50">
     <p className="text-sm text-red-600">{message}</p>
   </div>
 );
@@ -17,13 +17,11 @@ interface Props {
 }
 
 export const InputErrorBox: FC<Props> = ({ hasError, message }) => (
-  <>
+  <div className="h-8 mt-1">
     {hasError ? (
-      <div className="mt-1">
+      <div>
         <InputError message={message} />
       </div>
-    ) : (
-      <div className="h-8 mt-1"></div>
-    )}
-  </>
+    ) : null}
+  </div>
 );
