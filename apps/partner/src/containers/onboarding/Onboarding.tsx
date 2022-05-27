@@ -1,38 +1,33 @@
 import React, { FC, useEffect } from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  CreateUserDataMutation,
-  CREATE_USER_DATA_MUTATION,
-  GetUserDataQuery,
-  GET_USER_DATA_QUERY,
-  UpdateUserDataMutation,
-  UPDATE_USER_DATA_MUTATION,
-} from "./OnboardingData";
+  useGetUserLazyQuery,
+  useCreateUserMutation,
+  useUpdateUserMutation,
+} from "../../typed/index";
 import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
 
-  const [getUser, { data, loading, error }] =
-    useLazyQuery<GetUserDataQuery>(GET_USER_DATA_QUERY);
+  const [getUser, { data, loading, error }] = useGetUserLazyQuery();
 
   const [
     createUser,
     { data: createUserData, loading: loadingCreateUserData, error: errorCreateUserData },
-  ] = useMutation<CreateUserDataMutation>(CREATE_USER_DATA_MUTATION);
+  ] = useCreateUserMutation();
 
   const [
     updateUser,
     { data: updateUserData, loading: loadingUpdateUserData, error: errorUpdateUserData },
-  ] = useMutation<UpdateUserDataMutation>(UPDATE_USER_DATA_MUTATION);
+  ] = useUpdateUserMutation();
 
   useEffect(() => {
     if (!isLoading && user) {
       getUser({
         variables: {
-          userId: user?.sub,
+          userId: user?.sub ?? "",
         },
       });
     }
@@ -81,7 +76,7 @@ export const OnboardingContainer: FC = () => {
 
     if (currentUser()) {
       return {
-        name: currentUser()?.name || "",
+        aliasName: currentUser()?.aliasName || "",
         description: currentUser()?.description || "",
         websiteUrl: currentUser()?.websiteUrl || "",
         discordUrl: currentUser()?.discordUrl || "",
@@ -90,7 +85,7 @@ export const OnboardingContainer: FC = () => {
     }
 
     return {
-      name: "",
+      aliasName: "",
       description: "",
       websiteUrl: "",
       discordUrl: "",
@@ -110,7 +105,7 @@ export const OnboardingContainer: FC = () => {
     } else {
       await createUser({
         variables: {
-          userId: user?.sub,
+          userId: user?.sub ?? "",
           email: user?.email,
           role: "user",
           ...values,

@@ -5,7 +5,7 @@ import { InputGroup } from "../../components/forms/InputGroup";
 import { PrimaryButton } from "../../components/PrimaryButton";
 
 export interface OnboardingFormValues {
-  name: string;
+  aliasName: string;
   description?: string;
   websiteUrl?: string;
   discordUrl?: string;
@@ -19,11 +19,11 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 }) => (
   <Form className="flex flex-col space-y-1">
     <InputGroup
-      error={errors.name}
+      error={errors.aliasName}
       label="What is your artist or organisation name?"
-      name="name"
-      touched={touched.name}
-      value={values.name}
+      name="aliasName"
+      touched={touched.aliasName}
+      value={values.aliasName}
     />
 
     <InputGroup
@@ -75,14 +75,14 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     onSubmit(values);
   },
   mapPropsToValues: ({ initialValues }) => ({
-    name: initialValues.name || "",
+    aliasName: initialValues.aliasName || "",
     description: initialValues.description || "",
     websiteUrl: initialValues.websiteUrl || "",
     discordUrl: initialValues.discordUrl || "",
     twitterUrl: initialValues.twitterUrl || "",
   }),
   validationSchema: yup.object().shape({
-    name: yup.string().required("Required"),
+    aliasName: yup.string().required("Required"),
     description: yup.string().required("Required"),
     websiteUrl: yup.string(),
     discordUrl: yup.string(),

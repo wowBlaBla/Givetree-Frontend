@@ -1,0 +1,81 @@
+query GetUser($userId: String!) {
+  users_by_pk(userId: $userId) {
+    id
+    userId
+    aliasName
+    role
+    email
+    description
+    websiteUrl
+    twitterUrl
+    discordUrl
+  }
+}
+
+mutation CreateUser(
+  $userId: String!
+  $role: String!
+  $aliasName: String
+  $email: String
+  $description: String
+  $websiteUrl: String
+  $discordUrl: String
+  $twitterUrl: String
+) {
+  insert_users_one(
+    object: {
+      userId: $userId
+      role: $role
+      aliasName: $aliasName
+      email: $email
+      description: $description
+      websiteUrl: $websiteUrl
+      discordUrl: $discordUrl
+      twitterUrl: $twitterUrl
+    }
+  ) {
+    id
+    userId
+    aliasName
+    role
+    email
+    description
+    websiteUrl
+    twitterUrl
+    discordUrl
+  }
+}
+
+mutation UpdateUser(
+  $userId: String!
+  $aliasName: String
+  $description: String
+  $email: String
+  $role: String
+  $websiteUrl: String
+  $discordUrl: String
+  $twitterUrl: String
+) {
+  update_users_by_pk(
+    pk_columns: { userId: $userId }
+    _set: {
+      aliasName: $aliasName
+      description: $description
+      email: $email
+      role: $role
+      websiteUrl: $websiteUrl
+      discordUrl: $discordUrl
+      twitterUrl: $twitterUrl
+    }
+  ) {
+    id
+    userId
+    aliasName
+    role
+    email
+    description
+    websiteUrl
+    twitterUrl
+    discordUrl
+  }
+}
