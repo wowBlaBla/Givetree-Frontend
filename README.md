@@ -13,14 +13,14 @@ This project is a monorepo to house all the Front End Applications within GiveTr
 | -------- | ----------- | ----------- |
 | `master` | `dev`       | Development |
 
-| Applications   | HTTP | Environment |
-| -------------- | ---- | ----------- |
-| platform       | ...  | `dev`       |
-| platform (TBD) | ...  | `stg`       |
-| platform (TBD) | ...  | `prd`       |
-| admin (TBD)    | ...  | `dev`       |
-| admin (TBD)    | ...  | `stg`       |
-| admin (TBD)    | ...  | `prd`       |
+| Applications      | HTTP | Environment |
+| ----------------- | ---- | ----------- |
+| platform          | ...  | `dev`       |
+| platform (TBD)    | ...  | `stg`       |
+| platform (TBD)    | ...  | `prd`       |
+| partner           | ...  | `dev`       |
+| partner (TBD)     | ...  | `stg`       |
+| partner (TBD)     | ...  | `prd`       |
 
 ## Getting Started
 
@@ -36,11 +36,20 @@ Install project dependencies:
 yarn install
 ```
 
-Next, `cd` into the project you would like to develop and execute `yarn start`. For example:
+Next, `cd` into the project you would like to develop. Depending on which project you would like to develop, you will need to run the following commands, for example:
+
+For partner portal:
+
+```bash
+cd /apps/partner
+yarn start
+```
+
+For platform portal:
 
 ```bash
 cd /apps/platform
-yarn start
+yarn dev
 ```
 
 ## Project Structure
@@ -54,19 +63,20 @@ The general structure looks like this:
 ├── apps
 │   ├── partner
 │   └── platform
-│       ├── cypress
-│       ├── components
-│       ├── pages
-│       └── styles
-├── packages
-│   └── ui
+│       └── src
+│           ├── assets
+│           ├── cypress
+│           ├── components
+│           ├── configs
+│           ├── pages
+│           ├── typed
+│           └── utils
 ├── lerna.json
 ├── package.json
 ├── README.md
 └── tsconfig.json
 
-
-10 directories, 19 files
+11 directories, 99 files
 ```
 
 ## Lerna
