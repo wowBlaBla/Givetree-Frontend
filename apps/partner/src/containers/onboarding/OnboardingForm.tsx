@@ -36,17 +36,18 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   touched,
   values,
   setFieldValue,
-  setFieldTouched,
 }) => {
   const handlePhoneInputOnChange = async (
     isValid: boolean,
     name: string,
     value: string
   ) => {
-    setFieldTouched(name, true);
+    console.log(isValid);
     await setFieldValue("isPhoneValid", isValid);
     await setFieldValue(name, value);
   };
+
+  console.log(errors);
 
   return (
     <Form className="flex flex-col space-y-1">
@@ -114,6 +115,15 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         />
       </div>
 
+      <InputGroup
+        as="textarea"
+        error={errors.description}
+        label="Tell us about you (or your organisation)"
+        name="description"
+        touched={touched.description}
+        value={values.description}
+      />
+
       <RangeGroup
         error={errors.cryptoActivityRating}
         label="Rate how active you are in crypto"
@@ -140,11 +150,11 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
       <InputGroup
         as="textarea"
-        error={errors.description}
-        label="Tell us about you (or your organisation)"
-        name="description"
-        touched={touched.description}
-        value={values.description}
+        error={errors.cryptoOffRampStrategy}
+        label="What is your off ramping strategy?"
+        name="cryptoOffRampStrategy"
+        touched={touched.cryptoOffRampStrategy}
+        value={values.cryptoOffRampStrategy}
       />
 
       <InputGroup
@@ -180,7 +190,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
 
       <h3 className="text-2xl font-semibold">Socials</h3>
-
       <InputGroup
         error={errors.discordUrl}
         label="Discord Url"
@@ -246,7 +255,11 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     aliasName: yup.string(),
     contactNumber: yup
       .string()
-      .test("contactNumber", "Contact number is invalid", function () {
+      .test("contactNumber", "Contact number is invalid", function (value) {
+        if (!value) {
+          return true;
+        }
+
         return this.parent.isPhoneValid;
       }),
     country: yup.string(),
