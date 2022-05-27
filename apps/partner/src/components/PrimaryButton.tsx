@@ -3,15 +3,13 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 
 const ButtonStyles = `
-  bg-brand-orange
-  text-white
   rounded-lg
   py-2
   px-3
-  sm:px-4
+  bg-brand-orange
+  text-white
   text-base
   sm:text-lg
-
   hover:bg-brand-orange-hover
   transition
   duration-150

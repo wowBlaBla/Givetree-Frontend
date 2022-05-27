@@ -1,15 +1,14 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { Field } from "./Field";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
 
-interface InputGroupProps {
-  as?: string;
-  children?: ReactNode;
+interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
   label: string;
   name: string;
+  options: string[];
   placeholder?: string;
   testId?: string;
   touched?: boolean;
@@ -17,13 +16,12 @@ interface InputGroupProps {
   value?: number | string | boolean | null;
 }
 
-export const InputGroup: FC<InputGroupProps> = ({
-  as,
-  children,
+export const SelectGroup: FC<SelectGroupProps> = ({
   disabled,
   error,
   label,
   name,
+  options,
   placeholder,
   testId,
   touched,
@@ -38,10 +36,10 @@ export const InputGroup: FC<InputGroupProps> = ({
         <span>{label}</span>
       </label>
 
-      <div className="mt-1">
+      <div className="relative mt-1">
         <Field
-          as={as}
-          className="input input-bordered w-full"
+          as="select"
+          className="select select-bordered w-full"
           isError={hasError}
           isDisabled={disabled}
           name={name}
@@ -50,7 +48,11 @@ export const InputGroup: FC<InputGroupProps> = ({
           type={type}
           value={value}
         >
-          {children}
+          {options.map((option, idx) => (
+            <option key={idx} value={option}>
+              {option}
+            </option>
+          ))}
         </Field>
       </div>
       <InputErrorBox hasError={hasError} message={error} />

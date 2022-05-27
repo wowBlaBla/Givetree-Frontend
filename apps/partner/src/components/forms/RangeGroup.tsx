@@ -1,10 +1,9 @@
 import React, { FC, ReactNode } from "react";
-import { Field } from "./Field";
+import { Field } from "formik";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
 
-interface InputGroupProps {
-  as?: string;
+interface RangeGroupProps {
   children?: ReactNode;
   disabled?: boolean;
   error?: string;
@@ -17,17 +16,13 @@ interface InputGroupProps {
   value?: number | string | boolean | null;
 }
 
-export const InputGroup: FC<InputGroupProps> = ({
-  as,
-  children,
+export const RangeGroup: FC<RangeGroupProps> = ({
   disabled,
   error,
   label,
   name,
-  placeholder,
   testId,
   touched,
-  type,
   value,
 }) => {
   const hasError = touched && !isEmpty(error);
@@ -38,20 +33,23 @@ export const InputGroup: FC<InputGroupProps> = ({
         <span>{label}</span>
       </label>
 
-      <div className="mt-1">
+      <div className="relative mt-1">
         <Field
-          as={as}
-          className="input input-bordered w-full"
-          isError={hasError}
-          isDisabled={disabled}
+          className="range w-full"
+          disabled={disabled}
+          max={10}
+          min={1}
+          step={1}
           name={name}
-          placeholder={placeholder}
-          testId={testId || kebabCase(name)}
-          type={type}
+          data-cy={testId || kebabCase(name)}
+          type="range"
           value={value}
-        >
-          {children}
-        </Field>
+        />
+        <div className="flex justify-between px-2">
+          {[...Array(10).keys()].map((number, idx) => (
+            <span key={idx}>{number + 1}</span>
+          ))}
+        </div>
       </div>
       <InputErrorBox hasError={hasError} message={error} />
     </div>

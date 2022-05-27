@@ -3,6 +3,9 @@ import { withFormik, FormikProps, Form } from "formik";
 import * as yup from "yup";
 import { InputGroup } from "../../components/forms/InputGroup";
 import { PrimaryButton } from "../../components/PrimaryButton";
+import { SelectGroup } from "../../components/forms/SelectGroup";
+import { RangeGroup } from "../../components/forms/RangeGroup";
+import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
 
 export interface OnboardingFormValues {
   aliasName: string;
@@ -19,6 +22,7 @@ export interface OnboardingFormValues {
   expectedReleaseDate: string | null;
   firstName: string;
   isArtworkReady: boolean;
+  isPhoneValid?: boolean;
   lastName: string;
   logoUrl: string;
   solWalletAddress: string;
@@ -31,170 +35,180 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   errors,
   touched,
   values,
-}) => (
-  <Form className="flex flex-col space-y-1">
-    <InputGroup
-      error={errors.userType}
-      label="Are you a Content Creator or Charity?"
-      name="userType"
-      touched={touched.userType}
-      value={values.userType}
-    />
+  setFieldValue,
+  setFieldTouched,
+}) => {
+  const handlePhoneInputOnChange = async (
+    isValid: boolean,
+    name: string,
+    value: string
+  ) => {
+    setFieldTouched(name, true);
+    await setFieldValue("isPhoneValid", isValid);
+    await setFieldValue(name, value);
+  };
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <InputGroup
-        error={errors.firstName}
-        label="First name"
-        name="firstName"
-        touched={touched.firstName}
-        value={values.firstName}
+  return (
+    <Form className="flex flex-col space-y-1">
+      <SelectGroup
+        error={errors.userType}
+        label="Are you a Content Creator or Charity?"
+        name="userType"
+        touched={touched.userType}
+        value={values.userType}
+        options={["Content Creator", "Charity"]}
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <InputGroup
+          error={errors.firstName}
+          label="First name"
+          name="firstName"
+          touched={touched.firstName}
+          value={values.firstName}
+        />
+
+        <InputGroup
+          error={errors.lastName}
+          label="Last name"
+          name="lastName"
+          touched={touched.lastName}
+          value={values.lastName}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <InputGroup
+          error={errors.aliasName}
+          label="Alias name (username)"
+          name="aliasName"
+          touched={touched.aliasName}
+          value={values.aliasName}
+        />
+
+        <PhoneInputGroup
+          error={errors.contactNumber}
+          label="Contact number"
+          name="contactNumber"
+          onPhoneInputChange={handlePhoneInputOnChange}
+          touched={touched.contactNumber}
+          value={values.contactNumber}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <InputGroup
+          error={errors.email}
+          label="Email address"
+          name="email"
+          touched={touched.email}
+          value={values.email}
+        />
+
+        <InputGroup
+          error={errors.country}
+          label="Country"
+          name="country"
+          touched={touched.country}
+          value={values.country}
+        />
+      </div>
+
+      <RangeGroup
+        error={errors.cryptoActivityRating}
+        label="Rate how active you are in crypto"
+        name="cryptoActivityRating"
+        touched={touched.cryptoActivityRating}
+        value={values.cryptoActivityRating}
+      />
+
+      <RangeGroup
+        error={errors.cryptoConfidenceRating}
+        label="Rate your crypto knowledge"
+        name="cryptoConfidenceRating"
+        touched={touched.cryptoConfidenceRating}
+        value={values.cryptoConfidenceRating}
+      />
+
+      <RangeGroup
+        error={errors.cryptoExperienceRating}
+        label="Rate your experience level"
+        name="cryptoExperienceRating"
+        touched={touched.cryptoExperienceRating}
+        value={values.cryptoExperienceRating}
       />
 
       <InputGroup
-        error={errors.lastName}
-        label="Last name"
-        name="lastName"
-        touched={touched.lastName}
-        value={values.lastName}
-      />
-    </div>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <InputGroup
-        error={errors.aliasName}
-        label="Alias name (username)"
-        name="aliasName"
-        touched={touched.aliasName}
-        value={values.aliasName}
+        as="textarea"
+        error={errors.description}
+        label="Tell us about you (or your organisation)"
+        name="description"
+        touched={touched.description}
+        value={values.description}
       />
 
       <InputGroup
-        error={errors.contactNumber}
-        label="Contact number"
-        name="contactNumber"
-        touched={touched.contactNumber}
-        value={values.contactNumber}
+        error={errors.expectedReleaseDate}
+        label="What is your expected go live date?"
+        name="expectedReleaseDate"
+        touched={touched.expectedReleaseDate}
+        value={values.expectedReleaseDate}
       />
-    </div>
 
-    <InputGroup
-      error={errors.country}
-      label="What country are you based in?"
-      name="country"
-      touched={touched.country}
-      value={values.country}
-    />
+      <InputGroup
+        error={errors.logoUrl}
+        label="What is your logo url"
+        name="logoUrl"
+        touched={touched.logoUrl}
+        value={values.logoUrl}
+      />
 
-    <InputGroup
-      error={errors.cryptoActivityRating}
-      label="Rate how active you are in crypto"
-      name="cryptoActivityRating"
-      touched={touched.cryptoActivityRating}
-      value={values.cryptoActivityRating}
-    />
+      <InputGroup
+        error={errors.ethWalletAddress}
+        label="What is your Ethereum wallet address?"
+        name="ethWalletAddress"
+        touched={touched.ethWalletAddress}
+        value={values.ethWalletAddress}
+      />
 
-    <InputGroup
-      error={errors.cryptoConfidenceRating}
-      label="Rate your crypto knowledge"
-      name="cryptoConfidenceRating"
-      touched={touched.cryptoConfidenceRating}
-      value={values.cryptoConfidenceRating}
-    />
+      <InputGroup
+        error={errors.solWalletAddress}
+        label="What is your Solana wallet address?"
+        name="solWalletAddress"
+        touched={touched.solWalletAddress}
+        value={values.solWalletAddress}
+      />
 
-    <InputGroup
-      error={errors.cryptoExperienceRating}
-      label="Rate your experience level"
-      name="cryptoExperienceRating"
-      touched={touched.cryptoExperienceRating}
-      value={values.cryptoExperienceRating}
-    />
+      <h3 className="text-2xl font-semibold">Socials</h3>
 
-    <InputGroup
-      as="textarea"
-      error={errors.description}
-      label="Tell us about you (or your organisation)"
-      name="description"
-      touched={touched.description}
-      value={values.description}
-    />
+      <InputGroup
+        error={errors.discordUrl}
+        label="Discord Url"
+        name="discordUrl"
+        touched={touched.discordUrl}
+        value={values.discordUrl}
+      />
 
-    <InputGroup
-      error={errors.discordUrl}
-      label="Discord Url"
-      name="discordUrl"
-      touched={touched.discordUrl}
-      value={values.discordUrl}
-    />
+      <InputGroup
+        error={errors.twitterUrl}
+        label="Twitter Url"
+        name="twitterUrl"
+        touched={touched.twitterUrl}
+        value={values.twitterUrl}
+      />
 
-    <InputGroup
-      error={errors.email}
-      label="What is your best point of contact email address?"
-      name="email"
-      touched={touched.email}
-      value={values.email}
-    />
+      <InputGroup
+        error={errors.websiteUrl}
+        label="Website Url"
+        name="websiteUrl"
+        touched={touched.websiteUrl}
+        value={values.websiteUrl}
+      />
 
-    <InputGroup
-      error={errors.ethWalletAddress}
-      label="What is your Ethereum wallet address?"
-      name="ethWalletAddress"
-      touched={touched.ethWalletAddress}
-      value={values.ethWalletAddress}
-    />
-
-    <InputGroup
-      error={errors.expectedReleaseDate}
-      label="What is your expected go live date?"
-      name="expectedReleaseDate"
-      touched={touched.expectedReleaseDate}
-      value={values.expectedReleaseDate}
-    />
-
-    <InputGroup
-      error={errors.isArtworkReady}
-      label="Discord Url"
-      name="isArtworkReady"
-      touched={touched.isArtworkReady}
-      value={values.isArtworkReady}
-    />
-
-    <InputGroup
-      error={errors.logoUrl}
-      label="What is your logo url"
-      name="logoUrl"
-      touched={touched.logoUrl}
-      value={values.logoUrl}
-    />
-
-    <InputGroup
-      error={errors.solWalletAddress}
-      label="What is your Solana wallet address?"
-      name="solWalletAddress"
-      touched={touched.solWalletAddress}
-      value={values.solWalletAddress}
-    />
-
-    <InputGroup
-      error={errors.twitterUrl}
-      label="Twitter Url"
-      name="twitterUrl"
-      touched={touched.twitterUrl}
-      value={values.twitterUrl}
-    />
-
-    <InputGroup
-      error={errors.websiteUrl}
-      label="Website Url"
-      name="websiteUrl"
-      touched={touched.websiteUrl}
-      value={values.websiteUrl}
-    />
-
-    <PrimaryButton className="w-full" type="submit">
-      Save
-    </PrimaryButton>
-  </Form>
-);
+      <PrimaryButton type="submit">Save</PrimaryButton>
+    </Form>
+  );
+};
 
 interface OnboardingFormProps {
   initialValues: OnboardingFormValues;
@@ -217,9 +231,10 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     discordUrl: initialValues.discordUrl || "",
     email: initialValues.email || "",
     ethWalletAddress: initialValues.ethWalletAddress || "",
-    expectedReleaseDate: initialValues.expectedReleaseDate || null,
+    expectedReleaseDate: initialValues.expectedReleaseDate || "",
     firstName: initialValues.firstName || "",
     isArtworkReady: initialValues.isArtworkReady || false,
+    isPhoneValid: false,
     lastName: initialValues.lastName || "",
     logoUrl: initialValues.logoUrl || "",
     solWalletAddress: initialValues.solWalletAddress || "",
@@ -229,7 +244,11 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
   }),
   validationSchema: yup.object().shape({
     aliasName: yup.string(),
-    contactNumber: yup.string(),
+    contactNumber: yup
+      .string()
+      .test("contactNumber", "Contact number is invalid", function () {
+        return this.parent.isPhoneValid;
+      }),
     country: yup.string(),
     cryptoActivityRating: yup.number(),
     cryptoConfidenceRating: yup.number(),
@@ -245,6 +264,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     expectedReleaseDate: yup.string().nullable(),
     firstName: yup.string().required("First name is required"),
     isArtworkReady: yup.boolean(),
+    isPhoneValid: yup.boolean(),
     lastName: yup.string().required("Last name is required"),
     logoUrl: yup.string(),
     solWalletAddress: yup.string(),

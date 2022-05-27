@@ -1,11 +1,10 @@
 import React from "react";
+import { AppContainer } from "../../components/AppContainer";
 
-export const HomeContainer = () => {
-  return (
-    <div className="flex w-full mx-auto">
-      <div className="w-full text-center text-4xl font-semibold tracking-wide">
-        Welcome to GiveTree Partnerships
-      </div>
+export const HomeContainer = () => (
+  <AppContainer>
+    <div className="w-full text-center text-4xl font-semibold tracking-wide">
+      Welcome to GiveTree Partnerships
     </div>
-  );
-};
+  </AppContainer>
+);

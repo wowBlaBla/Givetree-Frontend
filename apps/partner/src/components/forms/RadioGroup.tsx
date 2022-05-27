@@ -1,14 +1,16 @@
 import React, { FC, ReactNode } from "react";
-import { Field } from "./Field";
+import { Field } from "formik";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
 
-interface InputGroupProps {
-  as?: string;
+interface RangeGroupProps {
   children?: ReactNode;
   disabled?: boolean;
   error?: string;
   label: string;
+  min: number;
+  max: number;
+  step: number;
   name: string;
   placeholder?: string;
   testId?: string;
@@ -17,17 +19,16 @@ interface InputGroupProps {
   value?: number | string | boolean | null;
 }
 
-export const InputGroup: FC<InputGroupProps> = ({
-  as,
-  children,
+export const RangeGroup: FC<RangeGroupProps> = ({
   disabled,
   error,
   label,
+  min,
+  max,
+  step,
   name,
-  placeholder,
   testId,
   touched,
-  type,
   value,
 }) => {
   const hasError = touched && !isEmpty(error);
@@ -38,20 +39,23 @@ export const InputGroup: FC<InputGroupProps> = ({
         <span>{label}</span>
       </label>
 
-      <div className="mt-1">
+      <div className="relative mt-1">
         <Field
-          as={as}
-          className="input input-bordered w-full"
-          isError={hasError}
-          isDisabled={disabled}
+          className="range w-full"
+          disabled={disabled}
+          max={max}
+          min={min}
+          step={step}
           name={name}
-          placeholder={placeholder}
-          testId={testId || kebabCase(name)}
-          type={type}
+          data-cy={testId || kebabCase(name)}
+          type="range"
           value={value}
-        >
-          {children}
-        </Field>
+        />
+        <div className="flex justify-between px-2">
+          {[...Array(min - max + 1).keys()].map((number, idx) => (
+            <span key={idx}>{number + max}</span>
+          ))}
+        </div>
       </div>
       <InputErrorBox hasError={hasError} message={error} />
     </div>

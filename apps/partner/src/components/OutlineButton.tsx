@@ -6,17 +6,10 @@ const ButtonStyles = `
   border-2
   border-brand-orange
   rounded-lg
-
-  py-1
+  py-2
   px-3
-  sm:py-2
-  sm:px-4
-
   text-brand-orange
-  text-sm
-  sm:text-base
-  xl:text-lg
-
+  text-base
   hover:border-brand-orange-hover
   hover:bg-brand-orange-hover
   hover:text-white

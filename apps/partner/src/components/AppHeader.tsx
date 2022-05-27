@@ -20,7 +20,7 @@ export const AppHeader: FC = () => {
         <span className="text-white text-xl font-bold tracking-wider">Partnerships</span>
       </div>
 
-      <div className="flex flex-row-reverse w-full h-12">
+      <div className="flex flex-row-reverse w-full">
         {!isLoading && isAuthenticated && (
           <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
         )}
