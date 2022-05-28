@@ -9,6 +9,7 @@ interface InputGroupProps {
   disabled?: boolean;
   error?: string;
   label: string;
+  min?: string;
   name: string;
   placeholder?: string;
   testId?: string;
@@ -23,6 +24,7 @@ export const InputGroup: FC<InputGroupProps> = ({
   disabled,
   error,
   label,
+  min,
   name,
   placeholder,
   testId,
@@ -44,6 +46,7 @@ export const InputGroup: FC<InputGroupProps> = ({
           className="input input-bordered w-full"
           isError={hasError}
           isDisabled={disabled}
+          min={min}
           name={name}
           placeholder={placeholder}
           testId={testId || kebabCase(name)}

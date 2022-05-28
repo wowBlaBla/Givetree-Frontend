@@ -6,6 +6,7 @@ import { PrimaryButton } from "../../components/PrimaryButton";
 import { SelectGroup } from "../../components/forms/SelectGroup";
 import { RangeGroup } from "../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
+import { addDays, endOfDay } from "date-fns";
 
 export interface OnboardingFormValues {
   aliasName: string;
@@ -42,12 +43,9 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
     name: string,
     value: string
   ) => {
-    console.log(isValid);
     await setFieldValue("isPhoneValid", isValid);
     await setFieldValue(name, value);
   };
-
-  console.log(errors);
 
   return (
     <Form className="flex flex-col space-y-1">
@@ -81,7 +79,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputGroup
           error={errors.aliasName}
-          label="Alias name (username)"
+          label="Alias name (This will be displayed on the platform)"
           name="aliasName"
           touched={touched.aliasName}
           value={values.aliasName}
@@ -126,7 +124,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
       <RangeGroup
         error={errors.cryptoActivityRating}
-        label="Rate how active you are in crypto"
+        label="How active you are in the crypto space?"
         name="cryptoActivityRating"
         touched={touched.cryptoActivityRating}
         value={values.cryptoActivityRating}
@@ -142,7 +140,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
       <RangeGroup
         error={errors.cryptoExperienceRating}
-        label="Rate your experience level"
+        label="Rate your crypto experience level"
         name="cryptoExperienceRating"
         touched={touched.cryptoExperienceRating}
         value={values.cryptoExperienceRating}
@@ -163,11 +161,13 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         name="expectedReleaseDate"
         touched={touched.expectedReleaseDate}
         value={values.expectedReleaseDate}
+        type="date"
+        min={new Date().toDateString()}
       />
 
       <InputGroup
         error={errors.logoUrl}
-        label="What is your logo url"
+        label="What is your logo url?"
         name="logoUrl"
         touched={touched.logoUrl}
         value={values.logoUrl}
@@ -190,6 +190,15 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
 
       <h3 className="text-2xl font-semibold">Socials</h3>
+
+      <InputGroup
+        error={errors.websiteUrl}
+        label="Website Url"
+        name="websiteUrl"
+        touched={touched.websiteUrl}
+        value={values.websiteUrl}
+      />
+
       <InputGroup
         error={errors.discordUrl}
         label="Discord Url"
@@ -204,14 +213,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         name="twitterUrl"
         touched={touched.twitterUrl}
         value={values.twitterUrl}
-      />
-
-      <InputGroup
-        error={errors.websiteUrl}
-        label="Website Url"
-        name="websiteUrl"
-        touched={touched.websiteUrl}
-        value={values.websiteUrl}
       />
 
       <PrimaryButton type="submit">Save</PrimaryButton>
@@ -240,7 +241,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     discordUrl: initialValues.discordUrl || "",
     email: initialValues.email || "",
     ethWalletAddress: initialValues.ethWalletAddress || "",
-    expectedReleaseDate: initialValues.expectedReleaseDate || "",
+    expectedReleaseDate: initialValues.expectedReleaseDate || null,
     firstName: initialValues.firstName || "",
     isArtworkReady: initialValues.isArtworkReady || false,
     isPhoneValid: false,
@@ -274,7 +275,11 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
       .email("Invalid email address")
       .required("Email address is required"),
     ethWalletAddress: yup.string(),
-    expectedReleaseDate: yup.string().nullable(),
+    expectedReleaseDate: yup
+      .date()
+      .nullable()
+      .required("Go live date is required")
+      .min(addDays(endOfDay(new Date()), -1), "past dates are not allowed"),
     firstName: yup.string().required("First name is required"),
     isArtworkReady: yup.boolean(),
     isPhoneValid: yup.boolean(),

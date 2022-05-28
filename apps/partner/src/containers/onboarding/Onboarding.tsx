@@ -107,7 +107,7 @@ export const OnboardingContainer: FC = () => {
       discordUrl: "",
       email: "",
       ethWalletAddress: "",
-      expectedReleaseDate: "",
+      expectedReleaseDate: null,
       firstName: "",
       isArtworkReady: false,
       lastName: "",

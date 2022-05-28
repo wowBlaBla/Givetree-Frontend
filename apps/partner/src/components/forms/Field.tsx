@@ -8,6 +8,7 @@ interface FieldProps {
   className: string;
   isDisabled?: boolean;
   isError?: boolean;
+  min?: string;
   name: string;
   placeholder?: string;
   testId?: string;
@@ -21,6 +22,7 @@ export const Field: FC<FieldProps> = ({
   className,
   isDisabled,
   isError,
+  min,
   name,
   placeholder,
   testId,
@@ -36,6 +38,7 @@ export const Field: FC<FieldProps> = ({
       })}
       data-cy={testId}
       disabled={isDisabled}
+      min={min}
       name={name}
       placeholder={placeholder}
       type={type || "text"}
