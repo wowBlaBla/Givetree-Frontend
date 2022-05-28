@@ -2,7 +2,7 @@
   "extends": [
     "../../.eslintrc.json"
   ],
-  "exclude": [
+  "ignorePatterns": [
     "./typed/index.ts"
   ]
 }
