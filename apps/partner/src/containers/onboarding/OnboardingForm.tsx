@@ -6,7 +6,7 @@ import { PrimaryButton } from "../../components/PrimaryButton";
 import { SelectGroup } from "../../components/forms/SelectGroup";
 import { RangeGroup } from "../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
-import { addDays, endOfDay } from "date-fns";
+import { addDays, endOfDay, format } from "date-fns";
 
 export interface OnboardingFormValues {
   aliasName: string;
@@ -158,11 +158,11 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       <InputGroup
         error={errors.expectedReleaseDate}
         label="What is your expected go live date?"
+        min={new Date().toDateString()}
         name="expectedReleaseDate"
         touched={touched.expectedReleaseDate}
         value={values.expectedReleaseDate}
         type="date"
-        min={new Date().toDateString()}
       />
 
       <InputGroup
@@ -241,7 +241,8 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     discordUrl: initialValues.discordUrl || "",
     email: initialValues.email || "",
     ethWalletAddress: initialValues.ethWalletAddress || "",
-    expectedReleaseDate: initialValues.expectedReleaseDate || null,
+    expectedReleaseDate:
+      initialValues.expectedReleaseDate || format(new Date(), "yyyy-MM-dd"),
     firstName: initialValues.firstName || "",
     isArtworkReady: initialValues.isArtworkReady || false,
     isPhoneValid: false,
@@ -277,7 +278,6 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     ethWalletAddress: yup.string(),
     expectedReleaseDate: yup
       .date()
-      .nullable()
       .required("Go live date is required")
       .min(addDays(endOfDay(new Date()), -1), "past dates are not allowed"),
     firstName: yup.string().required("First name is required"),

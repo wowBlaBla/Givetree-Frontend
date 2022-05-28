@@ -8,6 +8,7 @@ import {
 import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
 import { LoadingScreen } from "../../components/LoadingScreen";
 import { AppContainer } from "../../components/AppContainer";
+import { ErrorScreen } from "../../components/ErrorScreen";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
@@ -39,21 +40,15 @@ export const OnboardingContainer: FC = () => {
   }
 
   if (error) {
-    return (
-      <div className="flex flex-1 flex-col w-full mx-auto space-x-3">
-        <div className="flex flex-1 justify-center items-center w-full space-x-3">
-          <h3 className="text-gray-600 font-semibold">{error.message}</h3>
-        </div>
-      </div>
-    );
+    return <ErrorScreen text={error.message} />;
   }
 
   if (createUserError) {
-    return <div>{createUserError.message}.</div>;
+    return <ErrorScreen text={createUserError.message} />;
   }
 
   if (updateUserError) {
-    return <div>{updateUserError.message}.</div>;
+    return <ErrorScreen text={updateUserError.message} />;
   }
 
   if (!data) {
