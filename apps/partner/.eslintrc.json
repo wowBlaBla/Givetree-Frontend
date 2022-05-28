@@ -1,5 +1,8 @@
 {
   "extends": [
     "../../.eslintrc.json"
+  ],
+  "exclude": [
+    "./typed/index.ts"
   ]
 }
