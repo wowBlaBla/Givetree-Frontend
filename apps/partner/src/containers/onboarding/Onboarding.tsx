@@ -9,6 +9,7 @@ import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
 import { LoadingScreen } from "../../components/LoadingScreen";
 import { AppContainer } from "../../components/AppContainer";
 import { ErrorScreen } from "../../components/ErrorScreen";
+import { toast } from "react-toastify";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
@@ -43,21 +44,13 @@ export const OnboardingContainer: FC = () => {
 
   useEffect(() => {
     if (createUserData) {
-      getUser({
-        variables: {
-          userId: createUserData.insert_users_one?.userId ?? "",
-        },
-      });
+      toast.success("Partner information has been saved");
     }
   }, [createUserData, getUser]);
 
   useEffect(() => {
     if (updateUserData) {
-      getUser({
-        variables: {
-          userId: updateUserData.update_users_by_pk?.userId ?? "",
-        },
-      });
+      toast.success("Changes have been updated");
     }
   }, [updateUserData, getUser]);
 
