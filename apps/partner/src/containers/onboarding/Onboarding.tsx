@@ -46,13 +46,13 @@ export const OnboardingContainer: FC = () => {
     if (createUserData) {
       toast.success("Partner information has been saved");
     }
-  }, [createUserData, getUser]);
+  }, [createUserData]);
 
   useEffect(() => {
     if (updateUserData) {
       toast.success("Changes have been updated");
     }
-  }, [updateUserData, getUser]);
+  }, [updateUserData]);
 
   const containerIsLoadig =
     isLoading || loading || createUserLoading || updateUserLoading;
