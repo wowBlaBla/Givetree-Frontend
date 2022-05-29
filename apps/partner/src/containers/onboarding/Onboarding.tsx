@@ -74,7 +74,7 @@ export const OnboardingContainer: FC = () => {
   }
 
   if (!data) {
-    return <ErrorScreen text="Partner information not found." />;
+    return <ErrorScreen text="Partner information could not be found." />;
   }
 
   const getUserValues = () => {
