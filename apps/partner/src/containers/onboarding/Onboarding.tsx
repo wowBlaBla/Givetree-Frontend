@@ -13,7 +13,9 @@ import { ErrorScreen } from "../../components/ErrorScreen";
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
 
-  const [getUser, { data, loading, error }] = useGetUserLazyQuery();
+  const [getUser, { data, loading, error }] = useGetUserLazyQuery({
+    fetchPolicy: "no-cache",
+  });
 
   const [
     createUser,
@@ -27,15 +29,42 @@ export const OnboardingContainer: FC = () => {
 
   useEffect(() => {
     if (!isLoading && user) {
-      getUser({
-        variables: {
-          userId: user?.sub ?? "",
-        },
-      });
+      const getValues = async () => {
+        await getUser({
+          variables: {
+            userId: user?.sub ?? "",
+          },
+        });
+      };
+
+      getValues();
     }
   }, [isLoading, user, getUser]);
 
-  if (isLoading || loading || createUserLoading || updateUserLoading) {
+  useEffect(() => {
+    if (createUserData) {
+      getUser({
+        variables: {
+          userId: createUserData.insert_users_one?.userId ?? "",
+        },
+      });
+    }
+  }, [createUserData, getUser]);
+
+  useEffect(() => {
+    if (updateUserData) {
+      getUser({
+        variables: {
+          userId: updateUserData.update_users_by_pk?.userId ?? "",
+        },
+      });
+    }
+  }, [updateUserData, getUser]);
+
+  const containerIsLoadig =
+    isLoading || loading || createUserLoading || updateUserLoading;
+
+  if (containerIsLoadig) {
     return <LoadingScreen text="Loading partner information..." />;
   }
 
@@ -52,18 +81,18 @@ export const OnboardingContainer: FC = () => {
   }
 
   if (!data) {
-    return <div>No data</div>;
+    return <ErrorScreen text="Partner information not found." />;
   }
 
-  const getCurrentUser = () => {
+  const getUserValues = () => {
     if (updateUserData) return updateUserData.update_users_by_pk;
+    if (createUserData) return createUserData?.insert_users_one;
     if (data) return data.users_by_pk;
-    if (createUserData) return createUserData.insert_users_one;
     return undefined;
   };
 
   const getInitialValues = (): OnboardingFormValues => {
-    const currentUser = getCurrentUser();
+    const currentUser = getUserValues();
 
     if (currentUser) {
       return {
@@ -138,7 +167,12 @@ export const OnboardingContainer: FC = () => {
       <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
         <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
         <div className="mt-12">
-          <OnboardingForm initialValues={getInitialValues()} onSubmit={handleOnSubmit} />
+          {!containerIsLoadig && (
+            <OnboardingForm
+              initialValues={getInitialValues()}
+              onSubmit={handleOnSubmit}
+            />
+          )}
         </div>
       </div>
     </AppContainer>
