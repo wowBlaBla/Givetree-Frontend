@@ -17,6 +17,7 @@ import { hasGraphQLError } from "./utils/hasGraphQLError";
 import { localState as cache } from "./utils/localState";
 
 import "../src/assets/styles/global.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const httpLink = createHttpLink({ uri: HASURA_GRAPHQL_ENDPOINT });
 
