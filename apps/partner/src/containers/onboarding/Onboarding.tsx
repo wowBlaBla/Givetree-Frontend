@@ -1,32 +1,34 @@
 import React, { FC, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  useGetUserLazyQuery,
-  useCreateUserMutation,
-  useUpdateUserMutation,
+  useGetUserDetailsLazyQuery,
+  useCreateUserDetailsMutation,
+  useUpdateUserDetailsMutation,
 } from "../../typed/index";
 import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
 import { LoadingScreen } from "../../components/LoadingScreen";
 import { AppContainer } from "../../components/AppContainer";
 import { ErrorScreen } from "../../components/ErrorScreen";
 import { toast } from "react-toastify";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { UploadFile } from "../../components/UploadFile";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
 
-  const [getUser, { data, loading, error }] = useGetUserLazyQuery({
+  const [getUser, { data, loading, error }] = useGetUserDetailsLazyQuery({
     fetchPolicy: "no-cache",
   });
 
   const [
     createUser,
     { data: createUserData, loading: createUserLoading, error: createUserError },
-  ] = useCreateUserMutation();
+  ] = useCreateUserDetailsMutation();
 
   const [
     updateUser,
     { data: updateUserData, loading: updateUserLoading, error: updateUserError },
-  ] = useUpdateUserMutation();
+  ] = useUpdateUserDetailsMutation();
 
   useEffect(() => {
     if (!isLoading && user) {
@@ -90,6 +92,13 @@ export const OnboardingContainer: FC = () => {
     if (currentUser) {
       return {
         aliasName: currentUser.aliasName || "",
+        charityEntityType: currentUser.charityEntityType || "",
+        charityAddress: currentUser.charityAddress || "",
+        charityAbn: currentUser.charityAbn || "",
+        charityAcceptDirectDonations: currentUser.charityAcceptDirectDonations || false,
+        charityAllowProxyFundraiser: currentUser.charityAllowProxyFundraiser || false,
+        charityApprovalBeforeGoLive: currentUser.charityApprovalBeforeGoLive || false,
+        charityCreateFundraiser: currentUser.charityCreateFundraiser || false,
         contactNumber: currentUser.contactNumber || "",
         country: currentUser.country || "",
         cryptoActivityRating: currentUser.cryptoActivityRating || 1,
@@ -105,6 +114,8 @@ export const OnboardingContainer: FC = () => {
         isArtworkReady: currentUser.isArtworkReady || false,
         lastName: currentUser.lastName || "",
         logoUrl: currentUser.logoUrl || "",
+        maticWalletAddress: currentUser.logoUrl || "",
+        primaryContactAddress: currentUser.primaryContactAddress || "",
         solWalletAddress: currentUser.solWalletAddress || "",
         twitterUrl: currentUser.twitterUrl || "",
         userType: currentUser.userType || "",
@@ -114,6 +125,13 @@ export const OnboardingContainer: FC = () => {
 
     return {
       aliasName: "",
+      charityEntityType: "",
+      charityAddress: "",
+      charityAbn: "",
+      charityAcceptDirectDonations: false,
+      charityAllowProxyFundraiser: false,
+      charityApprovalBeforeGoLive: false,
+      charityCreateFundraiser: false,
       contactNumber: "",
       country: "",
       cryptoActivityRating: 1,
@@ -124,11 +142,13 @@ export const OnboardingContainer: FC = () => {
       discordUrl: "",
       email: "",
       ethWalletAddress: "",
-      expectedReleaseDate: null,
+      expectedReleaseDate: "",
       firstName: "",
       isArtworkReady: false,
       lastName: "",
       logoUrl: "",
+      maticWalletAddress: "",
+      primaryContactAddress: "",
       solWalletAddress: "",
       twitterUrl: "",
       userType: "",
@@ -155,19 +175,36 @@ export const OnboardingContainer: FC = () => {
     }
   };
 
+  const getFileName = () => {
+    const user = getUserValues();
+
+    if (user) {
+      return user.logoUrl;
+    }
+
+    return "";
+  };
+
   return (
-    <AppContainer>
-      <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
-        <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
-        <div className="mt-12">
-          {!containerIsLoadig && (
-            <OnboardingForm
-              initialValues={getInitialValues()}
-              onSubmit={handleOnSubmit}
-            />
-          )}
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <Skeleton count={3} />
+      <AppContainer>
+        <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
+          <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
+          <div className="mt-12">
+            <UploadFile fileName={getFileName()} label="Logo Url" />
+          </div>
+
+          <div className="mt-8">
+            {!containerIsLoadig && (
+              <OnboardingForm
+                initialValues={getInitialValues()}
+                onSubmit={handleOnSubmit}
+              />
+            )}
+          </div>
         </div>
-      </div>
-    </AppContainer>
+      </AppContainer>
+    </SkeletonTheme>
   );
 };

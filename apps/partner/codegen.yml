@@ -1,6 +1,6 @@
 overwrite: true
 schema:
-  - "https://givetree-zeus.hasura.app/v1/graphql":  
+  - ${REACT_APP_HASURA_GRAPHQL_ENDPOINT}:  
       headers:
         "x-hasura-role": "admin"
         "x-hasura-admin-secret": ${REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET}

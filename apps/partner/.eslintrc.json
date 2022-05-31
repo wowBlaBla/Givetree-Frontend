@@ -3,6 +3,6 @@
     "../../.eslintrc.json"
   ],
   "ignorePatterns": [
-    "./typed/index.ts"
+    "./src/typed/index.ts"
   ]
 }

@@ -3,17 +3,22 @@ import { Field } from "./Field";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
 
+interface SelectGroupOption {
+  value: number | string;
+  label: string;
+}
+
 interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
   label: string;
   name: string;
-  options: string[];
+  options: SelectGroupOption[];
   placeholder?: string;
   testId?: string;
   touched?: boolean;
   type?: string;
-  value?: number | string | boolean | null;
+  value?: null | number | string;
 }
 
 export const SelectGroup: FC<SelectGroupProps> = ({
@@ -49,8 +54,8 @@ export const SelectGroup: FC<SelectGroupProps> = ({
           value={value}
         >
           {options.map((option, idx) => (
-            <option key={idx} value={option}>
-              {option}
+            <option key={idx} value={option.value}>
+              {option.label}
             </option>
           ))}
         </Field>

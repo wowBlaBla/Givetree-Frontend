@@ -3,8 +3,6 @@ import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
 import IntlTelInput, { CountryData } from "react-intl-tel-input";
 
-import "react-intl-tel-input/dist/main.css";
-
 interface PhoneInputGroupProps {
   disabled?: boolean;
   error?: string;

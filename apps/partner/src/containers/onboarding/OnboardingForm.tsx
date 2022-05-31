@@ -7,9 +7,18 @@ import { SelectGroup } from "../../components/forms/SelectGroup";
 import { RangeGroup } from "../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
 import { addDays, endOfDay, format } from "date-fns";
+// import { LegalEntityType } from "../../typed/legalEntityType";
+import { PartnerType } from "../../typed/partnerType";
 
 export interface OnboardingFormValues {
   aliasName: string;
+  charityAbn: string;
+  charityAddress: string;
+  charityAcceptDirectDonations: boolean;
+  charityAllowProxyFundraiser: boolean;
+  charityApprovalBeforeGoLive: boolean;
+  charityCreateFundraiser: boolean;
+  charityEntityType: string;
   contactNumber: string;
   country: string;
   cryptoActivityRating: number;
@@ -20,12 +29,14 @@ export interface OnboardingFormValues {
   discordUrl: string;
   email: string;
   ethWalletAddress: string;
-  expectedReleaseDate: string | null;
+  expectedReleaseDate: string;
   firstName: string;
   isArtworkReady: boolean;
   isPhoneValid?: boolean;
   lastName: string;
   logoUrl: string;
+  maticWalletAddress: string;
+  primaryContactAddress: string;
   solWalletAddress: string;
   twitterUrl: string;
   userType: string;
@@ -47,6 +58,28 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
     await setFieldValue(name, value);
   };
 
+  const userTypeOptions = [
+    {
+      label: "Content Creator",
+      value: PartnerType.contentCreator,
+    },
+    {
+      label: "Charity",
+      value: PartnerType.charity,
+    },
+  ];
+
+  const charityAcceptDirectDonationsOptions = [
+    {
+      label: "Yes",
+      value: "yes",
+    },
+    {
+      label: "No",
+      value: "no",
+    },
+  ];
+
   return (
     <Form className="flex flex-col space-y-1">
       <SelectGroup
@@ -55,8 +88,31 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         name="userType"
         touched={touched.userType}
         value={values.userType}
-        options={["Content Creator", "Charity"]}
+        options={userTypeOptions}
       />
+
+      {values.userType === "Charity" && (
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <SelectGroup
+              error={errors.charityAcceptDirectDonations}
+              label="Do you want to accept direct donations of cryptocurrency?"
+              name="charityAcceptDirectDonations"
+              touched={touched.charityAcceptDirectDonations}
+              value={values.charityAcceptDirectDonations}
+              options={charityAcceptDirectDonationsOptions}
+            />
+
+            <InputGroup
+              error={errors.lastName}
+              label="Last name"
+              name="lastName"
+              touched={touched.lastName}
+              value={values.lastName}
+            />
+          </div>
+        </>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputGroup
@@ -166,14 +222,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
 
       <InputGroup
-        error={errors.logoUrl}
-        label="What is your logo url?"
-        name="logoUrl"
-        touched={touched.logoUrl}
-        value={values.logoUrl}
-      />
-
-      <InputGroup
         error={errors.ethWalletAddress}
         label="What is your Ethereum wallet address?"
         name="ethWalletAddress"
@@ -231,6 +279,13 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
   },
   mapPropsToValues: ({ initialValues }) => ({
     aliasName: initialValues.aliasName || "",
+    charityEntityType: initialValues.charityEntityType || "",
+    charityAddress: initialValues.charityAddress || "",
+    charityAbn: initialValues.charityAbn || "",
+    charityAcceptDirectDonations: initialValues.charityAcceptDirectDonations || false,
+    charityAllowProxyFundraiser: initialValues.charityAllowProxyFundraiser || false,
+    charityApprovalBeforeGoLive: initialValues.charityApprovalBeforeGoLive || false,
+    charityCreateFundraiser: initialValues.charityCreateFundraiser || false,
     contactNumber: initialValues.contactNumber || "",
     country: initialValues.country || "",
     cryptoActivityRating: initialValues.cryptoActivityRating || 1,
@@ -248,6 +303,8 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     isPhoneValid: false,
     lastName: initialValues.lastName || "",
     logoUrl: initialValues.logoUrl || "",
+    maticWalletAddress: initialValues.maticWalletAddress || "",
+    primaryContactAddress: initialValues.primaryContactAddress || "",
     solWalletAddress: initialValues.solWalletAddress || "",
     twitterUrl: initialValues.twitterUrl || "",
     userType: initialValues.userType || "",
@@ -255,6 +312,13 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
   }),
   validationSchema: yup.object().shape({
     aliasName: yup.string(),
+    charityEntityType: yup.string(),
+    charityAddress: yup.string(),
+    charityAbn: yup.string(),
+    charityAcceptDirectDonations: yup.boolean(),
+    charityAllowProxyFundraiser: yup.boolean(),
+    charityApprovalBeforeGoLive: yup.boolean(),
+    charityCreateFundraiser: yup.boolean(),
     contactNumber: yup
       .string()
       .test("contactNumber", "Contact number is invalid", function (value) {
@@ -285,6 +349,8 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     isPhoneValid: yup.boolean(),
     lastName: yup.string().required("Last name is required"),
     logoUrl: yup.string(),
+    maticWalletAddress: yup.string(),
+    primaryContactAddress: yup.string(),
     solWalletAddress: yup.string(),
     twitterUrl: yup.string(),
     userType: yup.string(),
