@@ -11,7 +11,6 @@ import { AppContainer } from "../../components/AppContainer";
 import { ErrorScreen } from "../../components/ErrorScreen";
 import { toast } from "react-toastify";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { UploadFile } from "../../components/UploadFile";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading, user } = useAuth0();
@@ -175,25 +174,12 @@ export const OnboardingContainer: FC = () => {
     }
   };
 
-  const getFileName = () => {
-    const user = getUserValues();
-
-    if (user) {
-      return user.logoUrl;
-    }
-
-    return "";
-  };
-
   return (
     <SkeletonTheme baseColor="#202020" highlightColor="#444">
       <Skeleton count={3} />
       <AppContainer>
         <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
           <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
-          <div className="mt-12">
-            <UploadFile fileName={getFileName()} label="Logo Url" />
-          </div>
 
           <div className="mt-8">
             {!containerIsLoadig && (

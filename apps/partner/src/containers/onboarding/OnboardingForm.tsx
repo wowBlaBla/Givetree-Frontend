@@ -9,6 +9,7 @@ import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
 import { addDays, endOfDay, format } from "date-fns";
 // import { LegalEntityType } from "../../typed/legalEntityType";
 import { PartnerType } from "../../typed/partnerType";
+import { FileUploadGroup } from "../../components/forms/file-upload/FileUploadGroup";
 
 export interface OnboardingFormValues {
   aliasName: string;
@@ -69,16 +70,16 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
     },
   ];
 
-  const charityAcceptDirectDonationsOptions = [
-    {
-      label: "Yes",
-      value: "yes",
-    },
-    {
-      label: "No",
-      value: "no",
-    },
-  ];
+  // const charityAcceptDirectDonationsOptions = [
+  //   {
+  //     label: "Yes",
+  //     value: "yes",
+  //   },
+  //   {
+  //     label: "No",
+  //     value: "no",
+  //   },
+  // ];
 
   return (
     <Form className="flex flex-col space-y-1">
@@ -94,14 +95,14 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       {values.userType === "Charity" && (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <SelectGroup
+            {/* <SelectGroup
               error={errors.charityAcceptDirectDonations}
               label="Do you want to accept direct donations of cryptocurrency?"
               name="charityAcceptDirectDonations"
               touched={touched.charityAcceptDirectDonations}
               value={values.charityAcceptDirectDonations}
               options={charityAcceptDirectDonationsOptions}
-            />
+            /> */}
 
             <InputGroup
               error={errors.lastName}
@@ -176,6 +177,12 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         name="description"
         touched={touched.description}
         value={values.description}
+      />
+
+      <FileUploadGroup
+        label="Logo Url"
+        name="logoUrl"
+        selectFileButtonText="Select image"
       />
 
       <RangeGroup
