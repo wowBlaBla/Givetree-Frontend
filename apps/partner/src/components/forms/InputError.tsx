@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const InputErrorBox: FC<Props> = ({ hasError, message }) => (
-  <div className="h-8 mt-1">
+  <div>
     {hasError ? (
       <div>
         <InputError message={message} />

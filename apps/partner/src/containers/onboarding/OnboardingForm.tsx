@@ -61,12 +61,12 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
   const userTypeOptions = [
     {
-      label: "Content Creator",
-      value: PartnerType.contentCreator,
+      id: PartnerType.contentCreator,
+      value: "Content Creator",
     },
     {
-      label: "Charity",
-      value: PartnerType.charity,
+      id: PartnerType.charity,
+      value: "Charity",
     },
   ];
 
@@ -88,14 +88,13 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         label="Are you a Content Creator or Charity?"
         name="userType"
         touched={touched.userType}
-        value={values.userType}
         options={userTypeOptions}
+        includeBlank
       />
 
       {values.userType === "Charity" && (
-        <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {/* <SelectGroup
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* <SelectGroup
               error={errors.charityAcceptDirectDonations}
               label="Do you want to accept direct donations of cryptocurrency?"
               name="charityAcceptDirectDonations"
@@ -104,15 +103,14 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
               options={charityAcceptDirectDonationsOptions}
             /> */}
 
-            <InputGroup
-              error={errors.lastName}
-              label="Last name"
-              name="lastName"
-              touched={touched.lastName}
-              value={values.lastName}
-            />
-          </div>
-        </>
+          <InputGroup
+            error={errors.lastName}
+            label="Last name"
+            name="lastName"
+            touched={touched.lastName}
+            value={values.lastName}
+          />
+        </div>
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -136,7 +134,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputGroup
           error={errors.aliasName}
-          label="Alias name (This will be displayed on the platform)"
+          label="Alias name"
           name="aliasName"
           touched={touched.aliasName}
           value={values.aliasName}

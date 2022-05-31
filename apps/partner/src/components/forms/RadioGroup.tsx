@@ -1,8 +1,7 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
+import cx from "classnames";
 
 interface RadioOption {
-  childComponent?: ReactNode;
-  description: ReactNode;
   id: string;
   isDisabled?: boolean;
   label: string;
@@ -33,7 +32,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
       {options.map((option, idx) => (
         <label
           key={option.id}
-          className=""
+          className="cursor-pointer focus:ring-brand-orange h-4 mt-0.5"
           onChange={() => {
             if (option.isDisabled) {
               return;
@@ -47,7 +46,15 @@ export const RadioGroup: FC<RadioGroupProps> = ({
             disabled={option.isDisabled}
             type="radio"
             value={option.id}
-          ></input>
+          >
+            <span
+              className={cx("block text-gray-400 font-medium", {
+                "": isSelected(option, selected),
+              })}
+            >
+              {option.label}
+            </span>
+          </input>
         </label>
       ))}
     </div>

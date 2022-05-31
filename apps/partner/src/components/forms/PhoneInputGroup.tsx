@@ -39,7 +39,7 @@ export const PhoneInputGroup: FC<PhoneInputGroupProps> = ({
   };
 
   return (
-    <div className="form-control w-full">
+    <div className="form-control w-full mt-5">
       <label htmlFor={name} className="label">
         <span>{label}</span>
       </label>

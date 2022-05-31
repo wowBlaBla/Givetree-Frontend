@@ -1,66 +1,79 @@
-import React, { FC } from "react";
-import { Field } from "./Field";
+import React, { ChangeEventHandler, FC, FocusEventHandler } from "react";
+
+import cx from "classnames";
+import { Field } from "formik";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
+import { Label } from "./Label";
 
-interface SelectGroupOption {
-  value: number | string;
-  label: string;
+export interface SelectOption {
+  id: string;
+  value: string;
 }
 
 interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
+  includeBlank?: boolean;
   label: string;
   name: string;
-  options: SelectGroupOption[];
-  placeholder?: string;
+  onBlur?: FocusEventHandler<HTMLSelectElement>;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+  options: SelectOption[];
+  selected?: SelectOption | null;
   testId?: string;
   touched?: boolean;
-  type?: string;
-  value?: null | number | string;
 }
+
+const isSelected = (option: SelectOption, selectedOption?: SelectOption | null) => {
+  return selectedOption ? selectedOption.id === option.id : false;
+};
 
 export const SelectGroup: FC<SelectGroupProps> = ({
   disabled,
   error,
+  includeBlank,
   label,
   name,
+  onBlur,
+  onChange,
   options,
-  placeholder,
+  selected,
   testId,
   touched,
-  type,
-  value,
 }) => {
   const hasError = touched && !isEmpty(error);
 
   return (
-    <div className="form-control w-full">
-      <label htmlFor={name} className="label">
-        <span>{label}</span>
-      </label>
-
+    <div>
+      <Label htmlFor={name}>{label}</Label>
       <div className="relative mt-1">
         <Field
           as="select"
-          className="select select-bordered w-full"
-          isError={hasError}
-          isDisabled={disabled}
+          className={cx("select select-bordered w-full", {
+            "border-red-300 placeholder-red-400": hasError,
+            "bg-gray-100": disabled,
+          })}
+          data-cy={testId || kebabCase(name)}
+          disabled={disabled}
           name={name}
-          placeholder={placeholder}
-          testId={testId || kebabCase(name)}
-          type={type}
-          value={value}
+          value={selected ? selected.id : undefined}
+          onBlur={onBlur}
+          onChange={onChange}
         >
-          {options.map((option, idx) => (
-            <option key={idx} value={option.value}>
-              {option.label}
-            </option>
-          ))}
+          {includeBlank && <option value="">Select</option>}
+          {options &&
+            options.map((option, i) => (
+              <option
+                key={i}
+                label={option.value}
+                value={option.id}
+                selected={isSelected(option, selected)}
+              />
+            ))}
         </Field>
+        <InputErrorBox hasError={hasError} message={error} />
       </div>
-      <InputErrorBox hasError={hasError} message={error} />
     </div>
   );
 };
