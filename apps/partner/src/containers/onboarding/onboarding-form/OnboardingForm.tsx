@@ -132,27 +132,24 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
           options={CHARITY_RADIO_OPTIONS}
           value={values.charityAcceptDirectDonations}
           setValue={setFieldValue}
-          testId="charity-accept-direct-donations"
         />
 
         <RadioGroup
           legend="Select Create Fundraiser"
           label="Do you want to create NFT fundraisers?"
-          name="charityCreateFundraiserr"
+          name="charityCreateFundraiser"
           options={CHARITY_RADIO_OPTIONS}
           value={values.charityCreateFundraiser}
           setValue={setFieldValue}
-          testId="charity-create-fundraiser"
         />
 
         <RadioGroup
           legend="Select Allow Proxy Fundraiser"
-          label="Do you want to create NFT fundraisers?"
+          label="Do you want other people to be able to create NFT fundraisers on your behalf?"
           name="charityAllowProxyFundraiser"
           options={CHARITY_RADIO_OPTIONS}
           value={values.charityAllowProxyFundraiser}
           setValue={setFieldValue}
-          testId="charity-allow-proxy-fundraiser"
         />
 
         <RadioGroup
@@ -162,7 +159,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
           options={CHARITY_RADIO_OPTIONS}
           value={values.charityApprovalBeforeGoLive}
           setValue={setFieldValue}
-          testId="charity-approval-before-go-live"
         />
       </div>
     )}

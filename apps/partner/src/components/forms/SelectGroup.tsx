@@ -40,6 +40,7 @@ export const SelectGroup: FC<SelectGroupProps> = ({
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(e.target.value);
+    // Formik's setFieldValue function to set value
     setValue(name, e.target.value);
   };
 
