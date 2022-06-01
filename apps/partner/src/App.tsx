@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-loading-skeleton/dist/skeleton.css";
 
 export const App = (): JSX.Element => (
-  <div className="flex flex-1 flex-col h-full min-h-screen bg-gray-50">
+  <div className="flex relative flex-1 flex-col h-full min-h-screen bg-gray-50">
     <ProtectedAppContainer>
       <AppHeader />
 

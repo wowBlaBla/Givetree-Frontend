@@ -1,6 +1,6 @@
 import React from "react";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { SkeletonFormInputField } from "../../components/skeleton/SkeletonFormInputField";
+import { SkeletonFormInputField } from "../../../components/skeleton/SkeletonFormInputField";
 
 export const SkeletonOnboardingForm = () => (
   <SkeletonTheme baseColor="#e2e8f0" highlightColor="#f9f9f9">
