@@ -1,63 +1,71 @@
-import React, { FC, ReactNode } from "react";
-import { Field } from "formik";
-import { isEmpty, kebabCase } from "lodash";
-import { InputErrorBox } from "./InputError";
+import React, { FC } from "react";
+import cx from "classnames";
+import { kebabCase } from "lodash";
 
-interface RangeGroupProps {
-  children?: ReactNode;
-  disabled?: boolean;
-  error?: string;
+export interface RadioOption {
+  isDisabled?: boolean;
   label: string;
-  min: number;
-  max: number;
-  step: number;
-  name: string;
-  placeholder?: string;
-  testId?: string;
-  touched?: boolean;
-  type?: string;
-  value?: number | string | boolean | null;
+  value: string;
 }
 
-export const RangeGroup: FC<RangeGroupProps> = ({
-  disabled,
-  error,
-  label,
-  min,
-  max,
-  step,
-  name,
-  testId,
-  touched,
-  value,
-}) => {
-  const hasError = touched && !isEmpty(error);
+interface RadioGroupProps {
+  legend?: string;
+  label?: string;
+  name: string;
+  onChange: (name: string, option: string) => void;
+  options: RadioOption[];
+  selectedOption?: string | number | boolean;
+  testId?: string;
+}
 
-  return (
-    <div className="form-control w-full">
-      <label htmlFor={name} className="label">
-        <span>{label}</span>
-      </label>
-
-      <div className="relative mt-1">
-        <Field
-          className="range w-full"
-          disabled={disabled}
-          max={max}
-          min={min}
-          step={step}
-          name={name}
-          data-cy={testId || kebabCase(name)}
-          type="range"
-          value={value}
-        />
-        <div className="flex justify-between px-2">
-          {[...Array(min - max + 1).keys()].map((number, idx) => (
-            <span key={idx}>{number + max}</span>
-          ))}
-        </div>
-      </div>
-      <InputErrorBox hasError={hasError} message={error} />
-    </div>
-  );
+const isSelected = (option: RadioOption, selectedOption?: string | number) => {
+  return selectedOption ? selectedOption === option.value : false;
 };
+
+export const RadioGroup: FC<RadioGroupProps> = ({
+  label,
+  legend,
+  name,
+  onChange,
+  options,
+  selectedOption,
+  testId,
+}) => (
+  <fieldset>
+    <legend className="sr-only">{legend}</legend>
+    <div className="label">{label}</div>
+    <div className="flex items-center space-x-3">
+      {options.map((option, idx) => (
+        <label
+          key={`${name}-${idx}`}
+          className="flex relative items-center h-4 space-x-2 mt-0.5 p-4 border border-gray-300 rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out cursor-pointer"
+          onChange={() => {
+            if (!option.isDisabled) {
+              return onChange(name, option.value);
+            }
+          }}
+        >
+          <input
+            aria-describedby={`${kebabCase(name)}-${idx}-description`}
+            aria-labelledby={`${kebabCase(name)}-${idx}-label`}
+            data-cy={`${testId}-${idx}-cbx`}
+            defaultChecked={isSelected(option, selectedOption?.toString())}
+            disabled={option.isDisabled}
+            name={kebabCase(name)}
+            type="radio"
+            value={option.value}
+          />
+          <div>
+            <span
+              className={cx("block text-gray-600", {
+                "text-brand-black": isSelected(option, selectedOption?.toString()),
+              })}
+            >
+              {option.label}
+            </span>
+          </div>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+);

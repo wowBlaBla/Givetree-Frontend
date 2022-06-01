@@ -1,35 +1,48 @@
 import React, { FC, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
-  useGetUserLazyQuery,
-  useCreateUserMutation,
-  useUpdateUserMutation,
+  useGetUserDetailsLazyQuery,
+  useCreateUserDetailsMutation,
+  useUpdateUserDetailsMutation,
 } from "../../typed/index";
 import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
-import { LoadingScreen } from "../../components/LoadingScreen";
 import { AppContainer } from "../../components/AppContainer";
-import { ErrorScreen } from "../../components/ErrorScreen";
+import { ErrorContainer } from "../../components/ErrorContainer";
 import { toast } from "react-toastify";
+import { SkeletonOnboardingForm } from "./SkeletonOnboardingForm";
+import { getDefaultFormValues, getFormValues } from "./Onboarding.utils";
+import { LoadingContainer } from "../../components/LoadingContainer";
 
 export const OnboardingContainer: FC = () => {
-  const { isLoading, user } = useAuth0();
+  const { isLoading: isAuthLoading, user } = useAuth0();
 
-  const [getUser, { data, loading, error }] = useGetUserLazyQuery({
-    fetchPolicy: "no-cache",
-  });
+  const [getUser, { data, loading: isGetUserLoading, error }] =
+    useGetUserDetailsLazyQuery({
+      fetchPolicy: "no-cache",
+    });
 
-  const [
-    createUser,
-    { data: createUserData, loading: createUserLoading, error: createUserError },
-  ] = useCreateUserMutation();
+  const [createUser, { loading: isCreateUserLoading, error: createUserError }] =
+    useCreateUserDetailsMutation({
+      onError: () => {
+        toast.warning("Unable to save details");
+      },
+      onCompleted: () => {
+        toast.success("Details have been saved");
+      },
+    });
 
-  const [
-    updateUser,
-    { data: updateUserData, loading: updateUserLoading, error: updateUserError },
-  ] = useUpdateUserMutation();
+  const [updateUser, { loading: isUpdateUserLoading, error: updateUserError }] =
+    useUpdateUserDetailsMutation({
+      onError: () => {
+        toast.warning("Unable to save details");
+      },
+      onCompleted: () => {
+        toast.success("Details have been updated");
+      },
+    });
 
   useEffect(() => {
-    if (!isLoading && user) {
+    if (user) {
       const getValues = async () => {
         await getUser({
           variables: {
@@ -40,107 +53,30 @@ export const OnboardingContainer: FC = () => {
 
       getValues();
     }
-  }, [isLoading, user, getUser]);
-
-  useEffect(() => {
-    if (createUserData) {
-      toast.success("Partner information has been saved");
-    }
-  }, [createUserData]);
-
-  useEffect(() => {
-    if (updateUserData) {
-      toast.success("Changes have been updated");
-    }
-  }, [updateUserData]);
-
-  const containerIsLoadig =
-    isLoading || loading || createUserLoading || updateUserLoading;
-
-  if (containerIsLoadig) {
-    return <LoadingScreen text="Loading partner information..." />;
-  }
+  }, [user]);
 
   if (error) {
-    return <ErrorScreen text={error.message} />;
+    return <ErrorContainer text={error.message} />;
   }
 
   if (createUserError) {
-    return <ErrorScreen text={createUserError.message} />;
+    return <ErrorContainer text={createUserError.message} />;
   }
-
   if (updateUserError) {
-    return <ErrorScreen text={updateUserError.message} />;
+    return <ErrorContainer text={updateUserError.message} />;
   }
 
-  if (!data) {
-    return <ErrorScreen text="Partner information could not be found." />;
+  let initialFormValues: OnboardingFormValues = getDefaultFormValues();
+
+  if (data) {
+    initialFormValues = getFormValues(data);
   }
-
-  const getUserValues = () => {
-    if (updateUserData) return updateUserData.update_users_by_pk;
-    if (createUserData) return createUserData?.insert_users_one;
-    if (data) return data.users_by_pk;
-    return undefined;
-  };
-
-  const getInitialValues = (): OnboardingFormValues => {
-    const currentUser = getUserValues();
-
-    if (currentUser) {
-      return {
-        aliasName: currentUser.aliasName || "",
-        contactNumber: currentUser.contactNumber || "",
-        country: currentUser.country || "",
-        cryptoActivityRating: currentUser.cryptoActivityRating || 1,
-        cryptoConfidenceRating: currentUser.cryptoConfidenceRating || 1,
-        cryptoExperienceRating: currentUser.cryptoExperienceRating || 1,
-        cryptoOffRampStrategy: currentUser.cryptoOffRampStrategy || "",
-        description: currentUser.description || "",
-        discordUrl: currentUser.discordUrl || "",
-        email: currentUser.email || "",
-        ethWalletAddress: currentUser.ethWalletAddress || "",
-        expectedReleaseDate: currentUser.expectedReleaseDate || null,
-        firstName: currentUser.firstName || "",
-        isArtworkReady: currentUser.isArtworkReady || false,
-        lastName: currentUser.lastName || "",
-        logoUrl: currentUser.logoUrl || "",
-        solWalletAddress: currentUser.solWalletAddress || "",
-        twitterUrl: currentUser.twitterUrl || "",
-        userType: currentUser.userType || "",
-        websiteUrl: currentUser.websiteUrl || "",
-      };
-    }
-
-    return {
-      aliasName: "",
-      contactNumber: "",
-      country: "",
-      cryptoActivityRating: 1,
-      cryptoConfidenceRating: 1,
-      cryptoExperienceRating: 1,
-      cryptoOffRampStrategy: "",
-      description: "",
-      discordUrl: "",
-      email: "",
-      ethWalletAddress: "",
-      expectedReleaseDate: null,
-      firstName: "",
-      isArtworkReady: false,
-      lastName: "",
-      logoUrl: "",
-      solWalletAddress: "",
-      twitterUrl: "",
-      userType: "",
-      websiteUrl: "",
-    };
-  };
 
   const handleOnSubmit = (values: OnboardingFormValues) => {
-    if (data.users_by_pk) {
+    if (data?.users_by_pk) {
       updateUser({
         variables: {
-          userId: data.users_by_pk.userId,
+          userId: user?.sub || "",
           ...values,
         },
       });
@@ -157,16 +93,23 @@ export const OnboardingContainer: FC = () => {
 
   return (
     <AppContainer>
+      {isCreateUserLoading && <LoadingContainer />}
+      {isUpdateUserLoading && <LoadingContainer />}
+
       <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
-        <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
-        <div className="mt-12">
-          {!containerIsLoadig && (
-            <OnboardingForm
-              initialValues={getInitialValues()}
-              onSubmit={handleOnSubmit}
-            />
-          )}
-        </div>
+        {(isAuthLoading || isGetUserLoading) && <SkeletonOnboardingForm />}
+
+        {data && (
+          <div>
+            <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
+            <div className="mt-8">
+              <OnboardingForm
+                initialValues={initialFormValues}
+                onSubmit={handleOnSubmit}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </AppContainer>
   );

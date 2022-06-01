@@ -7,6 +7,8 @@ import { ProtectedAppContainer } from "./containers/protected/ProtectedApp";
 import { OnboardingContainer } from "./containers/onboarding/Onboarding";
 import { ToastContainer } from "react-toastify";
 
+import "react-loading-skeleton/dist/skeleton.css";
+
 export const App = (): JSX.Element => (
   <div className="flex flex-1 flex-col h-full min-h-screen bg-gray-50">
     <ProtectedAppContainer>

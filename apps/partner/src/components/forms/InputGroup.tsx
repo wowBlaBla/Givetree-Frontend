@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { Field } from "./Field";
 import { isEmpty, kebabCase } from "lodash";
 import { InputErrorBox } from "./InputError";
+import { Label } from "./Label";
 
 interface InputGroupProps {
   as?: string;
@@ -36,6 +37,7 @@ export const InputGroup: FC<InputGroupProps> = ({
 
   return (
     <div className="form-control w-full">
+      <Label htmlFor={name}></Label>
       <label htmlFor={name} className="label">
         <span>{label}</span>
       </label>
