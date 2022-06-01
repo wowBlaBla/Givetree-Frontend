@@ -1,60 +1,69 @@
 import React, { FC } from "react";
 import cx from "classnames";
+import { kebabCase } from "lodash";
 
-interface RadioOption {
-  id: string;
+export interface RadioOption {
   isDisabled?: boolean;
   label: string;
-  ref?: string;
-  testId?: string;
+  value: string;
 }
 
 interface RadioGroupProps {
   legend?: string;
-  onChange: (option: RadioOption) => void;
+  label?: string;
+  name: string;
+  onChange: (name: string, option: string) => void;
   options: RadioOption[];
-  selected?: RadioOption;
+  selectedOption?: string | number | boolean;
+  testId?: string;
 }
 
-const isSelected = (option: RadioOption, selectedOption?: RadioOption) => {
-  return selectedOption ? selectedOption.id === option.id : false;
+const isSelected = (option: RadioOption, selectedOption?: string | number) => {
+  return selectedOption ? selectedOption === option.value : false;
 };
 
 export const RadioGroup: FC<RadioGroupProps> = ({
+  label,
   legend,
+  name,
   onChange,
   options,
-  selected,
+  selectedOption,
+  testId,
 }) => (
   <fieldset>
     <legend className="sr-only">{legend}</legend>
-    <div className="-space-y-px rounded-xl">
+    <div className="label">{label}</div>
+    <div className="flex items-center space-x-3">
       {options.map((option, idx) => (
         <label
-          key={option.id}
-          className="cursor-pointer focus:ring-brand-orange h-4 mt-0.5"
+          key={`${name}-${idx}`}
+          className="flex relative items-center h-4 space-x-2 mt-0.5 p-4 border border-gray-300 rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out cursor-pointer"
           onChange={() => {
-            if (option.isDisabled) {
-              return;
+            if (!option.isDisabled) {
+              return onChange(name, option.value);
             }
-
-            onChange(option);
           }}
         >
           <input
-            data-cy={`${option.testId}-${idx}-cbx`}
+            aria-describedby={`${kebabCase(name)}-${idx}-description`}
+            aria-labelledby={`${kebabCase(name)}-${idx}-label`}
+            data-cy={`${testId}-${idx}-cbx`}
+            defaultChecked={isSelected(option, selectedOption?.toString())}
             disabled={option.isDisabled}
+            name={kebabCase(name)}
             type="radio"
-            value={option.id}
-          >
+            value={option.value}
+          />
+          <div>
             <span
-              className={cx("block text-gray-400 font-medium", {
-                "": isSelected(option, selected),
+              className={cx("block text-gray-600", {
+                "text-brand-black": isSelected(option, selectedOption?.toString()),
               })}
             >
               {option.label}
             </span>
-          </input>
+          </div>
         </label>
       ))}
     </div>

@@ -9,17 +9,18 @@
     "incremental": true
   },
   "include": [
+    "src",
     "**/*.ts",
     "**/*.tsx",
     "cypress"
   ],
   "exclude": [
     "node_modules",
-    "src/typed/**"
+    "src/typed/index.ts"
   ],
   "linterOptions": {
     "exclude": [
-      "./src/typed/index.ts"
+      "src/typed/index.ts"
     ]
   }
 }

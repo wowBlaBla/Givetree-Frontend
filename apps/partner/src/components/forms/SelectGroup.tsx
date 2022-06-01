@@ -1,5 +1,4 @@
-import React, { ChangeEventHandler, FC, FocusEventHandler } from "react";
-
+import React, { ChangeEvent, FC } from "react";
 import cx from "classnames";
 import { Field } from "formik";
 import { isEmpty, kebabCase } from "lodash";
@@ -11,23 +10,31 @@ export interface SelectOption {
   value: string;
 }
 
+const getSelected = (
+  options: SelectOption[],
+  selectedOption?: string
+): SelectOption | undefined => {
+  const option = options.find((option) => option.id === selectedOption);
+
+  if (option) {
+    return option;
+  }
+
+  return undefined;
+};
+
 interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
   includeBlank?: boolean;
   label: string;
   name: string;
-  onBlur?: FocusEventHandler<HTMLSelectElement>;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
+  onChange: (name: string, option: string) => void;
   options: SelectOption[];
-  selected?: SelectOption | null;
+  value?: string;
   testId?: string;
   touched?: boolean;
 }
-
-const isSelected = (option: SelectOption, selectedOption?: SelectOption | null) => {
-  return selectedOption ? selectedOption.id === option.id : false;
-};
 
 export const SelectGroup: FC<SelectGroupProps> = ({
   disabled,
@@ -35,14 +42,18 @@ export const SelectGroup: FC<SelectGroupProps> = ({
   includeBlank,
   label,
   name,
-  onBlur,
-  onChange,
   options,
-  selected,
+  onChange,
+  value,
   testId,
   touched,
 }) => {
+  const selected = getSelected(options, value);
   const hasError = touched && !isEmpty(error);
+
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange(name, e.target.value);
+  };
 
   return (
     <div>
@@ -57,19 +68,13 @@ export const SelectGroup: FC<SelectGroupProps> = ({
           data-cy={testId || kebabCase(name)}
           disabled={disabled}
           name={name}
-          value={selected ? selected.id : undefined}
-          onBlur={onBlur}
-          onChange={onChange}
+          value={value ? selected?.id : false}
+          onChange={handleOnChange}
         >
           {includeBlank && <option value="">Select</option>}
           {options &&
             options.map((option, i) => (
-              <option
-                key={i}
-                label={option.value}
-                value={option.id}
-                selected={isSelected(option, selected)}
-              />
+              <option key={i} label={option.value} value={option.id} />
             ))}
         </Field>
         <InputErrorBox hasError={hasError} message={error} />

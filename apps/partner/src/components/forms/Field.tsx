@@ -35,6 +35,7 @@ export const Field: FC<FieldProps> = ({
       className={cx(className, {
         "border-red-300 placeholder-red-400": isError,
         "bg-gray-100": isDisabled,
+        "h-32": as === "textarea",
       })}
       data-cy={testId}
       disabled={isDisabled}

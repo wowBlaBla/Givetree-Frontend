@@ -7,9 +7,13 @@ import { SelectGroup } from "../../components/forms/SelectGroup";
 import { RangeGroup } from "../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../components/forms/PhoneInputGroup";
 import { addDays, endOfDay, format } from "date-fns";
-// import { LegalEntityType } from "../../typed/legalEntityType";
 import { PartnerType } from "../../typed/partnerType";
-import { FileUploadGroup } from "../../components/forms/file-upload/FileUploadGroup";
+import { RadioGroup } from "../../components/forms/RadioGroup";
+import {
+  CHARITY_RADIO_OPTIONS,
+  LEGAL_ENTITY_TYPE_OPTIONS,
+  USER_TYPE_OPTIONS,
+} from "./Onboarding.constants";
 
 export interface OnboardingFormValues {
   aliasName: string;
@@ -50,6 +54,10 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   values,
   setFieldValue,
 }) => {
+  const handleSelect = (name: string, option: string) => {
+    setFieldValue(name, option);
+  };
+
   const handlePhoneInputOnChange = async (
     isValid: boolean,
     name: string,
@@ -59,59 +67,16 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
     await setFieldValue(name, value);
   };
 
-  const userTypeOptions = [
-    {
-      id: PartnerType.contentCreator,
-      value: "Content Creator",
-    },
-    {
-      id: PartnerType.charity,
-      value: "Charity",
-    },
-  ];
-
-  // const charityAcceptDirectDonationsOptions = [
-  //   {
-  //     label: "Yes",
-  //     value: "yes",
-  //   },
-  //   {
-  //     label: "No",
-  //     value: "no",
-  //   },
-  // ];
-
   return (
     <Form className="flex flex-col space-y-1">
       <SelectGroup
-        error={errors.userType}
+        includeBlank
         label="Are you a Content Creator or Charity?"
         name="userType"
-        touched={touched.userType}
-        options={userTypeOptions}
-        includeBlank
+        options={USER_TYPE_OPTIONS}
+        onChange={handleSelect}
+        value={values.userType}
       />
-
-      {values.userType === "Charity" && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* <SelectGroup
-              error={errors.charityAcceptDirectDonations}
-              label="Do you want to accept direct donations of cryptocurrency?"
-              name="charityAcceptDirectDonations"
-              touched={touched.charityAcceptDirectDonations}
-              value={values.charityAcceptDirectDonations}
-              options={charityAcceptDirectDonationsOptions}
-            /> */}
-
-          <InputGroup
-            error={errors.lastName}
-            label="Last name"
-            name="lastName"
-            touched={touched.lastName}
-            value={values.lastName}
-          />
-        </div>
-      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <InputGroup
@@ -168,6 +133,85 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         />
       </div>
 
+      {values.userType === PartnerType.Charity && (
+        <div className="flex flex-col space-y-4 pt-5">
+          <h3 className="text-2xl font-semibold">Charity Information</h3>
+
+          <SelectGroup
+            includeBlank
+            label="Legal Entity Type"
+            name="charityEntityType"
+            options={LEGAL_ENTITY_TYPE_OPTIONS}
+            onChange={handleSelect}
+            value={values.charityEntityType}
+          />
+
+          <InputGroup
+            error={errors.charityAbn}
+            label="ABN"
+            name="charityAbn"
+            touched={touched.charityAbn}
+            value={values.charityAbn}
+          />
+
+          <InputGroup
+            error={errors.charityAddress}
+            label="Organisation Address"
+            name="charityAddress"
+            touched={touched.charityAddress}
+            value={values.charityAddress}
+          />
+
+          <InputGroup
+            error={errors.primaryContactAddress}
+            label="Primary Contact Address"
+            name="primaryContactAddress"
+            touched={touched.primaryContactAddress}
+            value={values.primaryContactAddress}
+          />
+
+          <RadioGroup
+            legend="Select Accept Direct Donations"
+            label="Do you want to accept direct donations of cryptocurrency?"
+            name="charityAcceptDirectDonations"
+            options={CHARITY_RADIO_OPTIONS}
+            selectedOption={values.charityAcceptDirectDonations}
+            testId="charity-accept-direct-donations"
+            onChange={handleSelect}
+          />
+
+          <RadioGroup
+            legend="Select Create Fundraiser"
+            label="Do you want to create NFT fundraisers?"
+            name="charityCreateFundraiserr"
+            options={CHARITY_RADIO_OPTIONS}
+            selectedOption={values.charityCreateFundraiser}
+            testId="charity-create-fundraiser"
+            onChange={handleSelect}
+          />
+
+          <RadioGroup
+            legend="Select Allow Proxy Fundraiser"
+            label="Do you want to create NFT fundraisers?"
+            name="charityAllowProxyFundraiser"
+            options={CHARITY_RADIO_OPTIONS}
+            selectedOption={values.charityAllowProxyFundraiser}
+            testId="charity-allow-proxy-fundraiser"
+            onChange={handleSelect}
+          />
+
+          <RadioGroup
+            legend="Select Approval Before Go Live"
+            label="Do you want to approve NFT fundraisers which are created on your behalf before they go live to the public?"
+            name="charityApprovalBeforeGoLive"
+            options={CHARITY_RADIO_OPTIONS}
+            selectedOption={values.charityApprovalBeforeGoLive}
+            testId="charity-approval-before-go-live"
+            onChange={handleSelect}
+          />
+        </div>
+      )}
+
       <InputGroup
         as="textarea"
         error={errors.description}
@@ -177,11 +221,68 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         value={values.description}
       />
 
+      <h3 className="text-2xl font-semibold pt-12">Socials</h3>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <InputGroup
+          error={errors.websiteUrl}
+          label="Website Url"
+          name="websiteUrl"
+          touched={touched.websiteUrl}
+          value={values.websiteUrl}
+        />
+
+        <InputGroup
+          error={errors.discordUrl}
+          label="Discord Url"
+          name="discordUrl"
+          touched={touched.discordUrl}
+          value={values.discordUrl}
+        />
+
+        <InputGroup
+          error={errors.twitterUrl}
+          label="Twitter Url"
+          name="twitterUrl"
+          touched={touched.twitterUrl}
+          value={values.twitterUrl}
+        />
+      </div>
+
+      {/* 
       <FileUploadGroup
         label="Logo Url"
         name="logoUrl"
         selectFileButtonText="Select image"
+      /> */}
+
+      <h3 className="text-2xl font-semibold pt-12">Wallet Addresses</h3>
+
+      <InputGroup
+        error={errors.ethWalletAddress}
+        label="What is your Ethereum wallet address?"
+        name="ethWalletAddress"
+        touched={touched.ethWalletAddress}
+        value={values.ethWalletAddress}
       />
+
+      <InputGroup
+        error={errors.solWalletAddress}
+        label="What is your Solana wallet address?"
+        name="solWalletAddress"
+        touched={touched.solWalletAddress}
+        value={values.solWalletAddress}
+      />
+
+      <InputGroup
+        error={errors.maticWalletAddress}
+        label="What is your Matic wallet address?"
+        name="maticWalletAddress"
+        touched={touched.maticWalletAddress}
+        value={values.maticWalletAddress}
+      />
+
+      <h3 className="text-2xl font-semibold pt-12">Crypto Knowledge</h3>
 
       <RangeGroup
         error={errors.cryptoActivityRating}
@@ -207,6 +308,18 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         value={values.cryptoExperienceRating}
       />
 
+      <h3 className="text-2xl font-semibold pt-12">Launch Information</h3>
+
+      <InputGroup
+        error={errors.expectedReleaseDate}
+        label="What is your expected go live date?"
+        min={format(new Date(), "yyy-MM-dd")}
+        name="expectedReleaseDate"
+        touched={touched.expectedReleaseDate}
+        value={values.expectedReleaseDate}
+        type="date"
+      />
+
       <InputGroup
         as="textarea"
         error={errors.cryptoOffRampStrategy}
@@ -216,59 +329,11 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         value={values.cryptoOffRampStrategy}
       />
 
-      <InputGroup
-        error={errors.expectedReleaseDate}
-        label="What is your expected go live date?"
-        min={new Date().toDateString()}
-        name="expectedReleaseDate"
-        touched={touched.expectedReleaseDate}
-        value={values.expectedReleaseDate}
-        type="date"
-      />
-
-      <InputGroup
-        error={errors.ethWalletAddress}
-        label="What is your Ethereum wallet address?"
-        name="ethWalletAddress"
-        touched={touched.ethWalletAddress}
-        value={values.ethWalletAddress}
-      />
-
-      <InputGroup
-        error={errors.solWalletAddress}
-        label="What is your Solana wallet address?"
-        name="solWalletAddress"
-        touched={touched.solWalletAddress}
-        value={values.solWalletAddress}
-      />
-
-      <h3 className="text-2xl font-semibold">Socials</h3>
-
-      <InputGroup
-        error={errors.websiteUrl}
-        label="Website Url"
-        name="websiteUrl"
-        touched={touched.websiteUrl}
-        value={values.websiteUrl}
-      />
-
-      <InputGroup
-        error={errors.discordUrl}
-        label="Discord Url"
-        name="discordUrl"
-        touched={touched.discordUrl}
-        value={values.discordUrl}
-      />
-
-      <InputGroup
-        error={errors.twitterUrl}
-        label="Twitter Url"
-        name="twitterUrl"
-        touched={touched.twitterUrl}
-        value={values.twitterUrl}
-      />
-
-      <PrimaryButton type="submit">Save</PrimaryButton>
+      <div className="flex flex-row-reverse w-full pt-5">
+        <PrimaryButton className="px-10" type="submit">
+          Save
+        </PrimaryButton>
+      </div>
     </Form>
   );
 };
@@ -278,19 +343,24 @@ interface OnboardingFormProps {
   onSubmit: (values: OnboardingFormValues) => void;
 }
 
+const parseOnboardingFormValues = (values: OnboardingFormValues) => ({
+  ...values,
+  charityAcceptDirectDonations: Boolean(values.charityAcceptDirectDonations),
+});
+
 export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValues>({
   handleSubmit: async (values, { props: { onSubmit } }) => {
-    await onSubmit(values);
+    await onSubmit(parseOnboardingFormValues(values));
   },
   mapPropsToValues: ({ initialValues }) => ({
     aliasName: initialValues.aliasName || "",
-    charityEntityType: initialValues.charityEntityType || "",
-    charityAddress: initialValues.charityAddress || "",
     charityAbn: initialValues.charityAbn || "",
+    charityAddress: initialValues.charityAddress || "",
     charityAcceptDirectDonations: initialValues.charityAcceptDirectDonations || false,
     charityAllowProxyFundraiser: initialValues.charityAllowProxyFundraiser || false,
     charityApprovalBeforeGoLive: initialValues.charityApprovalBeforeGoLive || false,
     charityCreateFundraiser: initialValues.charityCreateFundraiser || false,
+    charityEntityType: initialValues.charityEntityType || "",
     contactNumber: initialValues.contactNumber || "",
     country: initialValues.country || "",
     cryptoActivityRating: initialValues.cryptoActivityRating || 1,

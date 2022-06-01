@@ -20,14 +20,16 @@ export const AppHeader: FC = () => {
         <span className="text-white text-xl font-bold tracking-wider">Partnerships</span>
       </div>
 
-      <div className="flex flex-row-reverse w-full">
-        {!isLoading && isAuthenticated && (
-          <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
-        )}
+      <div className="flex flex-row-reverse w-full h-10">
+        <div>
+          {!isLoading && isAuthenticated && (
+            <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
+          )}
 
-        {!isLoading && !isAuthenticated && (
-          <PrimaryButton onClick={loginWithRedirect}>Log In</PrimaryButton>
-        )}
+          {!isLoading && !isAuthenticated && (
+            <PrimaryButton onClick={loginWithRedirect}>Log In</PrimaryButton>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 export enum LegalEntityType {
-  trustee = "TRUSTEE",
-  company = "COMPANY",
-  trust = "TRUST",
-  soleTrader = "SOLE_TRADER",
+  Trustee = "TRUSTEE",
+  Company = "COMPANY",
+  Trust = "TRUST",
+  SoleTrader = "SOLE_TRADER",
 }

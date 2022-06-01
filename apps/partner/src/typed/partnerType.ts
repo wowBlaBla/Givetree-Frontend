@@ -1,4 +1,4 @@
 export enum PartnerType {
-  contentCreator = "CONTENT_CREATOR",
-  charity = "CHARITY",
+  ContentCreator = "CONTENT_CREATOR",
+  Charity = "CHARITY",
 }
