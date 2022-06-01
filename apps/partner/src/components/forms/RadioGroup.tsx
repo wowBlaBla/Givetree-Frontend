@@ -12,10 +12,9 @@ interface RadioGroupProps {
   legend?: string;
   label?: string;
   name: string;
-  onChange: (name: string, option: string) => void;
+  setValue: (name: string, option: string | boolean) => void;
   options: RadioOption[];
-  selectedOption?: string | number | boolean;
-  testId?: string;
+  value?: string | number | boolean;
 }
 
 const isSelected = (option: RadioOption, selectedOption?: string | number) => {
@@ -26,10 +25,9 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   label,
   legend,
   name,
-  onChange,
+  setValue,
   options,
-  selectedOption,
-  testId,
+  value,
 }) => (
   <fieldset>
     <legend className="sr-only">{legend}</legend>
@@ -41,15 +39,16 @@ export const RadioGroup: FC<RadioGroupProps> = ({
           className="flex relative items-center h-4 space-x-2 mt-0.5 p-4 border border-gray-300 rounded-lg hover:bg-gray-300 transition duration-150 ease-in-out cursor-pointer"
           onChange={() => {
             if (!option.isDisabled) {
-              return onChange(name, option.value);
+              // Formik's setFieldValue function to set value
+              return setValue(name, option.value);
             }
           }}
         >
           <input
             aria-describedby={`${kebabCase(name)}-${idx}-description`}
             aria-labelledby={`${kebabCase(name)}-${idx}-label`}
-            data-cy={`${testId}-${idx}-cbx`}
-            defaultChecked={isSelected(option, selectedOption?.toString())}
+            data-cy={`${kebabCase(name)}-${idx}-cbx`}
+            defaultChecked={isSelected(option, value?.toString())}
             disabled={option.isDisabled}
             name={kebabCase(name)}
             type="radio"
@@ -58,7 +57,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
           <div>
             <span
               className={cx("block text-gray-600", {
-                "text-brand-black": isSelected(option, selectedOption?.toString()),
+                "text-brand-black": isSelected(option, value?.toString()),
               })}
             >
               {option.label}

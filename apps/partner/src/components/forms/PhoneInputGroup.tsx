@@ -8,12 +8,13 @@ interface PhoneInputGroupProps {
   error?: string;
   label: string;
   name: string;
-  onPhoneInputChange: (isValid: boolean, name: string, value: string) => void;
+  value?: string;
+  setValue: (name: string, value: string | boolean) => void;
   placeholder?: string;
   testId?: string;
   touched?: boolean;
   type?: string;
-  value?: string;
+  validationFieldName?: string;
 }
 
 export const PhoneInputGroup: FC<PhoneInputGroupProps> = ({
@@ -21,21 +22,26 @@ export const PhoneInputGroup: FC<PhoneInputGroupProps> = ({
   error,
   label,
   name,
-  onPhoneInputChange,
+  setValue,
   testId,
   touched,
   value,
+  validationFieldName,
 }) => {
   const hasError = (touched && !isEmpty(error)) || !!error;
 
-  const handleOnChange = (
+  const handleOnChange = async (
     isValid: boolean,
     _value: string,
     _selectedCountryData: CountryData,
     fullNumber: string,
     _extension: string
   ) => {
-    onPhoneInputChange(isValid, name, fullNumber);
+    if (validationFieldName) {
+      await setValue(validationFieldName, isValid);
+    }
+
+    await setValue(name, fullNumber);
   };
 
   return (

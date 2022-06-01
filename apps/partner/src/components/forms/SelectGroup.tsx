@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import cx from "classnames";
 import { Field } from "formik";
 import { isEmpty, kebabCase } from "lodash";
@@ -10,28 +10,15 @@ export interface SelectOption {
   value: string;
 }
 
-const getSelected = (
-  options: SelectOption[],
-  selectedOption?: string
-): SelectOption | undefined => {
-  const option = options.find((option) => option.id === selectedOption);
-
-  if (option) {
-    return option;
-  }
-
-  return undefined;
-};
-
 interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
   includeBlank?: boolean;
   label: string;
   name: string;
-  onChange: (name: string, option: string) => void;
   options: SelectOption[];
-  value?: string;
+  value: string | null;
+  setValue: (name: string, value: string) => void;
   testId?: string;
   touched?: boolean;
 }
@@ -43,16 +30,18 @@ export const SelectGroup: FC<SelectGroupProps> = ({
   label,
   name,
   options,
-  onChange,
   value,
+  setValue,
   testId,
   touched,
 }) => {
-  const selected = getSelected(options, value);
+  const [selectedValue, setSelectedValue] = useState<string | null>(value);
   const hasError = touched && !isEmpty(error);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(name, e.target.value);
+    setSelectedValue(e.target.value);
+    // Formik's setFieldValue function to set value
+    setValue(name, e.target.value);
   };
 
   return (
@@ -68,7 +57,7 @@ export const SelectGroup: FC<SelectGroupProps> = ({
           data-cy={testId || kebabCase(name)}
           disabled={disabled}
           name={name}
-          value={value ? selected?.id : false}
+          value={selectedValue}
           onChange={handleOnChange}
         >
           {includeBlank && <option value="">Select</option>}

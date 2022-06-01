@@ -1,17 +1,18 @@
 import React, { FC, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
+import { getDefaultFormValues, getFormValues } from "./Onboarding.utils";
+import { OnboardingForm } from "./onboarding-form/OnboardingForm";
+import { OnboardingFormValues } from "./onboarding-form/OnboardingForm.types";
+import { SkeletonOnboardingForm } from "./onboarding-form/SkeletonOnboardingForm";
+import { AppContainer } from "../../components/AppContainer";
+import { ErrorContainer } from "../../components/ErrorContainer";
+import { LoadingContainer } from "../../components/LoadingContainer";
 import {
   useGetUserDetailsLazyQuery,
   useCreateUserDetailsMutation,
   useUpdateUserDetailsMutation,
 } from "../../typed/index";
-import { OnboardingForm, OnboardingFormValues } from "./OnboardingForm";
-import { AppContainer } from "../../components/AppContainer";
-import { ErrorContainer } from "../../components/ErrorContainer";
-import { toast } from "react-toastify";
-import { SkeletonOnboardingForm } from "./SkeletonOnboardingForm";
-import { getDefaultFormValues, getFormValues } from "./Onboarding.utils";
-import { LoadingContainer } from "../../components/LoadingContainer";
 
 export const OnboardingContainer: FC = () => {
   const { isLoading: isAuthLoading, user } = useAuth0();
@@ -92,9 +93,9 @@ export const OnboardingContainer: FC = () => {
   };
 
   return (
-    <AppContainer>
-      {isCreateUserLoading && <LoadingContainer />}
-      {isUpdateUserLoading && <LoadingContainer />}
+    <AppContainer isLoading={isCreateUserLoading || isUpdateUserLoading}>
+      {isCreateUserLoading && <LoadingContainer text="Saving partner details..." />}
+      {isUpdateUserLoading && <LoadingContainer text="Updating partner details..." />}
 
       <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
         {(isAuthLoading || isGetUserLoading) && <SkeletonOnboardingForm />}

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { GetUserDetailsQuery } from "../../typed";
-import { OnboardingFormValues } from "./OnboardingForm";
+import { OnboardingFormValues } from "./onboarding-form/OnboardingForm.types";
 
 export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValues => ({
   aliasName: formData.users_by_pk?.aliasName || "",
