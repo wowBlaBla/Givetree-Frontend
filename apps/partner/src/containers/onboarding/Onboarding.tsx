@@ -94,8 +94,8 @@ export const OnboardingContainer: FC = () => {
 
   return (
     <AppContainer isLoading={isCreateUserLoading || isUpdateUserLoading}>
-      {isCreateUserLoading && <LoadingContainer />}
-      {isUpdateUserLoading && <LoadingContainer />}
+      {isCreateUserLoading && <LoadingContainer text="Saving partner details..." />}
+      {isUpdateUserLoading && <LoadingContainer text="Updating partner details..." />}
 
       <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
         {(isAuthLoading || isGetUserLoading) && <SkeletonOnboardingForm />}
