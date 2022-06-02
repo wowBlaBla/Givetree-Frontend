@@ -12,15 +12,9 @@
     "src",
     "**/*.ts",
     "**/*.tsx",
-    "cypress"
+    "cypress",
   ],
   "exclude": [
-    "node_modules",
-    "src/typed/index.ts"
+    "node_modules"
   ],
-  "linterOptions": {
-    "exclude": [
-      "src/typed/index.ts"
-    ]
-  }
 }

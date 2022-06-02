@@ -15,7 +15,7 @@ import { RangeGroup } from "../../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../../components/forms/PhoneInputGroup";
 import { PartnerType } from "../../../typed/partnerType";
 import { RadioGroup } from "../../../components/forms/RadioGroup";
-import { FileUploadGroup } from "../../../components/forms/file-upload/FileUploadGroup";
+import { FileUploadGroup } from "../../../components/forms/FileUploadGroup";
 
 const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   errors,
@@ -96,6 +96,8 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       label="Logo Url"
       name="logoUrl"
       selectFileButtonText="Select image"
+      value={values.logoUrl}
+      setValue={setFieldValue}
     />
 
     {values.userType === PartnerType.Charity && (

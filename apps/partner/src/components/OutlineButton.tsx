@@ -20,19 +20,25 @@ const ButtonStyles = `
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
+  id?: string;
   className?: string;
   children?: ReactNode;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
 export const OutlineButton: FC<ButtonProps> = ({
   children,
   className,
+  disabled,
+  id,
   onClick,
   type,
 }) => (
   <button
+    id={id}
     className={cx(ButtonStyles, className)}
+    disabled={disabled}
     type={type || "button"}
     onClick={onClick}
   >
