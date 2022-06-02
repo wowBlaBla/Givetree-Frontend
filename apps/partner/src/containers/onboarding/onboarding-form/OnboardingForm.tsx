@@ -15,6 +15,7 @@ import { RangeGroup } from "../../../components/forms/RangeGroup";
 import { PhoneInputGroup } from "../../../components/forms/PhoneInputGroup";
 import { PartnerType } from "../../../typed/partnerType";
 import { RadioGroup } from "../../../components/forms/RadioGroup";
+import { FileUploadGroup } from "../../../components/forms/file-upload/FileUploadGroup";
 
 const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   errors,
@@ -22,12 +23,15 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   values,
   setFieldValue,
 }) => (
-  <Form className="flex flex-col space-y-1">
+  <Form className="flex flex-col">
     <SelectGroup
-      includeBlank
+      error={errors.userType}
+      includeBlankOption
+      blankOptionText="Select Partner"
       label="Are you a Content Creator or Charity?"
       name="userType"
       options={USER_TYPE_OPTIONS}
+      touched={touched.userType}
       value={values.userType}
       setValue={setFieldValue}
     />
@@ -88,15 +92,24 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
     </div>
 
+    <FileUploadGroup
+      label="Logo Url"
+      name="logoUrl"
+      selectFileButtonText="Select image"
+    />
+
     {values.userType === PartnerType.Charity && (
-      <div className="flex flex-col space-y-4 pt-5">
+      <div className="flex flex-col space-y-1 pt-12">
         <h3 className="text-2xl font-semibold">Charity Information</h3>
 
         <SelectGroup
-          includeBlank
+          error={errors.charityEntityType}
+          includeBlankOption
+          blankOptionText="Select Entity Type"
           label="Legal Entity Type"
           name="charityEntityType"
           options={LEGAL_ENTITY_TYPE_OPTIONS}
+          touched={touched.charityEntityType}
           value={values.charityEntityType}
           setValue={setFieldValue}
         />
@@ -199,13 +212,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
         value={values.twitterUrl}
       />
     </div>
-
-    {/* 
-      <FileUploadGroup
-        label="Logo Url"
-        name="logoUrl"
-        selectFileButtonText="Select image"
-      /> */}
 
     <h3 className="text-2xl font-semibold pt-12">Wallet Addresses</h3>
 
@@ -373,7 +379,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     primaryContactAddress: yup.string(),
     solWalletAddress: yup.string(),
     twitterUrl: yup.string(),
-    userType: yup.string(),
+    userType: yup.string().required("Partner is required"),
     websiteUrl: yup.string(),
   }),
 })(InnerOnboardingForm);

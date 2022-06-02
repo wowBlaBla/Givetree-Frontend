@@ -13,7 +13,8 @@ export interface SelectOption {
 interface SelectGroupProps {
   disabled?: boolean;
   error?: string;
-  includeBlank?: boolean;
+  includeBlankOption?: boolean;
+  blankOptionText?: string;
   label: string;
   name: string;
   options: SelectOption[];
@@ -26,7 +27,8 @@ interface SelectGroupProps {
 export const SelectGroup: FC<SelectGroupProps> = ({
   disabled,
   error,
-  includeBlank,
+  includeBlankOption,
+  blankOptionText,
   label,
   name,
   options,
@@ -35,7 +37,7 @@ export const SelectGroup: FC<SelectGroupProps> = ({
   testId,
   touched,
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string | null>(value);
+  const [selectedValue, setSelectedValue] = useState<string>(value || "");
   const hasError = touched && !isEmpty(error);
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +47,7 @@ export const SelectGroup: FC<SelectGroupProps> = ({
   };
 
   return (
-    <div>
+    <div className="form-control w-full">
       <Label htmlFor={name}>{label}</Label>
       <div className="relative mt-1">
         <Field
@@ -60,7 +62,7 @@ export const SelectGroup: FC<SelectGroupProps> = ({
           value={selectedValue}
           onChange={handleOnChange}
         >
-          {includeBlank && <option value="">Select</option>}
+          {includeBlankOption && <option value="">{blankOptionText ?? "Select"}</option>}
           {options &&
             options.map((option, i) => (
               <option key={i} label={option.value} value={option.id} />
