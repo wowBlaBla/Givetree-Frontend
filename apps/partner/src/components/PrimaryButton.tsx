@@ -20,12 +20,14 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   children?: ReactNode;
+  disabled?: boolean;
   large?: boolean;
   onClick?: () => void;
 }
 
 export const PrimaryButton: FC<ButtonProps> = ({
   className,
+  disabled,
   large,
   type,
   onClick,
@@ -35,6 +37,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
     className={cx(ButtonStyles, className, {
       "text-lg lg:text-xl": large,
     })}
+    disabled={disabled}
     type={type || "button"}
     onClick={onClick}
   >
