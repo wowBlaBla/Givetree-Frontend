@@ -42,15 +42,15 @@ export const showUploadWidget = (
     (error, info) => {
       setIsLoading(false);
 
-      if (!error) {
-        if (info.info.secure_url) {
-          const secureUrl = info.info.secure_url;
-
-          return setValue(fieldName, secureUrl);
-        }
+      if (error) {
+        throw new Error(error);
       }
 
-      return console.log(error);
+      if (info.info.secure_url) {
+        const secureUrl = info.info.secure_url;
+
+        return setValue(fieldName, secureUrl);
+      }
     }
   );
 };
