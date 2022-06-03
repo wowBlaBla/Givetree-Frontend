@@ -1,10 +1,20 @@
-export const showUploadWidget = (
+interface ShowUploadWidgetTypes {
+  cloudName: string;
+  uploadPreset: string;
+  fieldName: string;
+  setValue: (name: string, value: string) => void;
+  setIsLoading: (isLoading: boolean) => void;
+}
+
+export const showUploadWidget = ({
   cloudName,
   uploadPreset,
   fieldName,
   setValue,
-  setIsLoading
-) => {
+  setIsLoading,
+}: ShowUploadWidgetTypes) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   cloudinary.openUploadWidget(
     {
       cloudName: cloudName,
@@ -16,19 +26,19 @@ export const showUploadWidget = (
       defaultSource: "local",
       styles: {
         palette: {
-          window: "#FFFFFF",
-          windowBorder: "#90A0B3",
-          tabIcon: "#0078FF",
-          menuIcons: "#5A616A",
+          window: "#ffffff",
+          windowBorder: "#90a0b3",
+          tabIcon: "#f95c32",
+          menuIcons: "#5a616a",
           textDark: "#000000",
-          textLight: "#FFFFFF",
-          link: "#0078FF",
-          action: "#F95C32",
-          inactiveTabIcon: "#0E2F5A",
-          error: "#F44235",
-          inProgress: "#0078FF",
-          complete: "#20B832",
-          sourceBg: "#E4EBF1",
+          textLight: "#ffffff",
+          link: "#f95c32",
+          action: "#f95c32",
+          inactiveTabIcon: "#0e2F5a",
+          error: "#f44235",
+          inProgress: "#0078ff",
+          complete: "#20b832",
+          sourceBg: "#e4ebf1",
         },
         fonts: {
           default: null,
@@ -39,7 +49,7 @@ export const showUploadWidget = (
         },
       },
     },
-    (error, info) => {
+    (error: string | undefined, info: { info: { secure_url: string } }) => {
       setIsLoading(false);
 
       if (error) {

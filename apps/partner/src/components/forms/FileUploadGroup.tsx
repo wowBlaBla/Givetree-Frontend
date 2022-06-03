@@ -34,13 +34,13 @@ export const FileUploadGroup: FC<FileUploadGroupProps> = ({
   const handleUpload = async () => {
     setIsLoading(true);
 
-    showUploadWidget(
-      CLOUDINARY_CLOUD_NAME,
-      CLOUDINARY_PRESET,
-      name,
+    showUploadWidget({
+      cloudName: CLOUDINARY_CLOUD_NAME,
+      uploadPreset: CLOUDINARY_PRESET,
+      fieldName: name,
       setValue,
-      setIsLoading
-    );
+      setIsLoading,
+    });
   };
 
   return (
