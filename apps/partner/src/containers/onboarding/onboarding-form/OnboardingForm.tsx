@@ -16,6 +16,7 @@ import { PhoneInputGroup } from "../../../components/forms/PhoneInputGroup";
 import { PartnerType } from "../../../typed/partnerType";
 import { RadioGroup } from "../../../components/forms/RadioGroup";
 import { FileUploadGroup } from "../../../components/forms/FileUploadGroup";
+import { LegalEntityType } from "../../../typed/legalEntityType";
 
 const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   errors,
@@ -56,13 +57,12 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <InputGroup
-        error={errors.aliasName}
-        label="Alias name"
-        name="aliasName"
-        touched={touched.aliasName}
-        value={values.aliasName}
+        error={errors.email}
+        label="Email address"
+        name="email"
+        touched={touched.email}
+        value={values.email}
       />
-
       <PhoneInputGroup
         error={errors.contactNumber}
         label="Contact number"
@@ -76,14 +76,6 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <InputGroup
-        error={errors.email}
-        label="Email address"
-        name="email"
-        touched={touched.email}
-        value={values.email}
-      />
-
-      <InputGroup
         error={errors.country}
         label="Country"
         name="country"
@@ -92,18 +84,19 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
     </div>
 
-    <FileUploadGroup
-      label="Logo Url"
-      name="logoUrl"
-      selectFileButtonText="Select image"
-      value={values.logoUrl}
-      setValue={setFieldValue}
-    />
+    {values.userType === PartnerType.ContentCreator && (
+      <InputGroup
+        error={errors.aliasName}
+        label="What is your artist name?"
+        name="aliasName"
+        touched={touched.aliasName}
+        value={values.aliasName}
+      />
+    )}
 
     {values.userType === PartnerType.Charity && (
       <div className="flex flex-col space-y-1 pt-12">
         <h3 className="text-2xl font-semibold">Charity Information</h3>
-
         <SelectGroup
           error={errors.charityEntityType}
           includeBlankOption
@@ -116,17 +109,21 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
           setValue={setFieldValue}
         />
 
-        <InputGroup
-          error={errors.charityAbn}
-          label="ABN"
-          name="charityAbn"
-          touched={touched.charityAbn}
-          value={values.charityAbn}
-        />
+        {values.charityEntityType !== LegalEntityType.SoleTrader && (
+          <>
+            <InputGroup
+              error={errors.charityAbn}
+              label="ABN"
+              name="charityAbn"
+              touched={touched.charityAbn}
+              value={values.charityAbn}
+            />
+          </>
+        )}
 
         <InputGroup
           error={errors.charityAddress}
-          label="Organisation Address"
+          label="Business Address"
           name="charityAddress"
           touched={touched.charityAddress}
           value={values.charityAddress}
@@ -215,11 +212,21 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
       />
     </div>
 
+    <div className="mt-5">
+      <FileUploadGroup
+        label="Logo Url"
+        name="logoUrl"
+        selectFileButtonText="Select image"
+        value={values.logoUrl}
+        setValue={setFieldValue}
+      />
+    </div>
+
     <h3 className="text-2xl font-semibold pt-12">Wallet Addresses</h3>
 
     <InputGroup
       error={errors.ethWalletAddress}
-      label="What is your Ethereum wallet address?"
+      label="Ethereum wallet address"
       name="ethWalletAddress"
       touched={touched.ethWalletAddress}
       value={values.ethWalletAddress}
@@ -227,7 +234,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <InputGroup
       error={errors.solWalletAddress}
-      label="What is your Solana wallet address?"
+      label="Solana wallet address"
       name="solWalletAddress"
       touched={touched.solWalletAddress}
       value={values.solWalletAddress}
@@ -235,13 +242,13 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <InputGroup
       error={errors.maticWalletAddress}
-      label="What is your Matic wallet address?"
+      label="Matic wallet address"
       name="maticWalletAddress"
       touched={touched.maticWalletAddress}
       value={values.maticWalletAddress}
     />
 
-    <h3 className="text-2xl font-semibold pt-12">Crypto Knowledge</h3>
+    <h3 className="text-2xl font-semibold pt-12">Cryptocurrency Knowledge</h3>
 
     <RangeGroup
       error={errors.cryptoActivityRating}
@@ -253,7 +260,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <RangeGroup
       error={errors.cryptoConfidenceRating}
-      label="Rate your crypto knowledge"
+      label="Rate your level of cryptocurrency knowledge?"
       name="cryptoConfidenceRating"
       touched={touched.cryptoConfidenceRating}
       value={values.cryptoConfidenceRating}
@@ -261,7 +268,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <RangeGroup
       error={errors.cryptoExperienceRating}
-      label="Rate your crypto experience level"
+      label="Rate your cryptocurrency experience level"
       name="cryptoExperienceRating"
       touched={touched.cryptoExperienceRating}
       value={values.cryptoExperienceRating}
@@ -376,7 +383,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
     isArtworkReady: yup.boolean(),
     isPhoneValid: yup.boolean(),
     lastName: yup.string().required("Last name is required"),
-    logoUrl: yup.string(),
+    logoUrl: yup.string().required("Logo is required"),
     maticWalletAddress: yup.string(),
     primaryContactAddress: yup.string(),
     solWalletAddress: yup.string(),

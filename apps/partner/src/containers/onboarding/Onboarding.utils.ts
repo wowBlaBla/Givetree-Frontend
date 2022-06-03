@@ -28,7 +28,7 @@ export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValu
   isArtworkReady: formData.users_by_pk?.isArtworkReady || false,
   lastName: formData.users_by_pk?.lastName || "",
   logoUrl: formData.users_by_pk?.logoUrl || "",
-  maticWalletAddress: formData.users_by_pk?.logoUrl || "",
+  maticWalletAddress: formData.users_by_pk?.maticWalletAddress || "",
   primaryContactAddress: formData.users_by_pk?.primaryContactAddress || "",
   solWalletAddress: formData.users_by_pk?.solWalletAddress || "",
   twitterUrl: formData.users_by_pk?.twitterUrl || "",
