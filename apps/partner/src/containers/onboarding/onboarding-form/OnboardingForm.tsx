@@ -252,26 +252,26 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
 
     <RangeGroup
       error={errors.cryptoActivityRating}
-      label="How active you are in the crypto space?"
+      label="How involved are you in the NFT community?"
       name="cryptoActivityRating"
       touched={touched.cryptoActivityRating}
       value={values.cryptoActivityRating}
     />
 
     <RangeGroup
-      error={errors.cryptoConfidenceRating}
-      label="Rate your level of cryptocurrency knowledge?"
-      name="cryptoConfidenceRating"
-      touched={touched.cryptoConfidenceRating}
-      value={values.cryptoConfidenceRating}
-    />
-
-    <RangeGroup
       error={errors.cryptoExperienceRating}
-      label="Rate your cryptocurrency experience level"
+      label="What level of experience would you rate your blockchain and NFT experience?"
       name="cryptoExperienceRating"
       touched={touched.cryptoExperienceRating}
       value={values.cryptoExperienceRating}
+    />
+
+    <RangeGroup
+      error={errors.cryptoConfidenceRating}
+      label="What would you say your confidence level is with blockchain and NFT's?"
+      name="cryptoConfidenceRating"
+      touched={touched.cryptoConfidenceRating}
+      value={values.cryptoConfidenceRating}
     />
 
     <h3 className="text-2xl font-semibold pt-12">Launch Information</h3>
