@@ -1,0 +1,39 @@
+query GetAllUsers($limit: Int) {
+  users(limit: $limit) {
+    aliasName
+    charityEntityType
+    charityAddress
+    charityAbn
+    charityAcceptDirectDonations
+    charityCreateFundraiser
+    charityAllowProxyFundraiser
+    charityApprovalBeforeGoLive
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
+    description
+    discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    maticWalletAddress
+    primaryContactAddress
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
+    charityEntityType
+    charityAddress
+    charityAbn
+  }
+}

@@ -16,7 +16,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const handleNextLocation = () => navigate(`/impact-partners/${charity.slug}`);
 
   return (
-    <div className="relative w-full rounded-xl shadow-lg bg-brand-black select-none cursor-pointer overflow-hidden">
+    <div className="relative w-full overflow-hidden shadow-lg cursor-pointer select-none rounded-xl bg-brand-black">
       <FeaturedBadge
         className="absolute top-0 right-0 my-2.5 mx-2 z-10"
         text={charity.causes[0]}
@@ -27,10 +27,10 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         <DarkBlend bottom small />
       </div>
 
-      <div className="flex flex-col w-full rounded-lg justify-end bg-brand-black mt-3">
-        <p className="text-center text-white text-lg sm:text-xl">{charity.name}</p>
+      <div className="flex flex-col justify-end w-full mt-3 rounded-lg bg-brand-black">
+        <p className="text-lg text-center text-white sm:text-xl">{charity.name}</p>
 
-        <div className="grid grid-cols-1 gap-2 w-full p-2 text-white mt-1 z-20">
+        <div className="z-20 grid w-full grid-cols-1 gap-2 p-2 mt-1 text-white">
           <PrimaryLinkSm className="text-center" href="#">
             Donate
           </PrimaryLinkSm>

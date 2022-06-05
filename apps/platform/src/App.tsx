@@ -18,7 +18,7 @@ const App = () => (
       <div className="flex flex-col h-full min-h-screen bg-gray-50">
         <AppHeader />
 
-        <div className="flex flex-1 flex-col mt-14 sm:mt-16">
+        <div className="flex flex-col flex-1 mt-14 sm:mt-16">
           <Routes>
             <Route path={PlatformRoute.Home} element={<HomeContainer />} />
 
@@ -35,13 +35,13 @@ const App = () => (
             <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
 
             <Route
-              path={PlatformRoute.CharityListing}
-              element={<CharityListingContainer />}
+              path={PlatformRoute.CharityDetails}
+              element={<CharityDetailsContainer />}
             />
 
             <Route
-              path={PlatformRoute.CharityDetails}
-              element={<CharityDetailsContainer />}
+              path={PlatformRoute.CharityListing}
+              element={<CharityListingContainer />}
             />
 
             <Route path="*" element={<HomeContainer />} />
