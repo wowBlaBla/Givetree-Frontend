@@ -15,7 +15,7 @@ export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) 
       {assetType === AssetType.Video && (
         <div
           className={cx(
-            "absolute inset-0 z-10 w-auto min-w-full min-h-full bg-brand-black",
+            "absolute inset-0 w-auto min-w-full min-h-full bg-brand-black z-10",
             className
           )}
         >

@@ -71,7 +71,7 @@ export const HomeContainer = () => {
         </CardGrid>
 
         <div className="flex justify-center mt-8">
-          <OutlineLink to={PlatformRoute.CampaignListing}>
+          <OutlineLink href={PlatformRoute.CampaignListing}>
             View More Collections
           </OutlineLink>
         </div>

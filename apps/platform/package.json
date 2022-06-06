@@ -21,7 +21,7 @@
     "@web3-react/core": "6.1.9",
     "@web3-react/injected-connector": "6.0.7",
     "classnames": "2.3.1",
-    "daisyui": "^2.15.1",
+    "daisyui": "2.15.2",
     "date-fns": "2.28.0",
     "graphql": "16.4.0",
     "lodash": "4.17.21",

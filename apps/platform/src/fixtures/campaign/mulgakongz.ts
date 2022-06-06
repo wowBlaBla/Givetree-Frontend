@@ -26,7 +26,7 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
     mintingBannerUrl: MulgakongzBannerImage.src,
     mintingCollectionPreviewUrl: MulgakongzCollectionImage.src,
   },
-  floorPrice: gen.datatype.number({ min: 3, max: 5 }),
+  floorPrice: gen.datatype.float({ min: 0, max: 2 }),
   currency: SupportedPlatform.ETH,
   totalSupply: gen.datatype.number({ min: 100, max: 10000 }),
   isVerified: true,

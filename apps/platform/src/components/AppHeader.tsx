@@ -23,9 +23,9 @@ export const AppHeader = (): JSX.Element => {
         </Link>
 
         <div className="hidden md:flex justify-center items-center col-span-2 w-full md:space-x-8 lg:space-x-16">
-          <AppNavLink to={PlatformRoute.Home}>Home</AppNavLink>
-          <AppNavLink to={PlatformRoute.CampaignListing}>Launchpad</AppNavLink>
-          <AppNavLink to={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>
+          <AppNavLink href={PlatformRoute.Home}>Home</AppNavLink>
+          <AppNavLink href={PlatformRoute.CampaignListing}>Launchpad</AppNavLink>
+          <AppNavLink href={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>
         </div>
 
         <div className="flex justify-end w-full items-center space-x-3">

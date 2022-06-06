@@ -4,17 +4,17 @@ import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { PlatformRoute } from "../configs/routes";
 
 interface AppNavLink {
-  to: PlatformRoute;
+  href: PlatformRoute;
   children: ReactNode;
 }
 
-export const AppNavLink: FC<AppNavLink> = ({ children, to }) => {
-  const resolved = useResolvedPath(to);
+export const AppNavLink: FC<AppNavLink> = ({ children, href }) => {
+  const resolved = useResolvedPath(href);
   const isMatch = useMatch({ path: resolved.pathname, end: true });
 
   return (
     <NavLink
-      to={to}
+      to={href}
       className={cx(
         "whitespace-nowrap text-white lg:text-lg hover:text-brand-orange-hover transition-hover",
         {

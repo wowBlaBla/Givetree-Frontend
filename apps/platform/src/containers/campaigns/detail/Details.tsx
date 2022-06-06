@@ -106,7 +106,7 @@ export const CampaignDetailsContainer: FC = () => {
               </div>
 
               <div className="w-full mt-5 text-center">
-                <PrimaryLink to={`/minting/${data.campaign.slug}`} large>
+                <PrimaryLink href={`/minting/${data.campaign.slug}`} large>
                   Go to minting site
                 </PrimaryLink>
               </div>

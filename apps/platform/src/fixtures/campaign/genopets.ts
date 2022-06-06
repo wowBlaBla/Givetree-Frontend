@@ -25,7 +25,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
     mintingBannerUrl: GenopetsCollection2Image.src,
     mintingCollectionPreviewUrl: GenopetsCollectionImage.src,
   },
-  floorPrice: gen.datatype.number({ min: 3, max: 5 }),
+  floorPrice: gen.datatype.float({ min: 3, max: 5 }),
   currency: SupportedPlatform.SOL,
   totalSupply: gen.datatype.number({ min: 7000, max: 10000 }),
   isVerified: true,

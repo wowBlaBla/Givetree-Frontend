@@ -31,8 +31,8 @@ export const MainBanner: FC<MainBannerProps> = ({
         <h4 className="mt-1 sm:mt-3 text-xs sm:text-sm xl:text-base">{subtitle}</h4>
 
         <div className="mt-6">
-          {ctaLink1 && <PrimaryLink to={ctaLink1}>{ctaLink1Text}</PrimaryLink>}
-          {ctaLink2 && <PrimaryLink to={ctaLink2}>{ctaLink2Text}</PrimaryLink>}
+          {ctaLink1 && <PrimaryLink href={ctaLink1}>{ctaLink1Text}</PrimaryLink>}
+          {ctaLink2 && <PrimaryLink href={ctaLink2}>{ctaLink2Text}</PrimaryLink>}
         </div>
       </div>
     </div>
