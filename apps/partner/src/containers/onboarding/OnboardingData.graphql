@@ -3,6 +3,7 @@ query GetUserDetails($userId: String!) {
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
@@ -33,9 +34,6 @@ query GetUserDetails($userId: String!) {
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
   }
 }
 
@@ -43,6 +41,7 @@ mutation CreateUserDetails(
   $aliasName: String
   $charityEntityType: String
   $charityAddress: String
+  $charityName: String
   $charityAbn: String
   $charityAcceptDirectDonations: Boolean
   $charityAllowProxyFundraiser: Boolean
@@ -78,6 +77,7 @@ mutation CreateUserDetails(
       aliasName: $aliasName
       charityEntityType: $charityEntityType
       charityAddress: $charityAddress
+      charityName: $charityName
       charityAbn: $charityAbn
       charityAcceptDirectDonations: $charityAcceptDirectDonations
       charityCreateFundraiser: $charityCreateFundraiser
@@ -112,6 +112,7 @@ mutation CreateUserDetails(
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
@@ -142,9 +143,6 @@ mutation CreateUserDetails(
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
   }
 }
 
@@ -152,6 +150,7 @@ mutation UpdateUserDetails(
   $aliasName: String
   $charityEntityType: String
   $charityAddress: String
+  $charityName: String
   $charityAbn: String
   $charityAcceptDirectDonations: Boolean
   $charityAllowProxyFundraiser: Boolean
@@ -187,6 +186,7 @@ mutation UpdateUserDetails(
       aliasName: $aliasName
       charityEntityType: $charityEntityType
       charityAddress: $charityAddress
+      charityName: $charityName
       charityAbn: $charityAbn
       charityAcceptDirectDonations: $charityAcceptDirectDonations
       charityCreateFundraiser: $charityCreateFundraiser
@@ -242,6 +242,7 @@ mutation UpdateUserDetails(
     websiteUrl
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     primaryContactAddress
     charityAcceptDirectDonations

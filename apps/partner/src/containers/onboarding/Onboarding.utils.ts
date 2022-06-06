@@ -6,6 +6,7 @@ export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValu
   aliasName: formData.users_by_pk?.aliasName || "",
   charityEntityType: formData.users_by_pk?.charityEntityType || "",
   charityAddress: formData.users_by_pk?.charityAddress || "",
+  charityName: formData.users_by_pk?.charityName || "",
   charityAbn: formData.users_by_pk?.charityAbn || "",
   charityAcceptDirectDonations:
     formData.users_by_pk?.charityAcceptDirectDonations || false,
@@ -41,6 +42,7 @@ export const getDefaultFormValues = (): OnboardingFormValues => ({
   aliasName: "",
   charityEntityType: "",
   charityAddress: "",
+  charityName: "",
   charityAbn: "",
   charityAcceptDirectDonations: false,
   charityAllowProxyFundraiser: false,
