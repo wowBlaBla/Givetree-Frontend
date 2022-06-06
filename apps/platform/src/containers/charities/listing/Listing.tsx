@@ -32,11 +32,12 @@ export const CharityListingContainer = () => {
       </Head>
 
       <SectionHeader
+        className="mt-6 sm:mt-8"
         mainTitle="Impact Partners"
         subtitle="Charities that help make the world a better place"
       />
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto p-5">
+      <div className="flex flex-col flex-1 w-full max-w-screen-3xl mx-auto p-5">
         <CardGrid>
           {data.charities.map((charity, idx) => (
             <CharityCard key={idx} charity={charity} />

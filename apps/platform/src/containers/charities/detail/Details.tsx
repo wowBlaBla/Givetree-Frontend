@@ -37,7 +37,7 @@ export const CharityDetailsContainer = () => {
         <title>GiveTree - {data.charity.name}</title>
       </Head>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 w-full max-w-screen-3xl mx-auto my-6 sm:my-8 px-3">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 w-full max-w-screen-xl mx-auto my-6 sm:my-8 px-3">
         <div className="flex flex-col space-y-5">
           <div className="relative pt-full">
             <BackgroundAsset
@@ -45,17 +45,15 @@ export const CharityDetailsContainer = () => {
               className="border rounded-xl shadow-lg"
             />
           </div>
-
-          <div className="flex justify-center items-center space-x-4">
-            <PrimaryLink href="#">Donate</PrimaryLink>
-            <PrimaryLink href="#">Fundraiser</PrimaryLink>
-          </div>
         </div>
 
         <div className="flex flex-col space-y-3 px-2">
-          <h3 className="text-3xl sm:text-4xl xl:text-5xl font-bold">
-            {data.charity.name}
-          </h3>
+          <div className="flex justify-between items-center">
+            <h3 className="text-3xl sm:text-4xl xl:text-5xl font-bold">
+              {data.charity.name}
+            </h3>
+            <PrimaryLink href="#">Donate</PrimaryLink>
+          </div>
 
           <SocialGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
 

@@ -37,6 +37,7 @@ export const CampaignListingContainer = (): JSX.Element => {
       </Head>
 
       <SectionHeader
+        className="my-6 sm:my-8"
         mainTitle="Explore all Mints"
         subtitle="Discover current and upcoming mints for new NFT collections"
       />

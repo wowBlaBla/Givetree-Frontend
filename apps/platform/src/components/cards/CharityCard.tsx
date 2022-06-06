@@ -4,7 +4,7 @@ import { DarkBlend } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { useNavigate } from "react-router-dom";
 import { Charity } from "../../typed/charity";
-import { OutlineLinkSm } from "../OutlineButton";
+import { PrimaryLinkSm } from "../PrimaryButton";
 
 interface CharityCardProps {
   charity: Charity;
@@ -30,13 +30,10 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       <div className="flex flex-col w-full rounded-lg justify-end bg-brand-black mt-3">
         <p className="text-center text-white text-lg sm:text-xl">{charity.name}</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full p-2 text-white mt-1 z-20">
-          <OutlineLinkSm className="text-center" href="#">
+        <div className="grid grid-cols-1 gap-2 w-full p-2 text-white mt-1 z-20">
+          <PrimaryLinkSm className="text-center" href="#">
             Donate
-          </OutlineLinkSm>
-          <OutlineLinkSm className="text-center" href="#">
-            Fundraiser
-          </OutlineLinkSm>
+          </PrimaryLinkSm>
         </div>
       </div>
     </div>

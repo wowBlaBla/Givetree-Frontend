@@ -52,7 +52,7 @@ export const PrimaryLinkSm: FC<PrimaryLinkProps> = ({
   href,
 }) => (
   <Link
-    className={cx("py-2 px-3 text-xs sm:text-sm", ButtonStyles, className, {
+    className={cx("py-1 px-3 text-sm sm:text-base xl:text-lg", ButtonStyles, className, {
       "text-lg lg:text-xl": large,
     })}
     to={href}
