@@ -1,0 +1,17 @@
+overwrite: true
+schema:
+  - ${REACT_APP_HASURA_GRAPHQL_ENDPOINT}:  
+      headers:
+        "x-hasura-role": "admin"
+        "x-hasura-admin-secret": ${REACT_APP_HASURA_GRAPHQL_ADMIN_SECRET}
+documents: "src/**/*.graphql"
+generates:
+  src/typed/index.ts:
+    plugins:
+      - 
+        add:
+          content: "/* eslint-disable */"
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+ 

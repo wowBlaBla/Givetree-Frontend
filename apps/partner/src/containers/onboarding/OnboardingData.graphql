@@ -1,0 +1,246 @@
+query GetUserDetails($userId: String!) {
+  users_by_pk(userId: $userId) {
+    aliasName
+    charityEntityType
+    charityAddress
+    charityAbn
+    charityAcceptDirectDonations
+    charityCreateFundraiser
+    charityAllowProxyFundraiser
+    charityApprovalBeforeGoLive
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
+    description
+    discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    maticWalletAddress
+    primaryContactAddress
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
+    charityEntityType
+    charityAddress
+    charityAbn
+  }
+}
+
+mutation CreateUserDetails(
+  $aliasName: String
+  $charityEntityType: String
+  $charityAddress: String
+  $charityAbn: String
+  $charityAcceptDirectDonations: Boolean
+  $charityAllowProxyFundraiser: Boolean
+  $charityApprovalBeforeGoLive: Boolean
+  $charityCreateFundraiser: Boolean
+  $contactNumber: String
+  $country: String
+  $cryptoActivityRating: Int
+  $cryptoConfidenceRating: Int
+  $cryptoExperienceRating: Int
+  $cryptoOffRampStrategy: String
+  $description: String
+  $discordUrl: String
+  $email: String
+  $ethWalletAddress: String
+  $expectedReleaseDate: date
+  $firstName: String
+  $isArtworkReady: Boolean
+  $lastName: String
+  $logoUrl: String
+  $maticWalletAddress: String
+  $primaryContactAddress: String
+  $role: String!
+  $solWalletAddress: String
+  $twitterUrl: String
+  $userId: String!
+  $userType: String
+  $websiteUrl: String
+) {
+  insert_users_one(
+    object: {
+      aliasName: $aliasName
+      charityEntityType: $charityEntityType
+      charityAddress: $charityAddress
+      charityAbn: $charityAbn
+      charityAcceptDirectDonations: $charityAcceptDirectDonations
+      charityCreateFundraiser: $charityCreateFundraiser
+      charityAllowProxyFundraiser: $charityAllowProxyFundraiser
+      charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive
+      contactNumber: $contactNumber
+      country: $country
+      cryptoActivityRating: $cryptoActivityRating
+      cryptoConfidenceRating: $cryptoConfidenceRating
+      cryptoExperienceRating: $cryptoExperienceRating
+      cryptoOffRampStrategy: $cryptoOffRampStrategy
+      description: $description
+      discordUrl: $discordUrl
+      email: $email
+      ethWalletAddress: $ethWalletAddress
+      expectedReleaseDate: $expectedReleaseDate
+      firstName: $firstName
+      isArtworkReady: $isArtworkReady
+      lastName: $lastName
+      logoUrl: $logoUrl
+      maticWalletAddress: $maticWalletAddress
+      primaryContactAddress: $primaryContactAddress
+      role: $role
+      solWalletAddress: $solWalletAddress
+      twitterUrl: $twitterUrl
+      userId: $userId
+      userType: $userType
+      websiteUrl: $websiteUrl
+    }
+  ) {
+    aliasName
+    charityEntityType
+    charityAddress
+    charityAbn
+    charityAcceptDirectDonations
+    charityCreateFundraiser
+    charityAllowProxyFundraiser
+    charityApprovalBeforeGoLive
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
+    description
+    discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    maticWalletAddress
+    primaryContactAddress
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
+    charityEntityType
+    charityAddress
+    charityAbn
+  }
+}
+
+mutation UpdateUserDetails(
+  $aliasName: String
+  $charityEntityType: String
+  $charityAddress: String
+  $charityAbn: String
+  $charityAcceptDirectDonations: Boolean
+  $charityAllowProxyFundraiser: Boolean
+  $charityApprovalBeforeGoLive: Boolean
+  $charityCreateFundraiser: Boolean
+  $contactNumber: String
+  $country: String
+  $cryptoActivityRating: Int
+  $cryptoConfidenceRating: Int
+  $cryptoExperienceRating: Int
+  $cryptoOffRampStrategy: String
+  $description: String
+  $discordUrl: String
+  $email: String
+  $ethWalletAddress: String
+  $expectedReleaseDate: date
+  $firstName: String
+  $isArtworkReady: Boolean
+  $lastName: String
+  $logoUrl: String
+  $maticWalletAddress: String
+  $primaryContactAddress: String
+  $solWalletAddress: String
+  $twitterUrl: String
+  $userId: String!
+  $userType: String
+  $websiteUrl: String
+) {
+  update_users_by_pk(
+    pk_columns: { userId: $userId }
+    _set: {
+      aliasName: $aliasName
+      charityEntityType: $charityEntityType
+      charityAddress: $charityAddress
+      charityAbn: $charityAbn
+      charityAcceptDirectDonations: $charityAcceptDirectDonations
+      charityCreateFundraiser: $charityCreateFundraiser
+      charityAllowProxyFundraiser: $charityAllowProxyFundraiser
+      charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive
+      contactNumber: $contactNumber
+      country: $country
+      cryptoActivityRating: $cryptoActivityRating
+      cryptoConfidenceRating: $cryptoConfidenceRating
+      cryptoExperienceRating: $cryptoExperienceRating
+      cryptoOffRampStrategy: $cryptoOffRampStrategy
+      description: $description
+      discordUrl: $discordUrl
+      email: $email
+      ethWalletAddress: $ethWalletAddress
+      expectedReleaseDate: $expectedReleaseDate
+      firstName: $firstName
+      isArtworkReady: $isArtworkReady
+      lastName: $lastName
+      logoUrl: $logoUrl
+      maticWalletAddress: $maticWalletAddress
+      primaryContactAddress: $primaryContactAddress
+      solWalletAddress: $solWalletAddress
+      twitterUrl: $twitterUrl
+      userType: $userType
+      websiteUrl: $websiteUrl
+    }
+  ) {
+    aliasName
+    contactNumber
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
+    description
+    discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
+    charityEntityType
+    charityAddress
+    charityAbn
+    primaryContactAddress
+    charityAcceptDirectDonations
+    charityCreateFundraiser
+    charityAllowProxyFundraiser
+    charityApprovalBeforeGoLive
+    maticWalletAddress
+  }
+}

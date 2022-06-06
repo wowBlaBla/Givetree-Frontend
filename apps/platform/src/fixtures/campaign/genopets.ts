@@ -19,7 +19,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: "/videos/genopets-bg.mp4",
-    campaignCollectionPreviewUrl: "/videos/genopets-collection-2.mp4",
+    campaignCollectionPreviewUrl: GenopetsCollectionImage.src,
     campaignDetailsUrl: GenopetsCollectionImage.src,
     campaignTilePreviewUrl: GenopetsCollectionImage.src,
     mintingBannerUrl: GenopetsCollection2Image.src,

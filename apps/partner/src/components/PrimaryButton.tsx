@@ -3,31 +3,43 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 
 const ButtonStyles = `
-  bg-brand-orange
-  text-white
   rounded-lg
   py-2
   px-3
-  sm:px-4
+  bg-brand-orange
+  text-white
   text-base
   sm:text-lg
-
-  button-hover
+  hover:bg-brand-orange-hover
+  transition
+  duration-150
+  ease-in-out
 `;
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;
   className?: string;
   children?: ReactNode;
+  disabled?: boolean;
   large?: boolean;
+  onClick?: () => void;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ className, large, type, children }) => (
+export const PrimaryButton: FC<ButtonProps> = ({
+  className,
+  disabled,
+  large,
+  type,
+  onClick,
+  children,
+}) => (
   <button
     className={cx(ButtonStyles, className, {
       "text-lg lg:text-xl": large,
     })}
+    disabled={disabled}
     type={type || "button"}
+    onClick={onClick}
   >
     {children}
   </button>
