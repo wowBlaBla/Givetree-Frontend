@@ -6,8 +6,7 @@ import { GetCharityListingDataQuery, GET_CHARITY_LISTING_DATA } from "./ListingD
 
 import { CardGrid } from "../../../components/CardGrid";
 import { CharityCard } from "../../../components/cards/CharityCard";
-import { PrimaryButton } from "../../../components/PrimaryButton";
-import { SectionTitle } from "../../../components/SectionTitle";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const CharityListingContainer = () => {
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
@@ -27,18 +26,17 @@ export const CharityListingContainer = () => {
   }
 
   return (
-    <div className="w-full mx-auto">
+    <div>
       <Head>
         <title>GiveTree - Impact partners</title>
       </Head>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-12 p-5">
-        <SectionTitle className="text-center">Impact Partners</SectionTitle>
+      <SectionHeader
+        mainTitle="Impact Partners"
+        subtitle="Charities that help make the world a better place"
+      />
 
-        <div className="flex justify-center mt-5">
-          <PrimaryButton className="w-auto">Register now</PrimaryButton>
-        </div>
-
+      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto p-5">
         <CardGrid>
           {data.charities.map((charity, idx) => (
             <CharityCard key={idx} charity={charity} />

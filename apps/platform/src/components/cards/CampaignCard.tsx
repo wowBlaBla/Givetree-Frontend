@@ -28,7 +28,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const navigate = useNavigate();
   const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => navigate(`campaign/${campaign.slug}`);
+  const handleNextLocation = () => navigate(`/campaign/${campaign.slug}`);
 
   return (
     <div
