@@ -67,8 +67,8 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
           error={errors.charityName}
           label="What is the name of your charity?"
           name="charityName"
-          touched={touched.aliasName}
-          value={values.aliasName}
+          touched={touched.charityName}
+          value={values.charityName}
         />
       )}
 
