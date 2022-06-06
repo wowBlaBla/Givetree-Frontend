@@ -39,7 +39,7 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
     />
 
     <div>
-      <h3 className="text-2xl font-semibold">Account information</h3>
+      <h3 className="text-2xl font-semibold">Profile</h3>
       <p className="py-2 text-gray-700 border-b border-gray-100 border-1">
         This information will be displayed publicly on the GiveTree platform.
       </p>
@@ -57,6 +57,16 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
           error={errors.aliasName}
           label="What is your artist name?"
           name="aliasName"
+          touched={touched.aliasName}
+          value={values.aliasName}
+        />
+      )}
+
+      {values.userType === PartnerType.Charity && (
+        <InputGroup
+          error={errors.charityName}
+          label="What is the name of your charity?"
+          name="charityName"
           touched={touched.aliasName}
           value={values.aliasName}
         />
@@ -366,6 +376,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
   mapPropsToValues: ({ initialValues }) => ({
     aliasName: initialValues.aliasName || "",
     charityAbn: initialValues.charityAbn || "",
+    charityName: initialValues.charityName || "",
     charityAddress: initialValues.charityAddress || "",
     charityAcceptDirectDonations: initialValues.charityAcceptDirectDonations || false,
     charityAllowProxyFundraiser: initialValues.charityAllowProxyFundraiser || false,
@@ -400,6 +411,7 @@ export const OnboardingForm = withFormik<OnboardingFormProps, OnboardingFormValu
   validationSchema: yup.object().shape({
     aliasName: yup.string(),
     charityEntityType: yup.string(),
+    charityName: yup.string(),
     charityAddress: yup.string(),
     charityAbn: yup.string(),
     charityAcceptDirectDonations: yup.boolean(),

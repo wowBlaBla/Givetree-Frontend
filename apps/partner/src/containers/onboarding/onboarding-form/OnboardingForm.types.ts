@@ -2,6 +2,7 @@ export interface OnboardingFormValues {
   aliasName: string;
   charityAbn: string;
   charityAddress: string;
+  charityName: string;
   charityAcceptDirectDonations: boolean;
   charityAllowProxyFundraiser: boolean;
   charityApprovalBeforeGoLive: boolean;
