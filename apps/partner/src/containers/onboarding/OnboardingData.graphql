@@ -17,6 +17,7 @@ query GetUserDetails($userId: String!) {
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName
@@ -56,6 +57,7 @@ mutation CreateUserDetails(
   $description: String
   $discordUrl: String
   $email: String
+  $contactEmail: String
   $ethWalletAddress: String
   $expectedReleaseDate: date
   $firstName: String
@@ -90,6 +92,7 @@ mutation CreateUserDetails(
       description: $description
       discordUrl: $discordUrl
       email: $email
+      contactEmail: $contactEmail
       ethWalletAddress: $ethWalletAddress
       expectedReleaseDate: $expectedReleaseDate
       firstName: $firstName
@@ -123,6 +126,7 @@ mutation CreateUserDetails(
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName
@@ -162,6 +166,7 @@ mutation UpdateUserDetails(
   $description: String
   $discordUrl: String
   $email: String
+  $contactEmail: String
   $ethWalletAddress: String
   $expectedReleaseDate: date
   $firstName: String
@@ -196,6 +201,7 @@ mutation UpdateUserDetails(
       description: $description
       discordUrl: $discordUrl
       email: $email
+      contactEmail: $contactEmail
       ethWalletAddress: $ethWalletAddress
       expectedReleaseDate: $expectedReleaseDate
       firstName: $firstName
@@ -220,6 +226,7 @@ mutation UpdateUserDetails(
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName

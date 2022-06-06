@@ -21,6 +21,7 @@ export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValu
   description: formData.users_by_pk?.description || "",
   discordUrl: formData.users_by_pk?.discordUrl || "",
   email: formData.users_by_pk?.email || "",
+  contactEmail: formData.users_by_pk?.contactEmail || "",
   ethWalletAddress: formData.users_by_pk?.ethWalletAddress || "",
   expectedReleaseDate:
     formData.users_by_pk?.expectedReleaseDate || format(new Date(), "yyyy-MM-dd"),
@@ -54,6 +55,7 @@ export const getDefaultFormValues = (): OnboardingFormValues => ({
   description: "",
   discordUrl: "",
   email: "",
+  contactEmail: "",
   ethWalletAddress: "",
   expectedReleaseDate: format(new Date(), "yyyy-MM-dd"),
   firstName: "",

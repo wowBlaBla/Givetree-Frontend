@@ -24,6 +24,17 @@ export const CHARITY_RADIO_OPTIONS = [
   },
 ];
 
+export const ARTWORK_RADIO_OPTIONS = [
+  {
+    label: "Yes",
+    value: "true",
+  },
+  {
+    label: "No",
+    value: "false",
+  },
+];
+
 export const LEGAL_ENTITY_TYPE_OPTIONS = Object.entries(LegalEntityType).map(
   (legalEntity) => ({
     id: legalEntity[1],
