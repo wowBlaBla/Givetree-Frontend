@@ -16,6 +16,7 @@ export interface OnboardingFormValues {
   description: string;
   discordUrl: string;
   email: string;
+  contactEmail: string;
   ethWalletAddress: string;
   expectedReleaseDate: string;
   firstName: string;

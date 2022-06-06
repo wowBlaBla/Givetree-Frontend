@@ -5,7 +5,7 @@ import { OutlineButton } from "./OutlineButton";
 import { PrimaryButton } from "./PrimaryButton";
 
 export const AppHeader: FC = () => {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, isLoading, loginWithRedirect, logout, user } = useAuth0();
 
   const handleLogout = () => {
     logout({
@@ -14,13 +14,14 @@ export const AppHeader: FC = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 w-full bg-brand-black p-3 z-50">
-      <div className="flex items-center space-x-2">
+    <div className="z-50 flex w-full p-3 bg-brand-black">
+      <div className="flex items-center flex-1 space-x-2">
         <GiveTreeLogo className="w-8 h-8" />
-        <span className="text-white text-xl font-bold tracking-wider">Partnerships</span>
+        <span className="text-xl font-bold tracking-wider text-white">Partnerships</span>
       </div>
 
-      <div className="flex flex-row-reverse w-full h-10">
+      <div className="flex flex-row items-center justify-center h-10 gap-3">
+        {user && <p className="text-gray-50">{user.email}</p>}
         <div>
           {!isLoading && isAuthenticated && (
             <OutlineButton onClick={handleLogout}>Log out</OutlineButton>
