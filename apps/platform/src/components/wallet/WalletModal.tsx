@@ -245,7 +245,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                   You&apos;ll need a wallet on Solana to continue
                 </h1>
                 <div className="wallet-adapter-modal-middle">
-                  <ConnectWalletIcon />
+                  <ConnectWalletIcon className="w-6 h-6 text-white" />
                   <button
                     type="button"
                     className="wallet-adapter-modal-middle-button"

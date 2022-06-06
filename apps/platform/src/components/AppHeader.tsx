@@ -30,7 +30,7 @@ export const AppHeader = (): JSX.Element => {
 
         <div className="flex justify-end w-full items-center space-x-3">
           {(connected || status === MetaMaskStatus.Connected) && (
-            <UserIcon className="text-gray-500 hover:text-brand-orange-hover w-9 h-9 transition-hover select-none" />
+            <UserIcon className="text-gray-500 hover:text-white w-7 h-7 transition-hover select-none" />
           )}
 
           <WalletButton
