@@ -78,6 +78,343 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+/** columns and relationships of "collections" */
+export type Collections = {
+  __typename?: 'collections';
+  collectionBannerUrl: Scalars['String'];
+  collectionDetailsUrl: Scalars['String'];
+  collectionPreviewUrl: Scalars['String'];
+  currency: Scalars['String'];
+  floorPrice: Scalars['Int'];
+  id: Scalars['uuid'];
+  isVerified: Scalars['Boolean'];
+  longDescription?: Maybe<Scalars['String']>;
+  mintingBannerUrl: Scalars['String'];
+  mintingCollectionPreviewUrl: Scalars['String'];
+  shortDescription?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  totalSupply: Scalars['Int'];
+  userId: Scalars['String'];
+  whitelistMemo: Scalars['String'];
+};
+
+/** aggregated selection of "collections" */
+export type Collections_Aggregate = {
+  __typename?: 'collections_aggregate';
+  aggregate?: Maybe<Collections_Aggregate_Fields>;
+  nodes: Array<Collections>;
+};
+
+/** aggregate fields of "collections" */
+export type Collections_Aggregate_Fields = {
+  __typename?: 'collections_aggregate_fields';
+  avg?: Maybe<Collections_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Collections_Max_Fields>;
+  min?: Maybe<Collections_Min_Fields>;
+  stddev?: Maybe<Collections_Stddev_Fields>;
+  stddev_pop?: Maybe<Collections_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Collections_Stddev_Samp_Fields>;
+  sum?: Maybe<Collections_Sum_Fields>;
+  var_pop?: Maybe<Collections_Var_Pop_Fields>;
+  var_samp?: Maybe<Collections_Var_Samp_Fields>;
+  variance?: Maybe<Collections_Variance_Fields>;
+};
+
+
+/** aggregate fields of "collections" */
+export type Collections_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Collections_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Collections_Avg_Fields = {
+  __typename?: 'collections_avg_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "collections". All fields are combined with a logical 'AND'. */
+export type Collections_Bool_Exp = {
+  _and?: InputMaybe<Array<Collections_Bool_Exp>>;
+  _not?: InputMaybe<Collections_Bool_Exp>;
+  _or?: InputMaybe<Array<Collections_Bool_Exp>>;
+  collectionBannerUrl?: InputMaybe<String_Comparison_Exp>;
+  collectionDetailsUrl?: InputMaybe<String_Comparison_Exp>;
+  collectionPreviewUrl?: InputMaybe<String_Comparison_Exp>;
+  currency?: InputMaybe<String_Comparison_Exp>;
+  floorPrice?: InputMaybe<Int_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isVerified?: InputMaybe<Boolean_Comparison_Exp>;
+  longDescription?: InputMaybe<String_Comparison_Exp>;
+  mintingBannerUrl?: InputMaybe<String_Comparison_Exp>;
+  mintingCollectionPreviewUrl?: InputMaybe<String_Comparison_Exp>;
+  shortDescription?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  totalSupply?: InputMaybe<Int_Comparison_Exp>;
+  userId?: InputMaybe<String_Comparison_Exp>;
+  whitelistMemo?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "collections" */
+export enum Collections_Constraint {
+  /** unique or primary key constraint */
+  CampainsPkey = 'campains_pkey',
+  /** unique or primary key constraint */
+  CampainsSlugKey = 'campains_slug_key'
+}
+
+/** input type for incrementing numeric columns in table "collections" */
+export type Collections_Inc_Input = {
+  floorPrice?: InputMaybe<Scalars['Int']>;
+  totalSupply?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "collections" */
+export type Collections_Insert_Input = {
+  collectionBannerUrl?: InputMaybe<Scalars['String']>;
+  collectionDetailsUrl?: InputMaybe<Scalars['String']>;
+  collectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  currency?: InputMaybe<Scalars['String']>;
+  floorPrice?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isVerified?: InputMaybe<Scalars['Boolean']>;
+  longDescription?: InputMaybe<Scalars['String']>;
+  mintingBannerUrl?: InputMaybe<Scalars['String']>;
+  mintingCollectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  totalSupply?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['String']>;
+  whitelistMemo?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Collections_Max_Fields = {
+  __typename?: 'collections_max_fields';
+  collectionBannerUrl?: Maybe<Scalars['String']>;
+  collectionDetailsUrl?: Maybe<Scalars['String']>;
+  collectionPreviewUrl?: Maybe<Scalars['String']>;
+  currency?: Maybe<Scalars['String']>;
+  floorPrice?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
+  longDescription?: Maybe<Scalars['String']>;
+  mintingBannerUrl?: Maybe<Scalars['String']>;
+  mintingCollectionPreviewUrl?: Maybe<Scalars['String']>;
+  shortDescription?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  totalSupply?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['String']>;
+  whitelistMemo?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Collections_Min_Fields = {
+  __typename?: 'collections_min_fields';
+  collectionBannerUrl?: Maybe<Scalars['String']>;
+  collectionDetailsUrl?: Maybe<Scalars['String']>;
+  collectionPreviewUrl?: Maybe<Scalars['String']>;
+  currency?: Maybe<Scalars['String']>;
+  floorPrice?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['uuid']>;
+  longDescription?: Maybe<Scalars['String']>;
+  mintingBannerUrl?: Maybe<Scalars['String']>;
+  mintingCollectionPreviewUrl?: Maybe<Scalars['String']>;
+  shortDescription?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  totalSupply?: Maybe<Scalars['Int']>;
+  userId?: Maybe<Scalars['String']>;
+  whitelistMemo?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "collections" */
+export type Collections_Mutation_Response = {
+  __typename?: 'collections_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Collections>;
+};
+
+/** on_conflict condition type for table "collections" */
+export type Collections_On_Conflict = {
+  constraint: Collections_Constraint;
+  update_columns?: Array<Collections_Update_Column>;
+  where?: InputMaybe<Collections_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "collections". */
+export type Collections_Order_By = {
+  collectionBannerUrl?: InputMaybe<Order_By>;
+  collectionDetailsUrl?: InputMaybe<Order_By>;
+  collectionPreviewUrl?: InputMaybe<Order_By>;
+  currency?: InputMaybe<Order_By>;
+  floorPrice?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isVerified?: InputMaybe<Order_By>;
+  longDescription?: InputMaybe<Order_By>;
+  mintingBannerUrl?: InputMaybe<Order_By>;
+  mintingCollectionPreviewUrl?: InputMaybe<Order_By>;
+  shortDescription?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  totalSupply?: InputMaybe<Order_By>;
+  userId?: InputMaybe<Order_By>;
+  whitelistMemo?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: collections */
+export type Collections_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "collections" */
+export enum Collections_Select_Column {
+  /** column name */
+  CollectionBannerUrl = 'collectionBannerUrl',
+  /** column name */
+  CollectionDetailsUrl = 'collectionDetailsUrl',
+  /** column name */
+  CollectionPreviewUrl = 'collectionPreviewUrl',
+  /** column name */
+  Currency = 'currency',
+  /** column name */
+  FloorPrice = 'floorPrice',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsVerified = 'isVerified',
+  /** column name */
+  LongDescription = 'longDescription',
+  /** column name */
+  MintingBannerUrl = 'mintingBannerUrl',
+  /** column name */
+  MintingCollectionPreviewUrl = 'mintingCollectionPreviewUrl',
+  /** column name */
+  ShortDescription = 'shortDescription',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  TotalSupply = 'totalSupply',
+  /** column name */
+  UserId = 'userId',
+  /** column name */
+  WhitelistMemo = 'whitelistMemo'
+}
+
+/** input type for updating data in table "collections" */
+export type Collections_Set_Input = {
+  collectionBannerUrl?: InputMaybe<Scalars['String']>;
+  collectionDetailsUrl?: InputMaybe<Scalars['String']>;
+  collectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  currency?: InputMaybe<Scalars['String']>;
+  floorPrice?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isVerified?: InputMaybe<Scalars['Boolean']>;
+  longDescription?: InputMaybe<Scalars['String']>;
+  mintingBannerUrl?: InputMaybe<Scalars['String']>;
+  mintingCollectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  shortDescription?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  title?: InputMaybe<Scalars['String']>;
+  totalSupply?: InputMaybe<Scalars['Int']>;
+  userId?: InputMaybe<Scalars['String']>;
+  whitelistMemo?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Collections_Stddev_Fields = {
+  __typename?: 'collections_stddev_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Collections_Stddev_Pop_Fields = {
+  __typename?: 'collections_stddev_pop_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Collections_Stddev_Samp_Fields = {
+  __typename?: 'collections_stddev_samp_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Collections_Sum_Fields = {
+  __typename?: 'collections_sum_fields';
+  floorPrice?: Maybe<Scalars['Int']>;
+  totalSupply?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "collections" */
+export enum Collections_Update_Column {
+  /** column name */
+  CollectionBannerUrl = 'collectionBannerUrl',
+  /** column name */
+  CollectionDetailsUrl = 'collectionDetailsUrl',
+  /** column name */
+  CollectionPreviewUrl = 'collectionPreviewUrl',
+  /** column name */
+  Currency = 'currency',
+  /** column name */
+  FloorPrice = 'floorPrice',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsVerified = 'isVerified',
+  /** column name */
+  LongDescription = 'longDescription',
+  /** column name */
+  MintingBannerUrl = 'mintingBannerUrl',
+  /** column name */
+  MintingCollectionPreviewUrl = 'mintingCollectionPreviewUrl',
+  /** column name */
+  ShortDescription = 'shortDescription',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  TotalSupply = 'totalSupply',
+  /** column name */
+  UserId = 'userId',
+  /** column name */
+  WhitelistMemo = 'whitelistMemo'
+}
+
+/** aggregate var_pop on columns */
+export type Collections_Var_Pop_Fields = {
+  __typename?: 'collections_var_pop_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Collections_Var_Samp_Fields = {
+  __typename?: 'collections_var_samp_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Collections_Variance_Fields = {
+  __typename?: 'collections_variance_fields';
+  floorPrice?: Maybe<Scalars['Float']>;
+  totalSupply?: Maybe<Scalars['Float']>;
+};
+
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type Date_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['date']>;
@@ -94,18 +431,66 @@ export type Date_Comparison_Exp = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete data from the table: "collections" */
+  delete_collections?: Maybe<Collections_Mutation_Response>;
+  /** delete single row from the table: "collections" */
+  delete_collections_by_pk?: Maybe<Collections>;
+  /** delete data from the table: "user_status" */
+  delete_user_status?: Maybe<User_Status_Mutation_Response>;
+  /** delete single row from the table: "user_status" */
+  delete_user_status_by_pk?: Maybe<User_Status>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
+  /** insert data into the table: "collections" */
+  insert_collections?: Maybe<Collections_Mutation_Response>;
+  /** insert a single row into the table: "collections" */
+  insert_collections_one?: Maybe<Collections>;
+  /** insert data into the table: "user_status" */
+  insert_user_status?: Maybe<User_Status_Mutation_Response>;
+  /** insert a single row into the table: "user_status" */
+  insert_user_status_one?: Maybe<User_Status>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
+  /** update data of the table: "collections" */
+  update_collections?: Maybe<Collections_Mutation_Response>;
+  /** update single row of the table: "collections" */
+  update_collections_by_pk?: Maybe<Collections>;
+  /** update data of the table: "user_status" */
+  update_user_status?: Maybe<User_Status_Mutation_Response>;
+  /** update single row of the table: "user_status" */
+  update_user_status_by_pk?: Maybe<User_Status>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
   update_users_by_pk?: Maybe<Users>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_CollectionsArgs = {
+  where: Collections_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Collections_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_StatusArgs = {
+  where: User_Status_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_User_Status_By_PkArgs = {
+  text: Scalars['String'];
 };
 
 
@@ -122,6 +507,34 @@ export type Mutation_RootDelete_Users_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_CollectionsArgs = {
+  objects: Array<Collections_Insert_Input>;
+  on_conflict?: InputMaybe<Collections_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Collections_OneArgs = {
+  object: Collections_Insert_Input;
+  on_conflict?: InputMaybe<Collections_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_StatusArgs = {
+  objects: Array<User_Status_Insert_Input>;
+  on_conflict?: InputMaybe<User_Status_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_User_Status_OneArgs = {
+  object: User_Status_Insert_Input;
+  on_conflict?: InputMaybe<User_Status_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_UsersArgs = {
   objects: Array<Users_Insert_Input>;
   on_conflict?: InputMaybe<Users_On_Conflict>;
@@ -132,6 +545,36 @@ export type Mutation_RootInsert_UsersArgs = {
 export type Mutation_RootInsert_Users_OneArgs = {
   object: Users_Insert_Input;
   on_conflict?: InputMaybe<Users_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_CollectionsArgs = {
+  _inc?: InputMaybe<Collections_Inc_Input>;
+  _set?: InputMaybe<Collections_Set_Input>;
+  where: Collections_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Collections_By_PkArgs = {
+  _inc?: InputMaybe<Collections_Inc_Input>;
+  _set?: InputMaybe<Collections_Set_Input>;
+  pk_columns: Collections_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_StatusArgs = {
+  _set?: InputMaybe<User_Status_Set_Input>;
+  where: User_Status_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_User_Status_By_PkArgs = {
+  _set?: InputMaybe<User_Status_Set_Input>;
+  pk_columns: User_Status_Pk_Columns_Input;
 };
 
 
@@ -168,12 +611,70 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  /** fetch data from the table: "collections" */
+  collections: Array<Collections>;
+  /** fetch aggregated fields from the table: "collections" */
+  collections_aggregate: Collections_Aggregate;
+  /** fetch data from the table: "collections" using primary key columns */
+  collections_by_pk?: Maybe<Collections>;
+  /** fetch data from the table: "user_status" */
+  user_status: Array<User_Status>;
+  /** fetch aggregated fields from the table: "user_status" */
+  user_status_aggregate: User_Status_Aggregate;
+  /** fetch data from the table: "user_status" using primary key columns */
+  user_status_by_pk?: Maybe<User_Status>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Query_RootCollectionsArgs = {
+  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Collections_Order_By>>;
+  where?: InputMaybe<Collections_Bool_Exp>;
+};
+
+
+export type Query_RootCollections_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Collections_Order_By>>;
+  where?: InputMaybe<Collections_Bool_Exp>;
+};
+
+
+export type Query_RootCollections_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootUser_StatusArgs = {
+  distinct_on?: InputMaybe<Array<User_Status_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Status_Order_By>>;
+  where?: InputMaybe<User_Status_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Status_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Status_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Status_Order_By>>;
+  where?: InputMaybe<User_Status_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Status_By_PkArgs = {
+  text: Scalars['String'];
 };
 
 
@@ -201,12 +702,70 @@ export type Query_RootUsers_By_PkArgs = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
+  /** fetch data from the table: "collections" */
+  collections: Array<Collections>;
+  /** fetch aggregated fields from the table: "collections" */
+  collections_aggregate: Collections_Aggregate;
+  /** fetch data from the table: "collections" using primary key columns */
+  collections_by_pk?: Maybe<Collections>;
+  /** fetch data from the table: "user_status" */
+  user_status: Array<User_Status>;
+  /** fetch aggregated fields from the table: "user_status" */
+  user_status_aggregate: User_Status_Aggregate;
+  /** fetch data from the table: "user_status" using primary key columns */
+  user_status_by_pk?: Maybe<User_Status>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
   users_aggregate: Users_Aggregate;
   /** fetch data from the table: "users" using primary key columns */
   users_by_pk?: Maybe<Users>;
+};
+
+
+export type Subscription_RootCollectionsArgs = {
+  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Collections_Order_By>>;
+  where?: InputMaybe<Collections_Bool_Exp>;
+};
+
+
+export type Subscription_RootCollections_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Collections_Order_By>>;
+  where?: InputMaybe<Collections_Bool_Exp>;
+};
+
+
+export type Subscription_RootCollections_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootUser_StatusArgs = {
+  distinct_on?: InputMaybe<Array<User_Status_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Status_Order_By>>;
+  where?: InputMaybe<User_Status_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Status_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<User_Status_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<User_Status_Order_By>>;
+  where?: InputMaybe<User_Status_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Status_By_PkArgs = {
+  text: Scalars['String'];
 };
 
 
@@ -245,6 +804,123 @@ export type Timestamptz_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
+/** user status enums */
+export type User_Status = {
+  __typename?: 'user_status';
+  text: Scalars['String'];
+};
+
+/** aggregated selection of "user_status" */
+export type User_Status_Aggregate = {
+  __typename?: 'user_status_aggregate';
+  aggregate?: Maybe<User_Status_Aggregate_Fields>;
+  nodes: Array<User_Status>;
+};
+
+/** aggregate fields of "user_status" */
+export type User_Status_Aggregate_Fields = {
+  __typename?: 'user_status_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<User_Status_Max_Fields>;
+  min?: Maybe<User_Status_Min_Fields>;
+};
+
+
+/** aggregate fields of "user_status" */
+export type User_Status_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<User_Status_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "user_status". All fields are combined with a logical 'AND'. */
+export type User_Status_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Status_Bool_Exp>>;
+  _not?: InputMaybe<User_Status_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Status_Bool_Exp>>;
+  text?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "user_status" */
+export enum User_Status_Constraint {
+  /** unique or primary key constraint */
+  StatusPkey = 'status_pkey'
+}
+
+export enum User_Status_Enum {
+  Blocked = 'blocked',
+  Pending = 'pending',
+  Success = 'success'
+}
+
+/** Boolean expression to compare columns of type "user_status_enum". All fields are combined with logical 'AND'. */
+export type User_Status_Enum_Comparison_Exp = {
+  _eq?: InputMaybe<User_Status_Enum>;
+  _in?: InputMaybe<Array<User_Status_Enum>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<User_Status_Enum>;
+  _nin?: InputMaybe<Array<User_Status_Enum>>;
+};
+
+/** input type for inserting data into table "user_status" */
+export type User_Status_Insert_Input = {
+  text?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type User_Status_Max_Fields = {
+  __typename?: 'user_status_max_fields';
+  text?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type User_Status_Min_Fields = {
+  __typename?: 'user_status_min_fields';
+  text?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "user_status" */
+export type User_Status_Mutation_Response = {
+  __typename?: 'user_status_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<User_Status>;
+};
+
+/** on_conflict condition type for table "user_status" */
+export type User_Status_On_Conflict = {
+  constraint: User_Status_Constraint;
+  update_columns?: Array<User_Status_Update_Column>;
+  where?: InputMaybe<User_Status_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "user_status". */
+export type User_Status_Order_By = {
+  text?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: user_status */
+export type User_Status_Pk_Columns_Input = {
+  text: Scalars['String'];
+};
+
+/** select columns of table "user_status" */
+export enum User_Status_Select_Column {
+  /** column name */
+  Text = 'text'
+}
+
+/** input type for updating data in table "user_status" */
+export type User_Status_Set_Input = {
+  text?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "user_status" */
+export enum User_Status_Update_Column {
+  /** column name */
+  Text = 'text'
+}
+
 /** columns and relationships of "users" */
 export type Users = {
   __typename?: 'users';
@@ -257,6 +933,7 @@ export type Users = {
   charityCreateFundraiser?: Maybe<Scalars['Boolean']>;
   charityEntityType?: Maybe<Scalars['String']>;
   charityName?: Maybe<Scalars['String']>;
+  contactEmail?: Maybe<Scalars['String']>;
   contactNumber?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   createdAt: Scalars['timestamptz'];
@@ -279,6 +956,7 @@ export type Users = {
   primaryContactDateOfBirth?: Maybe<Scalars['date']>;
   role?: Maybe<Scalars['String']>;
   solWalletAddress?: Maybe<Scalars['String']>;
+  status?: Maybe<User_Status_Enum>;
   twitterUrl?: Maybe<Scalars['String']>;
   userId: Scalars['String'];
   userType?: Maybe<Scalars['String']>;
@@ -337,6 +1015,7 @@ export type Users_Bool_Exp = {
   charityCreateFundraiser?: InputMaybe<Boolean_Comparison_Exp>;
   charityEntityType?: InputMaybe<String_Comparison_Exp>;
   charityName?: InputMaybe<String_Comparison_Exp>;
+  contactEmail?: InputMaybe<String_Comparison_Exp>;
   contactNumber?: InputMaybe<String_Comparison_Exp>;
   country?: InputMaybe<String_Comparison_Exp>;
   createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -359,6 +1038,7 @@ export type Users_Bool_Exp = {
   primaryContactDateOfBirth?: InputMaybe<Date_Comparison_Exp>;
   role?: InputMaybe<String_Comparison_Exp>;
   solWalletAddress?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<User_Status_Enum_Comparison_Exp>;
   twitterUrl?: InputMaybe<String_Comparison_Exp>;
   userId?: InputMaybe<String_Comparison_Exp>;
   userType?: InputMaybe<String_Comparison_Exp>;
@@ -393,6 +1073,7 @@ export type Users_Insert_Input = {
   charityCreateFundraiser?: InputMaybe<Scalars['Boolean']>;
   charityEntityType?: InputMaybe<Scalars['String']>;
   charityName?: InputMaybe<Scalars['String']>;
+  contactEmail?: InputMaybe<Scalars['String']>;
   contactNumber?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
@@ -415,6 +1096,7 @@ export type Users_Insert_Input = {
   primaryContactDateOfBirth?: InputMaybe<Scalars['date']>;
   role?: InputMaybe<Scalars['String']>;
   solWalletAddress?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<User_Status_Enum>;
   twitterUrl?: InputMaybe<Scalars['String']>;
   userId?: InputMaybe<Scalars['String']>;
   userType?: InputMaybe<Scalars['String']>;
@@ -429,6 +1111,7 @@ export type Users_Max_Fields = {
   charityAddress?: Maybe<Scalars['String']>;
   charityEntityType?: Maybe<Scalars['String']>;
   charityName?: Maybe<Scalars['String']>;
+  contactEmail?: Maybe<Scalars['String']>;
   contactNumber?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['timestamptz']>;
@@ -464,6 +1147,7 @@ export type Users_Min_Fields = {
   charityAddress?: Maybe<Scalars['String']>;
   charityEntityType?: Maybe<Scalars['String']>;
   charityName?: Maybe<Scalars['String']>;
+  contactEmail?: Maybe<Scalars['String']>;
   contactNumber?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   createdAt?: Maybe<Scalars['timestamptz']>;
@@ -518,6 +1202,7 @@ export type Users_Order_By = {
   charityCreateFundraiser?: InputMaybe<Order_By>;
   charityEntityType?: InputMaybe<Order_By>;
   charityName?: InputMaybe<Order_By>;
+  contactEmail?: InputMaybe<Order_By>;
   contactNumber?: InputMaybe<Order_By>;
   country?: InputMaybe<Order_By>;
   createdAt?: InputMaybe<Order_By>;
@@ -540,6 +1225,7 @@ export type Users_Order_By = {
   primaryContactDateOfBirth?: InputMaybe<Order_By>;
   role?: InputMaybe<Order_By>;
   solWalletAddress?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
   twitterUrl?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
   userType?: InputMaybe<Order_By>;
@@ -571,6 +1257,8 @@ export enum Users_Select_Column {
   CharityEntityType = 'charityEntityType',
   /** column name */
   CharityName = 'charityName',
+  /** column name */
+  ContactEmail = 'contactEmail',
   /** column name */
   ContactNumber = 'contactNumber',
   /** column name */
@@ -616,6 +1304,8 @@ export enum Users_Select_Column {
   /** column name */
   SolWalletAddress = 'solWalletAddress',
   /** column name */
+  Status = 'status',
+  /** column name */
   TwitterUrl = 'twitterUrl',
   /** column name */
   UserId = 'userId',
@@ -636,6 +1326,7 @@ export type Users_Set_Input = {
   charityCreateFundraiser?: InputMaybe<Scalars['Boolean']>;
   charityEntityType?: InputMaybe<Scalars['String']>;
   charityName?: InputMaybe<Scalars['String']>;
+  contactEmail?: InputMaybe<Scalars['String']>;
   contactNumber?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
   createdAt?: InputMaybe<Scalars['timestamptz']>;
@@ -658,6 +1349,7 @@ export type Users_Set_Input = {
   primaryContactDateOfBirth?: InputMaybe<Scalars['date']>;
   role?: InputMaybe<Scalars['String']>;
   solWalletAddress?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<User_Status_Enum>;
   twitterUrl?: InputMaybe<Scalars['String']>;
   userId?: InputMaybe<Scalars['String']>;
   userType?: InputMaybe<Scalars['String']>;
@@ -717,6 +1409,8 @@ export enum Users_Update_Column {
   /** column name */
   CharityName = 'charityName',
   /** column name */
+  ContactEmail = 'contactEmail',
+  /** column name */
   ContactNumber = 'contactNumber',
   /** column name */
   Country = 'country',
@@ -760,6 +1454,8 @@ export enum Users_Update_Column {
   Role = 'role',
   /** column name */
   SolWalletAddress = 'solWalletAddress',
+  /** column name */
+  Status = 'status',
   /** column name */
   TwitterUrl = 'twitterUrl',
   /** column name */
@@ -812,12 +1508,13 @@ export type GetUserDetailsQueryVariables = Exact<{
 }>;
 
 
-export type GetUserDetailsQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
+export type GetUserDetailsQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
 
 export type CreateUserDetailsMutationVariables = Exact<{
   aliasName?: InputMaybe<Scalars['String']>;
   charityEntityType?: InputMaybe<Scalars['String']>;
   charityAddress?: InputMaybe<Scalars['String']>;
+  charityName?: InputMaybe<Scalars['String']>;
   charityAbn?: InputMaybe<Scalars['String']>;
   charityAcceptDirectDonations?: InputMaybe<Scalars['Boolean']>;
   charityAllowProxyFundraiser?: InputMaybe<Scalars['Boolean']>;
@@ -832,6 +1529,7 @@ export type CreateUserDetailsMutationVariables = Exact<{
   description?: InputMaybe<Scalars['String']>;
   discordUrl?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
+  contactEmail?: InputMaybe<Scalars['String']>;
   ethWalletAddress?: InputMaybe<Scalars['String']>;
   expectedReleaseDate?: InputMaybe<Scalars['date']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -849,12 +1547,13 @@ export type CreateUserDetailsMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserDetailsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
+export type CreateUserDetailsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
 
 export type UpdateUserDetailsMutationVariables = Exact<{
   aliasName?: InputMaybe<Scalars['String']>;
   charityEntityType?: InputMaybe<Scalars['String']>;
   charityAddress?: InputMaybe<Scalars['String']>;
+  charityName?: InputMaybe<Scalars['String']>;
   charityAbn?: InputMaybe<Scalars['String']>;
   charityAcceptDirectDonations?: InputMaybe<Scalars['Boolean']>;
   charityAllowProxyFundraiser?: InputMaybe<Scalars['Boolean']>;
@@ -869,6 +1568,7 @@ export type UpdateUserDetailsMutationVariables = Exact<{
   description?: InputMaybe<Scalars['String']>;
   discordUrl?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
+  contactEmail?: InputMaybe<Scalars['String']>;
   ethWalletAddress?: InputMaybe<Scalars['String']>;
   expectedReleaseDate?: InputMaybe<Scalars['date']>;
   firstName?: InputMaybe<Scalars['String']>;
@@ -885,7 +1585,7 @@ export type UpdateUserDetailsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserDetailsMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', aliasName?: string | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityAbn?: string | null, primaryContactAddress?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, maticWalletAddress?: string | null } | null };
+export type UpdateUserDetailsMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', aliasName?: string | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, primaryContactAddress?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, maticWalletAddress?: string | null } | null };
 
 
 export const GetUserDetailsDocument = gql`
@@ -894,6 +1594,7 @@ export const GetUserDetailsDocument = gql`
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
@@ -908,6 +1609,7 @@ export const GetUserDetailsDocument = gql`
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName
@@ -923,9 +1625,6 @@ export const GetUserDetailsDocument = gql`
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
   }
 }
     `;
@@ -958,13 +1657,14 @@ export type GetUserDetailsQueryHookResult = ReturnType<typeof useGetUserDetailsQ
 export type GetUserDetailsLazyQueryHookResult = ReturnType<typeof useGetUserDetailsLazyQuery>;
 export type GetUserDetailsQueryResult = Apollo.QueryResult<GetUserDetailsQuery, GetUserDetailsQueryVariables>;
 export const CreateUserDetailsDocument = gql`
-    mutation CreateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $role: String!, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
+    mutation CreateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $role: String!, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
   insert_users_one(
-    object: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, role: $role, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userId: $userId, userType: $userType, websiteUrl: $websiteUrl}
+    object: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityName: $charityName, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, contactEmail: $contactEmail, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, role: $role, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userId: $userId, userType: $userType, websiteUrl: $websiteUrl}
   ) {
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
@@ -979,6 +1679,7 @@ export const CreateUserDetailsDocument = gql`
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName
@@ -994,9 +1695,6 @@ export const CreateUserDetailsDocument = gql`
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
   }
 }
     `;
@@ -1018,6 +1716,7 @@ export type CreateUserDetailsMutationFn = Apollo.MutationFunction<CreateUserDeta
  *      aliasName: // value for 'aliasName'
  *      charityEntityType: // value for 'charityEntityType'
  *      charityAddress: // value for 'charityAddress'
+ *      charityName: // value for 'charityName'
  *      charityAbn: // value for 'charityAbn'
  *      charityAcceptDirectDonations: // value for 'charityAcceptDirectDonations'
  *      charityAllowProxyFundraiser: // value for 'charityAllowProxyFundraiser'
@@ -1032,6 +1731,7 @@ export type CreateUserDetailsMutationFn = Apollo.MutationFunction<CreateUserDeta
  *      description: // value for 'description'
  *      discordUrl: // value for 'discordUrl'
  *      email: // value for 'email'
+ *      contactEmail: // value for 'contactEmail'
  *      ethWalletAddress: // value for 'ethWalletAddress'
  *      expectedReleaseDate: // value for 'expectedReleaseDate'
  *      firstName: // value for 'firstName'
@@ -1057,10 +1757,10 @@ export type CreateUserDetailsMutationHookResult = ReturnType<typeof useCreateUse
 export type CreateUserDetailsMutationResult = Apollo.MutationResult<CreateUserDetailsMutation>;
 export type CreateUserDetailsMutationOptions = Apollo.BaseMutationOptions<CreateUserDetailsMutation, CreateUserDetailsMutationVariables>;
 export const UpdateUserDetailsDocument = gql`
-    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
+    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
   update_users_by_pk(
     pk_columns: {userId: $userId}
-    _set: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userType: $userType, websiteUrl: $websiteUrl}
+    _set: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityName: $charityName, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, contactEmail: $contactEmail, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userType: $userType, websiteUrl: $websiteUrl}
   ) {
     aliasName
     contactNumber
@@ -1072,6 +1772,7 @@ export const UpdateUserDetailsDocument = gql`
     description
     discordUrl
     email
+    contactEmail
     ethWalletAddress
     expectedReleaseDate
     firstName
@@ -1087,6 +1788,7 @@ export const UpdateUserDetailsDocument = gql`
     websiteUrl
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     primaryContactAddress
     charityAcceptDirectDonations
@@ -1115,6 +1817,7 @@ export type UpdateUserDetailsMutationFn = Apollo.MutationFunction<UpdateUserDeta
  *      aliasName: // value for 'aliasName'
  *      charityEntityType: // value for 'charityEntityType'
  *      charityAddress: // value for 'charityAddress'
+ *      charityName: // value for 'charityName'
  *      charityAbn: // value for 'charityAbn'
  *      charityAcceptDirectDonations: // value for 'charityAcceptDirectDonations'
  *      charityAllowProxyFundraiser: // value for 'charityAllowProxyFundraiser'
@@ -1129,6 +1832,7 @@ export type UpdateUserDetailsMutationFn = Apollo.MutationFunction<UpdateUserDeta
  *      description: // value for 'description'
  *      discordUrl: // value for 'discordUrl'
  *      email: // value for 'email'
+ *      contactEmail: // value for 'contactEmail'
  *      ethWalletAddress: // value for 'ethWalletAddress'
  *      expectedReleaseDate: // value for 'expectedReleaseDate'
  *      firstName: // value for 'firstName'

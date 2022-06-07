@@ -6,6 +6,7 @@ export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValu
   aliasName: formData.users_by_pk?.aliasName || "",
   charityEntityType: formData.users_by_pk?.charityEntityType || "",
   charityAddress: formData.users_by_pk?.charityAddress || "",
+  charityName: formData.users_by_pk?.charityName || "",
   charityAbn: formData.users_by_pk?.charityAbn || "",
   charityAcceptDirectDonations:
     formData.users_by_pk?.charityAcceptDirectDonations || false,
@@ -21,6 +22,7 @@ export const getFormValues = (formData: GetUserDetailsQuery): OnboardingFormValu
   description: formData.users_by_pk?.description || "",
   discordUrl: formData.users_by_pk?.discordUrl || "",
   email: formData.users_by_pk?.email || "",
+  contactEmail: formData.users_by_pk?.contactEmail || "",
   ethWalletAddress: formData.users_by_pk?.ethWalletAddress || "",
   expectedReleaseDate:
     formData.users_by_pk?.expectedReleaseDate || format(new Date(), "yyyy-MM-dd"),
@@ -40,6 +42,7 @@ export const getDefaultFormValues = (): OnboardingFormValues => ({
   aliasName: "",
   charityEntityType: "",
   charityAddress: "",
+  charityName: "",
   charityAbn: "",
   charityAcceptDirectDonations: false,
   charityAllowProxyFundraiser: false,
@@ -54,6 +57,7 @@ export const getDefaultFormValues = (): OnboardingFormValues => ({
   description: "",
   discordUrl: "",
   email: "",
+  contactEmail: "",
   ethWalletAddress: "",
   expectedReleaseDate: format(new Date(), "yyyy-MM-dd"),
   firstName: "",

@@ -71,6 +71,7 @@ export const OnboardingContainer: FC = () => {
 
   if (data) {
     initialFormValues = getFormValues(data);
+    initialFormValues.email = user?.email ?? "";
   }
 
   const handleOnSubmit = (values: OnboardingFormValues) => {
@@ -97,12 +98,12 @@ export const OnboardingContainer: FC = () => {
       {isCreateUserLoading && <LoadingContainer text="Saving partner details..." />}
       {isUpdateUserLoading && <LoadingContainer text="Updating partner details..." />}
 
-      <div className="p-10 w-full max-w-4xl mx-auto border rounded-xl shadow-lg bg-white">
+      <div className="w-full max-w-4xl p-10 mx-auto bg-white border shadow-lg rounded-xl">
         {(isAuthLoading || isGetUserLoading) && <SkeletonOnboardingForm />}
 
         {data && (
           <div>
-            <h3 className="text-center text-4xl font-semibold">Basic Information</h3>
+            <h3 className="text-4xl font-semibold text-center">Basic Information</h3>
             <div className="mt-8">
               <OnboardingForm
                 initialValues={initialFormValues}

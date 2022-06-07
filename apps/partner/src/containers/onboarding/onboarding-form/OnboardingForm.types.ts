@@ -2,6 +2,7 @@ export interface OnboardingFormValues {
   aliasName: string;
   charityAbn: string;
   charityAddress: string;
+  charityName: string;
   charityAcceptDirectDonations: boolean;
   charityAllowProxyFundraiser: boolean;
   charityApprovalBeforeGoLive: boolean;
@@ -16,6 +17,7 @@ export interface OnboardingFormValues {
   description: string;
   discordUrl: string;
   email: string;
+  contactEmail: string;
   ethWalletAddress: string;
   expectedReleaseDate: string;
   firstName: string;
