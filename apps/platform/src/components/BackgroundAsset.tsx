@@ -3,11 +3,16 @@ import cx from "classnames";
 import { AssetType, getAssetType } from "../utils/getAssetType";
 
 interface BackgroundAssetProps {
-  className?: string;
   asset: string;
+  className?: string;
+  innerClassName?: string;
 }
 
-export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) => {
+export const BackgroundAsset: FC<BackgroundAssetProps> = ({
+  asset,
+  className,
+  innerClassName,
+}) => {
   const assetType = getAssetType(asset);
 
   return (
@@ -19,7 +24,12 @@ export const BackgroundAsset: FC<BackgroundAssetProps> = ({ className, asset }) 
             className
           )}
         >
-          <video autoPlay loop muted className="w-auto min-w-full min-h-full max-w-none">
+          <video
+            autoPlay
+            loop
+            muted
+            className={cx("w-auto min-w-full min-h-full max-w-none", innerClassName)}
+          >
             <source src={asset} type="video/mp4" />
           </video>
         </div>

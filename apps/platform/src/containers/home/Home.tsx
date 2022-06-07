@@ -64,15 +64,15 @@ export const HomeContainer = () => {
 
       <div className="mt-12 sm:mt-16">
         <SectionContainer>
-          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-screen-2xl mx-auto my-5">
-            <div className="flex flex-1 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 mt-5 mb-12">
+            <div className="flex flex-1 items-center max-w-xl mx-auto">
               <SectionHeader
                 mainTitle="Donate & Fundraise with NFTs, Cryptocurrency & Games (The Metaverse)"
-                subtitle="Support the causes & organisations you love with direct donations of cryptocurrency NFT fundraisers and play to give games in the Metaverse"
+                subtitle="Support the causes & organisations you love with direct donations of cryptocurrency NFT fundraisers and play to give games in the Metaverse."
               />
             </div>
 
-            <div className="flex relative justify-center w-full max-w-96 min-h-72 mx-auto">
+            <div className="flex relative justify-center w-full max-w-96 min-h-86 mx-auto">
               <BackgroundAsset asset={GiveTreeImage.src} className="rounded-xl" />
             </div>
           </div>
@@ -81,7 +81,7 @@ export const HomeContainer = () => {
         <SectionContainer>
           <SectionTitle className="text-center">Upcoming Collections</SectionTitle>
           <CardGrid>
-            {data.campaigns.map((campaign, idx) => (
+            {data.campaigns.slice(0, 4).map((campaign, idx) => (
               <CampaignCard key={idx} campaign={campaign} />
             ))}
           </CardGrid>
@@ -99,7 +99,7 @@ export const HomeContainer = () => {
             subtitle="Donate cryptocurrency directly to charity or create a NFT Fundraiser"
           />
           <CardGrid>
-            {data.charities.map((charity, idx) => (
+            {data.charities.slice(0, 4).map((charity, idx) => (
               <CharityCard key={idx} charity={charity} />
             ))}
           </CardGrid>
@@ -113,11 +113,11 @@ export const HomeContainer = () => {
 
         <SectionContainer>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-5 mb-12">
-            <div className="flex relative justify-center w-full max-w-96 min-h-72 mx-auto">
+            <div className="flex relative justify-center w-full max-w-96 min-h-86 mx-auto">
               <BackgroundAsset asset={GiveTreeImage.src} className="rounded-xl" />
             </div>
 
-            <div className="flex flex-1 items-center">
+            <div className="flex flex-1 items-center max-w-xl mx-auto">
               <SectionHeader
                 mainTitle="Create & sell digital assets in the GiveTree metaverse"
                 subtitle="GiveTree enables creators and charities to create digital land, then create digital assets on the land. Those digital assets can be purchased, sold, and traded. You can run events, and create community spaces for people to hang out, learn, and vibe with each other."

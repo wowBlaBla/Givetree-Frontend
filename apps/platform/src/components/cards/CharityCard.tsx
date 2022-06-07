@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
+import cx from "classnames";
 import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
@@ -23,15 +26,24 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       />
 
       <div className="relative pt-full" onClick={handleNextLocation}>
-        <BackgroundAsset asset={charity.media.tileUrl} />
+        <img
+          className={cx("absolute top-0 w-full h-full object-contain", {
+            "bg-white": !charity.custom?.styles?.tileBgColor,
+          })}
+          style={{ backgroundColor: charity.custom?.styles?.tileBgColor }}
+          src={charity.media.tileUrl}
+        />
+
         <DarkBlend bottom small />
       </div>
 
-      <div className="flex flex-col w-full rounded-lg justify-end bg-brand-black mt-3">
-        <p className="text-center text-white text-lg sm:text-xl">{charity.name}</p>
+      <div className="flex flex-col justify-end w-full mt-1 space-y-3 p-2">
+        <p className="text-center text-white text-lg sm:text-xl truncate">
+          {charity.name}
+        </p>
 
-        <div className="grid grid-cols-1 gap-2 w-full p-2 text-white mt-1 z-20">
-          <PrimaryLinkSm className="text-center" href="#">
+        <div className="flex items-end w-full h-full">
+          <PrimaryLinkSm className="w-full" href="#">
             Donate
           </PrimaryLinkSm>
         </div>

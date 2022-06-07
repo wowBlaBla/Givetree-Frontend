@@ -1,6 +1,6 @@
 import { faker as gen } from "@faker-js/faker";
 
-import { genCarbonClimateChangeSocietyData } from "../charity/carbon-climate-change-society";
+import { genFoundationForNationalParksAndWildlifeData } from "../charity/foundation-for-national-parks-and-wildlife";
 import { genRengaFactoryContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
 import { genRoyalty } from "../royalties";
@@ -34,7 +34,7 @@ export const genTheArtOfSeasonsCampaignData = (x?: Partial<Campaign>): Campaign 
   discordUrl: gen.internet.url(),
   twitterUrl: gen.internet.url(),
   contractUrl: gen.internet.url(),
-  nominatedCharity: genCarbonClimateChangeSocietyData(),
+  nominatedCharity: genFoundationForNationalParksAndWildlifeData(),
   royalties: genRoyalty(),
   creators: [genRengaFactoryContentCreator()],
   whitelistMemo: gen.datatype.uuid(),

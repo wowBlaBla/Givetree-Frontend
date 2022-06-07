@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
-const ButtonStyles = "bg-brand-orange text-white rounded-lg button-hover";
+const ButtonStyles = "text-center bg-brand-orange text-white rounded-lg button-hover";
 
 interface ButtonProps {
   type?: "button" | "submit" | "reset" | undefined;

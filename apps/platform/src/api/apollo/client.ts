@@ -1,12 +1,17 @@
 import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+
+// Collections
 import { genGenopetsCampaignData } from "../../fixtures/campaign/genopets";
 import { genMulgakongzCampaignData } from "../../fixtures/campaign/mulgakongz";
 import { genOmgkirbyGenesisCampaignData } from "../../fixtures/campaign/omgkirby-genesis";
 import { genTheArtOfSeasonsCampaignData } from "../../fixtures/campaign/the-art-of-seasons";
-import { genCarbonClimateChangeSocietyData } from "../../fixtures/charity/carbon-climate-change-society";
-import { genTheOceanCleanupData } from "../../fixtures/charity/the-ocean-cleanup";
-import { genWorldWildlifeFundData } from "../../fixtures/charity/world-wildlife-fund";
-import { genYouturnYouthSupportData } from "../../fixtures/charity/youturn-youth-support";
+
+// Charities
+import { genDoctorsWithoutBordersData } from "../../fixtures/charity/doctors-without-borders";
+import { genFoundationForNationalParksAndWildlifeData } from "../../fixtures/charity/foundation-for-national-parks-and-wildlife";
+import { genGamersOutreachData } from "../../fixtures/charity/gamers-outreach";
+import { genHalfCutData } from "../../fixtures/charity/half-cut";
+import { gen20TalkData } from "../../fixtures/charity/twenty-talk";
 
 export const campaignsVar = makeVar([
   genGenopetsCampaignData(),
@@ -16,10 +21,11 @@ export const campaignsVar = makeVar([
 ]);
 
 export const charitiesVar = makeVar([
-  genYouturnYouthSupportData(),
-  genCarbonClimateChangeSocietyData(),
-  genWorldWildlifeFundData(),
-  genTheOceanCleanupData(),
+  genDoctorsWithoutBordersData(),
+  genFoundationForNationalParksAndWildlifeData(),
+  genHalfCutData(),
+  genGamersOutreachData(),
+  gen20TalkData(),
 ]);
 
 const cache = new InMemoryCache({
