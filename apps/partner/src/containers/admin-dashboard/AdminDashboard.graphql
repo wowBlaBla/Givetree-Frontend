@@ -3,12 +3,14 @@ query GetAllUsers($limit: Int) {
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
     charityAllowProxyFundraiser
     charityApprovalBeforeGoLive
     contactNumber
+    contactEmail
     country
     cryptoActivityRating
     cryptoConfidenceRating
@@ -32,8 +34,7 @@ query GetAllUsers($limit: Int) {
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
+    status
+    createdAt
   }
 }

@@ -1508,7 +1508,7 @@ export type GetAllUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null }> };
+export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, contactEmail?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, status?: User_Status_Enum | null, createdAt: any }> };
 
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -1601,12 +1601,14 @@ export const GetAllUsersDocument = gql`
     aliasName
     charityEntityType
     charityAddress
+    charityName
     charityAbn
     charityAcceptDirectDonations
     charityCreateFundraiser
     charityAllowProxyFundraiser
     charityApprovalBeforeGoLive
     contactNumber
+    contactEmail
     country
     cryptoActivityRating
     cryptoConfidenceRating
@@ -1630,9 +1632,8 @@ export const GetAllUsersDocument = gql`
     userId
     userType
     websiteUrl
-    charityEntityType
-    charityAddress
-    charityAbn
+    status
+    createdAt
   }
 }
     `;

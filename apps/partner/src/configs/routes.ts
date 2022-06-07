@@ -1,5 +1,5 @@
 export enum AdminRoute {
-  Dashboard = "/dashboard",
+  Dashboard = "dashboard",
 }
 
 export enum PartnerRoute {

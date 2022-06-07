@@ -12,19 +12,12 @@ interface AdminProtectedContainerProps {
 export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
   children,
 }) => {
-  const { isAuthenticated, isLoading, loginWithRedirect, user } = useAuth0();
+  const { isAuthenticated, isLoading, loginWithRedirect, user, logout } = useAuth0();
   const [getUserDetails, { data: userData, loading: userLoading, error: userError }] =
     useGetUserDetailsLazyQuery();
 
   if (!isLoading && !isAuthenticated) {
-    loginWithRedirect();
-
-    return null;
-  }
-
-  if (userData && userData.users_by_pk?.role !== AuthRole.admin) {
-    toast.warning("This account does not have admin access");
-    loginWithRedirect();
+    logout();
 
     return null;
   }
@@ -43,13 +36,21 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
     }
   }, [user]);
 
+  useEffect(() => {
+    if (userData && userData.users_by_pk?.role !== AuthRole.admin) {
+      console.log(userData);
+      toast.warning("This account does not have admin access");
+      logout();
+    }
+  }, [userData]);
+
   if (userLoading || isLoading) {
     return <LoadingContainer text="Logging into partnership portal" />;
   }
 
   if (userError) {
     toast.error("Failed to login, please try again");
-    loginWithRedirect();
+    logout();
   }
 
   return <div>{children}</div>;

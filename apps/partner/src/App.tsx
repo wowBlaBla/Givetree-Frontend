@@ -18,17 +18,23 @@ export const App = (): JSX.Element => (
       <ToastContainer position="top-right" autoClose={5000} closeOnClick />
       <ProtectedAppContainer>
         <Routes>
+          <Route path="/admin">
+            <Route
+              path={AdminRoute.Dashboard}
+              element={
+                <AdminProtectedAppContainer>
+                  <AdminDashboardContainer />
+                </AdminProtectedAppContainer>
+              }
+            />
+          </Route>
+
           <Route path={PartnerRoute.Home} element={<HomeContainer />} />
           <Route path={PartnerRoute.Onboarding} element={<OnboardingContainer />} />
+
           <Route path="*" element={<HomeContainer />} />
         </Routes>
       </ProtectedAppContainer>
-      {/* 
-      <AdminProtectedAppContainer>
-        <Routes>
-          <Route path={AdminRoute.Dashboard} element={<AdminDashboardContainer />} />
-        </Routes>
-      </AdminProtectedAppContainer> */}
     </div>
   </div>
 );
