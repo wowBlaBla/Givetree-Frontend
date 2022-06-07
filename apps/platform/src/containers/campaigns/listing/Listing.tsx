@@ -14,12 +14,16 @@ import { SectionHeader } from "../../../components/SectionHeader";
 import MulgaBannerImage from "../../../temp/images/campaigns/mulgakongz-bg.png";
 
 export const CampaignListingContainer = (): JSX.Element => {
-  const { data, loading } = useQuery<GetCampaignListingDataQuery>(
+  const { data, loading, error } = useQuery<GetCampaignListingDataQuery>(
     GET_CAMPAIGN_LISTING_DATA
   );
 
   if (loading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
   }
 
   if (!data) {
@@ -33,23 +37,24 @@ export const CampaignListingContainer = (): JSX.Element => {
       </Head>
 
       <SectionHeader
+        className="my-6 sm:my-8"
         mainTitle="Explore all Mints"
         subtitle="Discover current and upcoming mints for new NFT collections"
       />
 
       <Carousel>
         <MainBanner
-          backgroundAsset="/videos/genopets-bg.mp4"
-          title="Genopets By Genopets Official"
-          subtitle="3% of every single NFT minted is donated to charity"
+          backgroundAsset={MulgaBannerImage.src}
+          title="Mulgakongz by MulgaTheArtist"
+          subtitle="4% of every single NFT minted is donated to Kids Learn Art"
           ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
         />
 
         <MainBanner
-          backgroundAsset={MulgaBannerImage.src}
-          title="Mulgakongz by MulgaTheArtist"
-          subtitle="4% of every single NFT minted is donated to Kids Learn Art"
+          backgroundAsset="/videos/genopets-bg.mp4"
+          title="Genopets By Genopets Official"
+          subtitle="3% of every single NFT minted is donated to charity"
           ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Go to launchpad"
         />

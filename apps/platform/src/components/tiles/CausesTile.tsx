@@ -4,17 +4,15 @@ import { LeafIcon } from "../icons/LeafIcon";
 import { BaseTile } from "./BaseTile";
 
 interface CausesTileProps {
-  royaltyPercentage: number | undefined;
   causes: Cause[];
+  description: string;
 }
 
-export const CausesTile: FC<CausesTileProps> = ({ royaltyPercentage, causes }) => (
+export const CausesTile: FC<CausesTileProps> = ({ description, causes }) => (
   <BaseTile className="bg-green-500 text-white">
     <LeafIcon className="float-right w-8 h-8 fill-current" />
 
-    <p className="text-lg font-semibold">
-      {royaltyPercentage}% of sale price goes towards these causes:
-    </p>
+    <p className="text-lg font-semibold">{description}</p>
 
     <div className="flex space-x-1 w-auto mt-3">
       {causes.map((cause, idx) => (

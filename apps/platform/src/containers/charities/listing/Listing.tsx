@@ -1,39 +1,46 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import Head from "next/head";
+
+import { GetCharityListingDataQuery, GET_CHARITY_LISTING_DATA } from "./ListingData";
 
 import { CardGrid } from "../../../components/CardGrid";
 import { CharityCard } from "../../../components/cards/CharityCard";
-import { PrimaryButton } from "../../../components/PrimaryButton";
-import { SectionTitle } from "../../../components/SectionTitle";
-import { useQuery } from "@apollo/client";
-import { GetCharityListingDataQuery, GET_CHARITY_LISTING_DATA } from "./ListingData";
+import { SectionHeader } from "../../../components/SectionHeader";
 
 export const CharityListingContainer = () => {
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
     GET_CHARITY_LISTING_DATA
   );
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  if (!data) {
+    return <div>No Campaigns Found</div>;
+  }
+
   return (
-    <div className="w-full mx-auto">
+    <div>
       <Head>
         <title>GiveTree - Impact partners</title>
       </Head>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-6 sm:mt-12 p-5">
-        <SectionTitle>Impact Partners</SectionTitle>
+      <SectionHeader
+        className="mt-6 sm:mt-8"
+        mainTitle="Impact Partners"
+        subtitle="Charities that help make the world a better place"
+      />
 
-        <div className="flex justify-center mt-5">
-          <PrimaryButton className="w-auto">Register now</PrimaryButton>
-        </div>
-
+      <div className="flex flex-col flex-1 w-full max-w-screen-3xl mx-auto p-5">
         <CardGrid>
-          {data?.charities.map((charity, idx) => (
-            <CharityCard
-              key={idx}
-              name={charity.name}
-              imageAsset={charity.media.tileUrl}
-              cause={charity.causes[0]}
-            />
+          {data.charities.map((charity, idx) => (
+            <CharityCard key={idx} charity={charity} />
           ))}
         </CardGrid>
       </div>

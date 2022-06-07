@@ -1,6 +1,5 @@
 import React, { FC, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
-import { kebabCase } from "lodash";
 
 import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
@@ -29,14 +28,12 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const navigate = useNavigate();
   const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const onClick = () => {
-    return navigate(`campaign/${kebabCase(campaign.title)}`);
-  };
+  const handleNextLocation = () => navigate(`/campaign/${campaign.slug}`);
 
   return (
     <div
-      onClick={onClick}
       className="relative w-full rounded-xl shadow-lg bg-brand-black select-none cursor-pointer overflow-hidden"
+      onClick={handleNextLocation}
     >
       {isLive ? (
         <LiveBadge className="absolute top-0 right-0 m-2.5 text-white z-10" />
@@ -46,7 +43,6 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
 
       <div className="relative pt-full">
         <BackgroundAsset asset={campaign.media.campaignTilePreviewUrl} />
-
         <DarkBlend bottom small />
       </div>
 

@@ -14,7 +14,7 @@ const SocialLink: FC<SocialLinkProps> = ({ href, children }) => (
     rel="noreferrer"
   >
     <ExternalLinkIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-    <span className="text-base lg:text-lg">{children}</span>
+    <span className="text-sm lg:text-base">{children}</span>
   </a>
 );
 
@@ -31,7 +31,7 @@ export const SocialGrid: FC<SocialGridProps> = ({
   discordUrl,
   contractUrl,
 }) => (
-  <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-4 w-full max-w-lg mt-5">
+  <div className="flex items-center space-x-4 w-full max-w-lg mt-5">
     {websiteUrl && <SocialLink href={websiteUrl}>Website</SocialLink>}
     {twitterUrl && <SocialLink href={twitterUrl}>Twitter</SocialLink>}
     {discordUrl && <SocialLink href={discordUrl}>Discord</SocialLink>}

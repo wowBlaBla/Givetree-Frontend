@@ -5,7 +5,7 @@ import { PillBox } from "../PillBox";
 import { LiveBadge } from "../badges/LiveBadge";
 import { SocialGrid } from "../SocialGrid";
 
-interface CollectionDetailTileProps {
+interface CampaignDetailTileProps {
   currency: SupportedPlatform;
   description?: string;
   floorPrice: number;
@@ -19,7 +19,7 @@ interface CollectionDetailTileProps {
   contractUrl?: string;
 }
 
-export const CollectionDetailTile: FC<CollectionDetailTileProps> = ({
+export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   currency,
   title,
   description,

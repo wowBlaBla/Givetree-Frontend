@@ -16,7 +16,13 @@ module.exports = {
       fontSize: {
         none: "0",
       },
+      width: {
+        86: "20rem",
+        96: "36rem",
+        128: "42rem",
+      },
       height: {
+        86: "28rem",
         96: "36rem",
         128: "42rem",
       },
@@ -24,14 +30,17 @@ module.exports = {
         15: "5rem",
       },
       maxHeight: {
+        86: "30rem",
         96: "36rem",
         128: "42rem",
       },
       maxWidth: {
+        96: "36rem",
         "screen-3xl": "1754px",
       },
       minHeight: {
         72: "20rem",
+        86: "28rem",
         96: "32rem",
       },
       spacing: {
@@ -39,5 +48,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
 };

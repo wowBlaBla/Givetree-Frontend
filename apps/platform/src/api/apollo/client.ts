@@ -7,7 +7,6 @@ import { genCarbonClimateChangeSocietyData } from "../../fixtures/charity/carbon
 import { genTheOceanCleanupData } from "../../fixtures/charity/the-ocean-cleanup";
 import { genWorldWildlifeFundData } from "../../fixtures/charity/world-wildlife-fund";
 import { genYouturnYouthSupportData } from "../../fixtures/charity/youturn-youth-support";
-import { genZambiWildlifeFoundationData } from "../../fixtures/charity/zambi-wildlife-foundation";
 
 export const campaignsVar = makeVar([
   genGenopetsCampaignData(),
@@ -21,7 +20,6 @@ export const charitiesVar = makeVar([
   genCarbonClimateChangeSocietyData(),
   genWorldWildlifeFundData(),
   genTheOceanCleanupData(),
-  genZambiWildlifeFoundationData(),
 ]);
 
 const cache = new InMemoryCache({
