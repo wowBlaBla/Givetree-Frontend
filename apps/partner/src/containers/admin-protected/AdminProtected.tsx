@@ -12,7 +12,7 @@ interface AdminProtectedContainerProps {
 export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
   children,
 }) => {
-  const { isAuthenticated, isLoading, loginWithRedirect, user, logout } = useAuth0();
+  const { isAuthenticated, isLoading, user, logout } = useAuth0();
   const [getUserDetails, { data: userData, loading: userLoading, error: userError }] =
     useGetUserDetailsLazyQuery();
 
