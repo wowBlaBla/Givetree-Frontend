@@ -18,7 +18,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const handleNextLocation = () => navigate(`/impact-partners/${charity.slug}`);
 
   return (
-    <div className="relative w-full rounded-xl shadow-lg bg-brand-black select-none cursor-pointer overflow-hidden">
+    <div className="relative w-full overflow-hidden shadow-lg cursor-pointer select-none rounded-xl bg-brand-black">
       <FeaturedBadge
         className="absolute top-0 right-0 my-2.5 mx-2 z-10"
         text={charity.causes[0]}

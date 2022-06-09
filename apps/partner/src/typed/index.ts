@@ -1503,6 +1503,13 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
+export type GetAllUsersQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, contactEmail?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, status?: User_Status_Enum | null, createdAt: any }> };
+
 export type GetUserDetailsQueryVariables = Exact<{
   userId: Scalars['String'];
 }>;
@@ -1588,6 +1595,76 @@ export type UpdateUserDetailsMutationVariables = Exact<{
 export type UpdateUserDetailsMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', aliasName?: string | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, primaryContactAddress?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, maticWalletAddress?: string | null } | null };
 
 
+export const GetAllUsersDocument = gql`
+    query GetAllUsers($limit: Int) {
+  users(limit: $limit) {
+    aliasName
+    charityEntityType
+    charityAddress
+    charityName
+    charityAbn
+    charityAcceptDirectDonations
+    charityCreateFundraiser
+    charityAllowProxyFundraiser
+    charityApprovalBeforeGoLive
+    contactNumber
+    contactEmail
+    country
+    cryptoActivityRating
+    cryptoConfidenceRating
+    cryptoExperienceRating
+    cryptoOffRampStrategy
+    description
+    discordUrl
+    email
+    ethWalletAddress
+    expectedReleaseDate
+    firstName
+    id
+    isArtworkReady
+    lastName
+    logoUrl
+    maticWalletAddress
+    primaryContactAddress
+    role
+    solWalletAddress
+    twitterUrl
+    userId
+    userType
+    websiteUrl
+    status
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useGetAllUsersQuery__
+ *
+ * To run a query within a React component, call `useGetAllUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllUsersQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useGetAllUsersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+      }
+export function useGetAllUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllUsersQuery, GetAllUsersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllUsersQuery, GetAllUsersQueryVariables>(GetAllUsersDocument, options);
+        }
+export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
+export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
+export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
 export const GetUserDetailsDocument = gql`
     query GetUserDetails($userId: String!) {
   users_by_pk(userId: $userId) {
