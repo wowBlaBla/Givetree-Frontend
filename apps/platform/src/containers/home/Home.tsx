@@ -7,7 +7,7 @@ import { PlatformRoute } from "../../configs/routes";
 import { CharityCard } from "../../components/cards/CharityCard";
 import { SectionContainer } from "../../components/SectionContainer";
 import { SectionHeader } from "../../components/SectionHeader";
-import { BackgroundAsset } from "../../components/BackgroundAsset";
+// import { BackgroundAsset } from "../../components/BackgroundAsset";
 import { CardGrid } from "../../components/CardGrid";
 import { CampaignCard } from "../../components/cards/CampaignCard";
 import { Carousel } from "../../components/Carousel";
@@ -18,7 +18,7 @@ import { OutlineLink } from "../../components/OutlineButton";
 import { SectionTitle } from "../../components/SectionTitle";
 
 import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
-import GiveTreeImage from "../../assets/images/givetree-bg-image.png";
+// import GiveTreeImage from "../../assets/images/givetree-bg-image.png";
 
 export const HomeContainer = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
@@ -63,7 +63,8 @@ export const HomeContainer = () => {
       </div>
 
       <div className="mt-12 sm:mt-16">
-        <SectionContainer>
+        {/* TODO: Update image */}
+        {/* <SectionContainer>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-5 mb-12">
             <div className="flex flex-1 items-center max-w-xl mx-auto">
               <SectionHeader
@@ -76,7 +77,7 @@ export const HomeContainer = () => {
               <BackgroundAsset asset={GiveTreeImage.src} className="rounded-xl" />
             </div>
           </div>
-        </SectionContainer>
+        </SectionContainer> */}
 
         <SectionContainer>
           <SectionTitle className="text-center">Upcoming Collections</SectionTitle>
@@ -111,6 +112,8 @@ export const HomeContainer = () => {
           </div>
         </SectionContainer>
 
+        {/* TODO: Update image */}
+        {/* 
         <SectionContainer>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-5 mb-12">
             <div className="flex relative justify-center w-full max-w-96 min-h-86 mx-auto">
@@ -124,7 +127,7 @@ export const HomeContainer = () => {
               />
             </div>
           </div>
-        </SectionContainer>
+        </SectionContainer> */}
       </div>
     </div>
   );

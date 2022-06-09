@@ -2,12 +2,11 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
 import cx from "classnames";
-import { BackgroundAsset } from "../BackgroundAsset";
 import { DarkBlend } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { useNavigate } from "react-router-dom";
 import { Charity } from "../../typed/charity";
-import { PrimaryLinkSm } from "../PrimaryButton";
+import { DonateModal } from "../DonateModal";
 
 interface CharityCardProps {
   charity: Charity;
@@ -42,11 +41,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           {charity.name}
         </p>
 
-        <div className="flex items-end w-full h-full">
-          <PrimaryLinkSm className="w-full" href="#">
-            Donate
-          </PrimaryLinkSm>
-        </div>
+        <DonateModal charity={charity} />
       </div>
     </div>
   );

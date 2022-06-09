@@ -27,7 +27,7 @@ export const Button: FC<ButtonProps> = ({
   tabIndex,
 }) => (
   <button
-    className={cx("wallet-adapter-button", className)}
+    className={cx("wallet-adapter-button space-x-1", className)}
     disabled={disabled}
     onClick={onClick}
     tabIndex={tabIndex || 0}
@@ -35,6 +35,6 @@ export const Button: FC<ButtonProps> = ({
     style={style}
   >
     {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
-    {children}
+    <div>{children}</div>
   </button>
 );

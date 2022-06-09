@@ -78,7 +78,7 @@
 }
 
 .wallet-adapter-modal-overlay {
-  @apply fixed inset-0 bg-black bg-opacity-5;
+  @apply absolute inset-0 bg-black bg-opacity-5;
 }
 
 .wallet-adapter-modal-container {

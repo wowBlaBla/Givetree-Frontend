@@ -79,7 +79,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
     [hideModal]
   );
 
-  const handleSolWalletClick = useCallback(
+  const handleSolWallet = useCallback(
     (event: MouseEvent, walletName: WalletName) => {
       select(walletName);
       handleClose(event);
@@ -195,9 +195,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                   {installedWallets.map((wallet) => (
                     <WalletListItem
                       key={wallet.adapter.name}
-                      handleClick={(event) =>
-                        handleSolWalletClick(event, wallet.adapter.name)
-                      }
+                      handleClick={(event) => handleSolWallet(event, wallet.adapter.name)}
                       wallet={wallet}
                     />
                   ))}
@@ -208,7 +206,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                           <WalletListItem
                             key={wallet.adapter.name}
                             handleClick={(event) =>
-                              handleSolWalletClick(event, wallet.adapter.name)
+                              handleSolWallet(event, wallet.adapter.name)
                             }
                             tabIndex={expanded ? 0 : -1}
                             wallet={wallet}
@@ -250,7 +248,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                     type="button"
                     className="wallet-adapter-modal-middle-button"
                     onClick={(event) =>
-                      handleSolWalletClick(event, getStartedWallet.adapter.name)
+                      handleSolWallet(event, getStartedWallet.adapter.name)
                     }
                   >
                     Get started
@@ -284,7 +282,7 @@ export const WalletModal: FC<WalletModalProps> = ({ className, container = "body
                           <WalletListItem
                             key={wallet.adapter.name}
                             handleClick={(event) =>
-                              handleSolWalletClick(event, wallet.adapter.name)
+                              handleSolWallet(event, wallet.adapter.name)
                             }
                             tabIndex={expanded ? 0 : -1}
                             wallet={wallet}
