@@ -9,7 +9,10 @@ interface DonateModalProps {
 export const Modal: FC<DonateModalProps> = ({ children, className, modalName }) => (
   <div className={className}>
     <input type="checkbox" id={modalName} className="modal-toggle" />
-    <label htmlFor={modalName} className="modal cursor-pointer bg-black bg-opacity-50">
+    <label
+      htmlFor={modalName}
+      className="modal px-3 cursor-pointer bg-black bg-opacity-50"
+    >
       <label className="modal-box relative w-full bg-brand-black rounded-xl" htmlFor="">
         <label
           htmlFor={modalName}

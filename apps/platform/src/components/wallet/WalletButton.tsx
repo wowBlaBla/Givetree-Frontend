@@ -10,6 +10,7 @@ import { WalletModal } from "./WalletModal";
 import { isMetaMaskConnected, isMetaMaskNotConnected } from "../../utils/isMetaMask";
 import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 import { WalletIcon } from "./WalletIcon";
+import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 
 export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   const ref = useRef<HTMLUListElement>(null);
@@ -100,8 +101,12 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     return (
       <>
         <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
-          Connect wallet
+          <span className="block sm:hidden">
+            <ConnectWalletIcon />
+          </span>
+          <span className="hidden sm:block">Connect wallet</span>
         </label>
+
         <WalletModal closeDropdown={closeDropdown} />
       </>
     );

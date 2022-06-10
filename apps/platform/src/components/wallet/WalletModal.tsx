@@ -66,12 +66,12 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
               <div className="flex justify-between items-baseline w-full">
                 <span>MetaMask</span>
                 {isMetaMaskStatusConnected && (
-                  <span className="text-sm sm:text-base font-normal opacity-60">
+                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
                     Connected
                   </span>
                 )}
                 {!isMetaMaskStatusConnected && (
-                  <span className="text-sm sm:text-base font-normal opacity-60">
+                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
                     Ethereum
                   </span>
                 )}
@@ -102,13 +102,13 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                 <div className="flex justify-between items-baseline w-full">
                   <span>{wallet.adapter.name}</span>
                   {connected && (
-                    <span className="text-sm sm:text-base font-normal opacity-60">
+                    <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
                       Connected
                     </span>
                   )}
 
                   {!connected && (
-                    <span className="text-sm sm:text-base font-normal opacity-60">
+                    <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
                       Solana
                     </span>
                   )}
