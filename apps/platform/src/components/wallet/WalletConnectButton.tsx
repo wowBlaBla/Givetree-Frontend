@@ -2,52 +2,33 @@ import React, { FC, MouseEventHandler, useCallback, useMemo } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { useMetaMask } from "metamask-react";
 import { Button, ButtonProps } from "./Button";
-import { WalletIcon } from "./WalletIcon";
-import { MetaMaskIcon } from "../icons/MetaMaskIcon";
+
 import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
 
-export const WalletConnectButton: FC<ButtonProps> = ({ children, onClick, ...props }) => {
+export const WalletConnectButton: FC<ButtonProps> = ({ children, ...props }) => {
   const { wallet, connect, connecting, connected } = useWallet();
-  const { account, status: metaMaskStatus } = useMetaMask();
+  const { status: metaMaskReadyStatus } = useMetaMask();
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
-      if (onClick) onClick(event);
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       if (!event.defaultPrevented) connect().catch(() => {});
     },
-    [onClick, connect]
+    [connect]
   );
 
   const content = useMemo(() => {
     if (children) return children;
-    if (connecting || metaMaskStatus === MetaMaskStatus.Connecting)
+    if (connecting || metaMaskReadyStatus === MetaMaskStatus.Connecting)
       return "Connecting ...";
-    if (connected || metaMaskStatus === MetaMaskStatus.Connected) return "Connected";
+    if (connected || metaMaskReadyStatus === MetaMaskStatus.Connected) return "Connected";
     if (wallet) return "Connect";
     return "Connect Wallet";
-  }, [children, connecting, connected, wallet, metaMaskStatus]);
-
-  const walletIcon = () => {
-    if (wallet) {
-      return <WalletIcon wallet={wallet} />;
-    }
-
-    if (account) {
-      return <MetaMaskIcon />;
-    }
-
-    return undefined;
-  };
+  }, [children, connecting, connected, wallet, metaMaskReadyStatus]);
 
   return (
-    <Button
-      className="wallet-adapter-button-trigger"
-      startIcon={walletIcon()}
-      onClick={handleClick}
-      {...props}
-    >
-      <div className="hidden sm:inline-block">{content}</div>
+    <Button onClick={handleClick} {...props}>
+      {content}
     </Button>
   );
 };

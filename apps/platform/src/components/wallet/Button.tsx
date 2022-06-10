@@ -35,8 +35,8 @@ export const Button: FC<ButtonProps> = ({
     style={style}
   >
     <div className="flex items-center space-x-2">
-      {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
-      <div className="w-full">{children}</div>
+      <div>{startIcon}</div>
+      <div>{children}</div>
     </div>
   </button>
 );

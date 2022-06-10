@@ -24,7 +24,7 @@
 }
 
 .wallet-adapter-dropdown-list {
-  @apply grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 p-1 list-none invisible bg-brand-black rounded-lg opacity-0 transition ease-in-out transform duration-200;  
+  @apply grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 p-1 list-none invisible bg-brand-black rounded-lg opacity-0 transition ease-in-out transform duration-200;
 }
 
 .wallet-adapter-dropdown-list-item {

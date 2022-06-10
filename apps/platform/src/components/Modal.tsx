@@ -17,7 +17,7 @@ export const Modal: FC<DonateModalProps> = ({ children, className, modalName }) 
         >
           ✕
         </label>
-        <div className="px-3">{children}</div>
+        <div>{children}</div>
       </label>
     </label>
   </div>

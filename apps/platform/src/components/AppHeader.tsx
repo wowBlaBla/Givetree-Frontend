@@ -10,9 +10,13 @@ import { UserIcon } from "./icons/UserIcon";
 import { PlatformRoute } from "../configs/routes";
 import { MetaMaskStatus } from "../typed/enum/metaMaskStatus";
 import { WalletButton } from "./wallet/WalletButton";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export const AppHeader = (): JSX.Element => {
+  const { connected } = useWallet();
   const { status } = useMetaMask();
+
+  const isWalletConnected = connected || status === MetaMaskStatus.Connected;
 
   return (
     <div className="fixed w-full bg-brand-black z-50 py-2 px-3">
@@ -27,17 +31,16 @@ export const AppHeader = (): JSX.Element => {
           <AppNavLink href={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>
         </div>
 
-        <div className="flex flex-row-reverse items-center w-full space-x-3">
-          {status === MetaMaskStatus.Connected && (
+        <div
+          className={cx("flex flex-1 justify-end items-center w-full", {
+            "space-x-3": isWalletConnected,
+          })}
+        >
+          {isWalletConnected && (
             <UserIcon className="text-gray-500 hover:text-white w-7 h-7 transition-hover select-none" />
           )}
 
-          <WalletButton
-            className={cx({
-              "bg-brand-orange": status !== MetaMaskStatus.Connected,
-              "wallet-adapter-button-active": status === MetaMaskStatus.Connected,
-            })}
-          />
+          <WalletButton />
         </div>
       </div>
     </div>

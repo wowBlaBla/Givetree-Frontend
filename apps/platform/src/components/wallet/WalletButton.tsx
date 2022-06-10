@@ -8,42 +8,49 @@ import { WalletConnectButton } from "./WalletConnectButton";
 import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
 import { WalletModal } from "./WalletModal";
 import { isMetaMaskConnected, isMetaMaskNotConnected } from "../../utils/isMetaMask";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { WalletIcon } from "./WalletIcon";
 
 export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   const ref = useRef<HTMLUListElement>(null);
+  const { disconnect, publicKey, wallet } = useSolanaWallet();
   const { account, status: metaMaskReadyStatus } = useMetaMask();
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
-  const walletAddress = useMemo(() => {
+  const metaMaskWalletAddress = useMemo(() => {
     if (account) return account;
   }, [account]);
+
+  const solanaWalletAddress = useMemo(() => {
+    if (publicKey) return publicKey.toBase58();
+  }, [publicKey]);
 
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if (!walletAddress) {
-      return null;
+    if (metaMaskWalletAddress) {
+      return metaMaskWalletAddress.slice(0, 4) + ".." + metaMaskWalletAddress.slice(-4);
     }
 
-    return walletAddress.slice(0, 4) + ".." + walletAddress.slice(-4);
-  }, [children, walletAddress]);
+    if (solanaWalletAddress) {
+      return solanaWalletAddress.slice(0, 4) + ".." + solanaWalletAddress.slice(-4);
+    }
+  }, [children, metaMaskWalletAddress, solanaWalletAddress]);
 
   const copyAddress = useCallback(async () => {
-    if (account) {
-      await navigator.clipboard.writeText(account);
+    if (metaMaskWalletAddress) {
+      await navigator.clipboard.writeText(metaMaskWalletAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 400);
+    } else if (solanaWalletAddress) {
+      await navigator.clipboard.writeText(solanaWalletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 400);
     }
-
-    if (walletAddress) {
-      await navigator.clipboard.writeText(walletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 400);
-    }
-  }, [account, walletAddress]);
+  }, [metaMaskWalletAddress, solanaWalletAddress]);
 
   const openDropdown = useCallback(() => {
     setActive(true);
@@ -74,31 +81,37 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   }, [ref, closeDropdown]);
 
   const walletIcon = () => {
-    if (account) {
+    if (account || metaMaskReadyStatus === MetaMaskStatus.Connecting) {
       return <MetaMaskIcon />;
+    }
+
+    if (wallet) {
+      return <WalletIcon wallet={wallet} />;
     }
 
     return undefined;
   };
 
-  const handleDisconnect = () => {
-    return;
-  };
-
-  if (!account && isMetaMaskNotConnected(metaMaskReadyStatus as MetaMaskStatus)) {
+  if (
+    !wallet &&
+    !metaMaskWalletAddress &&
+    isMetaMaskNotConnected(metaMaskReadyStatus as MetaMaskStatus)
+  ) {
     return (
       <>
         <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
           Connect wallet
         </label>
-        <WalletModal closeDropdown={closeDropdown} />;
+        <WalletModal closeDropdown={closeDropdown} />
       </>
     );
   }
 
-  if (!walletAddress) {
+  if (!solanaWalletAddress && !metaMaskWalletAddress) {
     return (
-      <WalletConnectButton className="bg-brand-orange">{children}</WalletConnectButton>
+      <WalletConnectButton startIcon={walletIcon()} className="bg-brand-orange">
+        {children}
+      </WalletConnectButton>
     );
   }
 
@@ -106,7 +119,7 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     <div className="block relative">
       <Button
         aria-expanded={active}
-        className={cx("bg-brand-orange-active", {
+        className={cx("wallet-adapter-button-active", {
           "pointer-events-auto": active,
         })}
         onClick={openDropdown}
@@ -138,7 +151,7 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
 
         {!isMetaMaskConnected(metaMaskReadyStatus as MetaMaskStatus) && (
           <li
-            onClick={handleDisconnect}
+            onClick={disconnect}
             className="wallet-adapter-dropdown-list-item"
             role="menuitem"
           >

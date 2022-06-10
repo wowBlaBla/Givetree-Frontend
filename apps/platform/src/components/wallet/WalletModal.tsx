@@ -1,10 +1,14 @@
 import React, { FC, useCallback } from "react";
+import cx from "classnames";
 import { useMetaMask } from "metamask-react";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { WalletName } from "@solana/wallet-adapter-base";
 
 import { Modal } from "../Modal";
 import { MetaMaskIcon } from "../icons/MetaMaskIcon";
 import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
-import { isMetaMaskConnected, isMetaMaskInstalled } from "../../utils/isMetaMask";
+import { isMetaMaskConnected } from "../../utils/isMetaMask";
+import { WalletIcon } from "./WalletIcon";
 
 interface WalletModalProps {
   closeDropdown: () => void;
@@ -12,19 +16,28 @@ interface WalletModalProps {
 
 export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
   const { status: metaMaskReadyStatus, connect } = useMetaMask();
+  const { connected, disconnect, wallets, select } = useSolanaWallet();
   const isMetaMaskStatusConnected = isMetaMaskConnected(
     metaMaskReadyStatus as MetaMaskStatus
   );
 
   const handleMetaMaskWallet = useCallback(() => {
-    if (isMetaMaskInstalled()) {
-      connect();
-    } else {
-      console.log("Not installed");
-    }
-
+    connect();
     closeDropdown();
-  }, [connect, closeDropdown]);
+    disconnect();
+  }, [connect, closeDropdown, disconnect]);
+
+  const handleSolanaWallet = useCallback(
+    (walletName: WalletName, isDisabled: boolean) => {
+      if (isDisabled) {
+        return;
+      }
+
+      select(walletName);
+      closeDropdown();
+    },
+    [closeDropdown, select]
+  );
 
   return (
     <Modal modalName="wallet-modal">
@@ -35,15 +48,14 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
       {isMetaMaskStatusConnected && (
         <div className="py-3 px-5 mb-10 border border-orange-600 bg-orange-400 bg-opacity-10 text-gray-200 rounded-xl">
           <p>
-            Note: You must disconnect MetaMask from your browser before you can connect to
-            another wallet.
+            Note: You must disconnect MetaMask from your web browser before you can
+            connect to another wallet.
           </p>
         </div>
       )}
 
-      <h3 className="flex w-full text-gray-400 text-lg">Ethereum</h3>
-      <ul className="w-full my-3 list-none">
-        <li className="py-2 px-3 rounded-lg button-hover">
+      <ul className="w-full my-2 list-none">
+        <li className="p-2 rounded-lg button-hover">
           <label
             className="w-full text-lg sm:text-xl normal-case"
             htmlFor="wallet-modal"
@@ -53,15 +65,58 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
               <MetaMaskIcon />
               <div className="flex justify-between items-baseline w-full">
                 <span>MetaMask</span>
-                {isMetaMaskInstalled() && (
+                {isMetaMaskStatusConnected && (
                   <span className="text-sm sm:text-base font-normal opacity-60">
-                    Detected
+                    Connected
+                  </span>
+                )}
+                {!isMetaMaskStatusConnected && (
+                  <span className="text-sm sm:text-base font-normal opacity-60">
+                    Ethereum
                   </span>
                 )}
               </div>
             </div>
           </label>
         </li>
+      </ul>
+
+      <ul className="w-full my-2 list-none">
+        {wallets.map((wallet, idx) => (
+          <li key={idx} className="p-2 rounded-lg button-hover">
+            <label
+              className="w-full text-lg sm:text-xl normal-case"
+              htmlFor={cx({
+                "wallet-modal": !isMetaMaskStatusConnected,
+              })}
+              onClick={() =>
+                handleSolanaWallet(wallet.adapter.name, isMetaMaskStatusConnected)
+              }
+            >
+              <div
+                className={cx("flex items-center space-x-3", {
+                  "text-white": !isMetaMaskStatusConnected,
+                })}
+              >
+                <WalletIcon className="w-6 h-6" wallet={wallet} />
+                <div className="flex justify-between items-baseline w-full">
+                  <span>{wallet.adapter.name}</span>
+                  {connected && (
+                    <span className="text-sm sm:text-base font-normal opacity-60">
+                      Connected
+                    </span>
+                  )}
+
+                  {!connected && (
+                    <span className="text-sm sm:text-base font-normal opacity-60">
+                      Solana
+                    </span>
+                  )}
+                </div>
+              </div>
+            </label>
+          </li>
+        ))}
       </ul>
     </Modal>
   );
