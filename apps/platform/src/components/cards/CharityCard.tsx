@@ -2,11 +2,12 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
 import cx from "classnames";
-import { DarkBlend } from "../BoxBlends";
+import { DarkBlendBottom } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { useNavigate } from "react-router-dom";
 import { Charity } from "../../typed/charity";
 import { DonateModal } from "../DonateModal";
+import { PlatformRoute } from "../../configs/routes";
 
 interface CharityCardProps {
   charity: Charity;
@@ -15,7 +16,8 @@ interface CharityCardProps {
 export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const navigate = useNavigate();
 
-  const handleNextLocation = () => navigate(`/impact-partners/${charity.slug}`);
+  const handleNextLocation = () =>
+    navigate(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
   return (
     <div className="relative w-full overflow-hidden shadow-lg cursor-pointer select-none rounded-xl bg-brand-black">
@@ -33,7 +35,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           src={charity.media.tileUrl}
         />
 
-        <DarkBlend bottom small />
+        <DarkBlendBottom className="h-16" />
       </div>
 
       <div className="flex flex-col justify-end w-full mt-1 space-y-3 p-2">

@@ -16,7 +16,7 @@ export const genTheArtOfSeasonsCampaignData = (x?: Partial<Campaign>): Campaign 
   id: gen.datatype.uuid(),
   title: "The Art of Seasons",
   slug: "the-art-of-seasons",
-  shortDescription: gen.lorem.paragraph(),
+  shortDescription: gen.lorem.sentences(3),
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: TheArtOfSeasonsBannerImage.src,

@@ -38,11 +38,7 @@ export const InputGroup: FC<InputGroupProps> = ({
 
   return (
     <div className="form-control w-full">
-      <Label htmlFor={name}></Label>
-      <label htmlFor={name} className="label">
-        <span>{label}</span>
-      </label>
-
+      <Label htmlFor={name}>{label}</Label>
       <div className="mt-1">
         <Field
           as={as}

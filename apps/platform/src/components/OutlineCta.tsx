@@ -2,16 +2,22 @@ import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
-const ButtonStyles =
+export const ButtonStyles =
   "border-2 border-brand-orange rounded-lg text-brand-orange button-hover";
 
 interface ButtonProps {
-  type?: "button" | "submit" | "reset" | undefined;
-  className?: string;
   children?: ReactNode;
+  className?: string;
+  onClick: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const OutlineButton: FC<ButtonProps> = ({ children, className, type }) => (
+export const OutlineButton: FC<ButtonProps> = ({
+  children,
+  className,
+  onClick,
+  type,
+}) => (
   <button
     className={cx(
       "py-1 px-3 sm:py-2 sm:px-4 text-sm sm:text-base",
@@ -19,6 +25,7 @@ export const OutlineButton: FC<ButtonProps> = ({ children, className, type }) =>
       className
     )}
     type={type || "button"}
+    onClick={onClick}
   >
     {children}
   </button>

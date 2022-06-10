@@ -15,7 +15,7 @@ export const genGenopetsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
   title: "Genopets",
   slug: "genopets",
-  shortDescription: gen.lorem.paragraphs(),
+  shortDescription: gen.lorem.sentences(3),
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: "/videos/genopets-bg.mp4",

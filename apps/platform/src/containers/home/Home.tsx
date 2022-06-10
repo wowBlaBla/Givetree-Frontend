@@ -14,7 +14,7 @@ import { Carousel } from "../../components/Carousel";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { MainBanner } from "../../components/MainBanner";
-import { OutlineLink } from "../../components/OutlineButton";
+import { OutlineLink } from "../../components/OutlineCta";
 import { SectionTitle } from "../../components/SectionTitle";
 
 import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
@@ -52,6 +52,7 @@ export const HomeContainer = () => {
             ctaLink1={`${PlatformRoute.CampaignListing}`}
             ctaLink1Text="Go to launchpad"
           />
+
           <MainBanner
             backgroundAsset={MulgaBannerImage.src}
             title="Mulgakongz by MulgaTheArtist"
@@ -62,7 +63,7 @@ export const HomeContainer = () => {
         </Carousel>
       </div>
 
-      <div className="mt-12 sm:mt-16">
+      <div className="mt-12 sm:mt-24">
         {/* TODO: Update image */}
         {/* <SectionContainer>
           <div className="grid grid-cols-1 sm:grid-cols-2 mt-5 mb-12">

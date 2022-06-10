@@ -4,7 +4,7 @@ import { Field as FormikField } from "formik";
 
 interface FieldProps {
   as?: string;
-  children: ReactNode;
+  children?: ReactNode;
   className: string;
   isDisabled?: boolean;
   isError?: boolean;

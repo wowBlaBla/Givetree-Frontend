@@ -11,7 +11,6 @@ export const WalletDisconnectButton: FC<ButtonProps> = ({
   ...props
 }) => {
   const { wallet, disconnect, disconnecting } = useWallet();
-  // const { account, connect } = useMetaMask();
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {

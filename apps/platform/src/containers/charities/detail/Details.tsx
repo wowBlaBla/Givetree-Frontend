@@ -3,11 +3,11 @@ import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { useParams } from "react-router-dom";
 import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./DetailsData";
-import { BackgroundAsset } from "../../../components/BackgroundAsset";
+import { BackgroundImage } from "../../../components/BackgroundImage";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { LoadingContainer } from "../../../components/LoadingContainer";
 import { ErrorContainer } from "../../../components/ErrorContainer";
-import { PrimaryLink } from "../../../components/PrimaryButton";
+import { PrimaryLink } from "../../../components/PrimaryCta";
 
 export const CharityDetailsContainer = () => {
   const params = useParams();
@@ -40,7 +40,7 @@ export const CharityDetailsContainer = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 w-full max-w-screen-xl mx-auto my-6 sm:my-8 px-3">
         <div className="flex flex-col space-y-5">
           <div className="relative pt-full">
-            <BackgroundAsset
+            <BackgroundImage
               asset={data.charity.media.previewUrl}
               className="border rounded-xl shadow-lg"
             />

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { BackgroundAsset } from "./BackgroundAsset";
-import { DarkBlend } from "./BoxBlends";
+import { BackgroundImage } from "./BackgroundImage";
+import { DarkBlendBottom } from "./BoxBlends";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { CurrencyIcon } from "./icons/CurrencyIcon";
 import { SupportedPlatform } from "../typed/enum/supportedPlatform";
@@ -27,10 +27,10 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 }) => {
   return (
     <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
-      <BackgroundAsset asset={backgroundImage} />
+      <BackgroundImage asset={backgroundImage} />
 
       <div className="absolute bottom-0 w-full z-10">
-        <DarkBlend bottom xlarge />
+        <DarkBlendBottom className="h-72" />
       </div>
 
       <div className="flex items-end w-full min-h-full mx-auto max-w-screen-3xl">

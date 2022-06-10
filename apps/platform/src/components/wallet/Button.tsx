@@ -27,14 +27,16 @@ export const Button: FC<ButtonProps> = ({
   tabIndex,
 }) => (
   <button
-    className={cx("wallet-adapter-button space-x-1", className)}
+    className={cx("wallet-adapter-button", className)}
     disabled={disabled}
     onClick={onClick}
     tabIndex={tabIndex || 0}
     type="button"
     style={style}
   >
-    {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
-    <div>{children}</div>
+    <div className="flex items-center space-x-2">
+      {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
+      <div className="w-full">{children}</div>
+    </div>
   </button>
 );

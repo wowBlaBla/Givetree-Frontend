@@ -20,7 +20,7 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
   <div className="flex relative flex-col justify-end items-center space-y-2 z-30">
     <div
       className={cx({
-        "w-12 h-12 sm:w-20 sm:h-20": !large,
+        "w-12 h-12 sm:w-16 sm:h-16 xl:w-20 xl:h-20": !large,
         "w-16 h-16 sm:w-28 sm:h-28": large,
       })}
     >

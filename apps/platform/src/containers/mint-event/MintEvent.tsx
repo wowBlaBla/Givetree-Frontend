@@ -5,12 +5,12 @@ import Head from "next/head";
 
 import { GetMintingEventDataQuery, GET_MINTING_EVENT_DATA } from "./MintEventData";
 
-import { BackgroundAsset } from "../../components/BackgroundAsset";
+import { BackgroundImage } from "../../components/BackgroundImage";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
-import { PrimaryButton } from "../../components/PrimaryButton";
+import { PrimaryButton } from "../../components/PrimaryCta";
 import { LiveBadge } from "../../components/badges/LiveBadge";
 import { Currency } from "../../components/Currency";
-import { DarkBlend } from "../../components/BoxBlends";
+import { DarkBlendTop } from "../../components/BoxBlends";
 import { ContentCreatorBadge } from "../../components/badges/ContentCreatorBadge";
 import { PlatformRoute } from "../../configs/routes";
 import { BackButton } from "../../components/BackButton";
@@ -35,14 +35,14 @@ export const MintEventContainer: FC = () => {
         <title>GiveTree - {data.campaign.title}</title>
       </Head>
 
-      <BackgroundAsset asset={data.campaign.media.mintingBannerUrl} />
-      <DarkBlend top xlarge />
+      <BackgroundImage asset={data.campaign.media.mintingBannerUrl} />
+      <DarkBlendTop className="h-72" />
 
       <div className="flex flex-1 justify-center items-center w-full h-full m-auto py-10 p-5">
         <div className="absolute top-0 w-full h-48 z-20 bg-gradient-to-b from-brand-black to-transparent" />
 
-        <div className="flex justify-center relative rounded-lg w-full max-w-3xl m-auto text-center">
-          <div className="absolute w-full h-full bg-black bg-opacity-20 backdrop-blur-lg shadow-lg rounded-lg z-0"></div>
+        <div className="flex justify-center relative w-full max-w-3xl m-auto text-center">
+          <div className="absolute w-full h-full bg-black bg-opacity-20 backdrop-blur-xl shadow-lg rounded-xl z-10"></div>
           <BackButton className="absolute top-0 left-0 m-3 sm:m-5 z-50 text-white" />
 
           <div className="flex relative flex-col justify-center items-center w-full sm:w-2/5 pt-10 pb-5 z-40">
@@ -69,7 +69,7 @@ export const MintEventContainer: FC = () => {
             <div className="flex flex-col space-y-10 sm:space-y-12 justify-center items-center w-full mt-12 px-3">
               <div className="flex flex-col w-full item-center">
                 <div className="relative w-full h-full pt-full">
-                  <BackgroundAsset
+                  <BackgroundImage
                     asset={data.campaign.media.mintingCollectionPreviewUrl}
                     className="rounded-xl shadow-lg"
                   />

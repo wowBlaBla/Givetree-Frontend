@@ -16,7 +16,7 @@ export const genOmgkirbyGenesisCampaignData = (x?: Partial<Campaign>): Campaign 
   id: gen.datatype.uuid(),
   title: "omgkirby Genesis",
   slug: "omgkirby-genesis",
-  shortDescription: gen.lorem.paragraph(),
+  shortDescription: gen.lorem.sentences(3),
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: OmgkirbyGenesisBannerImage.src,

@@ -1,15 +1,14 @@
-import React, { FC, useCallback, useMemo, MouseEvent } from "react";
+import React, { FC } from "react";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { Charity } from "../typed/charity";
 import { SectionTitle } from "./SectionTitle";
-import { InputGroup } from "./forms/InputGroup";
-import { PrimaryButton } from "./PrimaryButton";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { WalletIcon } from "./wallet/WalletIcon";
-import { Button } from "./wallet/Button";
-import { WalletName } from "@solana/wallet-adapter-base";
+import { PrimaryButton } from "./PrimaryCta";
+import { Field } from "./forms/Field";
+import { InputErrorBox } from "./forms/InputError";
+import { Label } from "./forms/Label";
+import { Modal } from "./Modal";
 
 interface DonateModalProps {
   className?: string;
@@ -21,34 +20,11 @@ const validateDonationForm = yup.object().shape({
 });
 
 export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
-  const { wallets, select, connecting, connected, wallet, publicKey } = useWallet();
-
   const onSubmit = () => {
     toast.success("Thank you for the donation, you legend!");
 
     return console.log("submitted");
   };
-
-  const content = useMemo(() => {
-    if (connecting) {
-      return "Connecting ...";
-    } else if (connected && publicKey) {
-      return publicKey.toBase58().slice(0, 10) + "...";
-    } else if (connected) {
-      return "Connected";
-    } else if (wallet) {
-      return "Connect";
-    } else {
-      return "Connect Wallet";
-    }
-  }, [connecting, connected, wallet, publicKey]);
-
-  const handleSolanaWallet = useCallback(
-    (event: MouseEvent, walletName: WalletName) => {
-      return select(walletName);
-    },
-    [select]
-  );
 
   return (
     <div className={className}>
@@ -59,67 +35,55 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
         Donate
       </label>
 
-      <input
-        type="checkbox"
-        id={`donate-modal-${charity.slug}`}
-        className="modal-toggle"
-      />
-      <label
-        htmlFor={`donate-modal-${charity.slug}`}
-        className="modal cursor-pointer bg-black bg-opacity-50"
-      >
-        <label
-          className="modal-box flex relative flex-col space-y-5 bg-brand-black rounded-xl"
-          htmlFor=""
+      <Modal modalName={`donate-modal-${charity.slug}`}>
+        <SectionTitle className="text-center text-white">{charity.name}</SectionTitle>
+
+        <div className="flex flex-col items-center w-full space-y-5 mt-5"></div>
+
+        <Formik
+          initialValues={{ amount: 0 }}
+          onSubmit={onSubmit}
+          validationSchema={validateDonationForm}
         >
-          <label
-            htmlFor={`donate-modal-${charity.slug}`}
-            className="absolute right-2 top-2 my-4 mx-5 text-lg text-gray-400"
-          >
-            ✕
-          </label>
+          {({ errors, touched, values }) => (
+            <Form>
+              <Label className="text-white">Amount</Label>
+              <Field
+                className="input input-bordered w-full"
+                name="amount"
+                type="number"
+                value={values.amount}
+              />
+              <InputErrorBox
+                hasError={touched.amount && !!errors.amount}
+                message={errors.amount}
+              />
 
-          <SectionTitle className="text-center text-white">{charity.name}</SectionTitle>
+              <div className="flex flex-col w-full mt-6 py-2 text-white">
+                <h3>Distribution:</h3>
+                <table className="mt-1">
+                  <tbody>
+                    <tr>
+                      <td className="py-1">{charity.name}</td>
+                      <td className="text-right py-1">99%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-1">GiveTree Fee</td>
+                      <td className="text-right py-1">1%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-          <div className="flex flex-col items-center space-y-5 w-full">
-            {wallets.map((wallet, idx) => (
-              <Button
-                key={idx}
-                className="border-2 border-brand-orange rounded-lg text-brand-orange button-hover"
-                startIcon={<WalletIcon wallet={wallet} />}
-                onClick={(event) => handleSolanaWallet(event, wallet.adapter.name)}
-              >
-                {content}
-              </Button>
-            ))}
-          </div>
-
-          <Formik
-            initialValues={{ amount: 0 }}
-            onSubmit={onSubmit}
-            validationSchema={validateDonationForm}
-          >
-            {({ errors, touched, values }) => (
-              <Form>
-                <InputGroup
-                  error={errors.amount}
-                  label="Amount"
-                  name="amount"
-                  type="number"
-                  value={values.amount}
-                  touched={touched.amount}
-                />
-
-                <div className="flex flex-row-reverse w-full mt-3">
-                  <PrimaryButton className="btn" type="submit">
-                    Donate
-                  </PrimaryButton>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </label>
-      </label>
+              <div className="flex flex-row-reverse w-full mt-6">
+                <PrimaryButton className="btn" type="submit">
+                  Donate
+                </PrimaryButton>
+              </div>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
     </div>
   );
 };

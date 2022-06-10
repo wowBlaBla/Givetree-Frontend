@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
-import { BackgroundAsset } from "../../../components/BackgroundAsset";
+import { BackgroundImage } from "../../../components/BackgroundImage";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
@@ -16,7 +16,7 @@ import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
 import { getEventStatus } from "../../../utils/getEventStatus";
-import { PrimaryLink } from "../../../components/PrimaryButton";
+import { PrimaryLink } from "../../../components/PrimaryCta";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -99,7 +99,7 @@ export const CampaignDetailsContainer: FC = () => {
           <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5">
             <div className="flex relative flex-col item-center w-full">
               <div className="relative pt-full">
-                <BackgroundAsset
+                <BackgroundImage
                   asset={data.campaign.media.campaignCollectionPreviewUrl}
                   className="rounded-xl shadow-lg"
                 />
@@ -128,7 +128,7 @@ export const CampaignDetailsContainer: FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-6 mt-12">
           <div className="col-span-3 sm:col-span-2">
             <div className="relative pt-full">
-              <BackgroundAsset
+              <BackgroundImage
                 asset={data.campaign.media.campaignDetailsUrl}
                 className="rounded-xl shadow-lg"
               />

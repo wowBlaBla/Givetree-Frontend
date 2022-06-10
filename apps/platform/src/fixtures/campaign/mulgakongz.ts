@@ -16,7 +16,7 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
   title: "Mulgakongz",
   slug: "mulgakongz",
-  shortDescription: gen.lorem.paragraph(),
+  shortDescription: gen.lorem.sentences(3),
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: MulgakongzBannerImage.src,
