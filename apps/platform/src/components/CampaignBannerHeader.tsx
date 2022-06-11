@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "./BackgroundImage";
+import { BackgroundVideo } from "./BackgroundVideo";
 import { DarkBlendBottom } from "./BoxBlends";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { CurrencyIcon } from "./icons/CurrencyIcon";
 import { SupportedPlatform } from "../typed/enum/supportedPlatform";
 import { VerificationBadge } from "./badges/VerificationBadge";
+import { AssetType, getAssetType } from "../utils/getAssetType";
 
 interface CampaignBannerHeaderProps {
   backgroundImage: string;
@@ -25,9 +27,17 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   currency,
   isVerified,
 }) => {
+  const assetType = getAssetType(backgroundImage);
+
   return (
     <div className="relative min-w-full h-96 xl:h-128 py-5 sm:py-8 overflow-hidden">
-      <BackgroundImage asset={backgroundImage} />
+      {assetType === AssetType.Video && (
+        <BackgroundVideo asset={backgroundImage} className="object-contain" />
+      )}
+
+      {assetType === AssetType.Image && (
+        <BackgroundImage asset={backgroundImage} className="min-h-full" />
+      )}
 
       <div className="absolute bottom-0 w-full z-10">
         <DarkBlendBottom className="h-72" />
