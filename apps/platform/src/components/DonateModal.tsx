@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { Charity } from "../typed/charity";
 import { SectionTitle } from "./SectionTitle";
-import { PrimaryButton } from "./PrimaryCta";
 import { Field } from "./forms/Field";
 import { InputErrorBox } from "./forms/InputError";
 import { Label } from "./forms/Label";
@@ -76,9 +75,12 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
               </div>
 
               <div className="flex flex-row-reverse w-full mt-6">
-                <PrimaryButton className="btn" type="submit">
+                <label
+                  htmlFor={`donate-modal-${charity.slug}`}
+                  className="btn bg-brand-orange button-hover"
+                >
                   Donate
-                </PrimaryButton>
+                </label>
               </div>
             </Form>
           )}

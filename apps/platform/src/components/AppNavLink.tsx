@@ -6,9 +6,10 @@ import { PlatformRoute } from "../configs/routes";
 interface AppNavLink {
   href: PlatformRoute;
   children: ReactNode;
+  onClick?: () => void;
 }
 
-export const AppNavLink: FC<AppNavLink> = ({ children, href }) => {
+export const AppNavLink: FC<AppNavLink> = ({ children, href, onClick }) => {
   const resolved = useResolvedPath(href);
   const isMatch = useMatch({ path: resolved.pathname, end: true });
 
@@ -21,6 +22,7 @@ export const AppNavLink: FC<AppNavLink> = ({ children, href }) => {
           "text-brand-orange-active": isMatch,
         }
       )}
+      onClick={onClick}
     >
       {children}
     </NavLink>
