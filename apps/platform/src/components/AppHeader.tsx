@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import cx from "classnames";
 import { useMetaMask } from "metamask-react";
 import { Link } from "react-router-dom";
-
+import { useWallet } from "@solana/wallet-adapter-react";
 import { AppNavLink } from "./AppNavLink";
 import { GiveTreeLogo } from "./GiveTreeLogo";
-import { UserIcon } from "./icons/UserIcon";
-// import { WalletButton } from "./wallet/WalletButton";
 import { PlatformRoute } from "../configs/routes";
+import { MenuIcon } from "./icons/MenuIcon";
+import { UserIcon } from "./icons/UserIcon";
 import { MetaMaskStatus } from "../typed/enum/metaMaskStatus";
 import { WalletButton } from "./wallet/WalletButton";
-import { useWallet } from "@solana/wallet-adapter-react";
-import { MenuIcon } from "./icons/MenuIcon";
 
 export const AppHeader = (): JSX.Element => {
   const { connected } = useWallet();
@@ -37,11 +35,15 @@ export const AppHeader = (): JSX.Element => {
           </Link>
         </div>
 
+        {/* Desktop Navigation */}
+
         <div className="hidden md:flex justify-center items-center col-span-2 w-full md:space-x-8 lg:space-x-16">
           <AppNavLink href={PlatformRoute.Home}>Home</AppNavLink>
           <AppNavLink href={PlatformRoute.CampaignListing}>Launchpad</AppNavLink>
           <AppNavLink href={PlatformRoute.CharityListing}>Impact Partners</AppNavLink>
         </div>
+
+        {/* Wallet */}
 
         <div
           className={cx("flex flex-1 justify-end items-center w-full", {
@@ -56,11 +58,13 @@ export const AppHeader = (): JSX.Element => {
         </div>
       </div>
 
+      {/* Mobile Navigation */}
+
       <div
         className={cx(
           "absolute h-screen mt-2 bg-brand-black duration-300 overflow-hidden",
           {
-            "w-56": openDropdown,
+            "w-48": openDropdown,
             "w-0": !openDropdown,
           }
         )}
