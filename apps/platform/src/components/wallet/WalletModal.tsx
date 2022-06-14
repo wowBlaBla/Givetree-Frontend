@@ -7,7 +7,7 @@ import { WalletName } from "@solana/wallet-adapter-base";
 import { Modal } from "../Modal";
 import { MetaMaskIcon } from "../icons/MetaMaskIcon";
 import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
-import { isMetaMaskConnected } from "../../utils/isMetaMask";
+import { isMetaMaskConnected, isMetaMaskInstalled } from "../../utils/isMetaMask";
 import { WalletIcon } from "./WalletIcon";
 
 interface WalletModalProps {
@@ -16,16 +16,21 @@ interface WalletModalProps {
 
 export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
   const { status: metaMaskReadyStatus, connect } = useMetaMask();
-  const { connected, disconnect, wallets, select } = useSolanaWallet();
+  const { disconnect, wallets, select } = useSolanaWallet();
+  const isMetaMaskinstaled = isMetaMaskInstalled();
   const isMetaMaskStatusConnected = isMetaMaskConnected(
     metaMaskReadyStatus as MetaMaskStatus
   );
 
   const handleMetaMaskWallet = useCallback(() => {
+    if (!isMetaMaskinstaled) {
+      return window.open("https://metamask.io", "_blank");
+    }
+
     connect();
     closeDropdown();
     disconnect();
-  }, [connect, closeDropdown, disconnect]);
+  }, [connect, closeDropdown, disconnect, isMetaMaskinstaled]);
 
   const handleSolanaWallet = useCallback(
     (walletName: WalletName, isDisabled: boolean) => {
@@ -41,7 +46,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
 
   return (
     <Modal modalName="wallet-modal">
-      <h1 className="p-10 text-2xl sm:text-3xl text-white text-center font-medium">
+      <h1 className="py-10 px-8 text-2xl sm:text-3xl text-white text-center font-medium">
         Connect a wallet to continue
       </h1>
 
@@ -54,8 +59,8 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
         </div>
       )}
 
-      <ul className="w-full my-2 list-none">
-        <li className="p-2 rounded-lg button-hover">
+      <ul className="w-full list-none">
+        <li className="my-2 py-1 px-3 rounded-lg button-hover">
           <label
             className="w-full text-lg sm:text-xl normal-case"
             htmlFor="wallet-modal"
@@ -63,27 +68,20 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
           >
             <div className="flex items-center space-x-3 text-white">
               <MetaMaskIcon />
-              <div className="flex justify-between items-baseline w-full">
+              <div className="flex justify-between items-center w-full">
                 <span>MetaMask</span>
-                {isMetaMaskStatusConnected && (
-                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                    Connected
-                  </span>
-                )}
-                {!isMetaMaskStatusConnected && (
-                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                    Ethereum
-                  </span>
-                )}
+                <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
+                  Ethereum
+                </span>
               </div>
             </div>
           </label>
         </li>
       </ul>
 
-      <ul className="w-full my-2 list-none">
+      <ul className="w-full list-none">
         {wallets.map((wallet, idx) => (
-          <li key={idx} className="p-2 rounded-lg button-hover">
+          <li key={idx} className="my-2 py-1 px-3 rounded-lg button-hover">
             <label
               className="w-full text-lg sm:text-xl normal-case"
               htmlFor={cx({
@@ -99,19 +97,11 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                 })}
               >
                 <WalletIcon className="w-6 h-6" wallet={wallet} />
-                <div className="flex justify-between items-baseline w-full">
+                <div className="flex justify-between items-center w-full">
                   <span>{wallet.adapter.name}</span>
-                  {connected && (
-                    <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                      Connected
-                    </span>
-                  )}
-
-                  {!connected && (
-                    <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                      Solana
-                    </span>
-                  )}
+                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
+                    Solana
+                  </span>
                 </div>
               </div>
             </label>
