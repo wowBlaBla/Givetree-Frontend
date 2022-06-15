@@ -17,20 +17,20 @@ interface WalletModalProps {
 export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
   const { status: metaMaskReadyStatus, connect } = useMetaMask();
   const { disconnect, wallets, select } = useSolanaWallet();
-  const isMetaMaskinstaled = isMetaMaskInstalled();
+  const isMetaMaskStatusInstalled = isMetaMaskInstalled();
   const isMetaMaskStatusConnected = isMetaMaskConnected(
     metaMaskReadyStatus as MetaMaskStatus
   );
 
   const handleMetaMaskWallet = useCallback(() => {
-    if (!isMetaMaskinstaled) {
+    if (!isMetaMaskStatusInstalled) {
       return window.open("https://metamask.io", "_blank");
     }
 
     connect();
     closeDropdown();
     disconnect();
-  }, [connect, closeDropdown, disconnect, isMetaMaskinstaled]);
+  }, [connect, closeDropdown, disconnect, isMetaMaskStatusInstalled]);
 
   const handleSolanaWallet = useCallback(
     (walletName: WalletName, isDisabled: boolean) => {
