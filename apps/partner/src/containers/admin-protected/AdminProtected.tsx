@@ -14,7 +14,9 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
 }) => {
   const { isAuthenticated, isLoading, user, logout } = useAuth0();
   const [getUserDetails, { data: userData, loading: userLoading, error: userError }] =
-    useGetUserDetailsLazyQuery();
+    useGetUserDetailsLazyQuery({
+      fetchPolicy: "network-only",
+    });
 
   if (!isLoading && !isAuthenticated) {
     logout();
@@ -38,7 +40,6 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
 
   useEffect(() => {
     if (userData && userData.users_by_pk?.role !== AuthRole.admin) {
-      console.log(userData);
       toast.warning("This account does not have admin access");
       logout();
     }
