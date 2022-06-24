@@ -19,8 +19,13 @@ export type Scalars = {
   uuid: any;
 };
 
+export type Boolean_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
 /** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
 export type Boolean_Comparison_Exp = {
+  _cast?: InputMaybe<Boolean_Cast_Exp>;
   _eq?: InputMaybe<Scalars['Boolean']>;
   _gt?: InputMaybe<Scalars['Boolean']>;
   _gte?: InputMaybe<Scalars['Boolean']>;
@@ -32,8 +37,13 @@ export type Boolean_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
+export type Int_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
+  _cast?: InputMaybe<Int_Cast_Exp>;
   _eq?: InputMaybe<Scalars['Int']>;
   _gt?: InputMaybe<Scalars['Int']>;
   _gte?: InputMaybe<Scalars['Int']>;
@@ -161,9 +171,9 @@ export type Collections_Bool_Exp = {
 
 /** unique or primary key constraints on table "collections" */
 export enum Collections_Constraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "id" */
   CampainsPkey = 'campains_pkey',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "slug" */
   CampainsSlugKey = 'campains_slug_key'
 }
 
@@ -415,8 +425,13 @@ export type Collections_Variance_Fields = {
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
+export type Date_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
 export type Date_Comparison_Exp = {
+  _cast?: InputMaybe<Date_Cast_Exp>;
   _eq?: InputMaybe<Scalars['date']>;
   _gt?: InputMaybe<Scalars['date']>;
   _gte?: InputMaybe<Scalars['date']>;
@@ -791,8 +806,13 @@ export type Subscription_RootUsers_By_PkArgs = {
   userId: Scalars['String'];
 };
 
+export type Timestamptz_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
+  _cast?: InputMaybe<Timestamptz_Cast_Exp>;
   _eq?: InputMaybe<Scalars['timestamptz']>;
   _gt?: InputMaybe<Scalars['timestamptz']>;
   _gte?: InputMaybe<Scalars['timestamptz']>;
@@ -842,7 +862,7 @@ export type User_Status_Bool_Exp = {
 
 /** unique or primary key constraints on table "user_status" */
 export enum User_Status_Constraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "text" */
   StatusPkey = 'status_pkey'
 }
 
@@ -1047,11 +1067,11 @@ export type Users_Bool_Exp = {
 
 /** unique or primary key constraints on table "users" */
 export enum Users_Constraint {
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "email" */
   UsersEmailKey = 'users_email_key',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "userId" */
   UsersPkey = 'users_pkey',
-  /** unique or primary key constraint */
+  /** unique or primary key constraint on columns "userId" */
   UsersUserIdKey = 'users_userId_key'
 }
 
@@ -1490,8 +1510,13 @@ export type Users_Variance_Fields = {
   cryptoExperienceRating?: Maybe<Scalars['Float']>;
 };
 
+export type Uuid_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
 export type Uuid_Comparison_Exp = {
+  _cast?: InputMaybe<Uuid_Cast_Exp>;
   _eq?: InputMaybe<Scalars['uuid']>;
   _gt?: InputMaybe<Scalars['uuid']>;
   _gte?: InputMaybe<Scalars['uuid']>;
