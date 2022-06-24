@@ -26,17 +26,21 @@ const InnerOnboardingForm: FC<FormikProps<OnboardingFormValues>> = ({
   setFieldValue,
 }) => (
   <Form className="flex flex-col space-y-10">
-    <SelectGroup
-      error={errors.userType}
-      includeBlankOption
-      blankOptionText="Select Partner"
-      label="Are you a Content Creator or Charity?"
-      name="userType"
-      options={USER_TYPE_OPTIONS}
-      touched={touched.userType}
-      value={values.userType}
-      setValue={setFieldValue}
-    />
+    {values.userType !== PartnerType.Admin && (
+      <SelectGroup
+        error={errors.userType}
+        includeBlankOption
+        blankOptionText="Select Partner"
+        label="Are you a Content Creator or Charity?"
+        name="userType"
+        options={USER_TYPE_OPTIONS}
+        touched={touched.userType}
+        value={values.userType}
+        setValue={setFieldValue}
+      />
+    )}
+
+    {values.userType === PartnerType.Admin && <p>This is an admin account</p>}
 
     <div>
       <h3 className="text-2xl font-semibold">Profile</h3>
