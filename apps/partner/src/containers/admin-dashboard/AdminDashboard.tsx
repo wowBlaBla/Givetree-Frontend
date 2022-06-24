@@ -36,6 +36,8 @@ export const AdminDashboardContainer = () => {
               <th>Artist name</th>
               <th>Exp. release date</th>
               <th>Status</th>
+              <th>ETH wallet</th>
+              <th>SOL wallet</th>
               <th>Created at</th>
             </tr>
           </thead>
@@ -55,6 +57,8 @@ export const AdminDashboardContainer = () => {
                 <td>{u.aliasName ?? "-"}</td>
                 <td>{formatTabularDate(u.expectedReleaseDate, false)}</td>
                 <td>{u.status || "None"}</td>
+                <td>{u.ethWalletAddress || "None"}</td>
+                <td>{u.solWalletAddress || "None"}</td>
                 <td>{formatTabularDate(u.createdAt)}</td>
               </tr>
             ))}
