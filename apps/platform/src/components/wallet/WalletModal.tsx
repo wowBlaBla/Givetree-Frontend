@@ -1,306 +1,113 @@
-import React, {
-  FC,
-  MouseEvent,
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { createPortal } from "react-dom";
+import React, { FC, useCallback } from "react";
 import cx from "classnames";
-import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
-import { useWallet, Wallet } from "@solana/wallet-adapter-react";
-// import { Button } from "./Button";
-import { Collapse } from "./Collapse";
-import { useWalletModal } from "../../hooks/useWalletModal";
-import { WalletListItem } from "./WalletListItem";
-import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
-// import { MetaMaskIcon } from "../icons/MetaMaskIcon";
-// import { useMetaMask } from "metamask-react";
-// import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
+import { useMetaMask } from "metamask-react";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { WalletName } from "@solana/wallet-adapter-base";
 
-export interface WalletModalProps {
-  className?: string;
-  container?: string;
+import { Modal } from "../Modal";
+import { MetaMaskIcon } from "../icons/MetaMaskIcon";
+import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
+import { isMetaMaskConnected, isMetaMaskInstalled } from "../../utils/isMetaMask";
+import { WalletIcon } from "./WalletIcon";
+
+interface WalletModalProps {
+  closeDropdown: () => void;
 }
 
-export const WalletModal: FC<WalletModalProps> = ({ className, container = "body" }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { wallets, select } = useWallet();
-  // const { status, connect } = useMetaMask();
+export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
+  const { status: metaMaskReadyStatus, connect } = useMetaMask();
+  const { disconnect, wallets, select } = useSolanaWallet();
+  const isMetaMaskStatusInstalled = isMetaMaskInstalled();
+  const isMetaMaskStatusConnected = isMetaMaskConnected(
+    metaMaskReadyStatus as MetaMaskStatus
+  );
 
-  const { setVisible } = useWalletModal();
-  const [expanded, setExpanded] = useState(false);
-  const [fadeIn, setFadeIn] = useState(false);
-  const [portal, setPortal] = useState<Element | null>(null);
-
-  const [installedWallets, otherWallets] = useMemo(() => {
-    const installed: Wallet[] = [];
-    const notDetected: Wallet[] = [];
-    const loadable: Wallet[] = [];
-
-    for (const wallet of wallets) {
-      if (wallet.readyState === WalletReadyState.NotDetected) {
-        notDetected.push(wallet);
-      } else if (wallet.readyState === WalletReadyState.Loadable) {
-        loadable.push(wallet);
-      } else if (wallet.readyState === WalletReadyState.Installed) {
-        installed.push(wallet);
-      }
+  const handleMetaMaskWallet = useCallback(() => {
+    if (!isMetaMaskStatusInstalled) {
+      return window.open("https://metamask.io", "_blank");
     }
 
-    return [installed, [...loadable, ...notDetected]];
-  }, [wallets]);
+    connect();
+    closeDropdown();
+    disconnect();
+  }, [connect, closeDropdown, disconnect, isMetaMaskStatusInstalled]);
 
-  const getStartedWallet = useMemo(() => {
-    return installedWallets.length
-      ? installedWallets[0]
-      : wallets.find(
-          (wallet: { adapter: { name: WalletName } }) => wallet.adapter.name === "Phantom"
-        ) ||
-          wallets.find(
-            (wallet: { readyState: WalletReadyState | undefined }) =>
-              wallet.readyState === WalletReadyState.Loadable
-          ) ||
-          otherWallets[0];
-  }, [installedWallets, wallets, otherWallets]);
+  const handleSolanaWallet = useCallback(
+    (walletName: WalletName, isDisabled: boolean) => {
+      if (isDisabled) {
+        return;
+      }
 
-  const hideModal = useCallback(() => {
-    setFadeIn(false);
-    setTimeout(() => setVisible(false), 150);
-  }, [setVisible]);
-
-  const handleClose = useCallback(
-    (event: MouseEvent) => {
-      event.preventDefault();
-      hideModal();
-    },
-    [hideModal]
-  );
-
-  const handleSolWalletClick = useCallback(
-    (event: MouseEvent, walletName: WalletName) => {
       select(walletName);
-      handleClose(event);
+      closeDropdown();
     },
-    [select, handleClose]
+    [closeDropdown, select]
   );
-
-  // TODO: Add MetaMask Wallet
-  // const handleEthWalletClick = useCallback(
-  //   (event: MouseEvent) => {
-  //     connect();
-  //     handleClose(event);
-  //   },
-  //   [connect, handleClose]
-  // );
-
-  const handleCollapseClick = useCallback(() => setExpanded(!expanded), [expanded]);
-
-  const handleTabKey = useCallback(
-    (event: KeyboardEvent) => {
-      const node = ref.current;
-      if (!node) return;
-
-      // here we query all focusable elements
-      const focusableElements = node.querySelectorAll("button");
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-
-      if (event.shiftKey) {
-        // if going backward by pressing tab and firstElement is active, shift focus to last focusable element
-        if (document.activeElement === firstElement) {
-          lastElement.focus();
-          event.preventDefault();
-        }
-      } else {
-        // if going forward by pressing tab and lastElement is active, shift focus to first focusable element
-        if (document.activeElement === lastElement) {
-          firstElement.focus();
-          event.preventDefault();
-        }
-      }
-    },
-    [ref]
-  );
-
-  useLayoutEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        hideModal();
-      } else if (event.key === "Tab") {
-        handleTabKey(event);
-      }
-    };
-
-    // Get original overflow
-    const { overflow } = window.getComputedStyle(document.body);
-    // Hack to enable fade in animation after mount
-    setTimeout(() => setFadeIn(true), 0);
-    // Prevent scrolling on mount
-    document.body.style.overflow = "hidden";
-    // Listen for keydown events
-    window.addEventListener("keydown", handleKeyDown, false);
-
-    return () => {
-      // Re-enable scrolling when component unmounts
-      document.body.style.overflow = overflow;
-      window.removeEventListener("keydown", handleKeyDown, false);
-    };
-  }, [hideModal, handleTabKey]);
-
-  useLayoutEffect(() => setPortal(document.querySelector(container)), [container]);
 
   return (
-    portal &&
-    createPortal(
-      <div
-        aria-labelledby="wallet-adapter-modal-title"
-        aria-modal="true"
-        className={cx("wallet-adapter-modal", className, {
-          "opacity-100": fadeIn,
-        })}
-        ref={ref}
-        role="dialog"
-      >
-        <div className="wallet-adapter-modal-container">
-          <div className="wallet-adapter-modal-wrapper">
-            <button onClick={handleClose} className="wallet-adapter-modal-button-close">
-              <svg width="14" height="14">
-                <path d="M14 12.461 8.3 6.772l5.234-5.233L12.006 0 6.772 5.234 1.54 0 0 1.539l5.234 5.233L0 12.006l1.539 1.528L6.772 8.3l5.69 5.7L14 12.461z" />
-              </svg>
-            </button>
-            {installedWallets.length ? (
-              <>
-                <h1 className="wallet-adapter-modal-title">
-                  Connect a wallet to continue
-                </h1>
+    <Modal modalName="wallet-modal">
+      <h1 className="py-10 px-8 text-2xl sm:text-3xl text-white text-center font-medium">
+        Connect a wallet to continue
+      </h1>
 
-                {/* <h3 className="flex w-full px-3 text-gray-400 text-lg">Ethereum</h3>
-                <ul className="wallet-adapter-modal-list">
-                  <li>
-                    <Button onClick={handleEthWalletClick} startIcon={<MetaMaskIcon />}>
-                      MetaMask
-                      {status !==
-                        (MetaMaskStatus.Unavailable || MetaMaskStatus.Initializing) && (
-                        <span>Detected</span>
-                      )}
-                    </Button>
-                  </li>
-                </ul> */}
-
-                <h3 className="flex w-full px-3 text-gray-400 text-lg">Solana</h3>
-                <ul className="wallet-adapter-modal-list">
-                  {installedWallets.map((wallet) => (
-                    <WalletListItem
-                      key={wallet.adapter.name}
-                      handleClick={(event) =>
-                        handleSolWalletClick(event, wallet.adapter.name)
-                      }
-                      wallet={wallet}
-                    />
-                  ))}
-                  {otherWallets.length ? (
-                    <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
-                      <>
-                        {otherWallets.map((wallet) => (
-                          <WalletListItem
-                            key={wallet.adapter.name}
-                            handleClick={(event) =>
-                              handleSolWalletClick(event, wallet.adapter.name)
-                            }
-                            tabIndex={expanded ? 0 : -1}
-                            wallet={wallet}
-                          />
-                        ))}
-                      </>
-                    </Collapse>
-                  ) : null}
-                </ul>
-                {otherWallets.length ? (
-                  <button
-                    className="wallet-adapter-modal-list-more"
-                    onClick={handleCollapseClick}
-                    tabIndex={0}
-                  >
-                    <span>{expanded ? "Less " : "More "}options</span>
-                    <svg
-                      width="13"
-                      height="7"
-                      viewBox="0 0 13 7"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className={cx({
-                        "wallet-adapter-modal-list-more-icon-rotate": expanded,
-                      })}
-                    >
-                      <path d="M0.71418 1.626L5.83323 6.26188C5.91574 6.33657 6.0181 6.39652 6.13327 6.43762C6.24844 6.47872 6.37371 6.5 6.50048 6.5C6.62725 6.5 6.75252 6.47872 6.8677 6.43762C6.98287 6.39652 7.08523 6.33657 7.16774 6.26188L12.2868 1.626C12.7753 1.1835 12.3703 0.5 11.6195 0.5H1.37997C0.629216 0.5 0.224175 1.1835 0.71418 1.626Z" />
-                    </svg>
-                  </button>
-                ) : null}
-              </>
-            ) : (
-              <>
-                <h1 className="wallet-adapter-modal-title">
-                  You&apos;ll need a wallet on Solana to continue
-                </h1>
-                <div className="wallet-adapter-modal-middle">
-                  <ConnectWalletIcon className="w-6 h-6 text-white" />
-                  <button
-                    type="button"
-                    className="wallet-adapter-modal-middle-button"
-                    onClick={(event) =>
-                      handleSolWalletClick(event, getStartedWallet.adapter.name)
-                    }
-                  >
-                    Get started
-                  </button>
-                </div>
-                {otherWallets.length ? (
-                  <>
-                    <button
-                      className="wallet-adapter-modal-list-more"
-                      onClick={handleCollapseClick}
-                      tabIndex={0}
-                    >
-                      <span>
-                        {expanded ? "Hide " : "Already have a wallet? View "}options
-                      </span>
-                      <svg
-                        width="13"
-                        height="7"
-                        viewBox="0 0 13 7"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className={`${
-                          expanded ? "wallet-adapter-modal-list-more-icon-rotate" : ""
-                        }`}
-                      >
-                        <path d="M0.71418 1.626L5.83323 6.26188C5.91574 6.33657 6.0181 6.39652 6.13327 6.43762C6.24844 6.47872 6.37371 6.5 6.50048 6.5C6.62725 6.5 6.75252 6.47872 6.8677 6.43762C6.98287 6.39652 7.08523 6.33657 7.16774 6.26188L12.2868 1.626C12.7753 1.1835 12.3703 0.5 11.6195 0.5H1.37997C0.629216 0.5 0.224175 1.1835 0.71418 1.626Z" />
-                      </svg>
-                    </button>
-                    <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
-                      <ul className="wallet-adapter-modal-list">
-                        {otherWallets.map((wallet) => (
-                          <WalletListItem
-                            key={wallet.adapter.name}
-                            handleClick={(event) =>
-                              handleSolWalletClick(event, wallet.adapter.name)
-                            }
-                            tabIndex={expanded ? 0 : -1}
-                            wallet={wallet}
-                          />
-                        ))}
-                      </ul>
-                    </Collapse>
-                  </>
-                ) : null}
-              </>
-            )}
-          </div>
+      {isMetaMaskStatusConnected && (
+        <div className="py-3 px-5 mb-10 border border-orange-600 bg-orange-400 bg-opacity-10 text-gray-200 rounded-xl">
+          <p>
+            Note: You must disconnect MetaMask from your web browser before you can
+            connect to another wallet.
+          </p>
         </div>
-        <div className="wallet-adapter-modal-overlay" onMouseDown={handleClose} />
-      </div>,
-      portal
-    )
+      )}
+
+      <ul className="w-full list-none">
+        <li className="my-2 py-1 px-3 rounded-lg button-hover">
+          <label
+            className="w-full text-lg sm:text-xl normal-case"
+            htmlFor="wallet-modal"
+            onClick={handleMetaMaskWallet}
+          >
+            <div className="flex items-center space-x-3 text-white">
+              <MetaMaskIcon />
+              <div className="flex justify-between items-center w-full">
+                <span>MetaMask</span>
+                <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
+                  Ethereum
+                </span>
+              </div>
+            </div>
+          </label>
+        </li>
+      </ul>
+
+      <ul className="w-full list-none">
+        {wallets.map((wallet, idx) => (
+          <li key={idx} className="my-2 py-1 px-3 rounded-lg button-hover">
+            <label
+              className="w-full text-lg sm:text-xl normal-case"
+              htmlFor={cx({
+                "wallet-modal": !isMetaMaskStatusConnected,
+              })}
+              onClick={() =>
+                handleSolanaWallet(wallet.adapter.name, isMetaMaskStatusConnected)
+              }
+            >
+              <div
+                className={cx("flex items-center space-x-3", {
+                  "text-white": !isMetaMaskStatusConnected,
+                })}
+              >
+                <WalletIcon className="w-6 h-6" wallet={wallet} />
+                <div className="flex justify-between items-center w-full">
+                  <span>{wallet.adapter.name}</span>
+                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
+                    Solana
+                  </span>
+                </div>
+              </div>
+            </label>
+          </li>
+        ))}
+      </ul>
+    </Modal>
   );
 };

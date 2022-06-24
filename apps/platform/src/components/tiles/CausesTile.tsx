@@ -9,7 +9,7 @@ interface CausesTileProps {
 }
 
 export const CausesTile: FC<CausesTileProps> = ({ description, causes }) => (
-  <BaseTile className="bg-green-500 text-white">
+  <BaseTile className="border-[2px] border-green-600 bg-white text-brand-black">
     <LeafIcon className="float-right w-8 h-8 fill-current" />
 
     <p className="text-lg font-semibold">{description}</p>
@@ -18,7 +18,7 @@ export const CausesTile: FC<CausesTileProps> = ({ description, causes }) => (
       {causes.map((cause, idx) => (
         <div
           key={idx}
-          className="py-1 px-3 rounded-full border-2 border-white text-xs lg:text-sm font-semibold text-center"
+          className="py-1 px-3 rounded-full border-2 border-green-600 text-xs lg:text-sm font-semibold text-center"
         >
           {cause}
         </div>

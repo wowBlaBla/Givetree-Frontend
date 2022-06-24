@@ -9,5 +9,10 @@ export interface WalletIconProps
 
 export const WalletIcon: FC<WalletIconProps> = ({ wallet, ...props }) =>
   wallet && (
-    <img src={wallet.adapter.icon} alt={`${wallet.adapter.name} icon`} {...props} />
+    <img
+      className="w-6 h-6"
+      src={wallet.adapter.icon}
+      alt={`${wallet.adapter.name} icon`}
+      {...props}
+    />
   );

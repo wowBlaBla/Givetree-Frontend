@@ -6,7 +6,7 @@
 }
 
 .slick-list {
-  @apply block relative mx-0 overflow-x-hidden; 
+  @apply block relative mx-0 overflow-x-hidden;
 }
 
 .slick-list:focus {
@@ -100,7 +100,7 @@
 }
 
 .slick-dots li button {
-  @apply block leading-none w-full h-full border-none rounded-sm bg-brand-black bg-opacity-30 text-none; 
+  @apply block leading-none w-full h-full border-none rounded-sm bg-brand-black bg-opacity-30 text-none;
 }
 
 .slick-dots li button:hover,

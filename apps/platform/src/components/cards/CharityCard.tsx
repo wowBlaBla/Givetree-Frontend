@@ -1,10 +1,13 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
-import { BackgroundAsset } from "../BackgroundAsset";
-import { DarkBlend } from "../BoxBlends";
+import cx from "classnames";
+import { DarkBlendBottom } from "../BoxBlends";
 import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { useNavigate } from "react-router-dom";
 import { Charity } from "../../typed/charity";
-import { PrimaryLinkSm } from "../PrimaryButton";
+import { DonateModal } from "../DonateModal";
+import { PlatformRoute } from "../../configs/routes";
 
 interface CharityCardProps {
   charity: Charity;
@@ -13,7 +16,8 @@ interface CharityCardProps {
 export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const navigate = useNavigate();
 
-  const handleNextLocation = () => navigate(`/impact-partners/${charity.slug}`);
+  const handleNextLocation = () =>
+    navigate(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
   return (
     <div className="relative w-full overflow-hidden shadow-lg cursor-pointer select-none rounded-xl bg-brand-black">
@@ -23,18 +27,23 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       />
 
       <div className="relative pt-full" onClick={handleNextLocation}>
-        <BackgroundAsset asset={charity.media.tileUrl} />
-        <DarkBlend bottom small />
+        <img
+          className={cx("absolute top-0 w-full h-full object-contain", {
+            "bg-white": !charity.custom?.styles?.tileBgColor,
+          })}
+          style={{ backgroundColor: charity.custom?.styles?.tileBgColor }}
+          src={charity.media.tileUrl}
+        />
+
+        <DarkBlendBottom className="h-16" />
       </div>
 
-      <div className="flex flex-col justify-end w-full mt-3 rounded-lg bg-brand-black">
-        <p className="text-lg text-center text-white sm:text-xl">{charity.name}</p>
+      <div className="flex flex-col justify-end w-full mt-1 space-y-3 p-2">
+        <p className="text-center text-white text-lg sm:text-xl truncate">
+          {charity.name}
+        </p>
 
-        <div className="z-20 grid w-full grid-cols-1 gap-2 p-2 mt-1 text-white">
-          <PrimaryLinkSm className="text-center" href="#">
-            Donate
-          </PrimaryLinkSm>
-        </div>
+        <DonateModal charity={charity} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { BackgroundAsset } from "../BackgroundAsset";
+import { BackgroundImage } from "../BackgroundImage";
 import { VerificationBadge } from "../badges/VerificationBadge";
 
 interface ContentCreatorTileProps {
@@ -16,7 +16,7 @@ export const ContentCreatorTile: FC<ContentCreatorTileProps> = ({
   <div className="flex flex-col lg:flex-row lg:items-start pb-10 border-b-[3px]">
     <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start sm:space-x-3">
       <div className="relative w-24 h-24">
-        <BackgroundAsset
+        <BackgroundImage
           asset={imageAsset}
           className="min-w-full min-h-full rounded-full"
         />

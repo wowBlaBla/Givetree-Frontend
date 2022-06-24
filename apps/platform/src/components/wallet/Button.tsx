@@ -34,7 +34,9 @@ export const Button: FC<ButtonProps> = ({
     type="button"
     style={style}
   >
-    {startIcon && <i className="wallet-adapter-button-start-icon">{startIcon}</i>}
-    {children}
+    <div className="flex items-center space-x-2">
+      <div>{startIcon}</div>
+      <div className="hidden sm:block">{children}</div>
+    </div>
   </button>
 );

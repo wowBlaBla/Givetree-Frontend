@@ -1,6 +1,6 @@
 import { faker as gen } from "@faker-js/faker";
 
-import { genCarbonClimateChangeSocietyData } from "../charity/carbon-climate-change-society";
+import { genFoundationForNationalParksAndWildlifeData } from "../charity/foundation-for-national-parks-and-wildlife";
 import { genOmgkirbyContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
 import { genRoyalty } from "../royalties";
@@ -16,7 +16,7 @@ export const genOmgkirbyGenesisCampaignData = (x?: Partial<Campaign>): Campaign 
   id: gen.datatype.uuid(),
   title: "omgkirby Genesis",
   slug: "omgkirby-genesis",
-  shortDescription: gen.lorem.paragraph(),
+  shortDescription: gen.lorem.sentences(3),
   longDescription: gen.lorem.paragraphs(),
   media: {
     campaignBannerUrl: OmgkirbyGenesisBannerImage.src,
@@ -34,7 +34,7 @@ export const genOmgkirbyGenesisCampaignData = (x?: Partial<Campaign>): Campaign 
   discordUrl: gen.internet.url(),
   twitterUrl: gen.internet.url(),
   contractUrl: gen.internet.url(),
-  nominatedCharity: genCarbonClimateChangeSocietyData(),
+  nominatedCharity: genFoundationForNationalParksAndWildlifeData(),
   royalties: genRoyalty(),
   creators: [genOmgkirbyContentCreator()],
   whitelistMemo: gen.datatype.uuid(),

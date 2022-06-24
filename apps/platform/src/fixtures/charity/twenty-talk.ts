@@ -3,16 +3,17 @@ import { sample } from "lodash";
 import { Charity } from "../../typed/charity";
 import { Cause } from "../../typed/enum/cause";
 
-import TheOceanCleanupImage from "../../temp/images/charities/the-ocean-cleanup.png";
+import TTLogo from "../../temp/images/charities/twenty-talk.jpeg";
 
-export const genTheOceanCleanupData = (x?: Partial<Charity>): Charity => ({
+export const gen20TalkData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
-  name: "The Ocean Cleanup",
-  slug: "the-ocean-cleanup",
+  name: "20Talk",
+  slug: "20-talk",
   description: gen.lorem.paragraphs(11),
+  websiteUrl: "https://20talk.com.au/",
   media: {
-    tileUrl: TheOceanCleanupImage.src,
-    previewUrl: TheOceanCleanupImage.src,
+    tileUrl: TTLogo.src,
+    previewUrl: TTLogo.src,
   },
   causes: [sample(Cause)] as Cause[],
   ...x,

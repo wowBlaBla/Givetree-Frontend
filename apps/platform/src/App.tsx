@@ -18,7 +18,7 @@ const App = () => (
       <div className="flex flex-col h-full min-h-screen bg-gray-50">
         <AppHeader />
 
-        <div className="flex flex-col flex-1 mt-14 sm:mt-16">
+        <div className="flex flex-col flex-1 mt-12 sm:mt-16">
           <Routes>
             <Route path={PlatformRoute.Home} element={<HomeContainer />} />
 

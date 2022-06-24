@@ -10,7 +10,7 @@ interface FeaturedBadgeProps {
 export const FeaturedBadge: FC<FeaturedBadgeProps> = ({ className, large, text }) => (
   <div
     className={cx(
-      "rounded-lg py-1 px-2 bg-brand-black text-white bg-opacity-80",
+      "rounded-lg py-1 px-2 bg-brand-black text-white bg-opacity-60",
       className,
       {
         "text-xs sm:text-base": !large,

@@ -1,55 +1,57 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import cx from "classnames";
 import { useMetaMask } from "metamask-react";
-import { useWallet } from "@solana/wallet-adapter-react";
 
 import { Button, ButtonProps } from "./Button";
-import { useWalletModal } from "../../hooks/useWalletModal";
 import { MetaMaskIcon } from "../icons/MetaMaskIcon";
-import { WalletModalButton } from "./WalletModalButton";
 import { WalletConnectButton } from "./WalletConnectButton";
-import { WalletIcon } from "./WalletIcon";
 import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
+import { WalletModal } from "./WalletModal";
+import { isMetaMaskConnected, isMetaMaskNotConnected } from "../../utils/isMetaMask";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { WalletIcon } from "./WalletIcon";
+import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 
 export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   const ref = useRef<HTMLUListElement>(null);
-  const { publicKey, wallet, disconnect } = useWallet();
-  const { account, status } = useMetaMask();
-
-  const { setVisible } = useWalletModal();
+  const { disconnect, publicKey, wallet } = useSolanaWallet();
+  const { account, status: metaMaskReadyStatus } = useMetaMask();
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
-  const base58 = useMemo(() => {
-    if (publicKey) return publicKey.toBase58();
+  const metaMaskWalletAddress = useMemo(() => {
     if (account) return account;
-  }, [account, publicKey]);
+  }, [account]);
+
+  const solanaWalletAddress = useMemo(() => {
+    if (publicKey) return publicKey.toBase58();
+  }, [publicKey]);
 
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if (!base58) {
-      return null;
+    if (metaMaskWalletAddress) {
+      return metaMaskWalletAddress.slice(0, 4) + ".." + metaMaskWalletAddress.slice(-4);
     }
 
-    return base58.slice(0, 4) + ".." + base58.slice(-4);
-  }, [children, base58]);
+    if (solanaWalletAddress) {
+      return solanaWalletAddress.slice(0, 4) + ".." + solanaWalletAddress.slice(-4);
+    }
+  }, [children, metaMaskWalletAddress, solanaWalletAddress]);
 
   const copyAddress = useCallback(async () => {
-    if (account) {
-      await navigator.clipboard.writeText(account);
+    if (metaMaskWalletAddress) {
+      await navigator.clipboard.writeText(metaMaskWalletAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 400);
+    } else if (solanaWalletAddress) {
+      await navigator.clipboard.writeText(solanaWalletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 400);
     }
-
-    if (base58) {
-      await navigator.clipboard.writeText(base58);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 400);
-    }
-  }, [account, base58]);
+  }, [metaMaskWalletAddress, solanaWalletAddress]);
 
   const openDropdown = useCallback(() => {
     setActive(true);
@@ -59,20 +61,10 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     setActive(false);
   }, []);
 
-  const openModal = useCallback(() => {
-    setVisible(true);
-    closeDropdown();
-  }, [closeDropdown, setVisible]);
-
-  const modalOnClick = () => {
-    setActive(false);
-  };
-
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       const node = ref.current;
 
-      // Do nothing if clicking dropdown or its descendants
       if (!node || node.contains(event.target as Node)) {
         return;
       }
@@ -90,12 +82,12 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   }, [ref, closeDropdown]);
 
   const walletIcon = () => {
-    if (wallet) {
-      return <WalletIcon wallet={wallet} />;
+    if (account || metaMaskReadyStatus === MetaMaskStatus.Connecting) {
+      return <MetaMaskIcon />;
     }
 
-    if (account) {
-      return <MetaMaskIcon />;
+    if (wallet) {
+      return <WalletIcon wallet={wallet} />;
     }
 
     return undefined;
@@ -103,43 +95,49 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
 
   if (
     !wallet &&
-    !account &&
-    status !== (MetaMaskStatus.Connecting || MetaMaskStatus.Connected)
+    !metaMaskWalletAddress &&
+    isMetaMaskNotConnected(metaMaskReadyStatus as MetaMaskStatus)
   ) {
     return (
-      <WalletModalButton onClick={modalOnClick} {...props}>
-        {children}
-      </WalletModalButton>
+      <>
+        <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
+          <span className="block sm:hidden">
+            <ConnectWalletIcon />
+          </span>
+          <span className="hidden sm:block">Connect wallet</span>
+        </label>
+
+        <WalletModal closeDropdown={closeDropdown} />
+      </>
     );
   }
 
-  if (!base58) {
+  if (!solanaWalletAddress && !metaMaskWalletAddress) {
     return (
-      <WalletConnectButton className="bg-brand-orange">{children}</WalletConnectButton>
+      <WalletConnectButton startIcon={walletIcon()} className="bg-brand-orange">
+        {children}
+      </WalletConnectButton>
     );
   }
-
-  const handleDisconnect = async () => {
-    disconnect();
-  };
 
   return (
-    <div className="wallet-adapter-dropdown">
+    <div className="block relative">
       <Button
         aria-expanded={active}
-        className="wallet-adapter-button-trigger"
-        style={{ pointerEvents: active ? "none" : "auto", ...props.style }}
+        className={cx("wallet-adapter-button-active", {
+          "pointer-events-auto": active,
+        })}
         onClick={openDropdown}
         startIcon={walletIcon()}
         {...props}
       >
-        <span className="hidden sm:inline-block ml-2">{content}</span>
+        {content}
       </Button>
 
       <ul
         aria-label="dropdown-list"
         className={cx("wallet-adapter-dropdown-list", {
-          "wallet-adapter-dropdown-list-active": active,
+          "opacity-100 visible transform translate-y-2.5": active,
         })}
         ref={ref}
         role="menu"
@@ -151,21 +149,23 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
         >
           {copied ? "Copied" : "Copy address"}
         </li>
-        <li
-          onClick={openModal}
-          className="wallet-adapter-dropdown-list-item"
-          role="menuitem"
-        >
-          Change wallet
+
+        <li className="wallet-adapter-dropdown-list-item" role="menuitem">
+          <label htmlFor="wallet-modal">Change wallet</label>
         </li>
-        <li
-          onClick={handleDisconnect}
-          className="wallet-adapter-dropdown-list-item"
-          role="menuitem"
-        >
-          Disconnect
-        </li>
+
+        {!isMetaMaskConnected(metaMaskReadyStatus as MetaMaskStatus) && (
+          <li
+            onClick={disconnect}
+            className="wallet-adapter-dropdown-list-item"
+            role="menuitem"
+          >
+            Disconnect
+          </li>
+        )}
       </ul>
+
+      <WalletModal closeDropdown={closeDropdown} />
     </div>
   );
 };

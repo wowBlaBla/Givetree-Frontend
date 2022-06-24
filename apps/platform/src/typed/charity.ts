@@ -5,9 +5,15 @@ export interface Charity {
   name: string;
   slug: string;
   description: string;
+  websiteUrl?: string;
   media: {
     tileUrl: string;
     previewUrl: string;
   };
   causes: Cause[];
+  custom?: {
+    styles?: {
+      tileBgColor?: string;
+    };
+  };
 }
