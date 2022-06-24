@@ -34,7 +34,6 @@ export const ProtectedContainer: FC<ProtectedContainerProps> = ({ children }) =>
   }, [user]);
 
   useEffect(() => {
-    console.log(location.pathname);
     if (
       userData &&
       userData.users_by_pk?.role === AuthRole.admin &&
