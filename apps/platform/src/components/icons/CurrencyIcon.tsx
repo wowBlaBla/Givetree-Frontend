@@ -10,8 +10,9 @@ interface Props {
 
 export const CurrencyIcon: FC<Props> = ({ className, currency }) => {
   switch (currency) {
-    case SupportedPlatform.ETH:
-      return <EthereumColorIcon className={className} />;
+    // TODO: Hidden ETH until support has been added.
+    // case SupportedPlatform.ETH:
+    //   return <EthereumColorIcon className={className} />;
     case SupportedPlatform.SOL:
       return <SolanaColorIcon className={className} />;
     default:

@@ -28,13 +28,14 @@ export const CharityListingContainer = () => {
   return (
     <div>
       <Head>
-        <title>GiveTree - Impact partners</title>
+        <title>GiveTree - Charities</title>
       </Head>
 
       <SectionHeader
         className="mt-6 sm:mt-8"
         mainTitle="Impact Partners"
         subtitle="Charities that help make the world a better place"
+        textCenter
       />
 
       <div className="flex flex-col flex-1 w-full max-w-screen-3xl mx-auto p-5">

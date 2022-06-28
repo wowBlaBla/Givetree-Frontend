@@ -1,5 +1,5 @@
 .wallet-adapter-button {
-  @apply rounded-lg py-2 px-3 sm:px-4 text-sm sm:text-base text-white uppercase font-medium tracking-wide cursor-pointer transition ease-in-out duration-150;
+  @apply rounded-lg py-2 px-3 sm:px-4 text-sm sm:text-base text-white font-bold tracking-wide cursor-pointer transition ease-in-out duration-150;
 }
 
 .wallet-adapter-button-active {
@@ -24,13 +24,13 @@
 }
 
 .wallet-adapter-dropdown-list {
-  @apply grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 p-1 list-none invisible bg-brand-black rounded-lg opacity-0 transition ease-in-out transform duration-200;
+  @apply grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 p-1 list-none invisible bg-white rounded-lg opacity-0 transition ease-in-out transform duration-200;
 }
 
 .wallet-adapter-dropdown-list-item {
-  @apply flex flex-row justify-center items-center w-full h-10 px-3 box-border border-none rounded-lg outline-none text-white text-sm sm:text-base font-medium cursor-pointer whitespace-nowrap;
+  @apply flex flex-row justify-center items-center w-full h-10 px-3 box-border border-none rounded-lg outline-none text-sm sm:text-base text-gray-500 font-bold cursor-pointer whitespace-nowrap transition duration-150 ease-in-out;
 }
 
 .wallet-adapter-dropdown-list-item:not([disabled]):hover {
-  @apply bg-brand-orange-hover;
+  @apply text-brand-black;
 }

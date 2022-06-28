@@ -1,8 +1,9 @@
 export enum PlatformRoute {
   Home = "/",
   CampaignDetails = "/campaign/:campaignName",
-  CampaignListing = "/launchpad",
+  CampaignListing = "/mints",
   CharityDetails = "/charities/:charityName",
   CharityListing = "/charities",
   MintingEvent = "/minting/:campaignName",
+  MarketplaceListing = "/marketplace",
 }

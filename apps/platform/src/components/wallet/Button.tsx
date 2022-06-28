@@ -36,7 +36,7 @@ export const Button: FC<ButtonProps> = ({
   >
     <div className="flex items-center space-x-2">
       <div>{startIcon}</div>
-      <div className="hidden sm:block">{children}</div>
+      <div className="hidden md:block whitespace-nowrap">{children}</div>
     </div>
   </button>
 );

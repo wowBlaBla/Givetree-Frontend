@@ -6,16 +6,16 @@ import { VerificationBadge } from "./VerificationBadge";
 
 interface ContentCreatorBadgeProps {
   avatarUrl: string;
-  name: string;
-  large?: boolean;
   isVerified?: boolean;
+  large?: boolean;
+  name: string;
 }
 
 export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
   avatarUrl,
-  name,
   isVerified,
   large,
+  name,
 }) => (
   <div className="flex relative flex-col justify-end items-center space-y-2 z-30">
     <div
@@ -29,8 +29,8 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
 
     <div className="flex flex-col space-y-1">
       <p
-        className={cx("text-white text-center", {
-          "text-sm sm:text-base lg:text-lg xl:text-xl": !large,
+        className={cx("text-center", {
+          "text-sm sm:text-base": !large,
           "text-base sm:text-lg lg:text-xl xl:text-2xl": large,
         })}
       >

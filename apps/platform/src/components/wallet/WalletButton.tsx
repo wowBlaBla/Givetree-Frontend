@@ -1,57 +1,40 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import cx from "classnames";
-import { useMetaMask } from "metamask-react";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 
 import { Button, ButtonProps } from "./Button";
-import { MetaMaskIcon } from "../icons/MetaMaskIcon";
 import { WalletConnectButton } from "./WalletConnectButton";
-import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
-import { WalletModal } from "./WalletModal";
-import { isMetaMaskConnected, isMetaMaskNotConnected } from "../../utils/isMetaMask";
-import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 import { WalletIcon } from "./WalletIcon";
+import { WalletModal } from "./WalletModal";
 import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 
 export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   const ref = useRef<HTMLUListElement>(null);
-  const { disconnect, publicKey, wallet } = useSolanaWallet();
-  const { account, status: metaMaskReadyStatus } = useMetaMask();
+  const { disconnect, publicKey: solanaPublicKey, wallet } = useSolanaWallet();
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
-  const metaMaskWalletAddress = useMemo(() => {
-    if (account) return account;
-  }, [account]);
-
   const solanaWalletAddress = useMemo(() => {
-    if (publicKey) return publicKey.toBase58();
-  }, [publicKey]);
+    if (solanaPublicKey) return solanaPublicKey.toBase58();
+  }, [solanaPublicKey]);
 
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if (metaMaskWalletAddress) {
-      return metaMaskWalletAddress.slice(0, 4) + ".." + metaMaskWalletAddress.slice(-4);
-    }
-
     if (solanaWalletAddress) {
       return solanaWalletAddress.slice(0, 4) + ".." + solanaWalletAddress.slice(-4);
     }
-  }, [children, metaMaskWalletAddress, solanaWalletAddress]);
+  }, [children, solanaWalletAddress]);
 
   const copyAddress = useCallback(async () => {
-    if (metaMaskWalletAddress) {
-      await navigator.clipboard.writeText(metaMaskWalletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 400);
-    } else if (solanaWalletAddress) {
+    if (solanaWalletAddress) {
       await navigator.clipboard.writeText(solanaWalletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 400);
     }
-  }, [metaMaskWalletAddress, solanaWalletAddress]);
+  }, [solanaWalletAddress]);
 
   const openDropdown = useCallback(() => {
     setActive(true);
@@ -81,30 +64,14 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  const walletIcon = () => {
-    if (account || metaMaskReadyStatus === MetaMaskStatus.Connecting) {
-      return <MetaMaskIcon />;
-    }
-
-    if (wallet) {
-      return <WalletIcon wallet={wallet} />;
-    }
-
-    return undefined;
-  };
-
-  if (
-    !wallet &&
-    !metaMaskWalletAddress &&
-    isMetaMaskNotConnected(metaMaskReadyStatus as MetaMaskStatus)
-  ) {
+  if (!wallet) {
     return (
       <>
         <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
-          <span className="block sm:hidden">
+          <span className="block md:hidden">
             <ConnectWalletIcon />
           </span>
-          <span className="hidden sm:block">Connect wallet</span>
+          <span className="hidden md:block">Connect wallet</span>
         </label>
 
         <WalletModal closeDropdown={closeDropdown} />
@@ -112,9 +79,12 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     );
   }
 
-  if (!solanaWalletAddress && !metaMaskWalletAddress) {
+  if (!solanaWalletAddress) {
     return (
-      <WalletConnectButton startIcon={walletIcon()} className="bg-brand-orange">
+      <WalletConnectButton
+        startIcon={<WalletIcon wallet={wallet} />}
+        className="bg-brand-orange"
+      >
         {children}
       </WalletConnectButton>
     );
@@ -128,7 +98,7 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
           "pointer-events-auto": active,
         })}
         onClick={openDropdown}
-        startIcon={walletIcon()}
+        startIcon={<WalletIcon wallet={wallet} />}
         {...props}
       >
         {content}
@@ -151,18 +121,18 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
         </li>
 
         <li className="wallet-adapter-dropdown-list-item" role="menuitem">
-          <label htmlFor="wallet-modal">Change wallet</label>
+          <label htmlFor="wallet-modal" className="cursor-pointer">
+            Change wallet
+          </label>
         </li>
 
-        {!isMetaMaskConnected(metaMaskReadyStatus as MetaMaskStatus) && (
-          <li
-            onClick={disconnect}
-            className="wallet-adapter-dropdown-list-item"
-            role="menuitem"
-          >
-            Disconnect
-          </li>
-        )}
+        <li
+          onClick={disconnect}
+          className="wallet-adapter-dropdown-list-item"
+          role="menuitem"
+        >
+          Disconnect
+        </li>
       </ul>
 
       <WalletModal closeDropdown={closeDropdown} />

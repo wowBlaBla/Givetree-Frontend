@@ -17,9 +17,9 @@ export const AppNavLink: FC<AppNavLink> = ({ children, href, onClick }) => {
     <NavLink
       to={href}
       className={cx(
-        "whitespace-nowrap text-white lg:text-lg hover:text-brand-orange-hover transition-hover",
+        "whitespace-nowrap text-base font-bold hover:text-brand-black transition-hover",
         {
-          "text-brand-orange-active": isMatch,
+          "text-brand-black": isMatch,
         }
       )}
       onClick={onClick}
