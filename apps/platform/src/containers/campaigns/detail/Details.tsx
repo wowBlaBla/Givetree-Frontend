@@ -16,9 +16,10 @@ import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
 import { getEventStatus } from "../../../utils/getEventStatus";
-import { PrimaryLink } from "../../../components/PrimaryCta";
+import { PrimaryButton, PrimaryLink } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { round } from "lodash";
+import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -129,13 +130,13 @@ export const CampaignDetailsContainer: FC = () => {
                     {data.campaign.totalSupply})
                   </p>
                 </div>
-              </BaseTile>
 
-              <div className="flex justify-center mt-5">
-                <PrimaryLink href={`/minting/${data.campaign.slug}`}>
-                  View mint event
-                </PrimaryLink>
-              </div>
+                <div className="flex justify-center mt-5">
+                  <PrimaryButton large className="items-center w-full">
+                    Mint - {data.campaign.floorPrice} SOL
+                  </PrimaryButton>
+                </div>
+              </BaseTile>
             </div>
           </div>
         </div>

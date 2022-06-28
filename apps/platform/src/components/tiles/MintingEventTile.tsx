@@ -35,10 +35,6 @@ export const MintingEventTile: FC<MintingEventTileProps> = ({
           <EventRoundTile round={round} currency={currency} />
         </div>
       ))}
-
-      <div className="flex justify-center mt-5">
-        <PrimaryLink href={`/minting/${campaignSlug}`}>View mint event</PrimaryLink>
-      </div>
     </div>
   );
 };

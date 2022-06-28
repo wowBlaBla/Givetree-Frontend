@@ -33,8 +33,6 @@ const App = () => (
               element={<CampaignListingContainer />}
             />
 
-            <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
-
             <Route
               path={PlatformRoute.MarketplaceListing}
               element={<MarketplaceListingContainer />}
