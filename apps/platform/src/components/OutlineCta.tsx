@@ -38,14 +38,7 @@ interface OutlineLinkProps {
 }
 
 export const OutlineLink: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link
-    className={cx(
-      "py-1 px-3 sm:py-2 sm:px-4 text-sm sm:text-base",
-      ButtonStyles,
-      className
-    )}
-    to={href}
-  >
+  <Link className={cx("py-1 px-3 text-sm", ButtonStyles, className)} to={href}>
     {children}
   </Link>
 );

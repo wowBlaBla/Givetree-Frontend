@@ -10,6 +10,9 @@ import { EventRoundType } from "../../typed/enum/eventType";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { isEventRoundLive } from "../../utils/getEventStatus";
 import { CampaignEventRound } from "../../typed/campaign-event";
+import { OutlineLink } from "../OutlineCta";
+import { StatBox } from "../StatBox";
+import { GradientDivider } from "../GradientDivider";
 
 interface EventRoundTileProps {
   round: CampaignEventRound;
@@ -27,7 +30,7 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
   return (
     <BaseTile
       className={cx("mt-5 bg-white text-brand-black", {
-        "border-[3px] border-red-600": isLive,
+        "border-[3px]": isLive,
       })}
     >
       {isLive && (
@@ -39,33 +42,28 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
       <div className="flex flex-col space-y-2">
         <EventRoundSectionTitle type={round.type} />
 
-        {((round.type !== EventRoundType.WhitelistToken && !isFirstRound) || isLive) && (
-          <CountdownTimer
-            className="mt-2 text-gray-800"
-            startDate={round.startDate}
-            endDate={round.endDate}
-          />
-        )}
+        <CountdownTimer
+          className="mt-2 text-gray-800"
+          startDate={round.startDate}
+          endDate={round.endDate}
+        />
 
         {round.type === EventRoundType.WhitelistToken && (
-          <p className="space-x-1 text-sm sm:text-base">
-            <span>{round.whitelistCondition}</span>
-            <a
-              className="text-brand-orange text-sm sm:text-base transition-hover hover:underline"
-              href="#"
-              rel="noreferrer"
-              target="_blank"
-            >
-              Learn more
-            </a>
-          </p>
+          <div>
+            <p className="space-x-3 text-base font-light text-gray-500">
+              {round.whitelistCondition}
+            </p>
+            <div className="flex flex-row-reverse">
+              <OutlineLink href="#">Learn more</OutlineLink>
+            </div>
+          </div>
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 lg:gap-4 mt-5">
-        <PillBox title="Supply" value={round.supply} />
-        <PillBox title="Max token" value={round.maxToken} />
-        <PillBox title="Mint price" value={round.mintPrice} currency={currency} />
+      <div className="grid grid-cols-1 gap-2 pt-3 mt-5 border-t border-gray-200 sm:grid-cols-3 lg:gap-4">
+        <StatBox title="Supply" value={round.supply} />
+        <StatBox title="Max token" value={round.maxToken} />
+        <StatBox title="Mint price" value={round.mintPrice} currency={currency} />
       </div>
     </BaseTile>
   );

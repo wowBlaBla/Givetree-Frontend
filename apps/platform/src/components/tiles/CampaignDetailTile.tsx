@@ -4,10 +4,15 @@ import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { PillBox } from "../PillBox";
 import { LiveBadge } from "../badges/LiveBadge";
 import { SocialGrid } from "../SocialGrid";
+import { VerificationBadge } from "../badges/VerificationBadge";
+import { FeaturedBadge } from "../badges/FeaturedBadge";
+import { GradientDivider } from "../GradientDivider";
+import { StatBox } from "../StatBox";
 
 interface CampaignDetailTileProps {
   currency: SupportedPlatform;
   description?: string;
+  artistName: string;
   floorPrice: number;
   isLive?: boolean;
   title: string;
@@ -22,7 +27,7 @@ interface CampaignDetailTileProps {
 export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   currency,
   title,
-  description,
+  artistName,
   totalSupply,
   floorPrice,
   isLive,
@@ -31,28 +36,32 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   discordUrl,
   contractUrl,
 }) => (
-  <BaseTile className="border bg-white">
-    {isLive && (
-      <LiveBadge
-        className="absolute top-0 right-0 m-2.5 text-red-600"
-        text="Event is live"
-      />
-    )}
-
-    <h3 className="text-3xl sm:text-4xl xl:text-5xl font-bold">{title}</h3>
-
-    <div className="flex flex-col mt-6 space-y-3 md:flex-row md:space-y-0 md:space-x-6">
-      <PillBox title="Total items" value={totalSupply} />
-      <PillBox title="Price from" value={floorPrice} currency={currency} />
+  <>
+    <div className="flex">
+      <VerificationBadge text="Verified" />
     </div>
 
-    <SocialGrid
-      websiteUrl={websiteUrl}
-      twitterUrl={twitterUrl}
-      discordUrl={discordUrl}
-      contractUrl={contractUrl}
-    />
+    <div className="grid gap-y-6">
+      <div>
+        <h3 className="mt-3 text-3xl font-medium sm:text-4xl">{title}</h3>
+        <p>
+          by <span className="font-medium text-brand-orange">{artistName}</span>
+        </p>
+      </div>
 
-    <p className="mt-5 text-base lg:text-lg">{description}</p>
-  </BaseTile>
+      <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-12">
+        <StatBox title="Total supply" value={totalSupply} />
+        <StatBox title="Floor price" value={floorPrice} currency={currency} />
+      </div>
+
+      <div>
+        <SocialGrid
+          websiteUrl={websiteUrl}
+          twitterUrl={twitterUrl}
+          discordUrl={discordUrl}
+          contractUrl={contractUrl}
+        />
+      </div>
+    </div>
+  </>
 );

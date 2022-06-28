@@ -22,9 +22,3 @@ export const DarkBlendBottom: FC<BlendProps> = ({ className }) => (
     )}
   />
 );
-
-// {
-//         "h-16": small,
-//         "h-12 sm:h-32": large,
-//         "h-72 sm:h-72": xlarge,
-//       }

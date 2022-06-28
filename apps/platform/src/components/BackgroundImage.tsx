@@ -11,7 +11,7 @@ interface BackgroundImageProps {
 export const BackgroundImage: FC<BackgroundImageProps> = ({ asset, className }) => (
   <div
     className={cx(
-      "absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
+      "absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full border-gray-200 border",
       className
     )}
     style={{ backgroundImage: `url(${asset})` }}
