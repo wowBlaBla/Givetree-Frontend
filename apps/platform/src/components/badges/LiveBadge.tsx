@@ -14,6 +14,6 @@ export const LiveBadge: FC<LiveBadgeProps> = ({ className, text }) => (
     )}
   >
     <span className="bg-red-600 p-1 rounded-full animate-pulse" />
-    <span className="text-white">{text ?? "Live"}</span>
+    <span className="text-red-600">{text ?? "Live"}</span>
   </div>
 );
