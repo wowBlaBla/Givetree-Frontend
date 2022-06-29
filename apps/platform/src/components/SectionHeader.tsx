@@ -28,10 +28,10 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
       "justify-center items-center text-center": textCenter,
     })}
   >
-    <div className="flex flex-col my-3 space-y-3 px-1">
-      <SectionTitle className="">{mainTitle}</SectionTitle>
+    <div className="flex flex-col px-1 my-3 space-y-3">
+      <SectionTitle>{mainTitle}</SectionTitle>
       {subtitle && (
-        <SectionSubtitle className="text-gray-600 font-semibold">
+        <SectionSubtitle className="font-semibold text-gray-600">
           {subtitle}
         </SectionSubtitle>
       )}

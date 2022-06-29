@@ -6,7 +6,7 @@ interface SocialLinkProps {
   children: ReactNode;
 }
 
-const SocialLink: FC<SocialLinkProps> = ({ href, children }) => (
+export const SocialLink: FC<SocialLinkProps> = ({ href, children }) => (
   <div className="px-2 py-1 border border-gray-100 rounded-md shrink">
     <a
       className="flex items-center flex-1 space-x-2 text-gray-600 whitespace-nowrap hover:text-brand-orange transition-hover"

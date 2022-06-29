@@ -13,6 +13,7 @@ import { CampaignEventRound } from "../../typed/campaign-event";
 import { OutlineLink } from "../OutlineCta";
 import { StatBox } from "../StatBox";
 import { GradientDivider } from "../GradientDivider";
+import { SocialLink } from "../SocialGrid";
 
 interface EventRoundTileProps {
   round: CampaignEventRound;
@@ -30,7 +31,7 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
   return (
     <BaseTile
       className={cx("mt-5 bg-white text-brand-black", {
-        "border-[3px]": isLive,
+        "border-[3px] border-brand-orange": isLive,
       })}
     >
       {isLive && (
@@ -53,8 +54,8 @@ export const EventRoundTile: FC<EventRoundTileProps> = ({
             <p className="space-x-3 text-base font-light text-gray-500">
               {round.whitelistCondition}
             </p>
-            <div className="flex flex-row-reverse">
-              <OutlineLink href="#">Learn more</OutlineLink>
+            <div className="flex flex-row-reverse mt-3">
+              <SocialLink href="#">Learn more</SocialLink>
             </div>
           </div>
         )}

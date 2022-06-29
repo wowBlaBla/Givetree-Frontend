@@ -17,14 +17,14 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
   large,
   name,
 }) => (
-  <div className="flex relative flex-col justify-end items-center space-y-2 z-30">
+  <div className="relative z-30 flex flex-col items-center justify-end space-y-2">
     <div
       className={cx({
         "w-12 h-12 sm:w-16 sm:h-16 xl:w-20 xl:h-20": !large,
         "w-16 h-16 sm:w-28 sm:h-28": large,
       })}
     >
-      <img className="rounded-full" src={avatarUrl} alt={name} />
+      <img className="border-2 border-gray-100 rounded-full" src={avatarUrl} alt={name} />
     </div>
 
     <div className="flex flex-col space-y-1">

@@ -9,17 +9,14 @@ import { GradientDivider } from "../../../components/GradientDivider";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
 import { CharityTile } from "../../../components/tiles/CharityTile";
-import { CausesTile } from "../../../components/tiles/CausesTile";
-import { ContentCreatorTile } from "../../../components/tiles/ContentCreatorTile";
 import { CampaignDetailTile } from "../../../components/tiles/CampaignDetailTile";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
 import { getEventStatus } from "../../../utils/getEventStatus";
-import { PrimaryButton, PrimaryLink } from "../../../components/PrimaryCta";
+import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { round } from "lodash";
-import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
