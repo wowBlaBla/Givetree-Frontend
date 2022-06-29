@@ -12,7 +12,7 @@ export const WalletListItem: FC<WalletListItemProps> = ({ handleOnClick, wallet 
   return (
     <li
       key={wallet.adapter.name}
-      className="relative my-1 py-1 px-2 rounded-lg button-hover"
+      className="relative my-3 py-1 px-2 rounded-lg button-hover"
     >
       <label
         className="w-full text-lg sm:text-xl normal-case"
