@@ -14,8 +14,6 @@ export const AppNavLink: FC<AppNavLink> = ({ children, disabled, href, onClick }
   const resolved = useResolvedPath(href);
   const isMatch = useMatch({ path: resolved.pathname, end: true });
 
-  console.log(isMatch);
-
   return (
     <>
       {!disabled ? (
