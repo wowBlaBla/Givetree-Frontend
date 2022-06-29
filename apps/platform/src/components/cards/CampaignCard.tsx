@@ -42,27 +42,27 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
         <BackgroundImage asset={campaign.media.campaignTilePreviewUrl} />
       </div>
 
-      <div className="flex flex-col w-full rounded-lg justify-end -mt-6 sm:-mt-8 xl:-mt-10">
-        <ContentCreatorBadge
-          avatarUrl={campaign.creators[0].media.previewUrl}
-          name={campaign.creators[0].name}
-        />
+      <div className="flex flex-col justify-between w-full rounded-lg -mt-6 sm:-mt-8 xl:-mt-12">
+        <div>
+          <ContentCreatorBadge
+            avatarUrl={campaign.creators[0].media.previewUrl}
+            name={campaign.creators[0].name}
+          />
 
-        <p className="text-center text-lg sm:text-xl">{campaign.title}</p>
+          <h4 className="text-center text-base sm:text-xl">{campaign.title}</h4>
+        </div>
 
-        <div className="grid grid-cols-2 gap-2 w-full mt-1 pt-auto p-2">
-          <ItemBox>
+        <div className="flex justify-between w-full mt-2 py-2 px-2 sm:px-2.5 text-xs sm:text-base">
+          <div className="flex space-x-1 w-full">
             <span className="hidden sm:block">Total items</span>
             <span className="sm:hidden">Items:</span>
             <b>{campaign.totalSupply}</b>
-          </ItemBox>
-          <ItemBox>
-            <div className="flex space-x-1 items-center">
-              <span className="hidden sm:block">Price from</span>
-              <CurrencyIcon currency={campaign.currency} className="w-3 h-3" />
-              <b>{campaign.floorPrice}</b>
-            </div>
-          </ItemBox>
+          </div>
+          <div className="flex space-x-1 items-center whitespace-nowrap">
+            <span className="hidden sm:block">Price from</span>
+            <CurrencyIcon currency={campaign.currency} className="w-3 h-3" />
+            <b>{campaign.floorPrice}</b>
+          </div>
         </div>
       </div>
     </div>

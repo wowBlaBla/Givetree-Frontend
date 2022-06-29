@@ -10,24 +10,29 @@ import { WalletButton } from "./wallet/WalletButton";
 interface AppHeaderNavLink {
   title: string;
   link: PlatformRoute;
+  disabled?: boolean;
 }
 
 const appHeaderNavItems: AppHeaderNavLink[] = [
   {
     title: "Home",
     link: PlatformRoute.Home,
+    disabled: false,
   },
   {
     title: "Mints",
     link: PlatformRoute.CampaignListing,
+    disabled: false,
   },
   {
     title: "Marketplace",
     link: PlatformRoute.MarketplaceListing,
+    disabled: true,
   },
   {
     title: "Charities",
     link: PlatformRoute.CharityListing,
+    disabled: false,
   },
 ];
 
@@ -39,7 +44,7 @@ export const AppHeader: FC = () => {
   };
 
   return (
-    <div className="fixed w-full py-2 bg-white border-b-2 shadow-lg z-50">
+    <div className="fixed w-full py-2 bg-white border-b shadow-lg z-50">
       <div className="grid grid-cols-2 md:grid-cols-4 w-full px-3">
         <div className="flex items-center space-x-1 md:space-x-0">
           <div className="relative cursor-pointer md:hidden" onClick={handleDropdown}>
@@ -55,7 +60,7 @@ export const AppHeader: FC = () => {
 
         <div className="hidden md:flex justify-center items-center col-span-2 w-full md:space-x-8 lg:space-x-16 text-gray-500">
           {appHeaderNavItems.map((navItem, idx) => (
-            <AppNavLink key={idx} href={navItem.link}>
+            <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
               <span>{navItem.title}</span>
             </AppNavLink>
           ))}
@@ -78,7 +83,7 @@ export const AppHeader: FC = () => {
       >
         <div className="flex absolute flex-1 flex-col h-screen space-y-5 mt-3 px-5 text-gray-500 origin-left duration-300">
           {appHeaderNavItems.map((navItem, idx) => (
-            <AppNavLink key={idx} href={navItem.link}>
+            <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
               <span>{navItem.title}</span>
             </AppNavLink>
           ))}

@@ -12,7 +12,7 @@ import { CampaignCard } from "../../components/cards/CampaignCard";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { MainBanner } from "../../components/MainBanner";
-import { PrimaryLink } from "../../components/PrimaryCta";
+
 import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
 
 export const HomeContainer = () => {
@@ -74,9 +74,6 @@ export const HomeContainer = () => {
             <CharityCard key={idx} charity={charity} />
           ))}
         </CardGrid>
-        <div className="flex sm:hidden justify-center mt-8">
-          <PrimaryLink href={PlatformRoute.CharityListing}>View More</PrimaryLink>
-        </div>
       </SectionContainer>
     </div>
   );

@@ -7,6 +7,8 @@ import { GetCharityListingDataQuery, GET_CHARITY_LISTING_DATA } from "./ListingD
 import { CardGrid } from "../../../components/CardGrid";
 import { CharityCard } from "../../../components/cards/CharityCard";
 import { SectionHeader } from "../../../components/SectionHeader";
+import { LoadingContainer } from "../../../components/LoadingContainer";
+import { ErrorContainer } from "../../../components/ErrorContainer";
 
 export const CharityListingContainer = () => {
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
@@ -14,15 +16,15 @@ export const CharityListingContainer = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingContainer message="Loading charities..." />;
   }
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <ErrorContainer message={error.message} />;
   }
 
   if (!data) {
-    return <div>No Campaigns Found</div>;
+    return <ErrorContainer message="Could not load charities" />;
   }
 
   return (
@@ -33,7 +35,7 @@ export const CharityListingContainer = () => {
 
       <SectionHeader
         className="mt-6 sm:mt-8"
-        mainTitle="Impact Partners"
+        mainTitle="Charities"
         subtitle="Charities that help make the world a better place"
         textCenter
       />
