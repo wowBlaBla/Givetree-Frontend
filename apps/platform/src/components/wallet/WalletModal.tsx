@@ -79,7 +79,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
             ))}
 
             {otherWallets.length && (
-              <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
+              <Collapse expanded={expanded} id="wallet-modal-collapse">
                 {otherWallets.map((wallet) => (
                   <WalletListItem
                     key={wallet.adapter.name}
@@ -92,7 +92,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
 
             {otherWallets.length && (
               <button
-                className="flex justify-end items-center w-full space-x-2 cursor-pointer border-none p-4 bg-transparent"
+                className="flex justify-end items-center w-full mt-5 space-x-2 cursor-pointer border-none bg-transparent"
                 onClick={handleCollapse}
                 tabIndex={0}
               >
@@ -131,7 +131,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
           {otherWallets.length && (
             <>
               <button
-                className="flex justify-end items-center w-full space-x-2 cursor-pointer border-none p-4 bg-transparent"
+                className="flex justify-end items-center w-full mt-5 space-x-2 cursor-pointer border-none p-4 bg-transparent"
                 onClick={handleCollapse}
                 tabIndex={0}
               >

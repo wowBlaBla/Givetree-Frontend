@@ -5,7 +5,7 @@ export type CollapseProps = PropsWithChildren<{
   id: string;
 }>;
 
-export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) => {
+export const Collapse: FC<CollapseProps> = ({ id, children, expanded }) => {
   const ref = useRef<HTMLDivElement>(null);
   const instant = useRef(true);
   const transition = "height 250ms ease-out";
@@ -47,7 +47,7 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
     function handleComplete() {
       if (!node) return;
 
-      node.style.overflow = expanded ? "initial" : "hidden";
+      node.style.overflow = expanded ? "intial" : "hidden";
       if (expanded) {
         node.style.height = "auto";
       }
@@ -70,12 +70,13 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
 
   return (
     <div
-      children={children}
-      className="wallet-adapter-collapse"
+      className="w-full"
       id={id}
       ref={ref}
       role="region"
       style={{ height: 0, transition: instant.current ? undefined : transition }}
-    />
+    >
+      {children}
+    </div>
   );
 };

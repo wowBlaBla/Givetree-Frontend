@@ -3,19 +3,38 @@ import {
   ConnectionProvider,
   WalletProvider as SolanaProvider,
 } from "@solana/wallet-adapter-react";
-import { PhantomWalletAdapter, TorusWalletAdapter } from "@solana/wallet-adapter-wallets";
+import {
+  PhantomWalletAdapter,
+  TorusWalletAdapter,
+  SlopeWalletAdapter,
+  SolflareWalletAdapter,
+  CloverWalletAdapter,
+  LedgerWalletAdapter,
+  SolletWalletAdapter,
+  Coin98WalletAdapter,
+} from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
-import { SOL_NETWORK } from "../../configs/constants";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 interface WalletProviderProps {
   children: ReactNode;
+  network?: WalletAdapterNetwork;
 }
 
-export const WalletProvider: FC<WalletProviderProps> = ({ children }) => {
-  const endpoint = useMemo(() => clusterApiUrl(SOL_NETWORK), []);
+export const WalletProvider: FC<WalletProviderProps> = ({ children, network }) => {
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   const wallets = useMemo(
-    () => [new PhantomWalletAdapter(), new TorusWalletAdapter()],
-    []
+    () => [
+      new PhantomWalletAdapter(),
+      new TorusWalletAdapter(),
+      new SolflareWalletAdapter({ network }),
+      new SolletWalletAdapter(),
+      new Coin98WalletAdapter(),
+      new CloverWalletAdapter(),
+      new LedgerWalletAdapter(),
+      new SlopeWalletAdapter(),
+    ],
+    [network]
   );
 
   return (
