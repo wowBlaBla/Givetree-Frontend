@@ -44,8 +44,8 @@ export const AppHeader: FC = () => {
   };
 
   return (
-    <div className="fixed w-full py-2 bg-white border-b shadow-lg z-50">
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full px-3">
+    <div className="fixed z-50 w-full py-2 bg-white border-b shadow-lg">
+      <div className="grid w-full grid-cols-2 px-3 md:grid-cols-4">
         <div className="flex items-center space-x-1 md:space-x-0">
           <div className="relative cursor-pointer md:hidden" onClick={handleDropdown}>
             <MenuIcon className="w-7 h-7" />
@@ -58,7 +58,7 @@ export const AppHeader: FC = () => {
 
         {/* Desktop Navigation */}
 
-        <div className="hidden md:flex justify-center items-center col-span-2 w-full md:space-x-8 lg:space-x-16 text-gray-500">
+        <div className="items-center justify-center hidden w-full col-span-2 text-gray-500 md:flex md:space-x-8 lg:space-x-16">
           {appHeaderNavItems.map((navItem, idx) => (
             <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
               <span>{navItem.title}</span>
@@ -68,7 +68,7 @@ export const AppHeader: FC = () => {
 
         {/* Wallet */}
 
-        <div className="flex flex-1 justify-end items-center w-full">
+        <div className="flex items-center justify-end flex-1 w-full">
           <WalletButton />
         </div>
       </div>
@@ -81,7 +81,7 @@ export const AppHeader: FC = () => {
           "w-0": !openDropdown,
         })}
       >
-        <div className="flex absolute flex-1 flex-col h-screen space-y-5 mt-3 px-5 text-gray-500 origin-left duration-300">
+        <div className="absolute flex flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500 duration-300 origin-left">
           {appHeaderNavItems.map((navItem, idx) => (
             <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
               <span>{navItem.title}</span>

@@ -9,14 +9,14 @@ import { GradientDivider } from "../../../components/GradientDivider";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { MintingEventTile } from "../../../components/tiles/MintingEventTile";
 import { CharityTile } from "../../../components/tiles/CharityTile";
-import { CausesTile } from "../../../components/tiles/CausesTile";
-import { ContentCreatorTile } from "../../../components/tiles/ContentCreatorTile";
 import { CampaignDetailTile } from "../../../components/tiles/CampaignDetailTile";
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
 import { getEventStatus } from "../../../utils/getEventStatus";
-import { PrimaryLink } from "../../../components/PrimaryCta";
+import { PrimaryButton } from "../../../components/PrimaryCta";
+import { BaseTile } from "../../../components/tiles/BaseTile";
+import { round } from "lodash";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -45,106 +45,118 @@ export const CampaignDetailsContainer: FC = () => {
   }
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-col flex-1 bg-gray-100">
       <Head>
         <title>GiveTree - {data.campaign.title}</title>
       </Head>
 
       <CampaignBannerHeader
         backgroundImage={data.campaign.media.campaignBannerUrl}
+        description={data.campaign.shortDescription ?? ""}
         campaignTitle={data.campaign.title}
-        floorPrice={data.campaign.floorPrice}
-        totalSupply={data.campaign.totalSupply}
-        currency={data.campaign.currency}
-        isVerified={data.campaign.isVerified}
         isFeatured
       />
 
-      <div className="flex flex-col w-full max-w-screen-3xl mx-auto space-y-12 my-6 sm:my-8 px-3">
-        <ContentCreatorTile
-          name={data.campaign.creators[0].name}
-          description={data.campaign.creators[0].description}
-          imageAsset={data.campaign.creators[0].media.previewUrl}
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-8 my-12 space-y-6 sm:space-y-8 lg:space-y-0">
+      <div className="flex flex-col w-full max-w-screen-xl px-3 mx-auto my-6 space-y-12 bg-gray-100">
+        <div className="grid grid-cols-1 space-y-6 lg:grid-cols-12 lg:gap-8 sm:space-y-8 lg:space-y-0">
           <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7">
-            <CampaignDetailTile
-              description={data.campaign.shortDescription}
-              floorPrice={data.campaign.floorPrice}
-              currency={data.campaign.currency}
-              title={data.campaign.title}
-              totalSupply={data.campaign.totalSupply}
-              websiteUrl={data.campaign.websiteUrl}
-              discordUrl={data.campaign.discordUrl}
-              twitterUrl={data.campaign.twitterUrl}
-              contractUrl={data.campaign.contractUrl}
-              isLive={getEventStatus(data.campaign.event.rounds).isLive}
-            />
+            <BaseTile className="bg-white">
+              <CampaignDetailTile
+                artistName={data.campaign.creators[0].name}
+                description={data.campaign.shortDescription}
+                floorPrice={data.campaign.floorPrice}
+                currency={data.campaign.currency}
+                title={data.campaign.title}
+                totalSupply={data.campaign.totalSupply}
+                websiteUrl={data.campaign.websiteUrl}
+                discordUrl={data.campaign.discordUrl}
+                twitterUrl={data.campaign.twitterUrl}
+                contractUrl={data.campaign.contractUrl}
+                isLive={getEventStatus(data.campaign.event.rounds).isLive}
+              />
 
-            <CausesTile
-              causes={data.campaign.nominatedCharity.causes}
-              description={`${getRoyaltyPercentage(
-                data.campaign.royalties,
-                RoyaltyType.CharityDonation
-              )}% of sale price goes towards these causes:`}
-            />
+              <div className="my-5">
+                <GradientDivider />
+              </div>
 
-            <MintingEventTile
-              rounds={data.campaign.event.rounds}
-              currency={data.campaign.currency}
-            />
+              <MintingEventTile
+                rounds={data.campaign.event.rounds}
+                currency={data.campaign.currency}
+              />
+
+              <div className="my-5">
+                <GradientDivider />
+              </div>
+
+              <CharityTile
+                name={data.campaign.nominatedCharity.name}
+                description={`${getRoyaltyPercentage(
+                  data.campaign.royalties,
+                  RoyaltyType.CharityDonation
+                )}% of ${data.campaign.title} mints go to`}
+                imageAsset={data.campaign.nominatedCharity.media.tileUrl}
+              />
+            </BaseTile>
           </div>
 
           <div className="flex flex-col items-center sm:col-span-2 lg:col-span-5">
-            <div className="flex relative flex-col item-center w-full">
+            <div className="relative flex flex-col w-full item-center">
               <div className="relative pt-full">
                 <BackgroundImage
                   asset={data.campaign.media.campaignCollectionPreviewUrl}
-                  className="rounded-xl shadow-lg"
+                  className="rounded-xl"
                 />
               </div>
 
-              <div className="w-full mt-5 text-center">
-                <PrimaryLink href={`/minting/${data.campaign.slug}`} large>
-                  Go to minting site
-                </PrimaryLink>
-              </div>
-            </div>
+              <BaseTile className="flex flex-col mt-5 bg-white">
+                <progress
+                  className="w-full progress-error progress"
+                  value="70"
+                  max="100"
+                ></progress>
+                <div className="flex flex-row mt-2">
+                  <span className="flex-grow text-gray-500">Total minted</span>
+                  <p className="text-gray-400">
+                    <span className="font-bold text-brand-orange">70%</span> (
+                    {round(data.campaign.totalSupply * 0.7, 0)} /{" "}
+                    {data.campaign.totalSupply})
+                  </p>
+                </div>
 
-            <CharityTile
-              name={data.campaign.nominatedCharity.name}
-              description={`${getRoyaltyPercentage(
-                data.campaign.royalties,
-                RoyaltyType.CharityDonation
-              )}% of ${data.campaign.title} mints go to`}
-              imageAsset={data.campaign.nominatedCharity.media.tileUrl}
-            />
+                <div className="flex justify-center mt-5">
+                  <PrimaryButton large className="items-center w-full">
+                    Mint - {data.campaign.floorPrice} SOL
+                  </PrimaryButton>
+                </div>
+              </BaseTile>
+            </div>
           </div>
         </div>
 
-        <GradientDivider />
+        <h3 className="text-xl text-center text-gray-400">
+          More about {data.campaign.title}
+        </h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-6 mt-12">
+        <div className="grid grid-cols-1 mt-12 sm:grid-cols-6 sm:gap-6">
           <div className="col-span-3 sm:col-span-2">
             <div className="relative pt-full">
               <BackgroundImage
                 asset={data.campaign.media.campaignDetailsUrl}
-                className="rounded-xl shadow-lg"
+                className="rounded-xl"
               />
             </div>
           </div>
 
-          <div className="flex flex-col col-span-3 px-2 mt-2 space-y-5 sm:col-span-4 sm:mt-0 sm:px-5">
+          <BaseTile className="flex flex-col col-span-3 px-2 mt-2 space-y-5 bg-white sm:col-span-4 sm:mt-0 sm:px-5">
             <h3 className="text-3xl font-semibold sm:text-4xl">{data.campaign.title}</h3>
             <SocialGrid
               websiteUrl={data.campaign.websiteUrl}
               twitterUrl={data.campaign.twitterUrl}
               discordUrl={data.campaign.discordUrl}
             />
-
+            <GradientDivider />
             <p>{data.campaign.longDescription}</p>
-          </div>
+          </BaseTile>
         </div>
       </div>
     </div>

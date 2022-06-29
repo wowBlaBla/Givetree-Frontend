@@ -20,10 +20,11 @@ export const AppNavLink: FC<AppNavLink> = ({ children, disabled, href, onClick }
         <NavLink
           to={href}
           className={cx(
-            "whitespace-nowrap text-base font-bold hover:text-brand-black transition-hover",
             {
-              "text-brand-black": isMatch,
-            }
+              "text-brand-orange": isMatch,
+              "text-gray-800": !isMatch,
+            },
+            "whitespace-nowrap text-base font-medium hover:text-brand-orange transition-hover"
           )}
           onClick={onClick}
         >
@@ -31,7 +32,7 @@ export const AppNavLink: FC<AppNavLink> = ({ children, disabled, href, onClick }
         </NavLink>
       ) : (
         <div
-          className="tooltip tooltip-bottom cursor-pointer whitespace-nowrap text-base font-bold text-gray-400"
+          className="text-base font-medium text-gray-400 cursor-pointer tooltip tooltip-bottom whitespace-nowrap"
           data-tip="Coming soon"
         >
           {children}
