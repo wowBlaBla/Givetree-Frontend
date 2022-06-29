@@ -1,4 +1,5 @@
 import React, { FC, PropsWithChildren, useLayoutEffect, useRef } from "react";
+import cx from "classnames";
 
 export type CollapseProps = PropsWithChildren<{
   expanded: boolean;
@@ -47,7 +48,7 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded }) => {
     function handleComplete() {
       if (!node) return;
 
-      node.style.overflow = expanded ? "intial" : "hidden";
+      node.style.overflow = expanded ? "auto" : "hidden";
       if (expanded) {
         node.style.height = "auto";
       }
@@ -70,7 +71,9 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded }) => {
 
   return (
     <div
-      className="w-full"
+      className={cx("w-full", {
+        "-mt-3": expanded,
+      })}
       id={id}
       ref={ref}
       role="region"
