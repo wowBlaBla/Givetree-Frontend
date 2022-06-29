@@ -14,16 +14,19 @@ export const AppNavLink: FC<AppNavLink> = ({ children, disabled, href, onClick }
   const resolved = useResolvedPath(href);
   const isMatch = useMatch({ path: resolved.pathname, end: true });
 
+  console.log(isMatch);
+
   return (
     <>
       {!disabled ? (
         <NavLink
           to={href}
           className={cx(
-            "whitespace-nowrap text-base text-gray-800 font-medium hover:text-brand-orange transition-hover",
             {
-              "text-brand-black": isMatch,
-            }
+              "text-brand-orange": isMatch,
+              "text-gray-800": !isMatch,
+            },
+            "whitespace-nowrap text-base font-medium hover:text-brand-orange transition-hover"
           )}
           onClick={onClick}
         >
