@@ -96,6 +96,16 @@ export const CampaignDetailsContainer: FC = () => {
                   RoyaltyType.CharityDonation
                 )}% of ${data.campaign.title} mints go to`}
                 imageAsset={data.campaign.nominatedCharity.media.tileUrl}
+                artistName={data.campaign.creators[0].name}
+                royalty={
+                  getRoyaltyPercentage(
+                    data.campaign.royalties,
+                    RoyaltyType.CharityDonation
+                  ) ?? 0
+                }
+                causes={data.campaign.nominatedCharity.causes}
+                totalSupply={data.campaign.totalSupply}
+                floorPrice={data.campaign.floorPrice}
               />
             </BaseTile>
           </div>
