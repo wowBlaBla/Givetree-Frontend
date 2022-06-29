@@ -1,5 +1,5 @@
 // TBD
 export enum SupportedPlatform {
-  ETH = "ethereum",
+  // ETH = "ethereum",
   SOL = "solana",
 }

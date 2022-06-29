@@ -1,113 +1,169 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useMemo, useState } from "react";
 import cx from "classnames";
-import { useMetaMask } from "metamask-react";
-import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
-import { WalletName } from "@solana/wallet-adapter-base";
+import { useWallet as useSolanaWallet, Wallet } from "@solana/wallet-adapter-react";
+import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
 
+import { Collapse } from "./Collapse";
 import { Modal } from "../Modal";
-import { MetaMaskIcon } from "../icons/MetaMaskIcon";
-import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
-import { isMetaMaskConnected, isMetaMaskInstalled } from "../../utils/isMetaMask";
-import { WalletIcon } from "./WalletIcon";
+import { WalletListItem } from "./WalletListItem";
+import { WalletSVG } from "./WalletSVG";
 
 interface WalletModalProps {
   closeDropdown: () => void;
 }
 
 export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
-  const { status: metaMaskReadyStatus, connect } = useMetaMask();
-  const { disconnect, wallets, select } = useSolanaWallet();
-  const isMetaMaskStatusInstalled = isMetaMaskInstalled();
-  const isMetaMaskStatusConnected = isMetaMaskConnected(
-    metaMaskReadyStatus as MetaMaskStatus
-  );
+  const { select, wallets } = useSolanaWallet();
+  const [expanded, setExpanded] = useState(false);
 
-  const handleMetaMaskWallet = useCallback(() => {
-    if (!isMetaMaskStatusInstalled) {
-      return window.open("https://metamask.io", "_blank");
+  const [installedWallets, otherWallets] = useMemo(() => {
+    const installed: Wallet[] = [];
+    const notDetected: Wallet[] = [];
+    const loadable: Wallet[] = [];
+
+    for (const wallet of wallets) {
+      if (wallet.readyState === WalletReadyState.NotDetected) {
+        notDetected.push(wallet);
+      } else if (wallet.readyState === WalletReadyState.Loadable) {
+        loadable.push(wallet);
+      } else if (wallet.readyState === WalletReadyState.Installed) {
+        installed.push(wallet);
+      }
     }
 
-    connect();
-    closeDropdown();
-    disconnect();
-  }, [connect, closeDropdown, disconnect, isMetaMaskStatusInstalled]);
+    return [installed, [...loadable, ...notDetected]];
+  }, [wallets]);
+
+  const getStartedWallet = useMemo(() => {
+    return installedWallets.length
+      ? installedWallets[0]
+      : wallets.find(
+          (wallet: { adapter: { name: WalletName } }) => wallet.adapter.name === "Torus"
+        ) ||
+          wallets.find(
+            (wallet: { adapter: { name: WalletName } }) =>
+              wallet.adapter.name === "Phantom"
+          ) ||
+          wallets.find(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (wallet: { readyState: any }) =>
+              wallet.readyState === WalletReadyState.Loadable
+          ) ||
+          otherWallets[0];
+  }, [installedWallets, wallets, otherWallets]);
 
   const handleSolanaWallet = useCallback(
-    (walletName: WalletName, isDisabled: boolean) => {
-      if (isDisabled) {
-        return;
-      }
-
+    (walletName: WalletName) => {
       select(walletName);
       closeDropdown();
     },
     [closeDropdown, select]
   );
 
+  const handleCollapse = useCallback(() => setExpanded(!expanded), [expanded]);
+
   return (
     <Modal modalName="wallet-modal">
-      <h1 className="py-10 px-8 text-2xl sm:text-3xl text-white text-center font-medium">
-        Connect a wallet to continue
-      </h1>
+      {installedWallets.length ? (
+        <>
+          <h1 className="py-10 px-10 text-2xl sm:text-3xl text-center font-medium">
+            Connect a wallet to continue
+          </h1>
+          <ul className="w-full list-none">
+            {installedWallets.map((wallet) => (
+              <WalletListItem
+                key={wallet.adapter.name}
+                wallet={wallet}
+                handleOnClick={handleSolanaWallet}
+              />
+            ))}
 
-      {isMetaMaskStatusConnected && (
-        <div className="py-3 px-5 mb-10 border border-orange-600 bg-orange-400 bg-opacity-10 text-gray-200 rounded-xl">
-          <p>
-            Note: You must disconnect MetaMask from your web browser before you can
-            connect to another wallet.
-          </p>
-        </div>
-      )}
+            {otherWallets.length && (
+              <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
+                {otherWallets.map((wallet) => (
+                  <WalletListItem
+                    key={wallet.adapter.name}
+                    wallet={wallet}
+                    handleOnClick={handleSolanaWallet}
+                  />
+                ))}
+              </Collapse>
+            )}
 
-      <ul className="w-full list-none">
-        <li className="my-2 py-1 px-3 rounded-lg button-hover">
-          <label
-            className="w-full text-lg sm:text-xl normal-case"
-            htmlFor="wallet-modal"
-            onClick={handleMetaMaskWallet}
-          >
-            <div className="flex items-center space-x-3 text-white">
-              <MetaMaskIcon />
-              <div className="flex justify-between items-center w-full">
-                <span>MetaMask</span>
-                <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                  Ethereum
-                </span>
-              </div>
-            </div>
-          </label>
-        </li>
-      </ul>
-
-      <ul className="w-full list-none">
-        {wallets.map((wallet, idx) => (
-          <li key={idx} className="my-2 py-1 px-3 rounded-lg button-hover">
-            <label
-              className="w-full text-lg sm:text-xl normal-case"
-              htmlFor={cx({
-                "wallet-modal": !isMetaMaskStatusConnected,
-              })}
-              onClick={() =>
-                handleSolanaWallet(wallet.adapter.name, isMetaMaskStatusConnected)
-              }
-            >
-              <div
-                className={cx("flex items-center space-x-3", {
-                  "text-white": !isMetaMaskStatusConnected,
-                })}
+            {otherWallets.length && (
+              <button
+                className="flex justify-end items-center w-full space-x-2 cursor-pointer border-none p-4 bg-transparent"
+                onClick={handleCollapse}
+                tabIndex={0}
               >
-                <WalletIcon className="w-6 h-6" wallet={wallet} />
-                <div className="flex justify-between items-center w-full">
-                  <span>{wallet.adapter.name}</span>
-                  <span className="text-sm sm:text-base font-normal opacity-60 tracking-wide">
-                    Solana
-                  </span>
-                </div>
-              </div>
-            </label>
-          </li>
-        ))}
-      </ul>
+                <span>{expanded ? "Less " : "More "}options</span>
+                <svg
+                  width="13"
+                  height="7"
+                  viewBox="0 0 13 7"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={cx({
+                    "transform rotate-180 transition duration-400 ease-in-out": expanded,
+                  })}
+                >
+                  <path d="M0.71418 1.626L5.83323 6.26188C5.91574 6.33657 6.0181 6.39652 6.13327 6.43762C6.24844 6.47872 6.37371 6.5 6.50048 6.5C6.62725 6.5 6.75252 6.47872 6.8677 6.43762C6.98287 6.39652 7.08523 6.33657 7.16774 6.26188L12.2868 1.626C12.7753 1.1835 12.3703 0.5 11.6195 0.5H1.37997C0.629216 0.5 0.224175 1.1835 0.71418 1.626Z" />
+                </svg>
+              </button>
+            )}
+          </ul>
+        </>
+      ) : (
+        <>
+          <h1 className="py-10 px-10 text-2xl sm:text-3xl text-center font-medium">
+            You&lsquo;ll need a wallet on Solana to continue
+          </h1>
+          <div className="flex flex-col justify-center items-center space-y-2 cursor-pointer">
+            <WalletSVG />
+            <button
+              type="button"
+              className="block w-full mt-12 p-2 text-lg border-none text-gray-500 font-semibold"
+              onClick={() => handleSolanaWallet(getStartedWallet.adapter.name)}
+            >
+              Get started
+            </button>
+          </div>
+
+          {otherWallets.length && (
+            <>
+              <button
+                className="flex justify-end items-center w-full space-x-2 cursor-pointer border-none p-4 bg-transparent"
+                onClick={handleCollapse}
+                tabIndex={0}
+              >
+                <span>{expanded ? "Hide " : "Already have a wallet? View "}options</span>
+                <svg
+                  width="13"
+                  height="7"
+                  viewBox="0 0 13 7"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={cx({
+                    "transform rotate-180 transition duration-600 ease-in-out": expanded,
+                  })}
+                >
+                  <path d="M0.71418 1.626L5.83323 6.26188C5.91574 6.33657 6.0181 6.39652 6.13327 6.43762C6.24844 6.47872 6.37371 6.5 6.50048 6.5C6.62725 6.5 6.75252 6.47872 6.8677 6.43762C6.98287 6.39652 7.08523 6.33657 7.16774 6.26188L12.2868 1.626C12.7753 1.1835 12.3703 0.5 11.6195 0.5H1.37997C0.629216 0.5 0.224175 1.1835 0.71418 1.626Z" />
+                </svg>
+              </button>
+
+              <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
+                <ul className="wallet-adapter-modal-list">
+                  {otherWallets.map((wallet) => (
+                    <WalletListItem
+                      key={wallet.adapter.name}
+                      wallet={wallet}
+                      handleOnClick={handleSolanaWallet}
+                    />
+                  ))}
+                </ul>
+              </Collapse>
+            </>
+          )}
+        </>
+      )}
     </Modal>
   );
 };

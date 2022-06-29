@@ -27,7 +27,7 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
     <div className={className}>
       <label
         htmlFor={`donate-modal-${charity.slug}`}
-        className="flex flex-col items-center flex-1 py-1 text-sm text-white rounded-lg bg-brand-orange button-hover sm:text-base xl:text-lg"
+        className="flex flex-col items-center flex-1 py-1 text-sm rounded-lg bg-brand-orange text-white button-hover sm:text-base xl:text-lg"
       >
         Donate
       </label>
@@ -44,7 +44,7 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
         >
           {({ errors, touched, values }) => (
             <Form>
-              <Label className="text-white">Amount</Label>
+              <Label>Amount</Label>
               <Field
                 className="w-full input input-bordered"
                 name="amount"
@@ -56,7 +56,7 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
                 message={errors.amount}
               />
 
-              <div className="flex flex-col w-full py-2 mt-6 text-white">
+              <div className="flex flex-col w-full py-2 mt-6">
                 <h3>Distribution:</h3>
                 <table className="mt-1">
                   <tbody>
@@ -75,7 +75,7 @@ export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
               <div className="flex flex-row-reverse w-full mt-6">
                 <label
                   htmlFor={`donate-modal-${charity.slug}`}
-                  className="btn bg-brand-orange button-hover"
+                  className="py-2 px-3 rounded-lg bg-brand-orange text-white button-hover cursor-pointer"
                 >
                   Donate
                 </label>

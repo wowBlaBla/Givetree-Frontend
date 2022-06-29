@@ -1,57 +1,46 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import cx from "classnames";
-import { useMetaMask } from "metamask-react";
-
-import { Button, ButtonProps } from "./Button";
-import { MetaMaskIcon } from "../icons/MetaMaskIcon";
-import { WalletConnectButton } from "./WalletConnectButton";
-import { MetaMaskStatus } from "../../typed/enum/metaMaskStatus";
-import { WalletModal } from "./WalletModal";
-import { isMetaMaskConnected, isMetaMaskNotConnected } from "../../utils/isMetaMask";
 import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
-import { WalletIcon } from "./WalletIcon";
-import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 
-export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
+import { WalletConnectButton } from "./WalletConnectButton";
+import { WalletIcon } from "./WalletIcon";
+import { WalletModal } from "./WalletModal";
+import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
+import { ButtonProps, PrimaryButton, PrimaryLabelButton } from "../PrimaryCta";
+
+export const WalletButton: FC<ButtonProps> = ({ children }) => {
   const ref = useRef<HTMLUListElement>(null);
-  const { disconnect, publicKey, wallet } = useSolanaWallet();
-  const { account, status: metaMaskReadyStatus } = useMetaMask();
+  const {
+    disconnect,
+    publicKey: solanaPublicKey,
+    wallet,
+    connecting,
+    connected,
+  } = useSolanaWallet();
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
-  const metaMaskWalletAddress = useMemo(() => {
-    if (account) return account;
-  }, [account]);
-
   const solanaWalletAddress = useMemo(() => {
-    if (publicKey) return publicKey.toBase58();
-  }, [publicKey]);
+    if (solanaPublicKey) return solanaPublicKey.toBase58();
+  }, [solanaPublicKey]);
 
   const content = useMemo(() => {
     if (children) {
       return children;
     }
 
-    if (metaMaskWalletAddress) {
-      return metaMaskWalletAddress.slice(0, 4) + ".." + metaMaskWalletAddress.slice(-4);
-    }
-
     if (solanaWalletAddress) {
       return solanaWalletAddress.slice(0, 4) + ".." + solanaWalletAddress.slice(-4);
     }
-  }, [children, metaMaskWalletAddress, solanaWalletAddress]);
+  }, [children, solanaWalletAddress]);
 
   const copyAddress = useCallback(async () => {
-    if (metaMaskWalletAddress) {
-      await navigator.clipboard.writeText(metaMaskWalletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 400);
-    } else if (solanaWalletAddress) {
+    if (solanaWalletAddress) {
       await navigator.clipboard.writeText(solanaWalletAddress);
       setCopied(true);
       setTimeout(() => setCopied(false), 400);
     }
-  }, [metaMaskWalletAddress, solanaWalletAddress]);
+  }, [solanaWalletAddress]);
 
   const openDropdown = useCallback(() => {
     setActive(true);
@@ -81,58 +70,53 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
     };
   }, [ref, closeDropdown]);
 
-  const walletIcon = () => {
-    if (account || metaMaskReadyStatus === MetaMaskStatus.Connecting) {
-      return <MetaMaskIcon />;
-    }
-
-    if (wallet) {
-      return <WalletIcon wallet={wallet} />;
-    }
-
-    return undefined;
-  };
-
-  if (
-    !wallet &&
-    !metaMaskWalletAddress &&
-    isMetaMaskNotConnected(metaMaskReadyStatus as MetaMaskStatus)
-  ) {
+  if (!wallet) {
     return (
       <>
-        <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
-          <span className="block sm:hidden">
+        <PrimaryLabelButton htmlFor="wallet-modal">
+          <span className="block md:hidden">
             <ConnectWalletIcon />
           </span>
-          <span className="hidden sm:block">Connect wallet</span>
-        </label>
+          <span className="hidden md:block">Connect wallet</span>
+        </PrimaryLabelButton>
 
         <WalletModal closeDropdown={closeDropdown} />
       </>
     );
   }
 
-  if (!solanaWalletAddress && !metaMaskWalletAddress) {
+  if (!solanaWalletAddress) {
+    const connectStatus = (): string => {
+      if (connecting) return "Connecting ...";
+      if (connected) return "Connected";
+      if (wallet) return "Connect";
+      return "Connect Wallet";
+    };
+
     return (
-      <WalletConnectButton startIcon={walletIcon()} className="bg-brand-orange">
-        {children}
+      <WalletConnectButton>
+        <div className="flex items-center space-x-1">
+          <WalletIcon wallet={wallet} />
+          <div className="hidden md:block whitespace-nowrap">{connectStatus()}</div>
+        </div>
       </WalletConnectButton>
     );
   }
 
   return (
     <div className="block relative">
-      <Button
+      <PrimaryButton
         aria-expanded={active}
-        className={cx("wallet-adapter-button-active", {
-          "pointer-events-auto": active,
-        })}
+        className={cx(
+          "space-x-3 border border-brand-orange bg-brand-orange-active bg-opacity-10 text-brand-orange"
+        )}
         onClick={openDropdown}
-        startIcon={walletIcon()}
-        {...props}
       >
-        {content}
-      </Button>
+        <div className="flex items-center space-x-1">
+          <WalletIcon wallet={wallet} />
+          <div className="hidden md:block whitespace-nowrap">{content}</div>
+        </div>
+      </PrimaryButton>
 
       <ul
         aria-label="dropdown-list"
@@ -151,18 +135,18 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
         </li>
 
         <li className="wallet-adapter-dropdown-list-item" role="menuitem">
-          <label htmlFor="wallet-modal">Change wallet</label>
+          <label htmlFor="wallet-modal" className="cursor-pointer">
+            Change wallet
+          </label>
         </li>
 
-        {!isMetaMaskConnected(metaMaskReadyStatus as MetaMaskStatus) && (
-          <li
-            onClick={disconnect}
-            className="wallet-adapter-dropdown-list-item"
-            role="menuitem"
-          >
-            Disconnect
-          </li>
-        )}
+        <li
+          onClick={disconnect}
+          className="wallet-adapter-dropdown-list-item"
+          role="menuitem"
+        >
+          Disconnect
+        </li>
       </ul>
 
       <WalletModal closeDropdown={closeDropdown} />
