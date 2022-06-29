@@ -21,5 +21,9 @@ export const WalletConnectButton: FC<ButtonProps> = ({ children, ...props }) => 
     return "Connect Wallet";
   }, [children, connecting, connected, wallet]);
 
-  return <PrimaryButton onClick={handleOnClick}>{content}</PrimaryButton>;
+  return (
+    <PrimaryButton onClick={handleOnClick} {...props}>
+      {content}
+    </PrimaryButton>
+  );
 };

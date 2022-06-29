@@ -3,7 +3,7 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 
 const ButtonStyles =
-  "py-1 px-2 sm:py-2 sm:px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center text-white font-semibold cursor-pointer button-hover";
+  "py-1 px-2 sm:py-2 sm:px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center text-white font-medium tracking-wide cursor-pointer button-hover";
 
 // Primary Button
 
@@ -49,7 +49,7 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
   href,
 }) => (
   <Link
-    className={cx("text-base sm:text-lg", ButtonStyles, className, {
+    className={cx("py-2 px-3 text-base", ButtonStyles, className, {
       "text-lg lg:text-xl": large,
     })}
     to={href}

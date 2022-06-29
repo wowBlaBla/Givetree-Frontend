@@ -15,15 +15,15 @@ export const VerificationBadge: FC<VerificationBadgeProps> = ({
 }) => (
   <div
     className={cx(
-      "flex items-center py-1 px-2 space-x-1 text-brand-green-active border-2 rounded-lg border-brand-green-active text-sm font-semibold",
+      "rounded-lg py-1 px-2 text-brand-orange border border-brand-orange flex flex-row items-center gap-1",
       className,
       {
         "text-xs sm:text-sm": !large,
-        "text-base sm:text-lg": large,
+        "text-sm sm:text-base": large,
       }
     )}
   >
-    <VerificationIcon className="fill-current" />
+    <VerificationIcon className="w-4 fill-current" />
     <span>{text ?? "Verified"}</span>
   </div>
 );

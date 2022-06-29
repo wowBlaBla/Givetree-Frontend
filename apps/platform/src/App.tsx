@@ -9,7 +9,6 @@ import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
 import { CharityListingContainer } from "./containers/charities/listing/Listing";
-import { MintEventContainer } from "./containers/mint-event/MintEvent";
 import { CharityDetailsContainer } from "./containers/charities/detail/Details";
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
 
@@ -32,8 +31,6 @@ const App = () => (
               path={PlatformRoute.CampaignListing}
               element={<CampaignListingContainer />}
             />
-
-            <Route path={PlatformRoute.MintingEvent} element={<MintEventContainer />} />
 
             <Route
               path={PlatformRoute.MarketplaceListing}

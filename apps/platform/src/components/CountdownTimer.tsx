@@ -26,7 +26,8 @@ const ShowCounter: FC<ShowCounterProps> = ({
         "bg-brand-orange rounded-lg px-2 py-1": includeBgColor,
       })}
     >
-      {text} {days} days {hours} hours {minutes} minutes {seconds} seconds
+      <span className="text-brand-orange">{text}</span> {days ? `${days} days` : ""}{" "}
+      {hours} hours {minutes} minutes {seconds} seconds
     </div>
   );
 };

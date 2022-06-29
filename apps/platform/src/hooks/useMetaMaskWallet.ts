@@ -8,9 +8,7 @@ export interface MetaMaskWalletAddressContextTypes {
 const DEFAULT_CONTEXT = {
   isConnected: true,
   walletAddress: "",
-  setWalletAddress(walletAddress: string) {
-    console.log(walletAddress);
-  },
+  setWalletAddress(walletAddress: string) {},
 };
 
 export const MetaMaskWalletAddressContext =

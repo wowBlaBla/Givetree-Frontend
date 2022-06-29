@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "../BackgroundImage";
-import { BaseTile } from "./BaseTile";
+import { OutlineLink } from "../OutlineCta";
+import { PrimaryButton } from "../PrimaryCta";
 
 interface CharityTileProps {
   imageAsset: string;
@@ -9,16 +10,31 @@ interface CharityTileProps {
 }
 
 export const CharityTile: FC<CharityTileProps> = ({ description, imageAsset, name }) => (
-  <BaseTile className="border bg-gray-100 mt-5">
-    <div className="flex flex-col justify-center items-center">
-      <div className="flex relative justify-center w-48 h-48 lg:w-72 lg:h-72 mx-auto">
-        <BackgroundImage asset={imageAsset} className="object-fit w-full rounded-full" />
+  <div className="flex flex-col flex-1">
+    <div className="flex flex-row items-center">
+      <div className="flex-grow">
+        <h3 className="text-xl font-semibold">Charity details</h3>
       </div>
+      <OutlineLink href="https://givetree.gitbook.io/givetree-content-creator-onboarding-info-pack/">
+        Learn more
+      </OutlineLink>
+    </div>
 
-      <p className="mt-4 text-center text-base lg:text-lg">{description}</p>
-      <p className="mt-2 text-brand-orange font-semibold text-center text-base lg:text-xl">
-        {name}
+    <div className="mt-5">
+      <p className="text-base">
+        {description} {name}
       </p>
     </div>
-  </BaseTile>
+
+    <div className="flex flex-col items-center justify-center mt-5">
+      <div className="relative flex justify-center w-40 h-40 mx-auto lg:w-40 lg:h-40">
+        <BackgroundImage asset={imageAsset} className="w-full rounded-full object-fit" />
+      </div>
+
+      <p className="mt-2 text-base font-semibold text-center lg:text-xl">{name}</p>
+      <div className="mt-3">
+        <PrimaryButton>Donate</PrimaryButton>
+      </div>
+    </div>
+  </div>
 );

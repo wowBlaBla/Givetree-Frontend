@@ -12,6 +12,7 @@ import { MainBanner } from "../../../components/MainBanner";
 import { SectionHeader } from "../../../components/SectionHeader";
 
 import MulgaBannerImage from "../../../temp/images/campaigns/mulgakongz-bg.png";
+import { SectionContainer } from "../../../components/SectionContainer";
 
 export const CampaignListingContainer = (): JSX.Element => {
   const { data, loading, error } = useQuery<GetCampaignListingDataQuery>(
@@ -61,13 +62,13 @@ export const CampaignListingContainer = (): JSX.Element => {
         />
       </Carousel>
 
-      <div className="flex relative flex-col flex-1 w-full max-w-screen-3xl mx-auto mt-12 sm:mt-16 p-5">
+      <SectionContainer>
         <CardGrid>
           {data.campaigns.map((campaign, idx) => (
             <CampaignCard key={idx} campaign={campaign} />
           ))}
         </CardGrid>
-      </div>
+      </SectionContainer>
     </div>
   );
 };
