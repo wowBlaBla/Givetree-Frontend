@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  FC,
-  MouseEventHandler,
-  ReactElement,
-  ReactNode,
-} from "react";
+import React, { FC, MouseEventHandler, ReactElement, ReactNode } from "react";
 import cx from "classnames";
 
 export interface ButtonProps {
@@ -13,7 +7,6 @@ export interface ButtonProps {
   disabled?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   startIcon?: ReactElement;
-  style?: CSSProperties;
   tabIndex?: number;
 }
 
@@ -23,16 +16,17 @@ export const Button: FC<ButtonProps> = ({
   disabled,
   startIcon,
   onClick,
-  style,
   tabIndex,
 }) => (
   <button
-    className={cx("wallet-adapter-button", className)}
+    className={cx(
+      "py-2 px-3 sm:px-4 rounded-lg text-sm sm:text-base text-white font-bold cursor-pointer hover:bg-brand-orange-hover transition-hover",
+      className
+    )}
     disabled={disabled}
     onClick={onClick}
     tabIndex={tabIndex || 0}
     type="button"
-    style={style}
   >
     <div className="flex items-center space-x-2">
       <div>{startIcon}</div>

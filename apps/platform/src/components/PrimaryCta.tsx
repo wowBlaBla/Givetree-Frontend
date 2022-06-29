@@ -1,27 +1,39 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, MouseEventHandler, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
 const ButtonStyles =
-  "py-1 px-2 sm:py-2 sm:px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center text-white font-semibold button-hover";
+  "py-1 px-2 sm:py-2 sm:px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center text-white font-semibold cursor-pointer button-hover";
 
-interface ButtonProps {
+// Primary Button
+
+export interface ButtonProps {
   children?: ReactNode;
   className?: string;
   large?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const PrimaryButton: FC<ButtonProps> = ({ className, large, type, children }) => (
+export const PrimaryButton: FC<ButtonProps> = ({
+  children,
+  className,
+  large,
+  onClick,
+  type,
+}) => (
   <button
     className={cx("text-base sm:text-lg", ButtonStyles, className, {
       "text-lg sm:text-xl": large,
     })}
     type={type || "button"}
+    onClick={onClick}
   >
     {children}
   </button>
 );
+
+// Primary Link
 
 interface PrimaryLinkProps {
   href: string;
@@ -44,4 +56,25 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
   >
     {children}
   </Link>
+);
+
+// Primary Modal Button
+
+interface PrimaryModalButtonProps {
+  children: ReactNode;
+  className?: string;
+  htmlFor: string;
+}
+
+export const PrimaryLabelButton: FC<PrimaryModalButtonProps> = ({
+  children,
+  className,
+  htmlFor,
+}) => (
+  <label
+    className={cx("text-base sm:text-lg", ButtonStyles, className)}
+    htmlFor={htmlFor}
+  >
+    {children}
+  </label>
 );

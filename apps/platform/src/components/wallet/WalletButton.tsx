@@ -2,15 +2,21 @@ import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "re
 import cx from "classnames";
 import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 
-import { Button, ButtonProps } from "./Button";
 import { WalletConnectButton } from "./WalletConnectButton";
 import { WalletIcon } from "./WalletIcon";
 import { WalletModal } from "./WalletModal";
 import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
+import { ButtonProps, PrimaryButton, PrimaryLabelButton } from "../PrimaryCta";
 
-export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
+export const WalletButton: FC<ButtonProps> = ({ children }) => {
   const ref = useRef<HTMLUListElement>(null);
-  const { disconnect, publicKey: solanaPublicKey, wallet } = useSolanaWallet();
+  const {
+    disconnect,
+    publicKey: solanaPublicKey,
+    wallet,
+    connecting,
+    connected,
+  } = useSolanaWallet();
   const [copied, setCopied] = useState(false);
   const [active, setActive] = useState(false);
 
@@ -67,12 +73,12 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   if (!wallet) {
     return (
       <>
-        <label htmlFor="wallet-modal" className="wallet-adapter-button bg-brand-orange">
+        <PrimaryLabelButton htmlFor="wallet-modal">
           <span className="block md:hidden">
             <ConnectWalletIcon />
           </span>
           <span className="hidden md:block">Connect wallet</span>
-        </label>
+        </PrimaryLabelButton>
 
         <WalletModal closeDropdown={closeDropdown} />
       </>
@@ -80,29 +86,37 @@ export const WalletButton: FC<ButtonProps> = ({ children, ...props }) => {
   }
 
   if (!solanaWalletAddress) {
+    const connectStatus = (): string => {
+      if (connecting) return "Connecting ...";
+      if (connected) return "Connected";
+      if (wallet) return "Connect";
+      return "Connect Wallet";
+    };
+
     return (
-      <WalletConnectButton
-        startIcon={<WalletIcon wallet={wallet} />}
-        className="bg-brand-orange"
-      >
-        {children}
+      <WalletConnectButton>
+        <div className="flex items-center space-x-1">
+          <WalletIcon wallet={wallet} />
+          <div className="hidden md:block whitespace-nowrap">{connectStatus()}</div>
+        </div>
       </WalletConnectButton>
     );
   }
 
   return (
     <div className="block relative">
-      <Button
+      <PrimaryButton
         aria-expanded={active}
-        className={cx("wallet-adapter-button-active", {
-          "pointer-events-auto": active,
-        })}
+        className={cx(
+          "space-x-3 border border-brand-orange bg-brand-orange-active bg-opacity-10 text-brand-orange"
+        )}
         onClick={openDropdown}
-        startIcon={<WalletIcon wallet={wallet} />}
-        {...props}
       >
-        {content}
-      </Button>
+        <div className="flex items-center space-x-1">
+          <WalletIcon wallet={wallet} />
+          <div className="hidden md:block whitespace-nowrap">{content}</div>
+        </div>
+      </PrimaryButton>
 
       <ul
         aria-label="dropdown-list"

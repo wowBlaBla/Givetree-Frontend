@@ -16,7 +16,7 @@ export const Modal: FC<DonateModalProps> = ({ children, className, modalName }) 
       <label className="modal-box relative w-full bg-white rounded-xl">
         <label
           htmlFor={modalName}
-          className="absolute right-6 top-4 text-lg text-gray-400 hover:text-black transition-hover cursor-pointer"
+          className="absolute right-0 top-0 py-4 px-5 text-lg text-gray-400 hover:text-black transition-hover cursor-pointer"
         >
           ✕
         </label>
