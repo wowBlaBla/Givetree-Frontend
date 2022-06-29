@@ -125,7 +125,7 @@ export const CampaignDetailsContainer: FC = () => {
                 </div>
 
                 <div className="flex justify-center mt-5">
-                  <PrimaryButton large className="items-center w-full">
+                  <PrimaryButton className="items-center w-full">
                     Mint - {data.campaign.floorPrice} SOL
                   </PrimaryButton>
                 </div>
