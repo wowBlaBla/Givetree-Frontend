@@ -1,28 +1,14 @@
 import React, { FC } from "react";
 import { BackgroundImage } from "./BackgroundImage";
 import { BackgroundVideo } from "./BackgroundVideo";
-import { DarkBlendBottom } from "./BoxBlends";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
-import { CurrencyIcon } from "./icons/CurrencyIcon";
-import { SupportedPlatform } from "../typed/enum/supportedPlatform";
-import { VerificationBadge } from "./badges/VerificationBadge";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { GradientDivider } from "./GradientDivider";
-import { SocialGrid } from "./SocialGrid";
 
 interface CampaignBannerHeaderProps {
   backgroundImage: string;
   description: string;
   campaignTitle: string;
   isFeatured?: boolean;
-  floorPrice: number;
-  totalSupply: number;
-  currency: SupportedPlatform;
-  isVerified?: boolean;
-  websiteUrl?: string;
-  twitterUrl?: string;
-  discordUrl?: string;
-  contractUrl?: string;
 }
 
 export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
@@ -30,14 +16,6 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   campaignTitle,
   isFeatured,
   description,
-  floorPrice,
-  totalSupply,
-  currency,
-  isVerified,
-  websiteUrl,
-  twitterUrl,
-  discordUrl,
-  contractUrl,
 }) => {
   const assetType = getAssetType(backgroundImage);
 

@@ -15,6 +15,7 @@ export const FeaturedBadge: FC<FeaturedBadgeProps> = ({
   <div
     className={cx(
       "rounded-lg py-1 px-2 bg-brand-black text-brand-orange bg-opacity-60 border border-brand-orange",
+      className,
       {
         "text-xs sm:text-sm": !large,
         "text-sm sm:text-base": large,

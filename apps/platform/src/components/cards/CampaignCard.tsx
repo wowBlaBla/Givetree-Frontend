@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { BackgroundImage } from "../BackgroundImage";
@@ -8,17 +8,6 @@ import { FeaturedBadge } from "../badges/FeaturedBadge";
 import { CurrencyIcon } from "../icons/CurrencyIcon";
 import { Campaign } from "../../typed/campaign";
 import { getEventStatus } from "../../utils/getEventStatus";
-import { StatBox } from "../StatBox";
-
-interface ItemBoxProps {
-  children: ReactNode;
-}
-
-const ItemBox: FC<ItemBoxProps> = ({ children }) => (
-  <div className="flex items-center justify-center w-full p-1 space-x-1 text-xs text-center rounded-lg xl:text-sm">
-    {children}
-  </div>
-);
 
 interface CampaignCardProps {
   campaign: Campaign;

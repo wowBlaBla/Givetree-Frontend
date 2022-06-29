@@ -1,24 +1,15 @@
 import React, { FC } from "react";
-import { BaseTile } from "./BaseTile";
-import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundTile } from "./EventRoundTile";
 import { CampaignEventRound } from "../../typed/campaign-event";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
-import { getEventStatus } from "../../utils/getEventStatus";
 import { OutlineLink } from "../OutlineCta";
-import { PrimaryButton, PrimaryLink } from "../PrimaryCta";
 
 interface MintingEventTileProps {
   rounds: CampaignEventRound[];
   currency: SupportedPlatform;
-  campaignSlug: string;
 }
 
-export const MintingEventTile: FC<MintingEventTileProps> = ({
-  rounds,
-  currency,
-  campaignSlug,
-}) => {
+export const MintingEventTile: FC<MintingEventTileProps> = ({ rounds, currency }) => {
   return (
     <div className="flex flex-col flex-1">
       <div className="flex flex-row items-center">

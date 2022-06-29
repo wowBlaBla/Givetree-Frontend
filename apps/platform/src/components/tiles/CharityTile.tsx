@@ -1,9 +1,7 @@
 import React, { FC } from "react";
-import { Cause } from "../../typed/enum/cause";
 import { BackgroundImage } from "../BackgroundImage";
 import { OutlineLink } from "../OutlineCta";
 import { PrimaryButton } from "../PrimaryCta";
-import { CausesTile } from "./CausesTile";
 
 interface CharityTileProps {
   imageAsset: string;

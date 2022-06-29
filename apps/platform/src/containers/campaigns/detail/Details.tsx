@@ -52,12 +52,8 @@ export const CampaignDetailsContainer: FC = () => {
 
       <CampaignBannerHeader
         backgroundImage={data.campaign.media.campaignBannerUrl}
-        description={data.campaign.shortDescription}
+        description={data.campaign.shortDescription ?? ""}
         campaignTitle={data.campaign.title}
-        floorPrice={data.campaign.floorPrice}
-        totalSupply={data.campaign.totalSupply}
-        currency={data.campaign.currency}
-        isVerified={data.campaign.isVerified}
         isFeatured
       />
 
@@ -86,7 +82,6 @@ export const CampaignDetailsContainer: FC = () => {
               <MintingEventTile
                 rounds={data.campaign.event.rounds}
                 currency={data.campaign.currency}
-                campaignSlug={data.campaign.slug}
               />
 
               <div className="my-5">

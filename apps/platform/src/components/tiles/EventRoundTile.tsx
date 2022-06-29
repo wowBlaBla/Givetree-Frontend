@@ -5,27 +5,19 @@ import { BaseTile } from "./BaseTile";
 import { CountdownTimer } from "../CountdownTimer";
 import { EventRoundSectionTitle } from "../EventRoundSectionTitle";
 import { LiveBadge } from "../badges/LiveBadge";
-import { PillBox } from "../PillBox";
 import { EventRoundType } from "../../typed/enum/eventType";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { isEventRoundLive } from "../../utils/getEventStatus";
 import { CampaignEventRound } from "../../typed/campaign-event";
-import { OutlineLink } from "../OutlineCta";
 import { StatBox } from "../StatBox";
-import { GradientDivider } from "../GradientDivider";
 import { SocialLink } from "../SocialGrid";
 
 interface EventRoundTileProps {
   round: CampaignEventRound;
   currency: SupportedPlatform;
-  isFirstRound?: boolean;
 }
 
-export const EventRoundTile: FC<EventRoundTileProps> = ({
-  round,
-  currency,
-  isFirstRound,
-}) => {
+export const EventRoundTile: FC<EventRoundTileProps> = ({ round, currency }) => {
   const isLive = isEventRoundLive(round.startDate, round.endDate);
 
   return (

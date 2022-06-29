@@ -1,12 +1,7 @@
 import React, { FC } from "react";
-import { BaseTile } from "./BaseTile";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
-import { PillBox } from "../PillBox";
-import { LiveBadge } from "../badges/LiveBadge";
 import { SocialGrid } from "../SocialGrid";
 import { VerificationBadge } from "../badges/VerificationBadge";
-import { FeaturedBadge } from "../badges/FeaturedBadge";
-import { GradientDivider } from "../GradientDivider";
 import { StatBox } from "../StatBox";
 
 interface CampaignDetailTileProps {
@@ -30,7 +25,6 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   artistName,
   totalSupply,
   floorPrice,
-  isLive,
   websiteUrl,
   twitterUrl,
   discordUrl,
