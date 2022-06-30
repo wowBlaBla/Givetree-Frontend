@@ -3,12 +3,8 @@ import { BackgroundImage } from "./BackgroundImage";
 import { BackgroundVideo } from "./BackgroundVideo";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { PrimaryButton } from "./PrimaryCta";
 import { BaseTile } from "./tiles/BaseTile";
-import { OutlineButton } from "./OutlineCta";
 import { Cause } from "../typed/enum/cause";
-import { CausesTile } from "./tiles/CausesTile";
-import { LeafIcon } from "./icons/LeafIcon";
 
 interface CampaignBannerHeaderProps {
   backgroundImage: string;

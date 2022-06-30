@@ -4,7 +4,6 @@ import { Cause } from "../../typed/enum/cause";
 import { BackgroundImage } from "../BackgroundImage";
 import { SolanaColorIcon } from "../icons/SolanaColorIcon";
 import { OutlineLink } from "../OutlineCta";
-import { PrimaryButton } from "../PrimaryCta";
 import { BaseTile } from "./BaseTile";
 
 interface CharityTileProps {
