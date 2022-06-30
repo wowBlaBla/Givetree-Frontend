@@ -1,6 +1,7 @@
 import React, { FC } from "react";
+import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 import { BackgroundImage } from "../BackgroundImage";
-import { VerificationBadge } from "../badges/VerificationBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 
 interface ContentCreatorTileProps {
   name: string;
@@ -28,7 +29,7 @@ export const ContentCreatorTile: FC<ContentCreatorTileProps> = ({
           <span className="whitespace-nowrap text-brand-orange">{name}</span>
         </h4>
 
-        <VerificationBadge text="Verified Creator" />
+        <VerifiedBadge type={VerifiedBadgeType.Account} />
       </div>
     </div>
 

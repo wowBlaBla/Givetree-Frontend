@@ -44,7 +44,7 @@ export const AppHeader: FC = () => {
   };
 
   return (
-    <div className="fixed z-50 w-full py-2 bg-white border-b shadow-lg">
+    <div className="fixed z-50 w-full py-2 bg-white border-b shadow-sm">
       <div className="grid w-full grid-cols-2 px-3 md:grid-cols-4">
         <div className="flex items-center space-x-1 md:space-x-0">
           <div className="relative cursor-pointer md:hidden" onClick={handleDropdown}>

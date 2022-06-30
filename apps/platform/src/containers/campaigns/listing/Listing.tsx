@@ -49,15 +49,15 @@ export const CampaignListingContainer = (): JSX.Element => {
           backgroundAsset={MulgaBannerImage.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink1={PlatformRoute.CampaignDetails}
-          ctaLink1Text="Go to Mints"
+          ctaLink1={PlatformRoute.CampaignListing}
+          ctaLink1Text="Learn more"
         />
 
         <MainBanner
           backgroundAsset="/videos/genopets-bg.mp4"
           title="Genopets By Genopets Official"
           subtitle="3% of every single NFT minted is donated to charity"
-          ctaLink1={PlatformRoute.CampaignDetails}
+          ctaLink1={PlatformRoute.CampaignListing}
           ctaLink1Text="Learn more"
         />
       </Carousel>

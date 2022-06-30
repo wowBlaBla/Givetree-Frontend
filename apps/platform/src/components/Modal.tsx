@@ -4,7 +4,7 @@ interface DonateModalProps {
   className?: string;
   children: ReactNode;
   modalName: string;
-  onModalClose: () => void;
+  onModalClose?: () => void;
 }
 
 export const Modal: FC<DonateModalProps> = ({

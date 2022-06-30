@@ -35,7 +35,7 @@ export const MainBanner: FC<MainBannerProps> = ({
         <BackgroundImage asset={backgroundAsset} className="min-h-full" />
       )}
 
-      <div className="flex relative justify-center sm:justify-start items-center max-w-screen-3xl min-h-full mx-auto py-16 px-3 z-10">
+      <div className="flex relative justify-center sm:justify-start items-center max-w-screen-xl min-h-full mx-auto py-16 px-3 z-10">
         <div className="w-full max-w-lg rounded-xl bg-brand-black bg-opacity-70 text-white">
           <div className="flex flex-col space-y-2 py-10 px-5">
             <h2 className="text-2xl sm:text-3xl">{title}</h2>

@@ -65,6 +65,7 @@ export const CampaignDetailsContainer: FC = () => {
                 artistName={data.campaign.creators[0].name}
                 description={data.campaign.shortDescription}
                 floorPrice={data.campaign.floorPrice}
+                isVerified={data.campaign.isVerified}
                 currency={data.campaign.currency}
                 title={data.campaign.title}
                 totalSupply={data.campaign.totalSupply}

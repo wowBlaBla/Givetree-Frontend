@@ -151,7 +151,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                 </svg>
               </button>
 
-              <WalletCollapse expanded={expanded} id="wallet-adapter-modal-collapse">
+              <WalletCollapse expanded={expanded} id="wallet-modal-collapse">
                 <ul className="wallet-adapter-modal-list">
                   {otherWallets.map((wallet) => (
                     <WalletListItem
