@@ -37,12 +37,9 @@ export const CharityTile: FC<CharityTileProps> = ({
     </div>
 
     <BaseTile className="flex flex-col gap-5 mt-5 sm:flex-row">
-      <div className="flex flex-col items-center pr-5 border-r border-gray-200">
+      <div className="flex flex-col items-center pr-5 border-gray-200 sm:border-r">
         <div className="relative flex justify-center w-24 h-24 mx-auto">
-          <BackgroundImage
-            asset={imageAsset}
-            className="w-full rounded-full object-fit"
-          />
+          <BackgroundImage asset={imageAsset} className="w-full rounded-lg object-fit" />
         </div>
       </div>
 

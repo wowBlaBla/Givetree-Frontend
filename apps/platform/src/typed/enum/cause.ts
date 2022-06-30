@@ -4,4 +4,7 @@ export enum Cause {
   Environment = "Environment",
   FightHomelessness = "Fight Homelessness",
   WildlifePreservation = "Wildlife Preservation",
+  Hospitalized = "Hospitalized Kids",
+  Gaming = "Gaming",
+  Entertainment = "Entertainment",
 }

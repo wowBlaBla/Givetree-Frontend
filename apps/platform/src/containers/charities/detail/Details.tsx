@@ -7,7 +7,13 @@ import { BackgroundImage } from "../../../components/BackgroundImage";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { LoadingContainer } from "../../../components/LoadingContainer";
 import { ErrorContainer } from "../../../components/ErrorContainer";
-import { PrimaryLink } from "../../../components/PrimaryCta";
+import { PrimaryButton, PrimaryLink } from "../../../components/PrimaryCta";
+import { BaseTile } from "../../../components/tiles/BaseTile";
+import { FeaturedBadge } from "../../../components/badges/FeaturedBadge";
+import { VerificationBadge } from "../../../components/badges/VerificationBadge";
+import { GradientDivider } from "../../../components/GradientDivider";
+import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
+import { ContentCreatorBadge } from "../../../components/badges/ContentCreatorBadge";
 
 export const CharityDetailsContainer = () => {
   const params = useParams();
@@ -37,36 +43,44 @@ export const CharityDetailsContainer = () => {
         <title>GiveTree - {data.charity.name}</title>
       </Head>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 w-full max-w-screen-xl mx-auto my-6 sm:my-8 px-3">
-        <div className="flex flex-col space-y-5">
-          <div className="relative pt-full">
-            <BackgroundImage
-              imageAsset={data.charity.media.previewUrl}
-              className="border rounded-xl shadow-lg"
-            />
+      <div className="grid w-full max-w-screen-xl grid-cols-1 gap-4 px-3 mx-auto my-6 lg:grid-cols-2 lg:gap-8 sm:my-8">
+        <BaseTile className="flex flex-col px-2 bg-white">
+          <div className="flex">
+            <VerificationBadge text="Verified charity" />
           </div>
-        </div>
+          <div className="flex flex-row gap-3 mt-5">
+            <div className="relative w-24 h-24">
+              <BackgroundImage
+                asset={data.charity.media.previewUrl}
+                className="w-full border border-gray-200 rounded-lg object-fit"
+              />
+            </div>
+            <div className="flex flex-col flex-1">
+              <h3 className="text-3xl font-medium sm:text-4xl">{data.charity.name}</h3>
+              <p className="mt-1 text-sm tracking-wide text-gray-500">
+                {data.charity.shortDescription}
+              </p>
 
-        <div className="flex flex-col space-y-3 px-2">
-          <div className="flex justify-between items-center">
-            <h3 className="text-3xl sm:text-4xl xl:text-5xl font-bold">
-              {data.charity.name}
-            </h3>
-            <PrimaryLink href="#">Donate</PrimaryLink>
+              <div className="mt-3">
+                <SocialGrid websiteUrl="#" twitterUrl="#" />
+              </div>
+            </div>
           </div>
 
-          <SocialGrid websiteUrl="#" twitterUrl="#" discordUrl="#" />
+          <div className="py-5">
+            <GradientDivider />
+          </div>
 
-          <div className="flex items-center space-x-1 sm:space-x-3 mt-3">
-            <h3 className="text-xs sm:text-sm text-gray-600 font-semibold">
-              Causes we support:
-            </h3>
+          <div className="flex-grow">
+            <h3 className="text-xl font-semibold">Our causes</h3>
+          </div>
 
+          <div className="flex items-center mt-3 space-x-1 sm:space-x-3">
             <div className="flex flex-wrap space-x-1">
               {data.charity.causes.map((cause, idx) => (
                 <div
                   key={idx}
-                  className="border bg-green-600 rounded-full px-2 sm:px-3 py-1 text-white text-xs sm:text-sm"
+                  className="px-3 py-2 text-base text-green-800 rounded-lg bg-green-50"
                 >
                   {cause}
                 </div>
@@ -74,7 +88,61 @@ export const CharityDetailsContainer = () => {
             </div>
           </div>
 
-          <p className="mt-5 text-base lg:text-lg">{data.charity.description}</p>
+          <div className="py-5">
+            <GradientDivider />
+          </div>
+
+          <div className="flex-grow">
+            <h3 className="text-xl font-semibold">About us</h3>
+          </div>
+
+          <p className="mt-2 text-base leading-7 text-gray-800">
+            {data.charity.description}
+          </p>
+
+          <div className="py-5">
+            <GradientDivider />
+          </div>
+
+          <div className="flex-grow">
+            <h3 className="text-xl font-semibold">Activity</h3>
+          </div>
+
+          <div className="grid grid-cols-3 gap-5 mt-3">
+            <div>
+              <p className="text-xs text-gray-500">Total nominations</p>
+              <div className="flex flex-row items-end">
+                <p className="text-4xl font-semibold">8</p>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Avg. royalty</p>
+              <div className="flex flex-row items-end">
+                <p className="text-4xl font-semibold">25</p>
+                <span className="">%</span>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-500">Total received donations</p>
+              <div className="flex flex-row items-center ">
+                <SolanaColorIcon className="w-5 mr-2" />
+                <p className="text-4xl font-semibold">758~</p>
+              </div>
+            </div>
+          </div>
+        </BaseTile>
+
+        <div className="flex flex-col space-y-5">
+          <div className="relative pt-full">
+            <BackgroundImage
+              asset={data.charity.media.previewUrl}
+              className="border shadow-lg rounded-xl"
+            />
+          </div>
+
+          <PrimaryButton>Donate</PrimaryButton>
         </div>
       </div>
     </div>

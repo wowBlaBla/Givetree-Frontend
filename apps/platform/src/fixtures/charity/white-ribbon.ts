@@ -9,6 +9,7 @@ export const genWhiteRibbonData = (x?: Partial<Charity>): Charity => ({
   id: gen.datatype.uuid(),
   name: "White Ribbon",
   slug: "white-ribbon",
+  shortDescription: `The White Ribbon Campaign is a global movement of men and boys working to end male violence against women and girls.`,
   description: gen.lorem.paragraphs(11),
   media: {
     tileUrl: WRLogo.src,

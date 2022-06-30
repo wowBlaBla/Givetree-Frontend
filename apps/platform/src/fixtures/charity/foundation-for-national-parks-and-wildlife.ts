@@ -10,6 +10,7 @@ export const genFoundationForNationalParksAndWildlifeData = (
 ): Charity => ({
   id: gen.datatype.uuid(),
   name: "Foundation for National Parks & Wildlife",
+  shortDescription: `The Foundation for National Parks & Wildlife is an Australian not-for-profit, non-governmental organisation that was incorporated on 29 June 1970.`,
   slug: "foundation-for-national-parks-and-wildlife",
   description: gen.lorem.paragraphs(12),
   websiteUrl: "https://fnpw.org.au/",

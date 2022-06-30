@@ -55,6 +55,9 @@ export const CampaignDetailsContainer: FC = () => {
         description={data.campaign.shortDescription ?? ""}
         campaignTitle={data.campaign.title}
         isFeatured
+        charityName={data.campaign.nominatedCharity.name}
+        charityImage={data.campaign.nominatedCharity.media.tileUrl}
+        causes={data.campaign.nominatedCharity.causes}
       />
 
       <div className="flex flex-col w-full max-w-screen-xl px-3 mx-auto my-6 space-y-12 bg-gray-100">

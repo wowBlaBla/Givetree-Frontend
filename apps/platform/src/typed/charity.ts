@@ -5,6 +5,7 @@ export interface Charity {
   name: string;
   slug: string;
   description: string;
+  shortDescription: string;
   websiteUrl?: string;
   media: {
     tileUrl: string;
