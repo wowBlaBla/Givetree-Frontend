@@ -3,58 +3,65 @@ import cx from "classnames";
 import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
 
 interface WalletDropdownProps {
+  active: boolean;
   className?: string;
 }
 
-export const WalletDropdown: FC<WalletDropdownProps> = forwardRef(({ className }) => {
-  const { disconnect, publicKey: solanaPublicKey } = useSolanaWallet();
-  const [copied, setCopied] = useState<boolean>(false);
+export const WalletDropdown = forwardRef<HTMLUListElement, WalletDropdownProps>(
+  ({ active, className }, ref) => {
+    const { disconnect, publicKey: solanaPublicKey } = useSolanaWallet();
+    const [copied, setCopied] = useState<boolean>(false);
 
-  const solanaWalletAddress = useMemo(() => {
-    if (solanaPublicKey) return solanaPublicKey.toBase58();
-  }, [solanaPublicKey]);
+    const solanaWalletAddress = useMemo(() => {
+      if (solanaPublicKey) return solanaPublicKey.toBase58();
+    }, [solanaPublicKey]);
 
-  const copyAddress = useCallback(async () => {
-    if (solanaWalletAddress) {
-      await navigator.clipboard.writeText(solanaWalletAddress);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 400);
-    }
-  }, [solanaWalletAddress]);
+    const copyAddress = useCallback(async () => {
+      if (solanaWalletAddress) {
+        await navigator.clipboard.writeText(solanaWalletAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 400);
+      }
+    }, [solanaWalletAddress]);
 
-  return (
-    <ul
-      aria-label="dropdown-list"
-      className={cx("wallet-adapter-dropdown-list", {
-        // "opacity-100 visible transform translate-y-2.5": active,
-        className,
-      })}
-      // ref={ref}
-      role="menu"
-    >
-      <li
-        onClick={copyAddress}
-        className="wallet-adapter-dropdown-list-item"
-        role="menuitem"
+    return (
+      <ul
+        ref={ref}
+        className={cx(
+          "grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 p-1 list-none  bg-white rounded-lg transition-hover transform translate-y-2.5 origin-top",
+          {
+            "visible opacity-100": active,
+            "invisible opacity-0": !active,
+            className,
+          }
+        )}
       >
-        {copied ? "Copied" : "Copy address"}
-      </li>
+        <li
+          onClick={copyAddress}
+          className="text-center w-full py-3 px-3 text-sm sm:text-base text-gray-500 font-bold cursor-pointer whitespace-nowrap rounded-lg button-hover"
+        >
+          {copied ? "Copied" : "Copy address"}
+        </li>
 
-      <li className="wallet-adapter-dropdown-list-item" role="menuitem">
-        <label htmlFor="wallet-modal" className="cursor-pointer">
-          Change wallet
-        </label>
-      </li>
+        <li
+          className="text-center w-full py-3 px-3 text-sm sm:text-base text-gray-500 font-bold cursor-pointer whitespace-nowrap rounded-lg button-hover"
+          role="menuitem"
+        >
+          <label htmlFor="wallet-modal" className="cursor-pointer">
+            Change wallet
+          </label>
+        </li>
 
-      <li
-        onClick={disconnect}
-        className="wallet-adapter-dropdown-list-item"
-        role="menuitem"
-      >
-        Disconnect
-      </li>
-    </ul>
-  );
-});
+        <li
+          onClick={disconnect}
+          className="text-center w-full py-3 px-3 text-sm sm:text-base text-gray-500 font-bold cursor-pointer whitespace-nowrap rounded-lg button-hover"
+          role="menuitem"
+        >
+          Disconnect
+        </li>
+      </ul>
+    );
+  }
+);
 
 WalletDropdown.displayName = "WalletDropdown";

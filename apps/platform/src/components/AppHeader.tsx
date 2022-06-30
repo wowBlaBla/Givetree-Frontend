@@ -5,7 +5,7 @@ import { AppNavLink } from "./AppNavLink";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
-import { WalletButton } from "./wallet/WalletButton";
+import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
 
 interface AppHeaderNavLink {
   title: string;
@@ -69,7 +69,7 @@ export const AppHeader: FC = () => {
         {/* Wallet */}
 
         <div className="flex items-center justify-end flex-1 w-full">
-          <WalletButton />
+          <ConnectWalletButton />
         </div>
       </div>
 

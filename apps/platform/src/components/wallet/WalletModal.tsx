@@ -3,7 +3,7 @@ import cx from "classnames";
 import { useWallet as useSolanaWallet, Wallet } from "@solana/wallet-adapter-react";
 import { WalletName, WalletReadyState } from "@solana/wallet-adapter-base";
 
-import { Collapse } from "./Collapse";
+import { WalletCollapse } from "./WalletCollapse";
 import { Modal } from "../Modal";
 import { WalletListItem } from "./WalletListItem";
 import { WalletSVG } from "./WalletSVG";
@@ -52,18 +52,20 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
           otherWallets[0];
   }, [installedWallets, wallets, otherWallets]);
 
+  const handleCollapse = useCallback(() => setExpanded(!expanded), [expanded]);
+  const handleCollapseClose = useCallback(() => setExpanded(false), []);
+
   const handleSolanaWallet = useCallback(
     (walletName: WalletName) => {
       select(walletName);
       closeDropdown();
+      handleCollapse();
     },
-    [closeDropdown, select]
+    [closeDropdown, handleCollapse, select]
   );
 
-  const handleCollapse = useCallback(() => setExpanded(!expanded), [expanded]);
-
   return (
-    <Modal modalName="wallet-modal">
+    <Modal modalName="wallet-modal" onModalClose={handleCollapseClose}>
       {installedWallets.length ? (
         <>
           <h1 className="py-10 px-10 text-2xl sm:text-3xl text-center font-medium">
@@ -79,7 +81,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
             ))}
 
             {otherWallets.length && (
-              <Collapse expanded={expanded} id="wallet-modal-collapse">
+              <WalletCollapse expanded={expanded} id="wallet-modal-collapse">
                 {otherWallets.map((wallet) => (
                   <WalletListItem
                     key={wallet.adapter.name}
@@ -87,7 +89,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                     handleOnClick={handleSolanaWallet}
                   />
                 ))}
-              </Collapse>
+              </WalletCollapse>
             )}
 
             {otherWallets.length && (
@@ -149,7 +151,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                 </svg>
               </button>
 
-              <Collapse expanded={expanded} id="wallet-adapter-modal-collapse">
+              <WalletCollapse expanded={expanded} id="wallet-adapter-modal-collapse">
                 <ul className="wallet-adapter-modal-list">
                   {otherWallets.map((wallet) => (
                     <WalletListItem
@@ -159,7 +161,7 @@ export const WalletModal: FC<WalletModalProps> = ({ closeDropdown }) => {
                     />
                   ))}
                 </ul>
-              </Collapse>
+              </WalletCollapse>
             </>
           )}
         </>

@@ -15,7 +15,7 @@ export const WalletListItem: FC<WalletListItemProps> = ({ handleOnClick, wallet 
       className="relative my-3 py-1 px-2 rounded-lg button-hover"
     >
       <label
-        className="w-full text-lg sm:text-xl normal-case"
+        className="w-full text-lg sm:text-xl cursor-pointer"
         htmlFor="wallet-modal"
         onClick={() => handleOnClick(wallet.adapter.name)}
       >
