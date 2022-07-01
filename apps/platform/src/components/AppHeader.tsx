@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, ReactElement, useState } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 import { AppNavLink } from "./AppNavLink";
@@ -6,11 +6,13 @@ import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
 import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
+import { CollectionIcon, FireIcon, GlobeIcon, HomeIcon } from "@heroicons/react/outline";
 
 interface AppHeaderNavLink {
   title: string;
   link: PlatformRoute;
   disabled?: boolean;
+  icon: ReactElement;
 }
 
 const appHeaderNavItems: AppHeaderNavLink[] = [
@@ -18,21 +20,25 @@ const appHeaderNavItems: AppHeaderNavLink[] = [
     title: "Home",
     link: PlatformRoute.Home,
     disabled: false,
+    icon: <HomeIcon className="w-5 h-5" />,
   },
   {
     title: "Mints",
     link: PlatformRoute.CampaignListing,
     disabled: false,
+    icon: <FireIcon className="w-5 h-5" />,
   },
   {
     title: "Marketplace",
     link: PlatformRoute.MarketplaceListing,
     disabled: true,
+    icon: <CollectionIcon className="w-5 h-5" />,
   },
   {
     title: "Charities",
     link: PlatformRoute.CharityListing,
     disabled: false,
+    icon: <GlobeIcon className="w-5 h-5" />,
   },
 ];
 
@@ -76,15 +82,21 @@ export const AppHeader: FC = () => {
       {/* Mobile Navigation */}
 
       <div
-        className={cx("absolute h-screen mt-2 bg-white duration-300 overflow-hidden", {
-          "w-48": openDropdown,
-          "w-0": !openDropdown,
-        })}
+        className={cx(
+          "absolute h-screen mt-2 bg-white overflow-hidden duration-300 origin-left",
+          {
+            "w-48 shadow-lg border-r-2": openDropdown,
+            "w-0": !openDropdown,
+          }
+        )}
       >
-        <div className="absolute flex flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500 duration-300 origin-left">
+        <div className="absolute flex flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
           {appHeaderNavItems.map((navItem, idx) => (
             <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
-              <span>{navItem.title}</span>
+              <div className="flex items-center space-x-1">
+                {navItem.icon}
+                <span>{navItem.title}</span>
+              </div>
             </AppNavLink>
           ))}
         </div>

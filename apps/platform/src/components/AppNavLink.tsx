@@ -4,9 +4,9 @@ import { NavLink, useMatch, useResolvedPath } from "react-router-dom";
 import { PlatformRoute } from "../configs/routes";
 
 interface AppNavLink {
-  href: PlatformRoute;
   children: ReactNode;
   disabled?: boolean;
+  href: PlatformRoute;
   onClick?: () => void;
 }
 

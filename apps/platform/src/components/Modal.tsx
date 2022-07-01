@@ -52,7 +52,7 @@ export const Modal: FC<DonateModalProps> = ({
           >
             ✕
           </label>
-          <div>{children}</div>
+          <div className="mt-8">{children}</div>
         </label>
       </label>
     </div>

@@ -28,7 +28,7 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
       <p className="text-sm sm:text-base">
         by <span className="font-semibold text-brand-orange">{name}</span>
       </p>
-      {isVerified && <VerifiedBadge type={VerifiedBadgeType.Account} xsmall />}
+      {isVerified && <VerifiedBadge type={VerifiedBadgeType.Account} small />}
     </div>
   </div>
 );

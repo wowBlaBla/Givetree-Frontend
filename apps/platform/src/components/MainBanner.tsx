@@ -26,8 +26,8 @@ export const MainBanner: FC<MainBannerProps> = ({
 
   return (
     <div className="relative w-full max-w-screen-xl min-h-full overflow-hidden mx-auto md:px-5">
-      <div className="grid grid-cols-1 md:grid-cols-2 border rounded-xl">
-        <div className="flex relative justify-center sm:justify-start items-center max-w-screen-xl min-h-full mx-auto py-16 px-3 bg-white rounded-l-xl z-10 order-2 md:order-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 border-b md:border md:rounded-xl">
+        <div className="flex relative justify-center sm:justify-start items-center max-w-screen-xl min-h-full mx-auto py-16 px-3 bg-white md:rounded-l-xl z-10 order-2 md:order-1">
           <div className="flex flex-col space-y-2 py-10 px-5 w-full text-black">
             <h2 className="flex flex-col space-y-2 font-semibold text-2xl sm:text-5xl">
               <span>{title}</span>

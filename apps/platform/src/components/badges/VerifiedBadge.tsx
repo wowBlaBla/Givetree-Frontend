@@ -18,19 +18,18 @@ const getTooltipText = (type: VerifiedBadgeType) => {
 };
 
 interface VerifiedBadgeProps {
-  xsmall?: boolean;
+  className?: string;
   small?: boolean;
   type: VerifiedBadgeType;
 }
 
-export const VerifiedBadge: FC<VerifiedBadgeProps> = ({ small, type, xsmall }) => {
+export const VerifiedBadge: FC<VerifiedBadgeProps> = ({ className, small, type }) => {
   const tooltipText = getTooltipText(type);
 
   return (
-    <div className="tooltip tooltip-right z-50" data-tip={tooltipText}>
+    <div className="tooltip tooltip-top" data-tip={tooltipText}>
       <svg
-        className={cx("text-white fill-current", {
-          "w-3 h-3": xsmall,
+        className={cx("text-white fill-current", className, {
           "w-4 h-4": small,
           "w-5 h-5": !small,
         })}

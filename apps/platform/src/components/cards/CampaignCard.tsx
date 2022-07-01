@@ -23,7 +23,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
 
   return (
     <div
-      className="relative w-full bg-white border border-gray-200 cursor-pointer select-none rounded-xl hover:shadow-xl overflow-hidden"
+      className="relative w-full bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
       onClick={handleNextLocation}
     >
       <div className="absolute top-0 right-0 m-2.5 z-20">
@@ -49,7 +49,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
             {campaign.title}
           </h4>
           {campaign.isVerified && (
-            <VerifiedBadge type={VerifiedBadgeType.Collection} xsmall />
+            <VerifiedBadge type={VerifiedBadgeType.Collection} small />
           )}
         </div>
 
