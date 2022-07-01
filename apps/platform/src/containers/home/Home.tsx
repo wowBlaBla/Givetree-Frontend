@@ -38,13 +38,14 @@ export const HomeContainer = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative">
+      <div className="relative md:my-16">
         <MainBanner
           backgroundAsset={MulgaBannerImage.src}
           title="Mulgakongz by MulgaTheArtist"
+          // charityName=""
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
           ctaLink1={PlatformRoute.CampaignListing}
-          ctaLink1Text="Go to launchpad"
+          ctaLink1Text="Go to mints"
         />
       </div>
 
