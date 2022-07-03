@@ -64,7 +64,7 @@ export const HomeContainer = () => {
 
       <SectionContainer>
         <SectionHeader
-          mainTitle="Our charity partners"
+          mainTitle="Charities"
           linkText="View more"
           link={PlatformRoute.CharityListing}
         />

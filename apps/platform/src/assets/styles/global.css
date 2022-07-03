@@ -22,6 +22,7 @@ img {
   }
 
   .tooltip::before {
-    @apply hidden lg:block 
+    @apply hidden md:flex md:w-28 bg-white text-brand-black border border-gray-200 font-medium text-xs;
+
   }
 }

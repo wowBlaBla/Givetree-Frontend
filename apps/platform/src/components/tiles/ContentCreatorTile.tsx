@@ -29,7 +29,7 @@ export const ContentCreatorTile: FC<ContentCreatorTileProps> = ({
           <span className="whitespace-nowrap text-brand-orange">{name}</span>
         </h4>
 
-        <VerifiedBadge type={VerifiedBadgeType.Account} />
+        <VerifiedBadge type={VerifiedBadgeType.ContentCreator} />
       </div>
     </div>
 

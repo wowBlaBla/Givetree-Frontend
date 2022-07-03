@@ -5,30 +5,34 @@ import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 const getTooltipText = (type: VerifiedBadgeType) => {
   switch (type) {
     case VerifiedBadgeType.Collection:
-      return "This collection belongs to a verified account";
-    case VerifiedBadgeType.Account:
-      return "This is a verified account";
+      return "This collection belongs to a verified creator.";
+    case VerifiedBadgeType.ContentCreator:
+      return "This is a verified creator.";
     case VerifiedBadgeType.Charity:
-      return "This is a verified charity";
+      return "This is a verified charity.";
     case VerifiedBadgeType.Unknown:
-      return "This is unverified";
+      return "This is NOT verified.";
     default:
-      return "This is unverified";
+      return "This is NOT verified.";
   }
 };
 
 interface VerifiedBadgeProps {
   className?: string;
+  large?: boolean;
   type: VerifiedBadgeType;
 }
 
-export const VerifiedBadge: FC<VerifiedBadgeProps> = ({ className, type }) => {
+export const VerifiedBadge: FC<VerifiedBadgeProps> = ({ className, large, type }) => {
   const tooltipText = getTooltipText(type);
 
   return (
     <div className="tooltip tooltip-top z-30" data-tip={tooltipText}>
       <svg
-        className={cx("w-4 h-4 text-white fill-current", className)}
+        className={cx("w-4 h-4 text-white fill-current", className, {
+          "w-3 h-3": !large,
+          "w-5 h-5": large,
+        })}
         width="20"
         height="20"
         viewBox="0 0 18 20"

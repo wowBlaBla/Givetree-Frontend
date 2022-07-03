@@ -1,6 +1,6 @@
 export enum VerifiedBadgeType {
   Collection = "COLLECTION",
-  Account = "CONTENT_CREATOR",
+  ContentCreator = "CONTENT_CREATOR",
   Charity = "CHARITY",
   Unknown = "UNKNOWN",
 }

@@ -1,5 +1,8 @@
 import React, { FC, ReactNode } from "react";
-import { ExternalLinkIcon } from "./icons/ExternalLinkIcon";
+import { ContractIcon } from "./icons/ContractIcon";
+import { DiscordOutlineIcon } from "./icons/DiscordIcon";
+import { GlobeIcon } from "./icons/GlobeIcon";
+import { TwitterOutlineIcon } from "./icons/TwitterIcon";
 
 interface SocialLinkProps {
   href: string;
@@ -14,8 +17,7 @@ export const SocialLink: FC<SocialLinkProps> = ({ href, children }) => (
       target="_blank"
       rel="noreferrer"
     >
-      <ExternalLinkIcon className="w-3 h-3" />
-      <span className="text-sm">{children}</span>
+      {children}
     </a>
   </div>
 );
@@ -34,9 +36,29 @@ export const SocialGrid: FC<SocialGridProps> = ({
   contractUrl,
 }) => (
   <div className="flex flex-row items-center w-full max-w-lg space-x-4">
-    {websiteUrl && <SocialLink href={websiteUrl}>Website</SocialLink>}
-    {twitterUrl && <SocialLink href={twitterUrl}>Twitter</SocialLink>}
-    {discordUrl && <SocialLink href={discordUrl}>Discord</SocialLink>}
-    {contractUrl && <SocialLink href={contractUrl}>Contract</SocialLink>}
+    {websiteUrl && (
+      <SocialLink href={websiteUrl}>
+        <GlobeIcon className="w-4 h-4" />
+        <span className="hidden sm:block">Website</span>
+      </SocialLink>
+    )}
+    {twitterUrl && (
+      <SocialLink href={twitterUrl}>
+        <TwitterOutlineIcon className="w-4 h-4" />
+        <span className="hidden sm:block">Twitter</span>
+      </SocialLink>
+    )}
+    {discordUrl && (
+      <SocialLink href={discordUrl}>
+        <DiscordOutlineIcon className="w-4 h-4" />
+        <span className="hidden sm:block">Discord</span>
+      </SocialLink>
+    )}
+    {contractUrl && (
+      <SocialLink href={contractUrl}>
+        <ContractIcon className="w-4 h-4" />
+        <span className="hidden sm:block">Contract</span>
+      </SocialLink>
+    )}
   </div>
 );

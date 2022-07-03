@@ -50,7 +50,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
               <span>{campaign.title}</span>
 
               {campaign.isVerified && (
-                <VerifiedBadge type={VerifiedBadgeType.Collection} />
+                <VerifiedBadge className="mb-1" type={VerifiedBadgeType.Collection} />
               )}
             </h4>
           </div>

@@ -22,7 +22,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   return (
     <div className="relative min-w-full py-5 overflow-hidden h-72 sm:py-8">
       {assetType === AssetType.Video && (
-        <BackgroundVideo imageAsset={backgroundImage} className="object-contain" />
+        <BackgroundVideo videoAsset={backgroundImage} className="object-contain" />
       )}
 
       {assetType === AssetType.Image && (

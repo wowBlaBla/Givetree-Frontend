@@ -6,7 +6,8 @@ import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
 import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
-import { CollectionIcon, FireIcon, GlobeIcon, HomeIcon } from "@heroicons/react/outline";
+import { CollectionIcon, GlobeIcon, HomeIcon } from "@heroicons/react/outline";
+import { LaunchIcon } from "./icons/LaunchIcon";
 
 interface AppHeaderNavLink {
   title: string;
@@ -26,7 +27,7 @@ const appHeaderNavItems: AppHeaderNavLink[] = [
     title: "Mints",
     link: PlatformRoute.CampaignListing,
     disabled: false,
-    icon: <FireIcon className="w-5 h-5" />,
+    icon: <LaunchIcon className="w-5 h-5" />,
   },
   {
     title: "Marketplace",

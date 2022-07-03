@@ -28,8 +28,8 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       className="relative border border-gray-200 bg-white cursor-pointer rounded-xl hover:shadow-xl"
     >
       <div className="flex flex-col w-full h-full" onClick={handleNextLocation}>
-        <div className="hidden sm:flex absolute top-0 right-0 m-2.5 z-10">
-          <p className="rounded-lg py-0.5 px-2 border border-green-600 bg-green-200 text-green-600 text-xs sm:text-sm">
+        <div className="flex absolute top-0 right-0 m-2.5 z-10">
+          <p className="rounded-lg py-0.5 px-2 border border-green-600 bg-green-200 text-green-600 text-center text-xs sm:text-sm">
             {charity.causes?.[0]}
           </p>
         </div>
@@ -39,9 +39,9 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         </div>
 
         <div className="flex flex-1 flex-wrap justify-center items-center w-full h-full py-3 px-1 md:px-2">
-          <h4 className="inline-block space-x-1 text-center text-base sm:text-lg">
+          <h4 className="block space-x-1 text-center text-base sm:text-lg text-black">
             <span>{charity.name}</span>
-            <VerifiedBadge type={VerifiedBadgeType.Charity} />
+            <VerifiedBadge className="mb-1" type={VerifiedBadgeType.Charity} />
           </h4>
         </div>
       </div>
