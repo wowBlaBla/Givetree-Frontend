@@ -41,7 +41,7 @@ export const CharityDetailsContainer = () => {
         <div className="flex flex-col space-y-5">
           <div className="relative pt-full">
             <BackgroundImage
-              asset={data.charity.media.previewUrl}
+              imageAsset={data.charity.media.previewUrl}
               className="border rounded-xl shadow-lg"
             />
           </div>

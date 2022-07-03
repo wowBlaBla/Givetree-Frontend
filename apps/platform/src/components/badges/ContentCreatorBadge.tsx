@@ -24,11 +24,11 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
       />
     </div>
 
-    <div className="flex justify-center space-x-0.5">
-      <p className="text-sm sm:text-base">
+    <div className="flex justify-center">
+      <p className="inline-block space-x-0.5 text-center text-sm sm:text-base">
         by <span className="font-semibold text-brand-orange">{name}</span>
+        {isVerified && <VerifiedBadge type={VerifiedBadgeType.Account} />}
       </p>
-      {isVerified && <VerifiedBadge type={VerifiedBadgeType.Account} small />}
     </div>
   </div>
 );

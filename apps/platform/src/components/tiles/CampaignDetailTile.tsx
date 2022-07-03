@@ -38,13 +38,13 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
       <div>
         <div className="flex space-x-0.5">
           <h3 className="text-3xl font-medium sm:text-4xl">{title}</h3>
-          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} small />}
+          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} />}
         </div>
         <div className="flex space-x-0.5">
           <p>
             by <span className="font-medium text-brand-orange">{artistName}</span>
           </p>
-          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} small />}
+          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} />}
         </div>
       </div>
 

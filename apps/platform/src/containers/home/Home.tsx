@@ -43,8 +43,8 @@ export const HomeContainer = () => {
           backgroundAsset={MulgaBannerImage.src}
           title="Mulgakongz by Mulga The Artist"
           subtitle="50% of every single NFT minted is donated to Half Cut"
-          ctaLink1={PlatformRoute.CampaignListing}
-          ctaLink1Text="Go to mints"
+          ctaLink={PlatformRoute.CampaignListing}
+          ctaLinkText="Go to mints"
         />
       </div>
 

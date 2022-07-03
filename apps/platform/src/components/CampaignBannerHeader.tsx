@@ -22,11 +22,11 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   return (
     <div className="relative min-w-full py-5 overflow-hidden h-72 sm:py-8">
       {assetType === AssetType.Video && (
-        <BackgroundVideo asset={backgroundImage} className="object-contain" />
+        <BackgroundVideo imageAsset={backgroundImage} className="object-contain" />
       )}
 
       {assetType === AssetType.Image && (
-        <BackgroundImage asset={backgroundImage} className="min-h-full" />
+        <BackgroundImage imageAsset={backgroundImage} className="min-h-full" />
       )}
 
       <div className="absolute bottom-0 z-10 w-full h-full bg-black opacity-60"></div>

@@ -13,12 +13,7 @@ export const BackgroundVideo: FC<BackgroundVideoProps> = ({ asset, className }) 
       className
     )}
   >
-    <video
-      autoPlay
-      loop
-      muted
-      className="w-auto min-w-full min-h-full object-fill rounded-l-xl"
-    >
+    <video autoPlay loop muted className="min-w-full min-h-full object-fill">
       <source src={asset} type="video/mp4" />
     </video>
   </div>

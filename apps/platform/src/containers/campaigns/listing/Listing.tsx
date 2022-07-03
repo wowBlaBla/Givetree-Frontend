@@ -49,20 +49,20 @@ export const CampaignListingContainer = (): JSX.Element => {
           backgroundAsset={MulgaBannerImage.src}
           title="Mulgakongz by MulgaTheArtist"
           subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink1={PlatformRoute.CampaignListing}
-          ctaLink1Text="Learn more"
+          ctaLink={PlatformRoute.CampaignListing}
+          ctaLinkText="Learn more"
         />
 
         <MainBanner
           backgroundAsset="/videos/genopets-bg.mp4"
           title="Genopets By Genopets Official"
           subtitle="3% of every single NFT minted is donated to charity"
-          ctaLink1={PlatformRoute.CampaignListing}
-          ctaLink1Text="Learn more"
+          ctaLink={PlatformRoute.CampaignListing}
+          ctaLinkText="Learn more"
         />
       </Carousel>
 
-      <SectionContainer>
+      <SectionContainer className="mt-12">
         <CardGrid>
           {data.campaigns.map((campaign, idx) => (
             <CampaignCard key={idx} campaign={campaign} />

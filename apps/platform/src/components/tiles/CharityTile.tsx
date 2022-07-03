@@ -28,7 +28,10 @@ export const CharityTile: FC<CharityTileProps> = ({ description, imageAsset, nam
 
     <div className="flex flex-col items-center justify-center mt-5">
       <div className="relative flex justify-center w-40 h-40 mx-auto lg:w-40 lg:h-40">
-        <BackgroundImage asset={imageAsset} className="w-full rounded-full object-fit" />
+        <BackgroundImage
+          imageAsset={imageAsset}
+          className="w-full rounded-full object-fit"
+        />
       </div>
 
       <p className="mt-2 text-base font-semibold text-center lg:text-xl">{name}</p>

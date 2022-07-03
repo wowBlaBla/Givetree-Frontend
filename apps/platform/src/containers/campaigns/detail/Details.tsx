@@ -104,7 +104,7 @@ export const CampaignDetailsContainer: FC = () => {
             <div className="relative flex flex-col w-full item-center">
               <div className="relative pt-full">
                 <BackgroundImage
-                  asset={data.campaign.media.campaignCollectionPreviewUrl}
+                  imageAsset={data.campaign.media.campaignCollectionPreviewUrl}
                   className="rounded-xl"
                 />
               </div>
@@ -142,7 +142,7 @@ export const CampaignDetailsContainer: FC = () => {
           <div className="col-span-3 sm:col-span-2">
             <div className="relative pt-full">
               <BackgroundImage
-                asset={data.campaign.media.campaignDetailsUrl}
+                imageAsset={data.campaign.media.campaignDetailsUrl}
                 className="rounded-xl"
               />
             </div>
