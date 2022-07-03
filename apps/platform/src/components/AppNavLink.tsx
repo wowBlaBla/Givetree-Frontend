@@ -32,7 +32,7 @@ export const AppNavLink: FC<AppNavLink> = ({ children, disabled, href, onClick }
         </NavLink>
       ) : (
         <div
-          className="text-base font-medium text-gray-400 cursor-pointer tooltip tooltip-bottom whitespace-nowrap"
+          className="text-base font-medium text-gray-400 cursor-default tooltip tooltip-bottom whitespace-nowrap"
           data-tip="Coming soon"
         >
           {children}
