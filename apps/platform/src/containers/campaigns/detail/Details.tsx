@@ -55,6 +55,9 @@ export const CampaignDetailsContainer: FC = () => {
         description={data.campaign.shortDescription ?? ""}
         campaignTitle={data.campaign.title}
         isFeatured
+        charityName={data.campaign.nominatedCharity.name}
+        charityImage={data.campaign.nominatedCharity.media.tileUrl}
+        causes={data.campaign.nominatedCharity.causes}
       />
 
       <div className="flex flex-col w-full max-w-screen-xl px-3 mx-auto my-6 space-y-12 bg-gray-100">
@@ -63,6 +66,9 @@ export const CampaignDetailsContainer: FC = () => {
             <BaseTile className="bg-white">
               <CampaignDetailTile
                 artistName={data.campaign.creators[0].name}
+                artistThumbnail={data.campaign.creators[0].media.previewUrl}
+                charityName={data.campaign.nominatedCharity.name}
+                charityThumbnail={data.campaign.nominatedCharity.media.previewUrl}
                 description={data.campaign.shortDescription}
                 floorPrice={data.campaign.floorPrice}
                 isVerified={data.campaign.isVerified}
@@ -96,6 +102,16 @@ export const CampaignDetailsContainer: FC = () => {
                   RoyaltyType.CharityDonation
                 )}% of ${data.campaign.title} mints go to`}
                 imageAsset={data.campaign.nominatedCharity.media.tileUrl}
+                artistName={data.campaign.creators[0].name}
+                royalty={
+                  getRoyaltyPercentage(
+                    data.campaign.royalties,
+                    RoyaltyType.CharityDonation
+                  ) ?? 0
+                }
+                causes={data.campaign.nominatedCharity.causes}
+                totalSupply={data.campaign.totalSupply}
+                floorPrice={data.campaign.floorPrice}
               />
             </BaseTile>
           </div>
@@ -125,7 +141,7 @@ export const CampaignDetailsContainer: FC = () => {
                 </div>
 
                 <div className="flex justify-center mt-5">
-                  <PrimaryButton large className="items-center w-full">
+                  <PrimaryButton className="items-center w-full">
                     Mint - {data.campaign.floorPrice} SOL
                   </PrimaryButton>
                 </div>

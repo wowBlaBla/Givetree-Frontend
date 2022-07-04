@@ -10,6 +10,7 @@ export const GET_CHARITY_DETAILS_DATA = gql`
     charity(slug: $slug) {
       name
       description
+      shortDescription
       causes
       media {
         tileUrl
