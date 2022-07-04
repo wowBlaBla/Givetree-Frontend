@@ -1,11 +1,6 @@
-const getEnv = (key: string) => {
-  const value = process.env[key];
+// IMPORTANT: Must include environment variables in next.config.js for environment variables to work.
 
-  if (!value) {
-    throw new Error(`Missing config value for ${key}`);
-  }
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
-  return value;
-};
-
-export const SOLANA_NETWORK = getEnv("NEXT_PUBLIC_SOLANA_NETWORK");
+export const SOLANA_NETWORK: WalletAdapterNetwork = process.env
+  .NEXT_PUBLIC_SOLANA_NETWORK as WalletAdapterNetwork;

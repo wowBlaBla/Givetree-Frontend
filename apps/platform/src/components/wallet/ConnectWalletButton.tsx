@@ -120,6 +120,7 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
           "py-1 px-3 border border-brand-orange bg-brand-orange-active bg-opacity-20"
         )}
         onClick={openDropdown}
+        primaryColor
       >
         <div className="flex items-center space-x-1">
           <WalletIcon wallet={wallet} />
