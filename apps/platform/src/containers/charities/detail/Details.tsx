@@ -7,13 +7,10 @@ import { BackgroundImage } from "../../../components/BackgroundImage";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { LoadingContainer } from "../../../components/LoadingContainer";
 import { ErrorContainer } from "../../../components/ErrorContainer";
-import { PrimaryButton, PrimaryLink } from "../../../components/PrimaryCta";
+import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
-import { FeaturedBadge } from "../../../components/badges/FeaturedBadge";
-import { VerificationBadge } from "../../../components/badges/VerificationBadge";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
-import { ContentCreatorBadge } from "../../../components/badges/ContentCreatorBadge";
 
 export const CharityDetailsContainer = () => {
   const params = useParams();
