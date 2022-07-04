@@ -7,6 +7,7 @@ import { PlatformRoute } from "../../configs/routes";
 import { BackgroundImage } from "../BackgroundImage";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import { CauseBadge } from "../badges/CauseBadge";
 
 interface CharityCardProps {
   charity: Charity;
@@ -25,27 +26,24 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       ref={donationRef}
       onMouseEnter={() => setShowDonationButton(true)}
       onMouseLeave={() => setShowDonationButton(false)}
-      className="relative border border-gray-200 bg-white cursor-pointer rounded-xl hover:shadow-xl"
+      className="relative bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
     >
       <div className="flex flex-col w-full h-full" onClick={handleNextLocation}>
         <div className="flex absolute top-0 right-0 m-2.5 z-10">
-          <p className="rounded-lg py-0.5 px-2 border border-green-600 bg-green-200 text-green-600 text-center text-xs sm:text-sm">
-            {charity.causes?.[0]}
-          </p>
+          <CauseBadge cause={charity.causes?.[0]} />
         </div>
 
-        <div className="relative pt-full border-b border-gray-200">
+        <div className="relative border-b border-gray-200 pt-full">
           <BackgroundImage imageAsset={charity.media.tileUrl} className="rounded-t-xl" />
         </div>
 
-        <div className="flex flex-1 flex-wrap justify-center items-center w-full h-full py-3 px-1 md:px-2">
-          <h4 className="block space-x-1 text-center text-base sm:text-lg text-black">
-            <span>{charity.name}</span>
-            <VerifiedBadge className="mb-1" type={VerifiedBadgeType.Charity} />
+        <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-1 py-3 md:px-2">
+          <h4 className="block space-x-1 text-base text-center text-black sm:text-lg">
+            {charity.name}
+            <VerifiedBadge className="ml-1" type={VerifiedBadgeType.Charity} />
           </h4>
         </div>
       </div>
-
       <DonateModalButton
         className={cx(
           "absolute bottom-0 w-full duration-300 overflow-hidden z-40 rounded-b-xl",

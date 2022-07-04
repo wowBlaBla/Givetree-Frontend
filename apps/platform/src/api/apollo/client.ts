@@ -28,6 +28,11 @@ export const charitiesVar = makeVar([
   gen20TalkData(),
 ]);
 
+export const featuredCampaigns = makeVar([
+  genMulgakongzCampaignData(),
+  genGenopetsCampaignData(),
+]);
+
 const cache = new InMemoryCache({
   typePolicies: {
     Query: {
@@ -50,6 +55,16 @@ const cache = new InMemoryCache({
         charity: {
           read(_, { variables }) {
             return charitiesVar().find((charity) => charity.slug === variables?.slug);
+          },
+        },
+        featuredCampaigns: {
+          read() {
+            return featuredCampaigns();
+          },
+        },
+        homepageCampaign: {
+          read() {
+            return genMulgakongzCampaignData();
           },
         },
       },

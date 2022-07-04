@@ -28,7 +28,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
     <div className={className}>
       <label
         htmlFor={`donate-modal-${charity.slug}`}
-        className="flex flex-col items-center flex-1 py-1 text-sm text-white rounded-lg bg-brand-orange button-hover sm:text-base xl:text-lg"
+        className="flex flex-col items-center flex-1 py-1 mx-2 text-sm text-white rounded-lg cursor-pointer bg-brand-orange button-hover sm:text-base xl:text-lg"
       >
         Donate
       </label>

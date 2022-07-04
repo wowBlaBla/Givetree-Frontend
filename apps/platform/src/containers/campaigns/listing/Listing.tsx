@@ -8,11 +8,13 @@ import { PlatformRoute } from "../../../configs/routes";
 import { CampaignCard } from "../../../components/cards/CampaignCard";
 import { CardGrid } from "../../../components/CardGrid";
 import { Carousel } from "../../../components/Carousel";
-import { MainBanner } from "../../../components/MainBanner";
 import { SectionHeader } from "../../../components/SectionHeader";
 
 import MulgaBannerImage from "../../../temp/images/campaigns/mulgakongz-bg.png";
 import { SectionContainer } from "../../../components/SectionContainer";
+import { CampaignBanner } from "../../../components/CampaignBanner";
+import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
+import { RoyaltyType } from "../../../typed/royalty-details";
 
 export const CampaignListingContainer = (): JSX.Element => {
   const { data, loading, error } = useQuery<GetCampaignListingDataQuery>(
@@ -31,6 +33,8 @@ export const CampaignListingContainer = (): JSX.Element => {
     return <div>No Campaigns Found</div>;
   }
 
+  const sliderCampaigns = [data.campaigns.find];
+
   return (
     <div>
       <Head>
@@ -45,21 +49,25 @@ export const CampaignListingContainer = (): JSX.Element => {
       />
 
       <Carousel>
-        <MainBanner
-          backgroundAsset={MulgaBannerImage.src}
-          title="Mulgakongz by MulgaTheArtist"
-          subtitle="4% of every single NFT minted is donated to Kids Learn Art"
-          ctaLink={PlatformRoute.CampaignListing}
-          ctaLinkText="Learn more"
-        />
-
-        <MainBanner
-          backgroundAsset="/videos/genopets-bg.mp4"
-          title="Genopets By Genopets Official"
-          subtitle="3% of every single NFT minted is donated to charity"
-          ctaLink={PlatformRoute.CampaignListing}
-          ctaLinkText="Learn more"
-        />
+        {data.featuredCampaigns.map((campaign, idx) => (
+          <CampaignBanner
+            backgroundAsset={campaign.media.campaignBannerUrl}
+            title={campaign.title}
+            subtitle={`${getRoyaltyPercentage(
+              campaign.royalties,
+              RoyaltyType.CharityDonation
+            )}% of ${campaign.title} mints go to ${
+              campaign.nominatedCharity.name
+            } charity.`}
+            ctaLink={`/mints/${campaign.slug}`}
+            ctaLinkText="View mint"
+            artistName={campaign.creators[0].name}
+            artistThumbnail={campaign.creators[0].media.previewUrl}
+            charityName={campaign.nominatedCharity.name}
+            charityThumbnail={campaign.nominatedCharity.media.previewUrl}
+            causes={campaign.nominatedCharity.causes}
+          />
+        ))}
       </Carousel>
 
       <SectionContainer className="mt-12">
