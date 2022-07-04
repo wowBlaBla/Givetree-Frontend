@@ -45,13 +45,10 @@ export const CharityDetailsContainer = () => {
 
       <div className="grid w-full max-w-screen-xl grid-cols-1 gap-4 px-3 mx-auto my-6 lg:grid-cols-2 lg:gap-8 sm:my-8">
         <BaseTile className="flex flex-col px-2 bg-white">
-          <div className="flex">
-            <VerificationBadge text="Verified charity" />
-          </div>
           <div className="flex flex-row gap-3 mt-5">
             <div className="relative w-24 h-24">
               <BackgroundImage
-                asset={data.charity.media.previewUrl}
+                imageAsset={data.charity.media.previewUrl}
                 className="w-full border border-gray-200 rounded-lg object-fit"
               />
             </div>
@@ -137,7 +134,7 @@ export const CharityDetailsContainer = () => {
         <div className="flex flex-col space-y-5">
           <div className="relative pt-full">
             <BackgroundImage
-              asset={data.charity.media.previewUrl}
+              imageAsset={data.charity.media.previewUrl}
               className="border shadow-lg rounded-xl"
             />
           </div>

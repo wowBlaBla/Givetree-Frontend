@@ -22,13 +22,13 @@ export const CollabBadge: FC<CollabBadgeProps> = ({
         <div className="flex flex-col items-center">
           <div className="relative flex justify-center mx-auto border-l border-gray-200 rounded-l-lg w-14 h-14 border-y">
             <BackgroundImage
-              asset={artistThumbnail}
+              imageAsset={artistThumbnail}
               className="w-full rounded-l-lg object-fit"
             />
           </div>
         </div>
 
-        <div className="flex items-center px-4 border-r border-gray-200 rounded-r-lg border-y">
+        <div className="flex items-center px-4 border-l border-r border-gray-200 rounded-r-lg border-y">
           <p className="text-sm font-medium text-gray-800">{artistName}</p>
         </div>
       </div>
@@ -46,13 +46,13 @@ export const CollabBadge: FC<CollabBadgeProps> = ({
         <div className="flex flex-col items-center">
           <div className="relative flex justify-center mx-auto border-l border-gray-200 rounded-l-lg w-14 h-14 border-y">
             <BackgroundImage
-              asset={charityThumbnail}
+              imageAsset={charityThumbnail}
               className="w-full rounded-l-lg object-fit"
             />
           </div>
         </div>
 
-        <div className="flex items-center px-4 border-r border-gray-200 rounded-r-lg border-y">
+        <div className="flex items-center px-4 border-l border-r border-gray-200 rounded-r-lg border-y">
           <p className="text-sm font-medium text-gray-800">{charityName}</p>
         </div>
       </div>

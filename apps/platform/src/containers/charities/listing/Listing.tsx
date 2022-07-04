@@ -40,11 +40,7 @@ export const CharityListingContainer = () => {
         textCenter
       />
 
-<<<<<<< HEAD
-      <div className="flex flex-col flex-1 w-full max-w-screen-xl mx-auto p-5">
-=======
       <div className="flex flex-col flex-1 w-full max-w-screen-xl p-5 mx-auto">
->>>>>>> feat: reskin charity details
         <CardGrid>
           {data.charities.map((charity, idx) => (
             <CharityCard key={idx} charity={charity} />

@@ -1,14 +1,10 @@
 import React, { FC } from "react";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { SocialGrid } from "../SocialGrid";
-<<<<<<< HEAD
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { StatBox } from "../StatBox";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
-=======
-import { StatBox } from "../StatBox";
 import { CollabBadge } from "../CollabBadge";
->>>>>>> feat: added collab tile
 
 interface CampaignDetailTileProps {
   currency: SupportedPlatform;
