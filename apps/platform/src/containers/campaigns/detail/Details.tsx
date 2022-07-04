@@ -66,6 +66,9 @@ export const CampaignDetailsContainer: FC = () => {
             <BaseTile className="bg-white">
               <CampaignDetailTile
                 artistName={data.campaign.creators[0].name}
+                artistThumbnail={data.campaign.creators[0].media.previewUrl}
+                charityName={data.campaign.nominatedCharity.name}
+                charityThumbnail={data.campaign.nominatedCharity.media.previewUrl}
                 description={data.campaign.shortDescription}
                 floorPrice={data.campaign.floorPrice}
                 isVerified={data.campaign.isVerified}

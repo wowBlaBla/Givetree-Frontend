@@ -39,7 +39,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 
       <div className="absolute bottom-0 z-10 w-full h-full bg-black opacity-60"></div>
 
-      <div className="relative flex items-end max-w-screen-xl min-h-full px-3 py-5 mx-auto gap-x-5">
+      <div className="relative flex items-end max-w-screen-xl min-h-full px-3 py-8 mx-auto gap-x-5">
         <div className="z-20 flex flex-col flex-1 space-y-2 text-white sm:space-y-3">
           {isFeatured && (
             <div className="relative flex">
@@ -51,26 +51,6 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
             This is <span className="text-brand-orange ">{campaignTitle}</span>
           </h3>
           <p className="text-lg font-light">{description}</p>
-        </div>
-
-        <div className="z-20 w-56">
-          <BaseTile className="bg-white">
-            <div className="flex flex-col items-center">
-              <p className="text-sm text-gray-400">Nominated charity</p>
-
-              <div className="relative flex justify-center w-24 h-24 mx-auto mt-2">
-                <BackgroundImage
-                  asset={charityImage}
-                  className="w-full rounded-lg object-fit"
-                />
-              </div>
-              <p className="mt-2 text-sm text-center text-gray-800">{charityName}</p>
-
-              <span className="px-3 py-1 mt-2 text-sm font-medium text-green-800 bg-green-100 rounded">
-                {causes[0]}
-              </span>
-            </div>
-          </BaseTile>
         </div>
       </div>
     </div>
