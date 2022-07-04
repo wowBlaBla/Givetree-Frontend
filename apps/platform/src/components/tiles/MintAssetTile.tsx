@@ -12,7 +12,7 @@ export const CharityTile: FC<CharityTileProps> = ({ name, description, imageAsse
   <BaseTile className="bg-gray-100">
     <div className="flex flex-col items-center">
       <div className="flex justify-center w-48 h-48 sm:w-72 sm:h-72 mx-auto">
-        <Image className="w-full rounded-full" src={imageAsset} alt="mulgakongz asset" />
+        <Image className="w-full rounded-full" src={imageAsset} alt={name} />
       </div>
 
       <p className="mt-4 text-lg sm:text-lg">{description}</p>

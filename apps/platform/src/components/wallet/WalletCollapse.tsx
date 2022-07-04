@@ -1,13 +1,14 @@
 import React, { FC, PropsWithChildren, useLayoutEffect, useRef } from "react";
+import cx from "classnames";
 
-export type CollapseProps = PropsWithChildren<{
+export type WalletCollapseProps = PropsWithChildren<{
   expanded: boolean;
   id: string;
 }>;
 
-export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) => {
+export const WalletCollapse: FC<WalletCollapseProps> = ({ id, children, expanded }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const instant = useRef(true);
+  const instantRef = useRef(true);
   const transition = "height 250ms ease-out";
 
   const openCollapse = () => {
@@ -47,7 +48,7 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
     function handleComplete() {
       if (!node) return;
 
-      node.style.overflow = expanded ? "initial" : "hidden";
+      node.style.overflow = expanded ? "auto" : "hidden";
       if (expanded) {
         node.style.height = "auto";
       }
@@ -59,9 +60,9 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
       }
     }
 
-    if (instant.current) {
+    if (instantRef.current) {
       handleComplete();
-      instant.current = false;
+      instantRef.current = false;
     }
 
     node.addEventListener("transitionend", handleTransitionEnd);
@@ -70,11 +71,13 @@ export const Collapse: FC<CollapseProps> = ({ id, children, expanded = false }) 
 
   return (
     <div
-      className="wallet-adapter-collapse"
+      className={cx("w-full", {
+        "-mt-3": expanded,
+      })}
       id={id}
       ref={ref}
       role="region"
-      style={{ height: 0, transition: instant.current ? undefined : transition }}
+      style={{ height: 0, transition: instantRef.current ? undefined : transition }}
     >
       {children}
     </div>

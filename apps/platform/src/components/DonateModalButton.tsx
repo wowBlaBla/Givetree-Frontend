@@ -9,7 +9,7 @@ import { InputErrorBox } from "./forms/InputError";
 import { Label } from "./forms/Label";
 import { Modal } from "./Modal";
 
-interface DonateModalProps {
+interface DonateModalButtonProps {
   className?: string;
   charity: Charity;
 }
@@ -18,16 +18,16 @@ const validateDonationForm = yup.object().shape({
   amount: yup.number(),
 });
 
-export const DonateModal: FC<DonateModalProps> = ({ charity, className }) => {
+export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, className }) => {
   const onSubmit = () => {
-    toast.success("Thank you for the donation, you legend!");
+    toast.success("Thank you for your donation!");
   };
 
   return (
     <div className={className}>
       <label
         htmlFor={`donate-modal-${charity.slug}`}
-        className="flex flex-col items-center flex-1 py-1 text-sm rounded-lg bg-brand-orange text-white button-hover sm:text-base xl:text-lg"
+        className="flex absolute justify-center items-center cursor-pointer py-2 px-3 w-full text-sm rounded-b-lg bg-brand-orange text-white button-hover sm:text-base xl:text-lg"
       >
         Donate
       </label>

@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import { SocialGrid } from "../SocialGrid";
-import { VerificationBadge } from "../badges/VerificationBadge";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { StatBox } from "../StatBox";
+import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 
 interface CampaignDetailTileProps {
   currency: SupportedPlatform;
@@ -10,6 +11,7 @@ interface CampaignDetailTileProps {
   artistName: string;
   floorPrice: number;
   isLive?: boolean;
+  isVerified?: boolean;
   title: string;
   totalSupply: number;
   linkedinUrl?: string;
@@ -23,6 +25,7 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   currency,
   title,
   artistName,
+  isVerified,
   totalSupply,
   floorPrice,
   websiteUrl,
@@ -31,16 +34,18 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   contractUrl,
 }) => (
   <>
-    <div className="flex">
-      <VerificationBadge text="Verified" />
-    </div>
-
     <div className="grid gap-y-6">
       <div>
-        <h3 className="mt-3 text-3xl font-medium sm:text-4xl">{title}</h3>
-        <p>
-          by <span className="font-medium text-brand-orange">{artistName}</span>
-        </p>
+        <div className="flex space-x-0.5">
+          <h3 className="text-3xl font-medium sm:text-4xl">{title}</h3>
+          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} large />}
+        </div>
+        <div className="flex space-x-0.5">
+          <p>
+            by <span className="font-medium text-brand-orange">{artistName}</span>
+          </p>
+          {isVerified && <VerifiedBadge type={VerifiedBadgeType.ContentCreator} />}
+        </div>
       </div>
 
       <div className="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-12">

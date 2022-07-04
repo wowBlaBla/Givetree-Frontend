@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @import "./carousel.css";
-@import "./wallet.css";
 
 body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -20,5 +19,10 @@ img {
 
   .button-hover {
     @apply transition-hover hover:bg-brand-orange-hover hover:border-brand-orange-hover hover:text-white;
+  }
+
+  .tooltip::before {
+    @apply hidden md:flex md:w-28 justify-center bg-white text-brand-black border border-gray-200 font-medium text-xs;
+
   }
 }

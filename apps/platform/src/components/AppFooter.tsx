@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
-import { DiscordIcon } from "./icons/DiscordIcon";
-import { TwitterIcon } from "./icons/TwitterIcon";
+import { DiscordSolidIcon } from "./icons/DiscordIcon";
+import { TwitterSolidIcon } from "./icons/TwitterIcon";
 import { YoutubeIcon } from "./icons/YoutubeIcon";
 
 interface SocialLinkProps {
@@ -27,11 +27,11 @@ export const AppFooter = () => (
       </p>
       <div className="flex">
         <SocialLink
-          socialIcon={<DiscordIcon className="w-6 h-6 fill-current sm:w-8 sm:h-8" />}
+          socialIcon={<DiscordSolidIcon className="w-6 h-6 fill-current sm:w-8 sm:h-8" />}
           link="https://t.co/r2jNYwMmEt"
         />
         <SocialLink
-          socialIcon={<TwitterIcon className="w-6 h-6 fill-current sm:w-8 sm:h-8" />}
+          socialIcon={<TwitterSolidIcon className="w-6 h-6 fill-current sm:w-8 sm:h-8" />}
           link="https://twitter.com/GiveTreeWagmi"
         />
         <SocialLink
