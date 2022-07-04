@@ -16,6 +16,6 @@ export const genHalfCutData = (x?: Partial<Charity>): Charity => ({
     tileUrl: HCLogo.src,
     previewUrl: HCLogo.src,
   },
-  causes: [sample(Cause)] as Cause[],
+  causes: [Cause.RainforrestProtection, Cause.CleanAir],
   ...x,
 });

@@ -43,9 +43,11 @@ export const CampaignDetailTile: FC<CampaignDetailTileProps> = ({
   <>
     <div className="grid gap-y-6">
       <div>
-        <div className="flex space-x-0.5">
+        <div className="flex space-x-0.5 items-center">
           <h3 className="text-3xl font-medium sm:text-4xl">{title}</h3>
-          {isVerified && <VerifiedBadge type={VerifiedBadgeType.Collection} large />}
+          {isVerified && (
+            <VerifiedBadge className="ml-2" type={VerifiedBadgeType.Collection} large />
+          )}
         </div>
 
         <div className="mt-3">

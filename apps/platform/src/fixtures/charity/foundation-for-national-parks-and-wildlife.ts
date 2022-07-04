@@ -18,6 +18,6 @@ export const genFoundationForNationalParksAndWildlifeData = (
     tileUrl: FNPWLogoLogo.src,
     previewUrl: FNPWLogoLogo.src,
   },
-  causes: [sample(Cause)] as Cause[],
+  causes: [Cause.WildlifePreservation, Cause.Humanity],
   ...x,
 });

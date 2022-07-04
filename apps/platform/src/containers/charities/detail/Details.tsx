@@ -11,6 +11,9 @@ import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
+import { CauseBadge } from "../../../components/badges/CauseBadge";
+import { VerifiedBadge } from "../../../components/badges/VerifiedBadge";
+import { VerifiedBadgeType } from "../../../typed/enum/verifiedBadgeType";
 
 export const CharityDetailsContainer = () => {
   const params = useParams();
@@ -37,7 +40,7 @@ export const CharityDetailsContainer = () => {
   return (
     <div className="w-full mx-auto">
       <Head>
-        <title>GiveTree - {data.charity.name}</title>
+        <title>GiveTree - verified charity {data.charity.name}</title>
       </Head>
 
       <div className="grid w-full max-w-screen-xl grid-cols-1 gap-4 px-3 mx-auto my-6 lg:grid-cols-2 lg:gap-8 sm:my-8">
@@ -50,7 +53,12 @@ export const CharityDetailsContainer = () => {
               />
             </div>
             <div className="flex flex-col flex-1">
-              <h3 className="text-3xl font-medium sm:text-4xl">{data.charity.name}</h3>
+              <div className="flex items-center">
+                <h3 className="text-3xl font-medium sm:text-4xl">
+                  <span>{data.charity.name} </span>
+                  <VerifiedBadge type={VerifiedBadgeType.Charity} large />
+                </h3>
+              </div>
               <p className="mt-1 text-sm tracking-wide text-gray-500">
                 {data.charity.shortDescription}
               </p>
@@ -72,12 +80,7 @@ export const CharityDetailsContainer = () => {
           <div className="flex items-center mt-3 space-x-1 sm:space-x-3">
             <div className="flex flex-wrap space-x-1">
               {data.charity.causes.map((cause, idx) => (
-                <div
-                  key={idx}
-                  className="px-3 py-2 text-base text-green-800 rounded-lg bg-green-50"
-                >
-                  {cause}
-                </div>
+                <CauseBadge key={idx} cause={cause} />
               ))}
             </div>
           </div>

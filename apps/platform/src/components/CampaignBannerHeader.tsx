@@ -3,7 +3,6 @@ import { BackgroundImage } from "./BackgroundImage";
 import { BackgroundVideo } from "./BackgroundVideo";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { BaseTile } from "./tiles/BaseTile";
 import { Cause } from "../typed/enum/cause";
 
 interface CampaignBannerHeaderProps {
@@ -21,9 +20,6 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   campaignTitle,
   isFeatured,
   description,
-  charityImage,
-  charityName,
-  causes,
 }) => {
   const assetType = getAssetType(backgroundImage);
 
