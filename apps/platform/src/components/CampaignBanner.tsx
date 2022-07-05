@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import { PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { CollabBadge } from "./CollabBadge";
+import { CollabBadge } from "./badges/CollabBadge";
 import { CauseBadge } from "./badges/CauseBadge";
 
 interface CampaignBannerProps {

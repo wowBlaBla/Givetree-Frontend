@@ -11,12 +11,12 @@ export const genFoundationForNationalParksAndWildlifeData = (
   slug: "foundation-for-national-parks-and-wildlife",
   shortDescription: `The Foundation for National Parks & Wildlife is an Australian not-for-profit, non-governmental organisation that was incorporated on 29 June 1970.`,
   longDescription: gen.lorem.paragraphs(8),
-  isVerified: true,
   websiteUrl: "https://fnpw.org.au/",
   media: {
     tileUrl: FNPWLogoLogo.src,
     previewUrl: FNPWLogoLogo.src,
   },
+  isVerified: true,
   causes: [Cause.WildlifePreservation, Cause.Humanity],
   ...x,
 });

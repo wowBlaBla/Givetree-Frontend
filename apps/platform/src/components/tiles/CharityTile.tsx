@@ -1,10 +1,10 @@
-import { round } from "lodash";
 import React, { FC } from "react";
-import { Cause } from "../../typed/enum/cause";
+import { round } from "lodash";
 import { BackgroundImage } from "../BackgroundImage";
-import { SolanaColorIcon } from "../icons/SolanaColorIcon";
-import { OutlineLink } from "../OutlineCta";
 import { BaseTile } from "./BaseTile";
+import { SolanaColorIcon } from "../icons/SolanaColorIcon";
+import { ExternalOutlineLink } from "../OutlineCta";
+import { Cause } from "../../typed/enum/cause";
 
 interface CharityTileProps {
   imageAsset: string;
@@ -30,9 +30,9 @@ export const CharityTile: FC<CharityTileProps> = ({
       <div className="flex-grow">
         <h3 className="text-xl font-semibold">Charity details</h3>
       </div>
-      <OutlineLink href="https://givetree.gitbook.io/givetree-content-creator-onboarding-info-pack/">
+      <ExternalOutlineLink href="https://givetree.gitbook.io/givetree-content-creator-onboarding-info-pack/">
         Learn more
-      </OutlineLink>
+      </ExternalOutlineLink>
     </div>
 
     <BaseTile className="flex flex-col gap-5 mt-5 sm:flex-row">

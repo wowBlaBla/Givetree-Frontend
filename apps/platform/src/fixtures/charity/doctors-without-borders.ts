@@ -9,12 +9,12 @@ export const genDoctorsWithoutBordersData = (x?: Partial<Charity>): Charity => (
   slug: "doctors-without-borders",
   shortDescription: `Médecins Sans Frontières, or Doctors Without Borders in English, is an international humanitarian medical non-governmental organisation of French origin best known for its projects in conflict zones and in countries affected by endemic diseases.`,
   longDescription: gen.lorem.paragraphs(8),
-  isVerified: true,
   websiteUrl: "https://www.msf.org/",
   media: {
     tileUrl: DWBLogo.src,
     previewUrl: DWBLogo.src,
   },
+  isVerified: true,
   causes: [Cause.EmergencyAid, Cause.Humanity],
   ...x,
 });

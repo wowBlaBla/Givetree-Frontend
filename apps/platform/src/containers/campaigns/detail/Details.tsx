@@ -16,6 +16,8 @@ import { RoyaltyType } from "../../../typed/royalty-details";
 import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { round } from "lodash";
+import { LoadingContainer } from "../../../components/LoadingContainer";
+import { ErrorContainer } from "../../../components/ErrorContainer";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -32,15 +34,15 @@ export const CampaignDetailsContainer: FC = () => {
   );
 
   if (loading) {
-    return <div>Loading..</div>;
+    return <LoadingContainer message="Loading campaign details..." />;
   }
 
   if (error) {
-    return <div>Error...</div>;
+    return <ErrorContainer message="Could not load campaign details." />;
   }
 
   if (!data) {
-    return <div>No Data</div>;
+    return <ErrorContainer message="Could not load campaign details." />;
   }
 
   return (

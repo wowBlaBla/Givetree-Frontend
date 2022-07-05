@@ -35,7 +35,7 @@ export const VerifiedBadge: FC<VerifiedBadgeProps> = ({
   return (
     <>
       {isVerified && (
-        <div className="z-30 tooltip tooltip-right" data-tip={tooltipText}>
+        <div className="z-30 tooltip tooltip-top" data-tip={tooltipText}>
           <svg
             className={cx("w-5 h-5 text-white fill-current", className, {
               "w-3.5 h-3.5 mb-1": !large,

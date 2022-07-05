@@ -3,7 +3,7 @@ import cx from "classnames";
 import { Link } from "react-router-dom";
 
 export const ButtonStyles =
-  "border-2 border-brand-orange rounded-lg text-brand-orange button-hover";
+  "py-2 px-3 border-2 border-brand-orange rounded-lg text-brand-orange button-hover";
 
 interface ButtonProps {
   children?: ReactNode;
@@ -19,11 +19,7 @@ export const OutlineButton: FC<ButtonProps> = ({
   type,
 }) => (
   <button
-    className={cx(
-      "py-1 px-3 sm:py-2 sm:px-4 text-sm sm:text-base",
-      ButtonStyles,
-      className
-    )}
+    className={cx("text-sm sm:text-base", ButtonStyles, className)}
     type={type || "button"}
     onClick={onClick}
   >
@@ -38,13 +34,22 @@ interface OutlineLinkProps {
 }
 
 export const OutlineLink: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link className={cx("py-1 px-3 text-sm", ButtonStyles, className)} to={href}>
+  <Link className={cx("text-sm", ButtonStyles, className)} to={href}>
     {children}
   </Link>
 );
 
-export const OutlineLinkSm: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link className={cx("p-1 text-xs sm:text-sm", ButtonStyles, className)} to={href}>
+export const ExternalOutlineLink: FC<OutlineLinkProps> = ({
+  children,
+  className,
+  href,
+}) => (
+  <a
+    className={cx("text-sm", ButtonStyles, className)}
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+  >
     {children}
-  </Link>
+  </a>
 );

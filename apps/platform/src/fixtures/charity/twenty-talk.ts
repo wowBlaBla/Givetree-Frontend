@@ -11,13 +11,12 @@ export const gen20TalkData = (x?: Partial<Charity>): Charity => ({
   slug: "20-talk",
   shortDescription: `20talk is a registered mental health awareness charity that began in 2018 after the loss of two close friends to suicide. This led a team of young Australians on a journey to find out how they could address the problem.`,
   longDescription: gen.lorem.paragraphs(8),
-  isVerified: true,
   websiteUrl: "https://20talk.com.au/",
   media: {
     tileUrl: TTLogo.src,
     previewUrl: TTLogo.src,
   },
-
+  isVerified: true,
   causes: [sample(Cause)] as Cause[],
   ...x,
 });

@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -29,17 +29,29 @@ interface DonationValues {
 }
 
 const validateDonationForm = yup.object().shape({
-  amount: yup.number(),
+  amount: yup.number().test("Donation amount must be greater than 0.01", (value) => {
+    if (!value) {
+      return false;
+    }
+
+    return value > 0;
+  }),
 });
 
 export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, className }) => {
   const { connection } = useConnection();
   const { connected, publicKey, sendTransaction } = useWallet();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit = useCallback(
     async (values: DonationValues) => {
+      setIsLoading(true);
+
       const donationAmount = (LAMPORTS_PER_SOL * values.amount).toFixed(2);
-      if (!publicKey) throw new WalletNotConnectedError();
+      if (!publicKey) {
+        setIsLoading(false);
+        throw new WalletNotConnectedError();
+      }
 
       const transaction = new Transaction().add(
         SystemProgram.transfer({
@@ -69,7 +81,11 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
         Donate
       </label>
 
-      <Modal modalName={`donate-modal-${charity.slug}`}>
+      <Modal
+        modalName={`donate-modal-${charity.slug}`}
+        isLoading={isLoading}
+        isLoadingMessage="Processing donation..."
+      >
         <SectionTitle className="space-x-1 text-center text-white">
           <span>{charity.name}</span>
           {charity.isVerified && (
@@ -84,26 +100,33 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
         <div className="flex flex-col items-center w-full mt-5 space-y-5"></div>
 
         <Formik
-          initialValues={{ amount: 0 }}
+          initialValues={{ amount: 0.01 }}
           onSubmit={onSubmit}
           validationSchema={validateDonationForm}
         >
           {({ errors, touched, values }) => (
             <Form>
               <Label>Amount</Label>
-              <div className="flex flex-row items-center">
-                <SolanaColorIcon className="mr-2 w-7" />
-                <Field
-                  className="w-full input input-bordered"
-                  name="amount"
-                  type="number"
-                  value={values.amount}
-                />
-                <InputErrorBox
-                  hasError={touched.amount && !!errors.amount}
-                  message={errors.amount}
-                />
-                <p className="ml-2 font-medium">SOL</p>
+              <div className="flex flex-col">
+                <div className="flex items-center">
+                  <SolanaColorIcon className="mr-2 w-7" />
+                  <Field
+                    className="w-full input input-bordered"
+                    name="amount"
+                    type="number"
+                    min="0.01"
+                    value={values.amount}
+                    isError={!!errors.amount}
+                  />
+                  <p className="ml-2 font-medium">SOL</p>
+                </div>
+
+                <div className="">
+                  <InputErrorBox
+                    hasError={touched.amount && !!errors.amount}
+                    message={errors.amount}
+                  />
+                </div>
               </div>
 
               <div className="flex flex-col w-full py-2 mt-6">
@@ -122,7 +145,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
                 </table>
               </div>
 
-              <div className="flex flex-row-reverse">
+              <div className="flex flex-row-reverse mt-3">
                 {connected && <PrimaryButton type="submit">Donate</PrimaryButton>}
                 {!connected && (
                   <PrimaryModalButton htmlFor="wallet-modal">

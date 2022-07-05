@@ -10,13 +10,12 @@ export const genWhiteRibbonData = (x?: Partial<Charity>): Charity => ({
   slug: "white-ribbon",
   shortDescription: `The White Ribbon Campaign is a global movement of men and boys working to end male violence against women and girls.`,
   longDescription: gen.lorem.paragraphs(8),
-  isVerified: true,
   websiteUrl: "https://www.whiteribbon.org.au/",
   media: {
     tileUrl: WRLogo.src,
     previewUrl: WRLogo.src,
   },
-
+  isVerified: true,
   causes: [Cause.Humanity],
   ...x,
 });

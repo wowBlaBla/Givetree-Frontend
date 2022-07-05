@@ -9,12 +9,12 @@ export const genHalfCutData = (x?: Partial<Charity>): Charity => ({
   slug: "half-cut",
   shortDescription: `Half the world's rainforests have been destroyed. We encourage people to wear the "halfcut look" and help us raise money for rainforest protection!`,
   longDescription: gen.lorem.paragraphs(8),
-  isVerified: true,
   websiteUrl: "https://go.halfcut.org/",
   media: {
     tileUrl: HCLogo.src,
     previewUrl: HCLogo.src,
   },
+  isVerified: true,
   causes: [Cause.RainforrestProtection, Cause.CleanAir],
   ...x,
 });
