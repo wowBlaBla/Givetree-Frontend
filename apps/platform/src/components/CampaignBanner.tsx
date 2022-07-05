@@ -57,11 +57,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
             />
 
             <div className="pt-3">
-              {ctaLink && (
-                <PrimaryLink href={ctaLink} large>
-                  {ctaLinkText}
-                </PrimaryLink>
-              )}
+              {ctaLink && <PrimaryLink href={ctaLink}>{ctaLinkText}</PrimaryLink>}
             </div>
           </div>
         </div>
@@ -83,12 +79,12 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           {assetType === AssetType.Image && (
             <>
               <div
-                className="absolute inset-0 hidden w-full min-h-full bg-center bg-no-repeat bg-cover border border-gray-200 rounded-r-xl md:flex"
+                className="absolute inset-0 hidden w-full min-h-full bg-center bg-no-repeat bg-cover border border-gray-200 md:rounded-r-xl md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
               />
               <img
                 alt="banner image"
-                className="block object-fill w-auto min-w-full min-h-full rounded-r-xl md:hidden"
+                className="block object-fill w-auto min-w-full min-h-full md:hidden"
                 src={backgroundAsset}
               />
             </>

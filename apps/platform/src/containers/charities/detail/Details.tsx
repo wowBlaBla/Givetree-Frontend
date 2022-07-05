@@ -14,9 +14,12 @@ import { CauseBadge } from "../../../components/badges/CauseBadge";
 import { VerifiedBadge } from "../../../components/badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../../typed/enum/verifiedBadgeType";
 import { DonateModalButton } from "../../../components/DonateModalButton";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { ConnectWalletButton } from "../../../components/wallet/ConnectWalletButton";
 
 export const CharityDetailsContainer = () => {
   const params = useParams();
+  const { connected: isWalletConnected } = useSolanaWallet();
 
   const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
     GET_CHARITY_DETAILS_DATA,
@@ -144,7 +147,15 @@ export const CharityDetailsContainer = () => {
             />
           </div>
 
-          <DonateModalButton charity={data.charity} />
+          {isWalletConnected && (
+            <DonateModalButton
+              containerClassName="flex w-full"
+              buttonClassName="w-full"
+              charity={data.charity}
+            />
+          )}
+
+          {!isWalletConnected && <ConnectWalletButton />}
         </div>
       </div>
     </div>

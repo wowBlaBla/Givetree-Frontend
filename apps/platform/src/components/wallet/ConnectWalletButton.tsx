@@ -91,7 +91,7 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
     return (
       <>
         <PrimaryModalButton htmlFor="wallet-modal">
-          <div className="flex items-center space-x-1">
+          <div className="flex justify-center items-center space-x-1">
             <ConnectWalletIcon className="w-6 h-6" />
             <div className="hidden md:block whitespace-nowrap">Connect wallet</div>
           </div>
@@ -105,7 +105,7 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
   if (!solanaWalletAddress) {
     return (
       <PrimaryButton onClick={handleWalletConnect}>
-        <div className="flex items-center space-x-2">
+        <div className="flex justify-center items-center space-x-1">
           <WalletIcon wallet={wallet} />
           <div className="hidden md:block whitespace-nowrap">{walletReadyState}</div>
         </div>
@@ -120,11 +120,12 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
         onClick={openDropdown}
         primaryColor
       >
-        <div className="flex items-center space-x-1">
+        <div className="flex justify-center items-center space-x-0.5">
           <WalletIcon wallet={wallet} />
           <div className="hidden md:block whitespace-nowrap">{content}</div>
         </div>
       </PrimaryButton>
+
       <WalletDropdown active={active} ref={walletDropdownRef} />
       <WalletModal closeDropdown={closeDropdown} />
     </div>

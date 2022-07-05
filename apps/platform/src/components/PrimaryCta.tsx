@@ -2,16 +2,17 @@ import React, { FC, MouseEventHandler, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
-const ButtonStyles =
-  "py-2 px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center font-medium tracking-wide cursor-pointer button-hover";
+// Base Prop Types
+
+interface BaseProps {
+  children?: ReactNode;
+  className?: string;
+  primaryColor?: boolean;
+}
 
 // Primary Button
 
-export interface ButtonProps {
-  children?: ReactNode;
-  className?: string;
-  large?: boolean;
-  primaryColor?: boolean;
+export interface ButtonProps extends BaseProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset" | undefined;
 }
@@ -19,14 +20,12 @@ export interface ButtonProps {
 export const PrimaryButton: FC<ButtonProps> = ({
   children,
   className,
-  large,
   primaryColor,
   onClick,
   type,
 }) => (
   <button
-    className={cx("text-base", ButtonStyles, className, {
-      "text-lg sm:text-xl": large,
+    className={cx("primary-button", className, {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}
@@ -39,24 +38,18 @@ export const PrimaryButton: FC<ButtonProps> = ({
 
 // Primary Link
 
-interface PrimaryLinkProps {
+interface PrimaryLinkProps extends BaseProps {
   href: string;
-  className?: string;
-  children?: ReactNode;
-  large?: boolean;
-  primaryColor?: boolean;
 }
 
 export const PrimaryLink: FC<PrimaryLinkProps> = ({
   children,
   className,
-  large,
-  primaryColor,
   href,
+  primaryColor,
 }) => (
   <Link
-    className={cx("text-base sm:text-lg", ButtonStyles, className, {
-      "text-lg lg:text-xl": large,
+    className={cx("primary-button", className, {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}
@@ -68,11 +61,8 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
 
 // Primary Modal Button
 
-interface PrimaryModalButtonProps {
-  children: ReactNode;
-  className?: string;
+interface PrimaryModalButtonProps extends BaseProps {
   htmlFor: string;
-  primaryColor?: string;
 }
 
 export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
@@ -82,7 +72,7 @@ export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
   primaryColor,
 }) => (
   <label
-    className={cx("text-base", ButtonStyles, className, {
+    className={cx("primary-button", className, {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}

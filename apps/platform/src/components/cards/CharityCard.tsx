@@ -26,9 +26,9 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       ref={donationRef}
       onMouseEnter={() => setShowDonationButton(true)}
       onMouseLeave={() => setShowDonationButton(false)}
-      className="relative bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
+      className="relative w-full bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
     >
-      <div className="flex flex-col w-full h-full" onClick={handleNextLocation}>
+      <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
         <div className="flex absolute top-0 right-0 m-2.5 z-10">
           <CauseBadge cause={charity.causes?.[0]} />
         </div>
@@ -47,14 +47,16 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           </h4>
         </div>
       </div>
+
       <DonateModalButton
-        className={cx(
-          "absolute bottom-0 w-full duration-300 overflow-hidden z-40 rounded-b-xl",
+        containerClassName={cx(
+          "flex absolute bottom-0 w-full duration-300 overflow-hidden z-40 my-2 px-2",
           {
             "invisible h-0": !showDonationButton,
             "visible h-10": showDonationButton,
           }
         )}
+        buttonClassName="w-full"
         charity={charity}
       />
     </div>

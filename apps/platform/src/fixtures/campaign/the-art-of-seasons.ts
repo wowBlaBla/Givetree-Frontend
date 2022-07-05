@@ -1,6 +1,5 @@
 import { faker as gen } from "@faker-js/faker";
 
-import { genFoundationForNationalParksAndWildlifeData } from "../charity/foundation-for-national-parks-and-wildlife";
 import { genRengaFactoryContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
 import { genRoyalty } from "../royalties";

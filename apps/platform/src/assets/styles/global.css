@@ -21,6 +21,14 @@ img {
     @apply transition-hover hover:bg-brand-orange-hover hover:border-brand-orange-hover hover:text-white;
   }
 
+  .primary-button {
+    @apply py-1.5 px-3 rounded-lg bg-brand-orange text-base sm:text-lg text-center font-medium tracking-wide cursor-pointer button-hover;
+  }
+
+  .outline-button {
+    @apply py-1.5 px-3 border-2 border-brand-orange rounded-lg text-base sm:text-lg text-center text-brand-orange font-medium cursor-pointer button-hover;
+  }
+  
   .tooltip::before {
     @apply hidden md:flex md:w-28 justify-center bg-white text-brand-black border border-gray-200 font-medium text-xs;
 

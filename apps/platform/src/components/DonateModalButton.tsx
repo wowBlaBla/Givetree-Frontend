@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import {
+  useConnection,
+  useWallet as useSolanaWallet,
+} from "@solana/wallet-adapter-react";
 import { Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 import { PrimaryButton, PrimaryModalButton } from "./PrimaryCta";
@@ -13,14 +16,15 @@ import { InputErrorBox } from "./forms/InputError";
 import { Label } from "./forms/Label";
 import { Modal } from "./Modal";
 import { VerifiedBadge } from "./badges/VerifiedBadge";
-import { ConnectWalletIcon } from "./icons/ConnectWalletIcon";
 import { SectionTitle } from "./SectionTitle";
 import { Charity } from "../typed/charity";
 import { VerifiedBadgeType } from "../typed/enum/verifiedBadgeType";
 import { SolanaColorIcon } from "./icons/SolanaColorIcon";
+import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
 
 interface DonateModalButtonProps {
-  className?: string;
+  containerClassName?: string;
+  buttonClassName?: string;
   charity: Charity;
 }
 
@@ -38,9 +42,13 @@ const validateDonationForm = yup.object().shape({
   }),
 });
 
-export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, className }) => {
+export const DonateModalButton: FC<DonateModalButtonProps> = ({
+  charity,
+  buttonClassName,
+  containerClassName,
+}) => {
   const { connection } = useConnection();
-  const { connected, publicKey, sendTransaction } = useWallet();
+  const { connected: isWalletConnected, publicKey, sendTransaction } = useSolanaWallet();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSubmit = useCallback(
@@ -73,13 +81,13 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
   );
 
   return (
-    <div className={className}>
-      <label
+    <div className={containerClassName}>
+      <PrimaryModalButton
+        className={buttonClassName}
         htmlFor={`donate-modal-${charity.slug}`}
-        className="flex flex-col items-center flex-1 py-1 mx-2 text-sm text-white rounded-lg cursor-pointer bg-brand-orange button-hover sm:text-base xl:text-lg"
       >
         Donate
-      </label>
+      </PrimaryModalButton>
 
       <Modal
         modalName={`donate-modal-${charity.slug}`}
@@ -146,17 +154,8 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
               </div>
 
               <div className="flex flex-row-reverse mt-3">
-                {connected && <PrimaryButton type="submit">Donate</PrimaryButton>}
-                {!connected && (
-                  <PrimaryModalButton htmlFor="wallet-modal">
-                    <div className="flex items-center space-x-1">
-                      <ConnectWalletIcon className="w-6 h-6" />
-                      <div className="hidden md:block whitespace-nowrap">
-                        Connect wallet
-                      </div>
-                    </div>
-                  </PrimaryModalButton>
-                )}
+                {isWalletConnected && <PrimaryButton type="submit">Donate</PrimaryButton>}
+                {!isWalletConnected && <ConnectWalletButton />}
               </div>
             </Form>
           )}
