@@ -26,7 +26,7 @@ img {
   }
 
   .outline-button {
-    @apply py-1.5 px-3 border-2 border-brand-orange rounded-lg text-base sm:text-lg text-center text-brand-orange font-medium cursor-pointer button-hover;
+    @apply py-1.5 px-3 border-2 border-brand-orange rounded-lg text-base sm:text-lg text-center text-brand-orange font-medium tracking-wide cursor-pointer button-hover;
   }
   
   .tooltip::before {

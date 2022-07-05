@@ -49,11 +49,11 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
   primaryColor,
 }) => (
   <Link
-    className={cx("primary-button", className, {
+    to={href}
+    className={cx(className, "primary-button", {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}
-    to={href}
   >
     {children}
   </Link>
@@ -63,6 +63,7 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
 
 interface PrimaryModalButtonProps extends BaseProps {
   htmlFor: string;
+  onClick: () => void;
 }
 
 export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
@@ -70,13 +71,15 @@ export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
   className,
   htmlFor,
   primaryColor,
+  onClick,
 }) => (
   <label
-    className={cx("primary-button", className, {
+    htmlFor={htmlFor}
+    className={cx(className, "primary-button modal-button", {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}
-    htmlFor={htmlFor}
+    onClick={onClick}
   >
     {children}
   </label>

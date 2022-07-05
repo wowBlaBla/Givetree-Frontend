@@ -3,8 +3,6 @@ import React, { FC, ReactNode, useEffect, useRef } from "react";
 interface DonateModalProps {
   className?: string;
   children: ReactNode;
-  isLoading?: boolean;
-  isLoadingMessage?: string;
   modalName: string;
   onModalClose?: () => void;
 }
@@ -12,12 +10,10 @@ interface DonateModalProps {
 export const Modal: FC<DonateModalProps> = ({
   children,
   className,
-  isLoading,
-  isLoadingMessage,
   modalName,
   onModalClose,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
@@ -42,8 +38,7 @@ export const Modal: FC<DonateModalProps> = ({
   }, [modalRef, onModalClose]);
 
   return (
-    <div ref={modalRef} className={className}>
-      <div></div>
+    <label ref={modalRef} className={className}>
       <input type="checkbox" id={modalName} className="modal-toggle" />
       <label
         htmlFor={modalName}
@@ -60,6 +55,6 @@ export const Modal: FC<DonateModalProps> = ({
           <div className="mt-8">{children}</div>
         </label>
       </label>
-    </div>
+    </label>
   );
 };

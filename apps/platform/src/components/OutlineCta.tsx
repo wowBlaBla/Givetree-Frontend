@@ -23,7 +23,7 @@ export const OutlineButton: FC<OutlineButtonProps> = ({
   type,
 }) => (
   <button
-    className={cx("outline-button", className)}
+    className={cx(className, "outline-button")}
     type={type || "button"}
     onClick={onClick}
   >
@@ -38,7 +38,7 @@ interface OutlineLinkProps extends BaseProps {
 }
 
 export const OutlineLink: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link className={cx("outline-button", className)} to={href}>
+  <Link className={cx(className, "outline-button")} to={href}>
     {children}
   </Link>
 );

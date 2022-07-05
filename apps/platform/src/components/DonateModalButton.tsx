@@ -1,26 +1,26 @@
 import React, { FC, useCallback, useState } from "react";
+import cx from "classnames";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-
-import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import {
   useConnection,
   useWallet as useSolanaWallet,
 } from "@solana/wallet-adapter-react";
 import { Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
+import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PrimaryButton, PrimaryModalButton } from "./PrimaryCta";
+import { Modal } from "./Modal";
+import { SectionTitle } from "./SectionTitle";
+import { VerifiedBadge } from "./badges/VerifiedBadge";
 import { Field } from "./forms/Field";
 import { InputErrorBox } from "./forms/InputError";
 import { Label } from "./forms/Label";
-import { Modal } from "./Modal";
-import { VerifiedBadge } from "./badges/VerifiedBadge";
-import { SectionTitle } from "./SectionTitle";
-import { Charity } from "../typed/charity";
-import { VerifiedBadgeType } from "../typed/enum/verifiedBadgeType";
 import { SolanaColorIcon } from "./icons/SolanaColorIcon";
 import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
+import { Charity } from "../typed/charity";
+import { VerifiedBadgeType } from "../typed/enum/verifiedBadgeType";
 
 interface DonateModalButtonProps {
   containerClassName?: string;
@@ -33,13 +33,15 @@ interface DonationValues {
 }
 
 const validateDonationForm = yup.object().shape({
-  amount: yup.number().test("Donation amount must be greater than 0.01", (value) => {
-    if (!value) {
-      return false;
-    }
+  amount: yup
+    .number()
+    .test("amount", "Donation amount must be greater than 0.5", (value) => {
+      if (!value) {
+        return false;
+      }
 
-    return value > 0;
-  }),
+      return value >= 0.5;
+    }),
 });
 
 export const DonateModalButton: FC<DonateModalButtonProps> = ({
@@ -50,50 +52,77 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
   const { connection } = useConnection();
   const { connected: isWalletConnected, publicKey, sendTransaction } = useSolanaWallet();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState(false);
 
-  const onSubmit = useCallback(
-    async (values: DonationValues) => {
-      setIsLoading(true);
+  console.log("modal", openModal);
 
-      const donationAmount = (LAMPORTS_PER_SOL * values.amount).toFixed(2);
+  const processTransaction = useCallback(
+    async (amount: number) => {
+      const donationAmount = (LAMPORTS_PER_SOL * amount).toFixed(2);
+
       if (!publicKey) {
+        toast.warning("Donation was not processed.");
         setIsLoading(false);
-        throw new WalletNotConnectedError();
+
+        return setOpenModal(false);
       }
 
-      const transaction = new Transaction().add(
-        SystemProgram.transfer({
-          fromPubkey: publicKey,
-          toPubkey: Keypair.generate().publicKey,
-          lamports: parseInt(donationAmount),
-        })
-      );
+      try {
+        const transaction = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: publicKey,
+            toPubkey: Keypair.generate().publicKey,
+            lamports: parseInt(donationAmount),
+          })
+        );
 
-      const signature = await sendTransaction(transaction, connection);
+        const signature = await sendTransaction(transaction, connection);
 
-      const isProcessed = await connection.confirmTransaction(signature, "processed");
+        return await connection.confirmTransaction(signature, "processed");
 
-      if (isProcessed) {
-        toast.success("Thank you for your donation!");
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        toast.warning("Donation was not processed.");
+        setIsLoading(false);
+        setOpenModal(false);
       }
     },
     [publicKey, sendTransaction, connection]
   );
 
+  const onSubmit = async (values: DonationValues) => {
+    setIsLoading(true);
+
+    const transactionSuccessful = await processTransaction(values.amount);
+
+    if (transactionSuccessful) {
+      toast.success("Thank you for your donation!");
+    }
+
+    setIsLoading(false);
+    setOpenModal(false);
+  };
+
   return (
     <div className={containerClassName}>
       <PrimaryModalButton
-        className={buttonClassName}
         htmlFor={`donate-modal-${charity.slug}`}
+        className={cx(buttonClassName, {
+          "modal-open": openModal,
+        })}
+        onClick={() => setOpenModal(true)}
       >
         Donate
       </PrimaryModalButton>
 
-      <Modal
-        modalName={`donate-modal-${charity.slug}`}
-        isLoading={isLoading}
-        isLoadingMessage="Processing donation..."
-      >
+      <Modal modalName={`donate-modal-${charity.slug}`}>
+        {isLoading && (
+          <div className="flex flex-col space-y-3 absolute inset-0 justify-center items-center w-full h-full bg-black bg-opacity-70 z-50">
+            <GiveTreeLogo className="w-12 h-12 animate-pulse" />
+            <h3 className="text-white font-semibold">Processing donation...</h3>
+          </div>
+        )}
+
         <SectionTitle className="space-x-1 text-center text-white">
           <span>{charity.name}</span>
           {charity.isVerified && (
@@ -108,7 +137,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
         <div className="flex flex-col items-center w-full mt-5 space-y-5"></div>
 
         <Formik
-          initialValues={{ amount: 0.01 }}
+          initialValues={{ amount: 0.5 }}
           onSubmit={onSubmit}
           validationSchema={validateDonationForm}
         >
@@ -117,19 +146,19 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
               <Label>Amount</Label>
               <div className="flex flex-col">
                 <div className="flex items-center">
-                  <SolanaColorIcon className="mr-2 w-7" />
+                  <SolanaColorIcon className="w-7" />
                   <Field
-                    className="w-full input input-bordered"
+                    className="w-full input input-bordered mx-3"
                     name="amount"
                     type="number"
-                    min="0.01"
+                    min="0.5"
                     value={values.amount}
                     isError={!!errors.amount}
                   />
-                  <p className="ml-2 font-medium">SOL</p>
+                  <p className="font-medium">SOL</p>
                 </div>
 
-                <div className="">
+                <div className="mt-1">
                   <InputErrorBox
                     hasError={touched.amount && !!errors.amount}
                     message={errors.amount}
