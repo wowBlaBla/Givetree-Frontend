@@ -22,7 +22,6 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
     connect,
     connecting,
     connected,
-    disconnect,
     publicKey: solanaPublicKey,
     wallet,
   } = useSolanaWallet();
@@ -62,10 +61,10 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
     (event) => {
       if (!event.defaultPrevented)
         connect().catch(() => {
-          disconnect();
+          return;
         });
     },
-    [connect, disconnect]
+    [connect]
   );
 
   useEffect(() => {
@@ -117,9 +116,7 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
   return (
     <div className="block relative">
       <PrimaryButton
-        className={cx(
-          "py-1 px-3 border border-brand-orange bg-brand-orange-active bg-opacity-20"
-        )}
+        className={cx("border border-brand-orange bg-brand-orange-active bg-opacity-20")}
         onClick={openDropdown}
         primaryColor
       >
