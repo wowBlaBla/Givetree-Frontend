@@ -41,7 +41,11 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         <div className="flex flex-1 flex-wrap justify-center items-center w-full h-full py-3 px-1 md:px-2">
           <h4 className="block space-x-1 text-center text-base sm:text-lg text-black">
             <span>{charity.name}</span>
-            <VerifiedBadge className="mb-1" type={VerifiedBadgeType.Charity} />
+            <VerifiedBadge
+              className="mb-1"
+              isVerified={charity.isVerified}
+              type={VerifiedBadgeType.Charity}
+            />
           </h4>
         </div>
       </div>

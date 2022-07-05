@@ -11,9 +11,5 @@ export interface Charity {
     previewUrl: string;
   };
   causes: Cause[];
-  custom?: {
-    styles?: {
-      tileBgColor?: string;
-    };
-  };
+  isVerified: boolean;
 }

@@ -26,7 +26,7 @@ export const genTheArtOfSeasonsCampaignData = (x?: Partial<Campaign>): Campaign 
     mintingBannerUrl: TheArtOfSeasonsBannerImage.src,
     mintingCollectionPreviewUrl: TheArtOfSeasonsCollectionImage.src,
   },
-  floorPrice: gen.datatype.float({ min: 3, max: 5 }),
+  floorPrice: gen.datatype.float({ min: 0.5, max: 1.5 }),
   currency: SupportedPlatform.SOL,
   totalSupply: gen.datatype.number({ min: 100, max: 10000 }),
   isVerified: true,

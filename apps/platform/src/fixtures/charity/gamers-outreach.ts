@@ -11,15 +11,12 @@ export const genGamersOutreachData = (x?: Partial<Charity>): Charity => ({
   slug: "gamers-outreach",
   description: gen.lorem.paragraphs(12),
   websiteUrl: "https://gamersoutreach.org/",
+  isVerified: true,
   media: {
     tileUrl: GOLogo.src,
     previewUrl: GOLogo.src,
   },
   causes: [sample(Cause)] as Cause[],
-  custom: {
-    styles: {
-      tileBgColor: "#000",
-    },
-  },
+
   ...x,
 });

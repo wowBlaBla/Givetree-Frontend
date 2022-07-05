@@ -6,7 +6,7 @@ import { VerifiedBadge } from "./VerifiedBadge";
 
 interface ContentCreatorBadgeProps {
   avatarUrl: string;
-  isVerified?: boolean;
+  isVerified: boolean;
   name: string;
 }
 
@@ -27,9 +27,11 @@ export const ContentCreatorBadge: FC<ContentCreatorBadgeProps> = ({
     <div className="flex justify-center">
       <div className="inline-block space-x-0.5 text-center text-sm sm:text-base">
         by <span className="font-semibold text-brand-orange">{name}</span>
-        {isVerified && (
-          <VerifiedBadge className="mb-1" type={VerifiedBadgeType.ContentCreator} />
-        )}
+        <VerifiedBadge
+          className="mb-1"
+          isVerified={isVerified}
+          type={VerifiedBadgeType.ContentCreator}
+        />
       </div>
     </div>
   </div>

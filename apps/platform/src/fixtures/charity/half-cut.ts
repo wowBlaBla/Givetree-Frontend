@@ -11,6 +11,7 @@ export const genHalfCutData = (x?: Partial<Charity>): Charity => ({
   slug: "half-cut",
   description: gen.lorem.paragraphs(12),
   websiteUrl: "https://go.halfcut.org/",
+  isVerified: true,
   media: {
     tileUrl: HCLogo.src,
     previewUrl: HCLogo.src,

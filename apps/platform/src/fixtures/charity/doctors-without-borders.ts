@@ -10,6 +10,7 @@ export const genDoctorsWithoutBordersData = (x?: Partial<Charity>): Charity => (
   name: "Doctors without Borders",
   slug: "doctors-without-borders",
   description: gen.lorem.paragraphs(12),
+  isVerified: true,
   websiteUrl: "https://www.msf.org/",
   media: {
     tileUrl: DWBLogo.src,

@@ -12,6 +12,7 @@ export const genFoundationForNationalParksAndWildlifeData = (
   name: "Foundation for National Parks & Wildlife",
   slug: "foundation-for-national-parks-and-wildlife",
   description: gen.lorem.paragraphs(12),
+  isVerified: true,
   websiteUrl: "https://fnpw.org.au/",
   media: {
     tileUrl: FNPWLogoLogo.src,
