@@ -11,6 +11,7 @@ import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import TheArtOfSeasonsBannerImage from "../../temp/images/campaigns/the-art-of-seasons-bg.png";
 import TheArtOfSeasonsCollectionImage from "../../temp/images/campaigns/the-art-of-seasons-collection-2.jpeg";
 import TheArtOfSeasonsCollection2Image from "../../temp/images/campaigns/the-art-of-seasons-collection.jpeg";
+import { gen20TalkData } from "../charity/twenty-talk";
 
 export const genTheArtOfSeasonsCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -34,7 +35,7 @@ export const genTheArtOfSeasonsCampaignData = (x?: Partial<Campaign>): Campaign 
   discordUrl: gen.internet.url(),
   twitterUrl: gen.internet.url(),
   contractUrl: gen.internet.url(),
-  nominatedCharity: genFoundationForNationalParksAndWildlifeData(),
+  nominatedCharity: gen20TalkData(),
   royalties: genRoyalty(),
   creators: [genRengaFactoryContentCreator()],
   whitelistMemo: gen.datatype.uuid(),

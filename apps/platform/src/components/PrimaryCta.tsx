@@ -25,7 +25,7 @@ export const PrimaryButton: FC<ButtonProps> = ({
   type,
 }) => (
   <button
-    className={cx("text-base sm:text-lg", ButtonStyles, className, {
+    className={cx("text-base", ButtonStyles, className, {
       "text-lg sm:text-xl": large,
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
@@ -82,7 +82,7 @@ export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
   primaryColor,
 }) => (
   <label
-    className={cx("text-base sm:text-lg", ButtonStyles, className, {
+    className={cx("text-base", ButtonStyles, className, {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}

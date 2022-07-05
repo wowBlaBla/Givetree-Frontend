@@ -3,9 +3,13 @@ import { BackgroundImage } from "./BackgroundImage";
 import { BackgroundVideo } from "./BackgroundVideo";
 import { FeaturedBadge } from "./badges/FeaturedBadge";
 import { AssetType, getAssetType } from "../utils/getAssetType";
+import { Cause } from "../typed/enum/cause";
 
 interface CampaignBannerHeaderProps {
   backgroundImage: string;
+  charityName: string;
+  charityImage: string;
+  causes: Cause[];
   description: string;
   campaignTitle: string;
   isFeatured?: boolean;
@@ -20,7 +24,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
   const assetType = getAssetType(backgroundImage);
 
   return (
-    <div className="relative min-w-full py-5 overflow-hidden h-72 sm:py-8">
+    <div className="relative min-w-full overflow-hidden">
       {assetType === AssetType.Video && (
         <BackgroundVideo videoAsset={backgroundImage} className="object-contain" />
       )}
@@ -31,8 +35,8 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 
       <div className="absolute bottom-0 z-10 w-full h-full bg-black opacity-60"></div>
 
-      <div className="flex items-end w-full max-w-screen-xl min-h-full mx-auto">
-        <div className="z-20 flex flex-col flex-1 px-3 space-y-2 text-white sm:space-y-3">
+      <div className="relative flex items-end max-w-screen-xl min-h-full px-3 py-8 mx-auto gap-x-5">
+        <div className="z-20 flex flex-col flex-1 space-y-2 text-white sm:space-y-3">
           {isFeatured && (
             <div className="relative flex">
               <FeaturedBadge text="Featured release" />

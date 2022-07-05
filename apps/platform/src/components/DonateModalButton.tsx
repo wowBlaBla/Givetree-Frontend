@@ -17,6 +17,7 @@ import { ConnectWalletIcon } from "./icons/ConnectWalletIcon";
 import { SectionTitle } from "./SectionTitle";
 import { Charity } from "../typed/charity";
 import { VerifiedBadgeType } from "../typed/enum/verifiedBadgeType";
+import { SolanaColorIcon } from "./icons/SolanaColorIcon";
 
 interface DonateModalButtonProps {
   className?: string;
@@ -54,21 +55,16 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
 
       if (isProcessed) {
         toast.success("Thank you for your donation!");
-        // document.getElementById(`donate-modal-${charity.slug}`);
       }
     },
     [publicKey, sendTransaction, connection]
   );
 
-  // if (isLoading) {
-  //   return <LoadingContainer message="processing donation...." />;
-  // }
-
   return (
     <div className={className}>
       <label
         htmlFor={`donate-modal-${charity.slug}`}
-        className="flex absolute justify-center items-center cursor-pointer py-2 px-3 w-full text-sm rounded-b-lg bg-brand-orange text-white button-hover sm:text-base xl:text-lg"
+        className="flex flex-col items-center flex-1 py-1 mx-2 text-sm text-white rounded-lg cursor-pointer bg-brand-orange button-hover sm:text-base xl:text-lg"
       >
         Donate
       </label>
@@ -78,7 +74,6 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
           <span>{charity.name}</span>
           {charity.isVerified && (
             <VerifiedBadge
-              className="mb-3.5"
               isVerified={charity.isVerified}
               type={VerifiedBadgeType.Charity}
               large
@@ -96,28 +91,32 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({ charity, classNa
           {({ errors, touched, values }) => (
             <Form>
               <Label>Amount</Label>
-              <Field
-                className="w-full input input-bordered"
-                name="amount"
-                type="number"
-                value={values.amount}
-              />
-              <InputErrorBox
-                hasError={touched.amount && !!errors.amount}
-                message={errors.amount}
-              />
+              <div className="flex flex-row items-center">
+                <SolanaColorIcon className="mr-2 w-7" />
+                <Field
+                  className="w-full input input-bordered"
+                  name="amount"
+                  type="number"
+                  value={values.amount}
+                />
+                <InputErrorBox
+                  hasError={touched.amount && !!errors.amount}
+                  message={errors.amount}
+                />
+                <p className="ml-2 font-medium">SOL</p>
+              </div>
 
               <div className="flex flex-col w-full py-2 mt-6">
-                <h3>Distribution:</h3>
-                <table className="mt-1 ">
+                <h3>Distribution</h3>
+                <table className="mt-1">
                   <tbody>
                     <tr>
                       <td className="py-1">{charity.name}</td>
-                      <td className="py-1 text-right">99%</td>
+                      <td className="py-1 text-right">96.5%</td>
                     </tr>
                     <tr>
-                      <td className="py-1">GiveTree Fee</td>
-                      <td className="py-1 text-right">1%</td>
+                      <td className="py-1">GiveTree platform fee</td>
+                      <td className="py-1 text-right">3.5%</td>
                     </tr>
                   </tbody>
                 </table>

@@ -11,9 +11,11 @@ import { CardGrid } from "../../components/CardGrid";
 import { CampaignCard } from "../../components/cards/CampaignCard";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
-import { MainBanner } from "../../components/MainBanner";
+import { CampaignBanner } from "../../components/CampaignBanner";
 
 import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
+import { getRoyaltyPercentage } from "../../utils/getRoyaltyPercentage";
+import { RoyaltyType } from "../../typed/royalty-details";
 
 export const HomeContainer = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
@@ -39,12 +41,22 @@ export const HomeContainer = () => {
       </Head>
 
       <div className="relative md:my-16">
-        <MainBanner
-          backgroundAsset={MulgaBannerImage.src}
-          title="Mulgakongz by Mulga The Artist"
-          subtitle="50% of every single NFT minted is donated to Half Cut"
-          ctaLink={PlatformRoute.CampaignListing}
-          ctaLinkText="Go to mints"
+        <CampaignBanner
+          backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
+          title={data.homepageCampaign.title}
+          subtitle={`${getRoyaltyPercentage(
+            data.homepageCampaign.royalties,
+            RoyaltyType.CharityDonation
+          )}% of ${data.homepageCampaign.title} mints go to ${
+            data.homepageCampaign.nominatedCharity.name
+          } charity.`}
+          ctaLink={`/mints/${data.homepageCampaign.slug}`}
+          ctaLinkText="View mint"
+          artistName={data.homepageCampaign.creators[0].name}
+          artistThumbnail={data.homepageCampaign.creators[0].media.previewUrl}
+          charityName={data.homepageCampaign.nominatedCharity.name}
+          charityThumbnail={data.homepageCampaign.nominatedCharity.media.previewUrl}
+          causes={data.homepageCampaign.nominatedCharity.causes}
         />
       </div>
 

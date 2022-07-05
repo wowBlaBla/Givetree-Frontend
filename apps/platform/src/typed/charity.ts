@@ -4,7 +4,8 @@ export interface Charity {
   id: string;
   name: string;
   slug: string;
-  description: string;
+  longDescription: string;
+  shortDescription: string;
   websiteUrl?: string;
   media: {
     tileUrl: string;

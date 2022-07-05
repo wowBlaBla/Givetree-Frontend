@@ -1,6 +1,5 @@
 import { faker as gen } from "@faker-js/faker";
 
-import { genFoundationForNationalParksAndWildlifeData } from "../charity/foundation-for-national-parks-and-wildlife";
 import { genMulgaTheArtistContentCreator } from "../content-creator";
 import { genCampaignEvent, genCampaignEventRound } from "../event";
 import { genRoyalty } from "../royalties";
@@ -11,6 +10,7 @@ import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
 import MulgakongzBannerImage from "../../temp/images/campaigns/mulgakongz-bg.png";
 import MulgakongzCollectionImage from "../../temp/images/campaigns/mulgakongz-collection.png";
 import MulgakongzCollection2Image from "../../temp/images/campaigns/mulgakongz-collection-2.png";
+import { genHalfCutData } from "../charity/half-cut";
 
 export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   id: gen.datatype.uuid(),
@@ -34,7 +34,7 @@ export const genMulgakongzCampaignData = (x?: Partial<Campaign>): Campaign => ({
   discordUrl: gen.internet.url(),
   twitterUrl: gen.internet.url(),
   contractUrl: gen.internet.url(),
-  nominatedCharity: genFoundationForNationalParksAndWildlifeData(),
+  nominatedCharity: genHalfCutData(),
   royalties: genRoyalty(),
   creators: [genMulgaTheArtistContentCreator()],
   whitelistMemo: gen.datatype.uuid(),

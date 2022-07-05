@@ -19,7 +19,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const navigate = useNavigate();
   const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => navigate(`/campaign/${campaign.slug}`);
+  const handleNextLocation = () => navigate(`/mints/${campaign.slug}`);
 
   return (
     <div
@@ -38,18 +38,17 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
           />
         </div>
 
-        <div className="flex flex-col justify-between w-full -mt-8 sm:-mt-10 rounded-lg">
+        <div className="flex flex-col justify-between w-full -mt-8 rounded-lg sm:-mt-10">
           <ContentCreatorBadge
             avatarUrl={campaign.creators[0].media.previewUrl}
             name={campaign.creators[0].name}
             isVerified={campaign.creators[0].isVerified || false}
           />
 
-          <div className="flex justify-center">
+          <div className="flex items-center justify-center">
             <h4 className="inline-block space-x-0.5 text-center text-gray-800 text-base sm:text-lg">
               <span>{campaign.title}</span>
               <VerifiedBadge
-                className="mb-1"
                 isVerified={campaign.isVerified || false}
                 type={VerifiedBadgeType.Collection}
               />

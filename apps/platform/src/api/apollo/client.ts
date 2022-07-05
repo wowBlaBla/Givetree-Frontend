@@ -12,6 +12,7 @@ import { genFoundationForNationalParksAndWildlifeData } from "../../fixtures/cha
 import { genGamersOutreachData } from "../../fixtures/charity/gamers-outreach";
 import { genHalfCutData } from "../../fixtures/charity/half-cut";
 import { gen20TalkData } from "../../fixtures/charity/twenty-talk";
+import { genWhiteRibbonData } from "../../fixtures/charity/white-ribbon";
 
 export const campaignsVar = makeVar([
   genGenopetsCampaignData(),
@@ -26,6 +27,12 @@ export const charitiesVar = makeVar([
   genHalfCutData(),
   genGamersOutreachData(),
   gen20TalkData(),
+  genWhiteRibbonData(),
+]);
+
+export const featuredCampaigns = makeVar([
+  genMulgakongzCampaignData(),
+  genGenopetsCampaignData(),
 ]);
 
 const cache = new InMemoryCache({
@@ -50,6 +57,16 @@ const cache = new InMemoryCache({
         charity: {
           read(_, { variables }) {
             return charitiesVar().find((charity) => charity.slug === variables?.slug);
+          },
+        },
+        featuredCampaigns: {
+          read() {
+            return featuredCampaigns();
+          },
+        },
+        homepageCampaign: {
+          read() {
+            return genMulgakongzCampaignData();
           },
         },
       },
