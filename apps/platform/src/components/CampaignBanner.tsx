@@ -58,7 +58,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
             <div className="pt-3">
               {ctaLink && (
-                <PrimaryLink className="py-2.5 px-5" href={ctaLink}>
+                <PrimaryLink className="py-2" href={ctaLink}>
                   {ctaLinkText}
                 </PrimaryLink>
               )}

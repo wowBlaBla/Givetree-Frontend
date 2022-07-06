@@ -63,7 +63,7 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
 
 interface PrimaryModalButtonProps extends BaseProps {
   htmlFor: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
@@ -75,7 +75,7 @@ export const PrimaryModalButton: FC<PrimaryModalButtonProps> = ({
 }) => (
   <label
     htmlFor={htmlFor}
-    className={cx(className, "primary-button modal-button", {
+    className={cx(className, "modal-button primary-button", {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}

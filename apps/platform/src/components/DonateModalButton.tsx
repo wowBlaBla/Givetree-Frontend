@@ -1,13 +1,12 @@
 import React, { FC, useCallback, useState } from "react";
-import cx from "classnames";
 import { Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import * as yup from "yup";
+import { SystemProgram, Transaction, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import {
   useConnection,
   useWallet as useSolanaWallet,
 } from "@solana/wallet-adapter-react";
-import { Keypair, SystemProgram, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PrimaryButton, PrimaryModalButton } from "./PrimaryCta";
@@ -35,12 +34,12 @@ interface DonationValues {
 const validateDonationForm = yup.object().shape({
   amount: yup
     .number()
-    .test("amount", "Donation amount must be greater than 0.5", (value) => {
+    .test("amount", "Donation amount cannot be less than 0.1 SOL", (value) => {
       if (!value) {
         return false;
       }
 
-      return value >= 0.5;
+      return value >= 0.1;
     }),
 });
 
@@ -51,28 +50,26 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
 }) => {
   const { connection } = useConnection();
   const { connected: isWalletConnected, publicKey, sendTransaction } = useSolanaWallet();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isProcessingPaymentLoading, setIsProcessingPaymentLoading] =
+    useState<boolean>(false);
   const [openModal, setOpenModal] = useState(false);
-
-  console.log("modal", openModal);
 
   const processTransaction = useCallback(
     async (amount: number) => {
-      const donationAmount = (LAMPORTS_PER_SOL * amount).toFixed(2);
-
       if (!publicKey) {
         toast.warning("Donation was not processed.");
-        setIsLoading(false);
-
-        return setOpenModal(false);
+        setIsProcessingPaymentLoading(false);
+        setOpenModal(false);
+        return;
       }
 
       try {
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: publicKey,
-            toPubkey: Keypair.generate().publicKey,
-            lamports: parseInt(donationAmount),
+            // TODO: Add contract address here.
+            toPubkey: "" as unknown as PublicKey,
+            lamports: parseInt((LAMPORTS_PER_SOL * amount).toFixed(2)),
           })
         );
 
@@ -83,7 +80,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         toast.warning("Donation was not processed.");
-        setIsLoading(false);
+        setIsProcessingPaymentLoading(false);
         setOpenModal(false);
       }
     },
@@ -91,7 +88,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
   );
 
   const onSubmit = async (values: DonationValues) => {
-    setIsLoading(true);
+    setIsProcessingPaymentLoading(true);
 
     const transactionSuccessful = await processTransaction(values.amount);
 
@@ -99,7 +96,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
       toast.success("Thank you for your donation!");
     }
 
-    setIsLoading(false);
+    setIsProcessingPaymentLoading(false);
     setOpenModal(false);
   };
 
@@ -107,16 +104,14 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
     <div className={containerClassName}>
       <PrimaryModalButton
         htmlFor={`donate-modal-${charity.slug}`}
-        className={cx(buttonClassName, {
-          "modal-open": openModal,
-        })}
+        className={buttonClassName}
         onClick={() => setOpenModal(true)}
       >
         Donate
       </PrimaryModalButton>
 
-      <Modal modalName={`donate-modal-${charity.slug}`}>
-        {isLoading && (
+      <Modal modalName={`donate-modal-${charity.slug}`} openModal={openModal}>
+        {isProcessingPaymentLoading && (
           <div className="flex flex-col space-y-3 absolute inset-0 justify-center items-center w-full h-full bg-black bg-opacity-70 z-50">
             <GiveTreeLogo className="w-12 h-12 animate-pulse" />
             <h3 className="text-white font-semibold">Processing donation...</h3>
@@ -137,7 +132,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
         <div className="flex flex-col items-center w-full mt-5 space-y-5"></div>
 
         <Formik
-          initialValues={{ amount: 0.5 }}
+          initialValues={{ amount: 0.1 }}
           onSubmit={onSubmit}
           validationSchema={validateDonationForm}
         >
@@ -151,9 +146,10 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
                     className="w-full input input-bordered mx-3"
                     name="amount"
                     type="number"
-                    min="0.5"
+                    min="0.1"
                     value={values.amount}
                     isError={!!errors.amount}
+                    isDisabled={isProcessingPaymentLoading}
                   />
                   <p className="font-medium">SOL</p>
                 </div>

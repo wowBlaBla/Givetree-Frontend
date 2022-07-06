@@ -3,6 +3,7 @@ import React, { FC, ReactNode, useEffect, useRef } from "react";
 interface DonateModalProps {
   className?: string;
   children: ReactNode;
+  openModal: boolean;
   modalName: string;
   onModalClose?: () => void;
 }
@@ -10,13 +11,14 @@ interface DonateModalProps {
 export const Modal: FC<DonateModalProps> = ({
   children,
   className,
+  openModal,
   modalName,
   onModalClose,
 }) => {
   const modalRef = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
+    const handleOutsideModal = (event: MouseEvent | TouchEvent) => {
       const node = modalRef.current;
 
       if (!node || node.contains(event.target as Node)) {
@@ -28,18 +30,24 @@ export const Modal: FC<DonateModalProps> = ({
       }
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("mousedown", handleOutsideModal);
+    document.addEventListener("touchstart", handleOutsideModal);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("mousedown", handleOutsideModal);
+      document.removeEventListener("touchstart", handleOutsideModal);
     };
   }, [modalRef, onModalClose]);
 
   return (
     <label ref={modalRef} className={className}>
-      <input type="checkbox" id={modalName} className="modal-toggle" />
+      <input
+        type="checkbox"
+        id={modalName}
+        className="modal-toggle"
+        checked={openModal}
+        readOnly
+      />
       <label
         htmlFor={modalName}
         className="modal px-3 cursor-pointer bg-black bg-opacity-50"

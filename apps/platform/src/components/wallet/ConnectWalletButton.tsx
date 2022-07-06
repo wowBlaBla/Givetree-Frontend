@@ -120,7 +120,7 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
         onClick={openDropdown}
         primaryColor
       >
-        <div className="flex justify-center items-center space-x-0.5">
+        <div className="flex justify-center items-center space-x-1">
           <WalletIcon wallet={wallet} />
           <div className="hidden md:block whitespace-nowrap">{content}</div>
         </div>
