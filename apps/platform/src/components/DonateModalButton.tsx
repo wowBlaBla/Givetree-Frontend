@@ -52,14 +52,12 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
   const { connected: isWalletConnected, publicKey, sendTransaction } = useSolanaWallet();
   const [isProcessingPaymentLoading, setIsProcessingPaymentLoading] =
     useState<boolean>(false);
-  const [openModal, setOpenModal] = useState(false);
 
   const processTransaction = useCallback(
     async (amount: number) => {
       if (!publicKey) {
         toast.warning("Donation was not processed.");
         setIsProcessingPaymentLoading(false);
-        setOpenModal(false);
         return;
       }
 
@@ -81,7 +79,6 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
       } catch (error: any) {
         toast.warning("Donation was not processed.");
         setIsProcessingPaymentLoading(false);
-        setOpenModal(false);
       }
     },
     [publicKey, sendTransaction, connection]
@@ -97,7 +94,6 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
     }
 
     setIsProcessingPaymentLoading(false);
-    setOpenModal(false);
   };
 
   return (
@@ -105,12 +101,11 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
       <PrimaryModalButton
         htmlFor={`donate-modal-${charity.slug}`}
         className={buttonClassName}
-        onClick={() => setOpenModal(true)}
       >
         Donate
       </PrimaryModalButton>
 
-      <Modal modalName={`donate-modal-${charity.slug}`} openModal={openModal}>
+      <Modal modalName={`donate-modal-${charity.slug}`}>
         {isProcessingPaymentLoading && (
           <div className="flex flex-col space-y-3 absolute inset-0 justify-center items-center w-full h-full bg-black bg-opacity-70 z-50">
             <GiveTreeLogo className="w-12 h-12 animate-pulse" />
@@ -129,7 +124,7 @@ export const DonateModalButton: FC<DonateModalButtonProps> = ({
           )}
         </SectionTitle>
 
-        <div className="flex flex-col items-center w-full mt-5 space-y-5"></div>
+        <div className="flex flex-col items-center w-full mt-5 space-y-5" />
 
         <Formik
           initialValues={{ amount: 0.1 }}

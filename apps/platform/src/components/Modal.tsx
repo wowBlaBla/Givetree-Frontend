@@ -3,7 +3,6 @@ import React, { FC, ReactNode, useEffect, useRef } from "react";
 interface DonateModalProps {
   className?: string;
   children: ReactNode;
-  openModal: boolean;
   modalName: string;
   onModalClose?: () => void;
 }
@@ -11,7 +10,6 @@ interface DonateModalProps {
 export const Modal: FC<DonateModalProps> = ({
   children,
   className,
-  openModal,
   modalName,
   onModalClose,
 }) => {
@@ -41,13 +39,7 @@ export const Modal: FC<DonateModalProps> = ({
 
   return (
     <label ref={modalRef} className={className}>
-      <input
-        type="checkbox"
-        id={modalName}
-        className="modal-toggle"
-        checked={openModal}
-        readOnly
-      />
+      <input type="checkbox" id={modalName} className="modal-toggle" readOnly />
       <label
         htmlFor={modalName}
         className="modal px-3 cursor-pointer bg-black bg-opacity-50"
