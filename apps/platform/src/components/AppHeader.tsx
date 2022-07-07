@@ -58,14 +58,13 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
   const [match, _params] = useRoute(href);
 
   return (
-    <>
+    <div className="text-gray-800">
       {!disabled ? (
         <Link
           className={cx(
             "text-base font-medium hover:text-brand-orange transition-hover",
             {
               "text-brand-orange": match,
-              "text-gray-800": !match,
             }
           )}
           href={href}
@@ -81,7 +80,7 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
           {children}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
@@ -117,7 +116,7 @@ export const AppHeader: FC = () => {
 
         {/* Wallet */}
 
-        <div className="flex items-center justify-end flex-1 w-full">
+        <div className="flex justify-end items-center w-full">
           <ConnectWalletButton />
         </div>
       </div>
@@ -143,7 +142,7 @@ export const AppHeader: FC = () => {
             >
               <div className="flex items-center space-x-1">
                 {link.icon}
-                <span>{link.title}</span>
+                <div>{link.title}</div>
               </div>
             </AppHeaderNavLink>
           ))}
