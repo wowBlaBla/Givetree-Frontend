@@ -2372,7 +2372,6 @@ export type UpdateUserDetailsMutationVariables = Exact<{
   primaryContactAddress?: InputMaybe<Scalars['String']>;
   solWalletAddress?: InputMaybe<Scalars['String']>;
   twitterUrl?: InputMaybe<Scalars['String']>;
-  userId: Scalars['String'];
   userType?: InputMaybe<Scalars['String']>;
   websiteUrl?: InputMaybe<Scalars['String']>;
 }>;
@@ -2620,7 +2619,7 @@ export type CreateUserDetailsMutationHookResult = ReturnType<typeof useCreateUse
 export type CreateUserDetailsMutationResult = Apollo.MutationResult<CreateUserDetailsMutation>;
 export type CreateUserDetailsMutationOptions = Apollo.BaseMutationOptions<CreateUserDetailsMutation, CreateUserDetailsMutationVariables>;
 export const UpdateUserDetailsDocument = gql`
-    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String!, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
+    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String!, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userType: String, $websiteUrl: String) {
   update_users_by_pk(
     pk_columns: {email: $email}
     _set: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityName: $charityName, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, contactEmail: $contactEmail, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userType: $userType, websiteUrl: $websiteUrl}
@@ -2706,7 +2705,6 @@ export type UpdateUserDetailsMutationFn = Apollo.MutationFunction<UpdateUserDeta
  *      primaryContactAddress: // value for 'primaryContactAddress'
  *      solWalletAddress: // value for 'solWalletAddress'
  *      twitterUrl: // value for 'twitterUrl'
- *      userId: // value for 'userId'
  *      userType: // value for 'userType'
  *      websiteUrl: // value for 'websiteUrl'
  *   },

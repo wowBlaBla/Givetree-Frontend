@@ -28,11 +28,6 @@ export const SkeletonOnboardingForm = () => (
 
       <SkeletonFormInputField textarea />
 
-      {/* <div className="space-y-3 text-gray-200">
-        <Skeleton height={20} />
-        <Skeleton height={250} />
-      </div> */}
-
       <SkeletonFormInputField />
       <SkeletonFormInputField />
       <SkeletonFormInputField />

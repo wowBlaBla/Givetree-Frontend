@@ -176,7 +176,6 @@ mutation UpdateUserDetails(
   $primaryContactAddress: String
   $solWalletAddress: String
   $twitterUrl: String
-  $userId: String!
   $userType: String
   $websiteUrl: String
 ) {

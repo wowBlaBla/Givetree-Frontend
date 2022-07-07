@@ -78,7 +78,6 @@ export const OnboardingContainer: FC = () => {
     if (data?.users_by_pk) {
       updateUser({
         variables: {
-          userId: user?.email || "",
           ...values,
         },
       });
