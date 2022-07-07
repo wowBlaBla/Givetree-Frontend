@@ -47,7 +47,7 @@ export const OnboardingContainer: FC = () => {
       const getValues = async () => {
         await getUser({
           variables: {
-            userId: user?.sub ?? "",
+            email: user?.email ?? "",
           },
         });
       };
@@ -78,7 +78,7 @@ export const OnboardingContainer: FC = () => {
     if (data?.users_by_pk) {
       updateUser({
         variables: {
-          userId: user?.sub || "",
+          userId: user?.email || "",
           ...values,
         },
       });
@@ -95,8 +95,8 @@ export const OnboardingContainer: FC = () => {
 
   return (
     <AppContainer isLoading={isCreateUserLoading || isUpdateUserLoading}>
-      {isCreateUserLoading && <LoadingContainer text="Saving partner details..." />}
-      {isUpdateUserLoading && <LoadingContainer text="Updating partner details..." />}
+      {isCreateUserLoading && <LoadingContainer message="Saving partner details..." />}
+      {isUpdateUserLoading && <LoadingContainer message="Updating partner details..." />}
 
       <div className="w-full max-w-4xl p-10 mx-auto bg-white border shadow-lg rounded-xl">
         {(isAuthLoading || isGetUserLoading) && <SkeletonOnboardingForm />}

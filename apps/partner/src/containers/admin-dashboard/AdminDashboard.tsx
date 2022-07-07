@@ -14,7 +14,7 @@ export const AdminDashboardContainer = () => {
   });
 
   if (getUsersLoading) {
-    return <LoadingContainer text="Fetching all partners" />;
+    return <LoadingContainer message="Fetching all partners" />;
   }
 
   return (

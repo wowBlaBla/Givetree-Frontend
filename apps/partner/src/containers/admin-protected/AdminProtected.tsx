@@ -29,7 +29,7 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
       const fetchUserDetails = async () => {
         await getUserDetails({
           variables: {
-            userId: user?.sub ?? "",
+            email: user?.email ?? "",
           },
         });
       };
@@ -46,7 +46,7 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
   }, [userData]);
 
   if (userLoading || isLoading) {
-    return <LoadingContainer text="Logging into partnership portal" />;
+    return <LoadingContainer message="Logging into partnership portal" />;
   }
 
   if (userError) {
