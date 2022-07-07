@@ -14,8 +14,16 @@ export const AdminDashboardContainer = () => {
   });
 
   if (getUsersLoading) {
-    return <LoadingContainer message="Fetching all partners" />;
+    return <LoadingContainer message="Fetching all partners..." />;
   }
+
+  const totalCharities = getUsersData?.users.filter(
+    (user) => user.userType === PartnerType.Charity
+  ).length;
+
+  const totalContentCreators = getUsersData?.users.filter(
+    (user) => user.userType === PartnerType.ContentCreator
+  ).length;
 
   return (
     <AppContainer>
@@ -23,7 +31,19 @@ export const AdminDashboardContainer = () => {
         Welcome to GiveTree Partnerships - Admin
       </div>
 
-      <div className="mt-10 overflow-x-auto">
+      <div>
+        <div className="flex space-x-2">
+          <span className="font-semibold">Total Charities:</span>
+          <span>{totalCharities}</span>
+        </div>
+
+        <div className="flex space-x-2">
+          <span className="font-semibold">Total Content Creators:</span>
+          <span>{totalContentCreators}</span>
+        </div>
+      </div>
+
+      <div className="mt-8 overflow-x-auto">
         <table className="table w-full">
           <thead>
             <tr>
@@ -44,7 +64,7 @@ export const AdminDashboardContainer = () => {
           <tbody>
             {getUsersData?.users.map((u, key) => (
               <tr key={u.id}>
-                <th>{key}</th>
+                <th>{key + 1}</th>
                 <td>
                   <UserTypeBadge type={u.userType as PartnerType} />
                 </td>
