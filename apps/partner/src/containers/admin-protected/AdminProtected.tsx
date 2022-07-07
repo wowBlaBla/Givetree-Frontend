@@ -46,7 +46,7 @@ export const AdminProtectedContainer: FC<AdminProtectedContainerProps> = ({
   }, [userData]);
 
   if (userLoading || isLoading) {
-    return <LoadingContainer message="Logging into partnership portal" />;
+    return <LoadingContainer message="Logging into partnership portal..." />;
   }
 
   if (userError) {
