@@ -2,7 +2,7 @@
 import React, { FC } from "react";
 import { PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { CollabBadge } from "./CollabBadge";
+import { CollabBadge } from "./badges/CollabBadge";
 import { CauseBadge } from "./badges/CauseBadge";
 
 interface CampaignBannerProps {
@@ -58,7 +58,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
             <div className="pt-3">
               {ctaLink && (
-                <PrimaryLink href={ctaLink} large>
+                <PrimaryLink className="py-2" href={ctaLink}>
                   {ctaLinkText}
                 </PrimaryLink>
               )}
@@ -83,7 +83,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           {assetType === AssetType.Image && (
             <>
               <div
-                className="absolute inset-0 hidden w-full min-h-full bg-center bg-no-repeat bg-cover border border-gray-200 md:flex rounded-r-xl"
+                className="absolute inset-0 hidden w-full min-h-full bg-center bg-no-repeat bg-cover border border-gray-200 md:rounded-r-xl md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
               />
               <img

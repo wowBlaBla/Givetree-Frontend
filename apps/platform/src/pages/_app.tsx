@@ -6,6 +6,7 @@ import { client } from "../api/apollo/client";
 import { SOLANA_NETWORK } from "../configs/constants";
 
 import "../assets/styles/global.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (

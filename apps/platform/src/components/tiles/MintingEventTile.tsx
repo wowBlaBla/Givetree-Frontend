@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { EventRoundTile } from "./EventRoundTile";
 import { CampaignEventRound } from "../../typed/campaign-event";
 import { SupportedPlatform } from "../../typed/enum/supportedPlatform";
-import { OutlineLink } from "../OutlineCta";
+import { ExternalOutlineLink } from "../OutlineCta";
 
 interface MintingEventTileProps {
   rounds: CampaignEventRound[];
@@ -16,9 +16,9 @@ export const MintingEventTile: FC<MintingEventTileProps> = ({ rounds, currency }
         <div className="flex-grow">
           <h3 className="text-xl font-semibold">Minting event</h3>
         </div>
-        <OutlineLink href="https://givetree.gitbook.io/givetree-content-creator-onboarding-info-pack/">
+        <ExternalOutlineLink href="https://givetree.gitbook.io/givetree-content-creator-onboarding-info-pack/">
           Mint Guide
-        </OutlineLink>
+        </ExternalOutlineLink>
       </div>
 
       {rounds.map((round, idx) => (

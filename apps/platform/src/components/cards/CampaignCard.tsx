@@ -42,17 +42,17 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
           <ContentCreatorBadge
             avatarUrl={campaign.creators[0].media.previewUrl}
             name={campaign.creators[0].name}
-            isVerified={campaign.isVerified}
+            isVerified={campaign.creators[0].isVerified || false}
           />
 
           <div className="flex items-center justify-center">
             <h4 className="inline-block space-x-0.5 text-center text-gray-800 text-base sm:text-lg">
-              {campaign.title}
+              <span>{campaign.title}</span>
+              <VerifiedBadge
+                isVerified={campaign.isVerified || false}
+                type={VerifiedBadgeType.Collection}
+              />
             </h4>
-
-            {campaign.isVerified && (
-              <VerifiedBadge className="ml-1" type={VerifiedBadgeType.Collection} />
-            )}
           </div>
 
           <div className="flex justify-between w-full mt-2 py-2 px-2 sm:px-2.5 text-xs sm:text-sm">

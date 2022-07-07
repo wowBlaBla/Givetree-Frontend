@@ -28,10 +28,10 @@ export const WalletDropdown = forwardRef<HTMLUListElement, WalletDropdownProps>(
       <ul
         ref={ref}
         className={cx(
-          "grid grid-cols-1 gap-4 absolute top-full right-0 z-10 mt-5 p-1 list-none border border-gray-200 bg-white rounded-lg transition-hover transform origin-top",
+          "grid grid-cols-1 gap-4 absolute top-full right-0 z-10 w-56 mt-5 p-1 list-none border border-gray-200 bg-white rounded-lg transition-hover transform origin-top",
           {
-            "visible opacity-100 w-56": active,
-            "invisible opacity-0 w-0": !active,
+            "visible opacity-100": active,
+            "invisible opacity-0": !active,
             className,
           }
         )}

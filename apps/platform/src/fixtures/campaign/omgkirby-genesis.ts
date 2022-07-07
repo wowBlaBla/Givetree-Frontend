@@ -26,7 +26,7 @@ export const genOmgkirbyGenesisCampaignData = (x?: Partial<Campaign>): Campaign 
     mintingBannerUrl: OmgkirbyGenesisBannerImage.src,
     mintingCollectionPreviewUrl: OmgkirbyGenesisCollectionImage.src,
   },
-  floorPrice: gen.datatype.float({ min: 3, max: 5 }),
+  floorPrice: gen.datatype.float({ min: 1, max: 3 }),
   currency: SupportedPlatform.SOL,
   totalSupply: gen.datatype.number({ min: 100, max: 10000 }),
   isVerified: true,

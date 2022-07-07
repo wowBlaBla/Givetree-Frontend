@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import { Route, Router, Switch } from "wouter";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
@@ -19,6 +20,13 @@ const App = () => (
         <AppHeader />
 
         <div className="flex flex-col flex-1 mt-12 sm:mt-16">
+          <ToastContainer
+            className="mt-16"
+            position="top-right"
+            autoClose={5000}
+            closeOnClick
+          />
+
           <Switch>
             <Route path={PlatformRoute.Home}>
               <HomeContainer />

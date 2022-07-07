@@ -13,7 +13,6 @@ import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { CampaignBanner } from "../../components/CampaignBanner";
 
-import MulgaBannerImage from "./../../temp/images/campaigns/mulgakongz-bg.png";
 import { getRoyaltyPercentage } from "../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../typed/royalty-details";
 

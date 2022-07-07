@@ -20,7 +20,7 @@ export const WalletListItem: FC<WalletListItemProps> = ({ handleOnClick, wallet 
         onClick={() => handleOnClick(wallet.adapter.name)}
       >
         <div className="flex items-center space-x-3">
-          <WalletIcon className="w-6 h-6" wallet={wallet} />
+          <WalletIcon wallet={wallet} />
           <div className="flex justify-between items-center w-full">
             <span className="font-semibold">{wallet.adapter.name}</span>
             {wallet.readyState === WalletReadyState.Installed && (

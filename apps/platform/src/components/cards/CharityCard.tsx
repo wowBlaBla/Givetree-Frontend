@@ -26,9 +26,9 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
       ref={donationRef}
       onMouseEnter={() => setShowDonationButton(true)}
       onMouseLeave={() => setShowDonationButton(false)}
-      className="relative bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
+      className="relative w-full bg-white border border-gray-200 cursor-pointer rounded-xl hover:shadow-xl"
     >
-      <div className="flex flex-col w-full h-full" onClick={handleNextLocation}>
+      <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
         <div className="flex absolute top-0 right-0 m-2.5 z-10">
           <CauseBadge cause={charity.causes?.[0]} />
         </div>
@@ -38,20 +38,25 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-1 py-3 md:px-2">
-          <h4 className="block space-x-1 text-base text-center text-black sm:text-lg">
-            {charity.name}
-            <VerifiedBadge className="ml-1" type={VerifiedBadgeType.Charity} />
+          <h4 className="block space-x-0.5 text-base text-center text-black sm:text-lg">
+            <span>{charity.name}</span>
+            <VerifiedBadge
+              isVerified={charity.isVerified}
+              type={VerifiedBadgeType.Charity}
+            />
           </h4>
         </div>
       </div>
+
       <DonateModalButton
-        className={cx(
-          "absolute bottom-0 w-full duration-300 overflow-hidden z-40 rounded-b-xl",
+        containerClassName={cx(
+          "flex absolute bottom-0 w-full duration-300 overflow-hidden z-40 my-2 px-2",
           {
             "invisible h-0": !showDonationButton,
             "visible h-10": showDonationButton,
           }
         )}
+        buttonClassName="w-full"
         charity={charity}
       />
     </div>

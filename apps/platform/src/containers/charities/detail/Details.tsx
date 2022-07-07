@@ -7,13 +7,15 @@ import { BackgroundImage } from "../../../components/BackgroundImage";
 import { SocialGrid } from "../../../components/SocialGrid";
 import { LoadingContainer } from "../../../components/LoadingContainer";
 import { ErrorContainer } from "../../../components/ErrorContainer";
-import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { GradientDivider } from "../../../components/GradientDivider";
 import { SolanaColorIcon } from "../../../components/icons/SolanaColorIcon";
 import { CauseBadge } from "../../../components/badges/CauseBadge";
 import { VerifiedBadge } from "../../../components/badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../../typed/enum/verifiedBadgeType";
+import { DonateModalButton } from "../../../components/DonateModalButton";
+import { useWallet as useSolanaWallet } from "@solana/wallet-adapter-react";
+import { ConnectWalletButton } from "../../../components/wallet/ConnectWalletButton";
 
 interface CharityDetailsContainerProps {
   charityName: string;
@@ -22,6 +24,8 @@ interface CharityDetailsContainerProps {
 export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
   charityName,
 }) => {
+  const { connected: isWalletConnected } = useSolanaWallet();
+
   const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
     GET_CHARITY_DETAILS_DATA,
     {
@@ -42,7 +46,7 @@ export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
   }
 
   return (
-    <div className="w-full mx-auto">
+    <div className="relative w-full mx-auto">
       <Head>
         <title>GiveTree - verified charity {data.charity.name}</title>
       </Head>
@@ -58,17 +62,22 @@ export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
             </div>
             <div className="flex flex-col flex-1">
               <div className="flex items-center">
-                <h3 className="text-3xl font-medium sm:text-4xl">
-                  <span>{data.charity.name} </span>
-                  <VerifiedBadge type={VerifiedBadgeType.Charity} large />
+                <h3 className="space-x-0.5 text-3xl font-medium sm:text-4xl">
+                  <span>{data.charity.name}</span>
+                  <VerifiedBadge
+                    isVerified={data.charity.isVerified}
+                    type={VerifiedBadgeType.Charity}
+                    large
+                  />
                 </h3>
               </div>
+
               <p className="mt-1 text-sm tracking-wide text-gray-500">
                 {data.charity.shortDescription}
               </p>
 
               <div className="mt-3">
-                <SocialGrid websiteUrl="#" twitterUrl="#" />
+                <SocialGrid websiteUrl={data.charity.websiteUrl} twitterUrl="#" />
               </div>
             </div>
           </div>
@@ -98,7 +107,7 @@ export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
           </div>
 
           <p className="mt-2 text-base leading-7 text-gray-800">
-            {data.charity.description}
+            {data.charity.longDescription}
           </p>
 
           <div className="py-5">
@@ -143,7 +152,15 @@ export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
             />
           </div>
 
-          <PrimaryButton>Donate</PrimaryButton>
+          {isWalletConnected && (
+            <DonateModalButton
+              containerClassName="flex w-full"
+              buttonClassName="w-full"
+              charity={data.charity}
+            />
+          )}
+
+          {!isWalletConnected && <ConnectWalletButton />}
         </div>
       </div>
     </div>
