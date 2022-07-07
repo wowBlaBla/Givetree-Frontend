@@ -22,7 +22,7 @@ const SocialLink: FC<SocialLinkProps> = ({ link, socialIcon }) => (
 export const AppFooter = () => (
   <div className="p-2 text-gray-800 bg-white border-t border-gray-200 sm:p-3">
     <div className="flex flex-col-reverse items-center justify-between sm:flex-row">
-      <p className="text-sm text-gray-400">
+      <p className="text-sm text-gray-400 mt-2 sm:mt-0">
         © {new Date().getFullYear()} GiveTree Pty Ltd - ABN 18 654 544 242
       </p>
       <div className="flex">

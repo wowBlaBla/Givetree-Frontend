@@ -13,10 +13,10 @@ export const Modal: FC<DonateModalProps> = ({
   modalName,
   onModalClose,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLLabelElement>(null);
 
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
+    const handleOutsideModal = (event: MouseEvent | TouchEvent) => {
       const node = modalRef.current;
 
       if (!node || node.contains(event.target as Node)) {
@@ -28,18 +28,18 @@ export const Modal: FC<DonateModalProps> = ({
       }
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("mousedown", handleOutsideModal);
+    document.addEventListener("touchstart", handleOutsideModal);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("mousedown", handleOutsideModal);
+      document.removeEventListener("touchstart", handleOutsideModal);
     };
   }, [modalRef, onModalClose]);
 
   return (
-    <div ref={modalRef} className={className}>
-      <input type="checkbox" id={modalName} className="modal-toggle" />
+    <label ref={modalRef} className={className}>
+      <input type="checkbox" id={modalName} className="modal-toggle" readOnly />
       <label
         htmlFor={modalName}
         className="modal px-3 cursor-pointer bg-black bg-opacity-50"
@@ -55,6 +55,6 @@ export const Modal: FC<DonateModalProps> = ({
           <div className="mt-8">{children}</div>
         </label>
       </label>
-    </div>
+    </label>
   );
 };

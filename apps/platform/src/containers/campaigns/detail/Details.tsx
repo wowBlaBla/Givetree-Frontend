@@ -13,10 +13,11 @@ import { CampaignDetailTile } from "../../../components/tiles/CampaignDetailTile
 import { CampaignBannerHeader } from "../../../components/CampaignBannerHeader";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
-import { getEventStatus } from "../../../utils/getEventStatus";
 import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { round } from "lodash";
+import { LoadingContainer } from "../../../components/LoadingContainer";
+import { ErrorContainer } from "../../../components/ErrorContainer";
 
 type CampaignDetailsParamTypes = {
   campaignName: string;
@@ -33,15 +34,15 @@ export const CampaignDetailsContainer: FC = () => {
   );
 
   if (loading) {
-    return <div>Loading..</div>;
+    return <LoadingContainer message="Loading campaign details..." />;
   }
 
   if (error) {
-    return <div>Error...</div>;
+    return <ErrorContainer message="Could not load campaign details." />;
   }
 
   if (!data) {
-    return <div>No Data</div>;
+    return <ErrorContainer message="Could not load campaign details." />;
   }
 
   return (
@@ -64,23 +65,7 @@ export const CampaignDetailsContainer: FC = () => {
         <div className="grid grid-cols-1 space-y-6 lg:grid-cols-12 lg:gap-8 sm:space-y-8 lg:space-y-0">
           <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7">
             <BaseTile className="bg-white">
-              <CampaignDetailTile
-                artistName={data.campaign.creators[0].name}
-                artistThumbnail={data.campaign.creators[0].media.previewUrl}
-                charityName={data.campaign.nominatedCharity.name}
-                charityThumbnail={data.campaign.nominatedCharity.media.previewUrl}
-                description={data.campaign.shortDescription}
-                floorPrice={data.campaign.floorPrice}
-                isVerified={data.campaign.isVerified}
-                currency={data.campaign.currency}
-                title={data.campaign.title}
-                totalSupply={data.campaign.totalSupply}
-                websiteUrl={data.campaign.websiteUrl}
-                discordUrl={data.campaign.discordUrl}
-                twitterUrl={data.campaign.twitterUrl}
-                contractUrl={data.campaign.contractUrl}
-                isLive={getEventStatus(data.campaign.event.rounds).isLive}
-              />
+              <CampaignDetailTile campaign={data.campaign} />
 
               <div className="my-5">
                 <GradientDivider />

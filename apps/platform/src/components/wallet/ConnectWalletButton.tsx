@@ -22,7 +22,6 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
     connect,
     connecting,
     connected,
-    disconnect,
     publicKey: solanaPublicKey,
     wallet,
   } = useSolanaWallet();
@@ -43,8 +42,8 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
   }, [children, solanaWalletAddress]);
 
   const openDropdown = useCallback(() => {
-    setActive(!active);
-  }, [active]);
+    setActive(true);
+  }, []);
 
   const closeDropdown = useCallback(() => {
     setActive(false);
@@ -58,39 +57,41 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
     return "Connect Wallet";
   }, [children, connecting, connected, wallet]);
 
-  const handlewalletConnect: MouseEventHandler<HTMLButtonElement> = useCallback(
+  const handleWalletConnect: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => {
       if (!event.defaultPrevented)
         connect().catch(() => {
-          disconnect();
+          return;
         });
     },
-    [connect, disconnect]
+    [connect]
   );
 
   useEffect(() => {
-    const listener = (event: MouseEvent | TouchEvent) => {
+    const checkIsOutside = (event: MouseEvent | TouchEvent) => {
       const node = walletDropdownRef.current;
 
       if (!node || node.contains(event.target as Node)) {
         return;
       }
+
+      closeDropdown();
     };
 
-    document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("mousedown", checkIsOutside);
+    document.addEventListener("touchstart", checkIsOutside);
 
     return () => {
-      document.removeEventListener("mousedown", listener);
-      document.removeEventListener("touchstart", listener);
+      document.removeEventListener("mousedown", checkIsOutside);
+      document.removeEventListener("touchstart", checkIsOutside);
     };
-  }, [active, walletDropdownRef, closeDropdown]);
+  }, [active, closeDropdown, walletDropdownRef]);
 
   if (!wallet) {
     return (
       <>
         <PrimaryModalButton htmlFor="wallet-modal">
-          <div className="flex items-center space-x-2">
+          <div className="flex justify-center items-center space-x-1">
             <ConnectWalletIcon className="w-6 h-6" />
             <div className="hidden md:block whitespace-nowrap">Connect wallet</div>
           </div>
@@ -103,8 +104,8 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
 
   if (!solanaWalletAddress) {
     return (
-      <PrimaryButton onClick={handlewalletConnect}>
-        <div className="flex items-center space-x-2">
+      <PrimaryButton onClick={handleWalletConnect}>
+        <div className="flex justify-center items-center space-x-1">
           <WalletIcon wallet={wallet} />
           <div className="hidden md:block whitespace-nowrap">{walletReadyState}</div>
         </div>
@@ -115,14 +116,11 @@ export const ConnectWalletButton: FC<ButtonProps> = ({ children }) => {
   return (
     <div className="block relative">
       <PrimaryButton
-        aria-expanded={active}
-        className={cx(
-          "py-1 px-3 border border-brand-orange bg-brand-orange-active bg-opacity-20"
-        )}
+        className={cx("border border-brand-orange bg-brand-orange-active bg-opacity-20")}
         onClick={openDropdown}
         primaryColor
       >
-        <div className="flex items-center space-x-1">
+        <div className="flex justify-center items-center space-x-1">
           <WalletIcon wallet={wallet} />
           <div className="hidden md:block whitespace-nowrap">{content}</div>
         </div>

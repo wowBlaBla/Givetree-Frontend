@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
@@ -19,6 +20,13 @@ const App = () => (
         <AppHeader />
 
         <div className="flex flex-col flex-1 mt-12 sm:mt-16">
+          <ToastContainer
+            className="mt-16"
+            position="top-right"
+            autoClose={5000}
+            closeOnClick
+          />
+
           <Routes>
             <Route path={PlatformRoute.Home} element={<HomeContainer />} />
 

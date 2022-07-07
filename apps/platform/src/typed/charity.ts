@@ -4,7 +4,7 @@ export interface Charity {
   id: string;
   name: string;
   slug: string;
-  description: string;
+  longDescription: string;
   shortDescription: string;
   websiteUrl?: string;
   media: {
@@ -12,9 +12,5 @@ export interface Charity {
     previewUrl: string;
   };
   causes: Cause[];
-  custom?: {
-    styles?: {
-      tileBgColor?: string;
-    };
-  };
+  isVerified: boolean;
 }

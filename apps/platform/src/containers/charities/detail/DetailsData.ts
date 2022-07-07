@@ -9,13 +9,15 @@ export const GET_CHARITY_DETAILS_DATA = gql`
   query GetCharity($slug: String!) {
     charity(slug: $slug) {
       name
-      description
       shortDescription
-      causes
+      longDescription
+      websiteUrl
       media {
         tileUrl
         previewUrl
       }
+      isVerified
+      causes
     }
   }
 `;

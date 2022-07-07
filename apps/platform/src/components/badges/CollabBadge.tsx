@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { XIcon } from "@heroicons/react/solid";
-import { BackgroundImage } from "./BackgroundImage";
+import { BackgroundImage } from "../BackgroundImage";
 
 interface CollabBadgeProps {
   artistThumbnail: string;

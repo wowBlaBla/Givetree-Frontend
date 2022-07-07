@@ -2,28 +2,28 @@ import React, { FC, ReactNode } from "react";
 import cx from "classnames";
 import { Link } from "react-router-dom";
 
-export const ButtonStyles =
-  "border-2 border-brand-orange rounded-lg text-brand-orange button-hover";
+// Base Prop Types
 
-interface ButtonProps {
+interface BaseProps {
   children?: ReactNode;
   className?: string;
+}
+
+// Outline Button
+
+interface OutlineButtonProps extends BaseProps {
   onClick: () => void;
   type?: "button" | "submit" | "reset" | undefined;
 }
 
-export const OutlineButton: FC<ButtonProps> = ({
+export const OutlineButton: FC<OutlineButtonProps> = ({
   children,
   className,
   onClick,
   type,
 }) => (
   <button
-    className={cx(
-      "py-1 px-3 sm:py-2 sm:px-4 text-sm sm:text-base",
-      ButtonStyles,
-      className
-    )}
+    className={cx(className, "outline-button")}
     type={type || "button"}
     onClick={onClick}
   >
@@ -31,20 +31,29 @@ export const OutlineButton: FC<ButtonProps> = ({
   </button>
 );
 
-interface OutlineLinkProps {
+// Outline Links
+
+interface OutlineLinkProps extends BaseProps {
   href: string;
-  className?: string;
-  children?: ReactNode;
 }
 
 export const OutlineLink: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link className={cx("py-1 px-3 text-sm", ButtonStyles, className)} to={href}>
+  <Link className={cx(className, "outline-button")} to={href}>
     {children}
   </Link>
 );
 
-export const OutlineLinkSm: FC<OutlineLinkProps> = ({ children, className, href }) => (
-  <Link className={cx("p-1 text-xs sm:text-sm", ButtonStyles, className)} to={href}>
+export const ExternalOutlineLink: FC<OutlineLinkProps> = ({
+  children,
+  className,
+  href,
+}) => (
+  <a
+    className={cx("outline-button", className)}
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+  >
     {children}
-  </Link>
+  </a>
 );
