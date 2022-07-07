@@ -1,6 +1,6 @@
 import React, { FC, useRef, useState } from "react";
 import cx from "classnames";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 import { Charity } from "../../typed/charity";
 import { DonateModalButton } from "../DonateModalButton";
 import { PlatformRoute } from "../../configs/routes";
@@ -16,10 +16,10 @@ interface CharityCardProps {
 export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const [showDonationButton, setShowDonationButton] = useState<boolean>(false);
   const donationRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const [_location, setLocation] = useLocation();
 
   const handleNextLocation = () =>
-    navigate(`${PlatformRoute.CharityListing}/${charity.slug}`);
+    setLocation(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
   return (
     <div

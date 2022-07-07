@@ -24,7 +24,7 @@ export const ProtectedContainer: FC<ProtectedContainerProps> = ({ children }) =>
       const fetchUserDetails = async () => {
         await getUserDetails({
           variables: {
-            userId: user?.sub ?? "",
+            email: user?.email ?? "",
           },
         });
       };
@@ -50,7 +50,7 @@ export const ProtectedContainer: FC<ProtectedContainerProps> = ({ children }) =>
   }
 
   if (userLoading) {
-    return <LoadingContainer text="Logging into partnership portal" />;
+    return <LoadingContainer message="Logging into partnership portal" />;
   }
 
   if (userError) {

@@ -15,6 +15,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   date: any;
+  json: any;
   timestamptz: any;
   uuid: any;
 };
@@ -88,212 +89,705 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
-/** columns and relationships of "collections" */
-export type Collections = {
-  __typename?: 'collections';
-  collectionBannerUrl: Scalars['String'];
-  collectionDetailsUrl: Scalars['String'];
-  collectionPreviewUrl: Scalars['String'];
-  currency: Scalars['String'];
-  floorPrice: Scalars['Int'];
+/** columns and relationships of "campaign_event_rounds" */
+export type Campaign_Event_Rounds = {
+  __typename?: 'campaign_event_rounds';
+  campaignEventId: Scalars['uuid'];
+  endDate: Scalars['date'];
   id: Scalars['uuid'];
-  isVerified: Scalars['Boolean'];
-  longDescription?: Maybe<Scalars['String']>;
-  mintingBannerUrl: Scalars['String'];
-  mintingCollectionPreviewUrl: Scalars['String'];
-  shortDescription?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  totalSupply: Scalars['Int'];
-  userId: Scalars['String'];
-  whitelistMemo: Scalars['String'];
+  maxToken: Scalars['Int'];
+  mintPrice?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  startDate: Scalars['date'];
+  supply?: Maybe<Scalars['Int']>;
+  type: Scalars['String'];
+  whitelistCondition?: Maybe<Scalars['String']>;
 };
 
-/** aggregated selection of "collections" */
-export type Collections_Aggregate = {
-  __typename?: 'collections_aggregate';
-  aggregate?: Maybe<Collections_Aggregate_Fields>;
-  nodes: Array<Collections>;
+/** aggregated selection of "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Aggregate = {
+  __typename?: 'campaign_event_rounds_aggregate';
+  aggregate?: Maybe<Campaign_Event_Rounds_Aggregate_Fields>;
+  nodes: Array<Campaign_Event_Rounds>;
 };
 
-/** aggregate fields of "collections" */
-export type Collections_Aggregate_Fields = {
-  __typename?: 'collections_aggregate_fields';
-  avg?: Maybe<Collections_Avg_Fields>;
+/** aggregate fields of "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Aggregate_Fields = {
+  __typename?: 'campaign_event_rounds_aggregate_fields';
+  avg?: Maybe<Campaign_Event_Rounds_Avg_Fields>;
   count: Scalars['Int'];
-  max?: Maybe<Collections_Max_Fields>;
-  min?: Maybe<Collections_Min_Fields>;
-  stddev?: Maybe<Collections_Stddev_Fields>;
-  stddev_pop?: Maybe<Collections_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Collections_Stddev_Samp_Fields>;
-  sum?: Maybe<Collections_Sum_Fields>;
-  var_pop?: Maybe<Collections_Var_Pop_Fields>;
-  var_samp?: Maybe<Collections_Var_Samp_Fields>;
-  variance?: Maybe<Collections_Variance_Fields>;
+  max?: Maybe<Campaign_Event_Rounds_Max_Fields>;
+  min?: Maybe<Campaign_Event_Rounds_Min_Fields>;
+  stddev?: Maybe<Campaign_Event_Rounds_Stddev_Fields>;
+  stddev_pop?: Maybe<Campaign_Event_Rounds_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Campaign_Event_Rounds_Stddev_Samp_Fields>;
+  sum?: Maybe<Campaign_Event_Rounds_Sum_Fields>;
+  var_pop?: Maybe<Campaign_Event_Rounds_Var_Pop_Fields>;
+  var_samp?: Maybe<Campaign_Event_Rounds_Var_Samp_Fields>;
+  variance?: Maybe<Campaign_Event_Rounds_Variance_Fields>;
 };
 
 
-/** aggregate fields of "collections" */
-export type Collections_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Collections_Select_Column>>;
+/** aggregate fields of "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Campaign_Event_Rounds_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate avg on columns */
-export type Collections_Avg_Fields = {
-  __typename?: 'collections_avg_fields';
+export type Campaign_Event_Rounds_Avg_Fields = {
+  __typename?: 'campaign_event_rounds_avg_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "campaign_event_rounds". All fields are combined with a logical 'AND'. */
+export type Campaign_Event_Rounds_Bool_Exp = {
+  _and?: InputMaybe<Array<Campaign_Event_Rounds_Bool_Exp>>;
+  _not?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
+  _or?: InputMaybe<Array<Campaign_Event_Rounds_Bool_Exp>>;
+  campaignEventId?: InputMaybe<Uuid_Comparison_Exp>;
+  endDate?: InputMaybe<Date_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  maxToken?: InputMaybe<Int_Comparison_Exp>;
+  mintPrice?: InputMaybe<Int_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  startDate?: InputMaybe<Date_Comparison_Exp>;
+  supply?: InputMaybe<Int_Comparison_Exp>;
+  type?: InputMaybe<String_Comparison_Exp>;
+  whitelistCondition?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "campaign_event_rounds" */
+export enum Campaign_Event_Rounds_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  CampaignEventRoundsPkey = 'campaign_event_rounds_pkey'
+}
+
+/** input type for incrementing numeric columns in table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Inc_Input = {
+  maxToken?: InputMaybe<Scalars['Int']>;
+  mintPrice?: InputMaybe<Scalars['Int']>;
+  supply?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Insert_Input = {
+  campaignEventId?: InputMaybe<Scalars['uuid']>;
+  endDate?: InputMaybe<Scalars['date']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  maxToken?: InputMaybe<Scalars['Int']>;
+  mintPrice?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['date']>;
+  supply?: InputMaybe<Scalars['Int']>;
+  type?: InputMaybe<Scalars['String']>;
+  whitelistCondition?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Campaign_Event_Rounds_Max_Fields = {
+  __typename?: 'campaign_event_rounds_max_fields';
+  campaignEventId?: Maybe<Scalars['uuid']>;
+  endDate?: Maybe<Scalars['date']>;
+  id?: Maybe<Scalars['uuid']>;
+  maxToken?: Maybe<Scalars['Int']>;
+  mintPrice?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['date']>;
+  supply?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+  whitelistCondition?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Campaign_Event_Rounds_Min_Fields = {
+  __typename?: 'campaign_event_rounds_min_fields';
+  campaignEventId?: Maybe<Scalars['uuid']>;
+  endDate?: Maybe<Scalars['date']>;
+  id?: Maybe<Scalars['uuid']>;
+  maxToken?: Maybe<Scalars['Int']>;
+  mintPrice?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['date']>;
+  supply?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars['String']>;
+  whitelistCondition?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Mutation_Response = {
+  __typename?: 'campaign_event_rounds_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Campaign_Event_Rounds>;
+};
+
+/** input type for inserting object relation for remote table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Obj_Rel_Insert_Input = {
+  data: Campaign_Event_Rounds_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Campaign_Event_Rounds_On_Conflict>;
+};
+
+/** on_conflict condition type for table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_On_Conflict = {
+  constraint: Campaign_Event_Rounds_Constraint;
+  update_columns?: Array<Campaign_Event_Rounds_Update_Column>;
+  where?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "campaign_event_rounds". */
+export type Campaign_Event_Rounds_Order_By = {
+  campaignEventId?: InputMaybe<Order_By>;
+  endDate?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  maxToken?: InputMaybe<Order_By>;
+  mintPrice?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  startDate?: InputMaybe<Order_By>;
+  supply?: InputMaybe<Order_By>;
+  type?: InputMaybe<Order_By>;
+  whitelistCondition?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: campaign_event_rounds */
+export type Campaign_Event_Rounds_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "campaign_event_rounds" */
+export enum Campaign_Event_Rounds_Select_Column {
+  /** column name */
+  CampaignEventId = 'campaignEventId',
+  /** column name */
+  EndDate = 'endDate',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MaxToken = 'maxToken',
+  /** column name */
+  MintPrice = 'mintPrice',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  StartDate = 'startDate',
+  /** column name */
+  Supply = 'supply',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  WhitelistCondition = 'whitelistCondition'
+}
+
+/** input type for updating data in table "campaign_event_rounds" */
+export type Campaign_Event_Rounds_Set_Input = {
+  campaignEventId?: InputMaybe<Scalars['uuid']>;
+  endDate?: InputMaybe<Scalars['date']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  maxToken?: InputMaybe<Scalars['Int']>;
+  mintPrice?: InputMaybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['date']>;
+  supply?: InputMaybe<Scalars['Int']>;
+  type?: InputMaybe<Scalars['String']>;
+  whitelistCondition?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Campaign_Event_Rounds_Stddev_Fields = {
+  __typename?: 'campaign_event_rounds_stddev_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Campaign_Event_Rounds_Stddev_Pop_Fields = {
+  __typename?: 'campaign_event_rounds_stddev_pop_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Campaign_Event_Rounds_Stddev_Samp_Fields = {
+  __typename?: 'campaign_event_rounds_stddev_samp_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Campaign_Event_Rounds_Sum_Fields = {
+  __typename?: 'campaign_event_rounds_sum_fields';
+  maxToken?: Maybe<Scalars['Int']>;
+  mintPrice?: Maybe<Scalars['Int']>;
+  supply?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "campaign_event_rounds" */
+export enum Campaign_Event_Rounds_Update_Column {
+  /** column name */
+  CampaignEventId = 'campaignEventId',
+  /** column name */
+  EndDate = 'endDate',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MaxToken = 'maxToken',
+  /** column name */
+  MintPrice = 'mintPrice',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  StartDate = 'startDate',
+  /** column name */
+  Supply = 'supply',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  WhitelistCondition = 'whitelistCondition'
+}
+
+/** aggregate var_pop on columns */
+export type Campaign_Event_Rounds_Var_Pop_Fields = {
+  __typename?: 'campaign_event_rounds_var_pop_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Campaign_Event_Rounds_Var_Samp_Fields = {
+  __typename?: 'campaign_event_rounds_var_samp_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Campaign_Event_Rounds_Variance_Fields = {
+  __typename?: 'campaign_event_rounds_variance_fields';
+  maxToken?: Maybe<Scalars['Float']>;
+  mintPrice?: Maybe<Scalars['Float']>;
+  supply?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "campaign_events" */
+export type Campaign_Events = {
+  __typename?: 'campaign_events';
+  campaignId: Scalars['uuid'];
+  contractAddress?: Maybe<Scalars['uuid']>;
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+  /** An object relationship */
+  rounds?: Maybe<Campaign_Event_Rounds>;
+};
+
+/** aggregated selection of "campaign_events" */
+export type Campaign_Events_Aggregate = {
+  __typename?: 'campaign_events_aggregate';
+  aggregate?: Maybe<Campaign_Events_Aggregate_Fields>;
+  nodes: Array<Campaign_Events>;
+};
+
+/** aggregate fields of "campaign_events" */
+export type Campaign_Events_Aggregate_Fields = {
+  __typename?: 'campaign_events_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Campaign_Events_Max_Fields>;
+  min?: Maybe<Campaign_Events_Min_Fields>;
+};
+
+
+/** aggregate fields of "campaign_events" */
+export type Campaign_Events_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Campaign_Events_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "campaign_events". All fields are combined with a logical 'AND'. */
+export type Campaign_Events_Bool_Exp = {
+  _and?: InputMaybe<Array<Campaign_Events_Bool_Exp>>;
+  _not?: InputMaybe<Campaign_Events_Bool_Exp>;
+  _or?: InputMaybe<Array<Campaign_Events_Bool_Exp>>;
+  campaignId?: InputMaybe<Uuid_Comparison_Exp>;
+  contractAddress?: InputMaybe<Uuid_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  rounds?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "campaign_events" */
+export enum Campaign_Events_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  CampaignEventsPkey = 'campaign_events_pkey'
+}
+
+/** input type for inserting data into table "campaign_events" */
+export type Campaign_Events_Insert_Input = {
+  campaignId?: InputMaybe<Scalars['uuid']>;
+  contractAddress?: InputMaybe<Scalars['uuid']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  name?: InputMaybe<Scalars['String']>;
+  rounds?: InputMaybe<Campaign_Event_Rounds_Obj_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Campaign_Events_Max_Fields = {
+  __typename?: 'campaign_events_max_fields';
+  campaignId?: Maybe<Scalars['uuid']>;
+  contractAddress?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Campaign_Events_Min_Fields = {
+  __typename?: 'campaign_events_min_fields';
+  campaignId?: Maybe<Scalars['uuid']>;
+  contractAddress?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "campaign_events" */
+export type Campaign_Events_Mutation_Response = {
+  __typename?: 'campaign_events_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Campaign_Events>;
+};
+
+/** input type for inserting object relation for remote table "campaign_events" */
+export type Campaign_Events_Obj_Rel_Insert_Input = {
+  data: Campaign_Events_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Campaign_Events_On_Conflict>;
+};
+
+/** on_conflict condition type for table "campaign_events" */
+export type Campaign_Events_On_Conflict = {
+  constraint: Campaign_Events_Constraint;
+  update_columns?: Array<Campaign_Events_Update_Column>;
+  where?: InputMaybe<Campaign_Events_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "campaign_events". */
+export type Campaign_Events_Order_By = {
+  campaignId?: InputMaybe<Order_By>;
+  contractAddress?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  rounds?: InputMaybe<Campaign_Event_Rounds_Order_By>;
+};
+
+/** primary key columns input for table: campaign_events */
+export type Campaign_Events_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "campaign_events" */
+export enum Campaign_Events_Select_Column {
+  /** column name */
+  CampaignId = 'campaignId',
+  /** column name */
+  ContractAddress = 'contractAddress',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "campaign_events" */
+export type Campaign_Events_Set_Input = {
+  campaignId?: InputMaybe<Scalars['uuid']>;
+  contractAddress?: InputMaybe<Scalars['uuid']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "campaign_events" */
+export enum Campaign_Events_Update_Column {
+  /** column name */
+  CampaignId = 'campaignId',
+  /** column name */
+  ContractAddress = 'contractAddress',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** columns and relationships of "campaigns" */
+export type Campaigns = {
+  __typename?: 'campaigns';
+  campaignBannerUrl?: Maybe<Scalars['String']>;
+  campaignDetailsUrl?: Maybe<Scalars['String']>;
+  campaignPreviewUrl?: Maybe<Scalars['String']>;
+  campaignTilePreviewUrl?: Maybe<Scalars['String']>;
+  contractUrl?: Maybe<Scalars['String']>;
+  createdAt: Scalars['timestamptz'];
+  currency?: Maybe<Scalars['String']>;
+  discordUrl?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  event?: Maybe<Campaign_Events>;
+  floorPrice?: Maybe<Scalars['Int']>;
+  id: Scalars['uuid'];
+  isVerified: Scalars['Boolean'];
+  longDescription?: Maybe<Scalars['json']>;
+  mintingBannerUrl?: Maybe<Scalars['String']>;
+  mintingCampaignPreviewUrl?: Maybe<Scalars['String']>;
+  shortDescription?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
+  title: Scalars['String'];
+  totalSupply?: Maybe<Scalars['Int']>;
+  twitterUrl?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+  userId: Scalars['String'];
+  websiteUrl?: Maybe<Scalars['String']>;
+  whitelistMemo?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "campaigns" */
+export type CampaignsLongDescriptionArgs = {
+  path?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregated selection of "campaigns" */
+export type Campaigns_Aggregate = {
+  __typename?: 'campaigns_aggregate';
+  aggregate?: Maybe<Campaigns_Aggregate_Fields>;
+  nodes: Array<Campaigns>;
+};
+
+/** aggregate fields of "campaigns" */
+export type Campaigns_Aggregate_Fields = {
+  __typename?: 'campaigns_aggregate_fields';
+  avg?: Maybe<Campaigns_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Campaigns_Max_Fields>;
+  min?: Maybe<Campaigns_Min_Fields>;
+  stddev?: Maybe<Campaigns_Stddev_Fields>;
+  stddev_pop?: Maybe<Campaigns_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Campaigns_Stddev_Samp_Fields>;
+  sum?: Maybe<Campaigns_Sum_Fields>;
+  var_pop?: Maybe<Campaigns_Var_Pop_Fields>;
+  var_samp?: Maybe<Campaigns_Var_Samp_Fields>;
+  variance?: Maybe<Campaigns_Variance_Fields>;
+};
+
+
+/** aggregate fields of "campaigns" */
+export type Campaigns_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Campaigns_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Campaigns_Avg_Fields = {
+  __typename?: 'campaigns_avg_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
-/** Boolean expression to filter rows from the table "collections". All fields are combined with a logical 'AND'. */
-export type Collections_Bool_Exp = {
-  _and?: InputMaybe<Array<Collections_Bool_Exp>>;
-  _not?: InputMaybe<Collections_Bool_Exp>;
-  _or?: InputMaybe<Array<Collections_Bool_Exp>>;
-  collectionBannerUrl?: InputMaybe<String_Comparison_Exp>;
-  collectionDetailsUrl?: InputMaybe<String_Comparison_Exp>;
-  collectionPreviewUrl?: InputMaybe<String_Comparison_Exp>;
+/** Boolean expression to filter rows from the table "campaigns". All fields are combined with a logical 'AND'. */
+export type Campaigns_Bool_Exp = {
+  _and?: InputMaybe<Array<Campaigns_Bool_Exp>>;
+  _not?: InputMaybe<Campaigns_Bool_Exp>;
+  _or?: InputMaybe<Array<Campaigns_Bool_Exp>>;
+  campaignBannerUrl?: InputMaybe<String_Comparison_Exp>;
+  campaignDetailsUrl?: InputMaybe<String_Comparison_Exp>;
+  campaignPreviewUrl?: InputMaybe<String_Comparison_Exp>;
+  campaignTilePreviewUrl?: InputMaybe<String_Comparison_Exp>;
+  contractUrl?: InputMaybe<String_Comparison_Exp>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   currency?: InputMaybe<String_Comparison_Exp>;
+  discordUrl?: InputMaybe<String_Comparison_Exp>;
+  event?: InputMaybe<Campaign_Events_Bool_Exp>;
   floorPrice?: InputMaybe<Int_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   isVerified?: InputMaybe<Boolean_Comparison_Exp>;
-  longDescription?: InputMaybe<String_Comparison_Exp>;
+  longDescription?: InputMaybe<Json_Comparison_Exp>;
   mintingBannerUrl?: InputMaybe<String_Comparison_Exp>;
-  mintingCollectionPreviewUrl?: InputMaybe<String_Comparison_Exp>;
+  mintingCampaignPreviewUrl?: InputMaybe<String_Comparison_Exp>;
   shortDescription?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   title?: InputMaybe<String_Comparison_Exp>;
   totalSupply?: InputMaybe<Int_Comparison_Exp>;
+  twitterUrl?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
   userId?: InputMaybe<String_Comparison_Exp>;
+  websiteUrl?: InputMaybe<String_Comparison_Exp>;
   whitelistMemo?: InputMaybe<String_Comparison_Exp>;
 };
 
-/** unique or primary key constraints on table "collections" */
-export enum Collections_Constraint {
+/** unique or primary key constraints on table "campaigns" */
+export enum Campaigns_Constraint {
   /** unique or primary key constraint on columns "id" */
-  CampainsPkey = 'campains_pkey',
+  CampaignsPkey = 'campaigns_pkey',
   /** unique or primary key constraint on columns "slug" */
-  CampainsSlugKey = 'campains_slug_key'
+  CampaignsSlugKey = 'campaigns_slug_key'
 }
 
-/** input type for incrementing numeric columns in table "collections" */
-export type Collections_Inc_Input = {
+/** input type for incrementing numeric columns in table "campaigns" */
+export type Campaigns_Inc_Input = {
   floorPrice?: InputMaybe<Scalars['Int']>;
   totalSupply?: InputMaybe<Scalars['Int']>;
 };
 
-/** input type for inserting data into table "collections" */
-export type Collections_Insert_Input = {
-  collectionBannerUrl?: InputMaybe<Scalars['String']>;
-  collectionDetailsUrl?: InputMaybe<Scalars['String']>;
-  collectionPreviewUrl?: InputMaybe<Scalars['String']>;
+/** input type for inserting data into table "campaigns" */
+export type Campaigns_Insert_Input = {
+  campaignBannerUrl?: InputMaybe<Scalars['String']>;
+  campaignDetailsUrl?: InputMaybe<Scalars['String']>;
+  campaignPreviewUrl?: InputMaybe<Scalars['String']>;
+  campaignTilePreviewUrl?: InputMaybe<Scalars['String']>;
+  contractUrl?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
   currency?: InputMaybe<Scalars['String']>;
+  discordUrl?: InputMaybe<Scalars['String']>;
+  event?: InputMaybe<Campaign_Events_Obj_Rel_Insert_Input>;
   floorPrice?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['uuid']>;
   isVerified?: InputMaybe<Scalars['Boolean']>;
-  longDescription?: InputMaybe<Scalars['String']>;
+  longDescription?: InputMaybe<Scalars['json']>;
   mintingBannerUrl?: InputMaybe<Scalars['String']>;
-  mintingCollectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  mintingCampaignPreviewUrl?: InputMaybe<Scalars['String']>;
   shortDescription?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   totalSupply?: InputMaybe<Scalars['Int']>;
+  twitterUrl?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
   userId?: InputMaybe<Scalars['String']>;
+  websiteUrl?: InputMaybe<Scalars['String']>;
   whitelistMemo?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
-export type Collections_Max_Fields = {
-  __typename?: 'collections_max_fields';
-  collectionBannerUrl?: Maybe<Scalars['String']>;
-  collectionDetailsUrl?: Maybe<Scalars['String']>;
-  collectionPreviewUrl?: Maybe<Scalars['String']>;
+export type Campaigns_Max_Fields = {
+  __typename?: 'campaigns_max_fields';
+  campaignBannerUrl?: Maybe<Scalars['String']>;
+  campaignDetailsUrl?: Maybe<Scalars['String']>;
+  campaignPreviewUrl?: Maybe<Scalars['String']>;
+  campaignTilePreviewUrl?: Maybe<Scalars['String']>;
+  contractUrl?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
   currency?: Maybe<Scalars['String']>;
+  discordUrl?: Maybe<Scalars['String']>;
   floorPrice?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['uuid']>;
-  longDescription?: Maybe<Scalars['String']>;
   mintingBannerUrl?: Maybe<Scalars['String']>;
-  mintingCollectionPreviewUrl?: Maybe<Scalars['String']>;
+  mintingCampaignPreviewUrl?: Maybe<Scalars['String']>;
   shortDescription?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   totalSupply?: Maybe<Scalars['Int']>;
+  twitterUrl?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
   userId?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
   whitelistMemo?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
-export type Collections_Min_Fields = {
-  __typename?: 'collections_min_fields';
-  collectionBannerUrl?: Maybe<Scalars['String']>;
-  collectionDetailsUrl?: Maybe<Scalars['String']>;
-  collectionPreviewUrl?: Maybe<Scalars['String']>;
+export type Campaigns_Min_Fields = {
+  __typename?: 'campaigns_min_fields';
+  campaignBannerUrl?: Maybe<Scalars['String']>;
+  campaignDetailsUrl?: Maybe<Scalars['String']>;
+  campaignPreviewUrl?: Maybe<Scalars['String']>;
+  campaignTilePreviewUrl?: Maybe<Scalars['String']>;
+  contractUrl?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['timestamptz']>;
   currency?: Maybe<Scalars['String']>;
+  discordUrl?: Maybe<Scalars['String']>;
   floorPrice?: Maybe<Scalars['Int']>;
   id?: Maybe<Scalars['uuid']>;
-  longDescription?: Maybe<Scalars['String']>;
   mintingBannerUrl?: Maybe<Scalars['String']>;
-  mintingCollectionPreviewUrl?: Maybe<Scalars['String']>;
+  mintingCampaignPreviewUrl?: Maybe<Scalars['String']>;
   shortDescription?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   totalSupply?: Maybe<Scalars['Int']>;
+  twitterUrl?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
   userId?: Maybe<Scalars['String']>;
+  websiteUrl?: Maybe<Scalars['String']>;
   whitelistMemo?: Maybe<Scalars['String']>;
 };
 
-/** response of any mutation on the table "collections" */
-export type Collections_Mutation_Response = {
-  __typename?: 'collections_mutation_response';
+/** response of any mutation on the table "campaigns" */
+export type Campaigns_Mutation_Response = {
+  __typename?: 'campaigns_mutation_response';
   /** number of rows affected by the mutation */
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
-  returning: Array<Collections>;
+  returning: Array<Campaigns>;
 };
 
-/** on_conflict condition type for table "collections" */
-export type Collections_On_Conflict = {
-  constraint: Collections_Constraint;
-  update_columns?: Array<Collections_Update_Column>;
-  where?: InputMaybe<Collections_Bool_Exp>;
+/** on_conflict condition type for table "campaigns" */
+export type Campaigns_On_Conflict = {
+  constraint: Campaigns_Constraint;
+  update_columns?: Array<Campaigns_Update_Column>;
+  where?: InputMaybe<Campaigns_Bool_Exp>;
 };
 
-/** Ordering options when selecting data from "collections". */
-export type Collections_Order_By = {
-  collectionBannerUrl?: InputMaybe<Order_By>;
-  collectionDetailsUrl?: InputMaybe<Order_By>;
-  collectionPreviewUrl?: InputMaybe<Order_By>;
+/** Ordering options when selecting data from "campaigns". */
+export type Campaigns_Order_By = {
+  campaignBannerUrl?: InputMaybe<Order_By>;
+  campaignDetailsUrl?: InputMaybe<Order_By>;
+  campaignPreviewUrl?: InputMaybe<Order_By>;
+  campaignTilePreviewUrl?: InputMaybe<Order_By>;
+  contractUrl?: InputMaybe<Order_By>;
+  createdAt?: InputMaybe<Order_By>;
   currency?: InputMaybe<Order_By>;
+  discordUrl?: InputMaybe<Order_By>;
+  event?: InputMaybe<Campaign_Events_Order_By>;
   floorPrice?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   isVerified?: InputMaybe<Order_By>;
   longDescription?: InputMaybe<Order_By>;
   mintingBannerUrl?: InputMaybe<Order_By>;
-  mintingCollectionPreviewUrl?: InputMaybe<Order_By>;
+  mintingCampaignPreviewUrl?: InputMaybe<Order_By>;
   shortDescription?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   title?: InputMaybe<Order_By>;
   totalSupply?: InputMaybe<Order_By>;
+  twitterUrl?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
   userId?: InputMaybe<Order_By>;
+  websiteUrl?: InputMaybe<Order_By>;
   whitelistMemo?: InputMaybe<Order_By>;
 };
 
-/** primary key columns input for table: collections */
-export type Collections_Pk_Columns_Input = {
+/** primary key columns input for table: campaigns */
+export type Campaigns_Pk_Columns_Input = {
   id: Scalars['uuid'];
 };
 
-/** select columns of table "collections" */
-export enum Collections_Select_Column {
+/** select columns of table "campaigns" */
+export enum Campaigns_Select_Column {
   /** column name */
-  CollectionBannerUrl = 'collectionBannerUrl',
+  CampaignBannerUrl = 'campaignBannerUrl',
   /** column name */
-  CollectionDetailsUrl = 'collectionDetailsUrl',
+  CampaignDetailsUrl = 'campaignDetailsUrl',
   /** column name */
-  CollectionPreviewUrl = 'collectionPreviewUrl',
+  CampaignPreviewUrl = 'campaignPreviewUrl',
+  /** column name */
+  CampaignTilePreviewUrl = 'campaignTilePreviewUrl',
+  /** column name */
+  ContractUrl = 'contractUrl',
+  /** column name */
+  CreatedAt = 'createdAt',
   /** column name */
   Currency = 'currency',
+  /** column name */
+  DiscordUrl = 'discordUrl',
   /** column name */
   FloorPrice = 'floorPrice',
   /** column name */
@@ -305,7 +799,7 @@ export enum Collections_Select_Column {
   /** column name */
   MintingBannerUrl = 'mintingBannerUrl',
   /** column name */
-  MintingCollectionPreviewUrl = 'mintingCollectionPreviewUrl',
+  MintingCampaignPreviewUrl = 'mintingCampaignPreviewUrl',
   /** column name */
   ShortDescription = 'shortDescription',
   /** column name */
@@ -315,69 +809,90 @@ export enum Collections_Select_Column {
   /** column name */
   TotalSupply = 'totalSupply',
   /** column name */
+  TwitterUrl = 'twitterUrl',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
   UserId = 'userId',
+  /** column name */
+  WebsiteUrl = 'websiteUrl',
   /** column name */
   WhitelistMemo = 'whitelistMemo'
 }
 
-/** input type for updating data in table "collections" */
-export type Collections_Set_Input = {
-  collectionBannerUrl?: InputMaybe<Scalars['String']>;
-  collectionDetailsUrl?: InputMaybe<Scalars['String']>;
-  collectionPreviewUrl?: InputMaybe<Scalars['String']>;
+/** input type for updating data in table "campaigns" */
+export type Campaigns_Set_Input = {
+  campaignBannerUrl?: InputMaybe<Scalars['String']>;
+  campaignDetailsUrl?: InputMaybe<Scalars['String']>;
+  campaignPreviewUrl?: InputMaybe<Scalars['String']>;
+  campaignTilePreviewUrl?: InputMaybe<Scalars['String']>;
+  contractUrl?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
   currency?: InputMaybe<Scalars['String']>;
+  discordUrl?: InputMaybe<Scalars['String']>;
   floorPrice?: InputMaybe<Scalars['Int']>;
   id?: InputMaybe<Scalars['uuid']>;
   isVerified?: InputMaybe<Scalars['Boolean']>;
-  longDescription?: InputMaybe<Scalars['String']>;
+  longDescription?: InputMaybe<Scalars['json']>;
   mintingBannerUrl?: InputMaybe<Scalars['String']>;
-  mintingCollectionPreviewUrl?: InputMaybe<Scalars['String']>;
+  mintingCampaignPreviewUrl?: InputMaybe<Scalars['String']>;
   shortDescription?: InputMaybe<Scalars['String']>;
   slug?: InputMaybe<Scalars['String']>;
   title?: InputMaybe<Scalars['String']>;
   totalSupply?: InputMaybe<Scalars['Int']>;
+  twitterUrl?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
   userId?: InputMaybe<Scalars['String']>;
+  websiteUrl?: InputMaybe<Scalars['String']>;
   whitelistMemo?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate stddev on columns */
-export type Collections_Stddev_Fields = {
-  __typename?: 'collections_stddev_fields';
+export type Campaigns_Stddev_Fields = {
+  __typename?: 'campaigns_stddev_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
-export type Collections_Stddev_Pop_Fields = {
-  __typename?: 'collections_stddev_pop_fields';
+export type Campaigns_Stddev_Pop_Fields = {
+  __typename?: 'campaigns_stddev_pop_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
-export type Collections_Stddev_Samp_Fields = {
-  __typename?: 'collections_stddev_samp_fields';
+export type Campaigns_Stddev_Samp_Fields = {
+  __typename?: 'campaigns_stddev_samp_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
-export type Collections_Sum_Fields = {
-  __typename?: 'collections_sum_fields';
+export type Campaigns_Sum_Fields = {
+  __typename?: 'campaigns_sum_fields';
   floorPrice?: Maybe<Scalars['Int']>;
   totalSupply?: Maybe<Scalars['Int']>;
 };
 
-/** update columns of table "collections" */
-export enum Collections_Update_Column {
+/** update columns of table "campaigns" */
+export enum Campaigns_Update_Column {
   /** column name */
-  CollectionBannerUrl = 'collectionBannerUrl',
+  CampaignBannerUrl = 'campaignBannerUrl',
   /** column name */
-  CollectionDetailsUrl = 'collectionDetailsUrl',
+  CampaignDetailsUrl = 'campaignDetailsUrl',
   /** column name */
-  CollectionPreviewUrl = 'collectionPreviewUrl',
+  CampaignPreviewUrl = 'campaignPreviewUrl',
+  /** column name */
+  CampaignTilePreviewUrl = 'campaignTilePreviewUrl',
+  /** column name */
+  ContractUrl = 'contractUrl',
+  /** column name */
+  CreatedAt = 'createdAt',
   /** column name */
   Currency = 'currency',
+  /** column name */
+  DiscordUrl = 'discordUrl',
   /** column name */
   FloorPrice = 'floorPrice',
   /** column name */
@@ -389,7 +904,7 @@ export enum Collections_Update_Column {
   /** column name */
   MintingBannerUrl = 'mintingBannerUrl',
   /** column name */
-  MintingCollectionPreviewUrl = 'mintingCollectionPreviewUrl',
+  MintingCampaignPreviewUrl = 'mintingCampaignPreviewUrl',
   /** column name */
   ShortDescription = 'shortDescription',
   /** column name */
@@ -399,28 +914,34 @@ export enum Collections_Update_Column {
   /** column name */
   TotalSupply = 'totalSupply',
   /** column name */
+  TwitterUrl = 'twitterUrl',
+  /** column name */
+  UpdatedAt = 'updatedAt',
+  /** column name */
   UserId = 'userId',
+  /** column name */
+  WebsiteUrl = 'websiteUrl',
   /** column name */
   WhitelistMemo = 'whitelistMemo'
 }
 
 /** aggregate var_pop on columns */
-export type Collections_Var_Pop_Fields = {
-  __typename?: 'collections_var_pop_fields';
+export type Campaigns_Var_Pop_Fields = {
+  __typename?: 'campaigns_var_pop_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
-export type Collections_Var_Samp_Fields = {
-  __typename?: 'collections_var_samp_fields';
+export type Campaigns_Var_Samp_Fields = {
+  __typename?: 'campaigns_var_samp_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
-export type Collections_Variance_Fields = {
-  __typename?: 'collections_variance_fields';
+export type Campaigns_Variance_Fields = {
+  __typename?: 'campaigns_variance_fields';
   floorPrice?: Maybe<Scalars['Float']>;
   totalSupply?: Maybe<Scalars['Float']>;
 };
@@ -443,13 +964,39 @@ export type Date_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['date']>>;
 };
 
+export type Json_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
+export type Json_Comparison_Exp = {
+  _cast?: InputMaybe<Json_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['json']>;
+  _gt?: InputMaybe<Scalars['json']>;
+  _gte?: InputMaybe<Scalars['json']>;
+  _in?: InputMaybe<Array<Scalars['json']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['json']>;
+  _lte?: InputMaybe<Scalars['json']>;
+  _neq?: InputMaybe<Scalars['json']>;
+  _nin?: InputMaybe<Array<Scalars['json']>>;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** delete data from the table: "collections" */
-  delete_collections?: Maybe<Collections_Mutation_Response>;
-  /** delete single row from the table: "collections" */
-  delete_collections_by_pk?: Maybe<Collections>;
+  /** delete data from the table: "campaign_event_rounds" */
+  delete_campaign_event_rounds?: Maybe<Campaign_Event_Rounds_Mutation_Response>;
+  /** delete single row from the table: "campaign_event_rounds" */
+  delete_campaign_event_rounds_by_pk?: Maybe<Campaign_Event_Rounds>;
+  /** delete data from the table: "campaign_events" */
+  delete_campaign_events?: Maybe<Campaign_Events_Mutation_Response>;
+  /** delete single row from the table: "campaign_events" */
+  delete_campaign_events_by_pk?: Maybe<Campaign_Events>;
+  /** delete data from the table: "campaigns" */
+  delete_campaigns?: Maybe<Campaigns_Mutation_Response>;
+  /** delete single row from the table: "campaigns" */
+  delete_campaigns_by_pk?: Maybe<Campaigns>;
   /** delete data from the table: "user_status" */
   delete_user_status?: Maybe<User_Status_Mutation_Response>;
   /** delete single row from the table: "user_status" */
@@ -458,10 +1005,18 @@ export type Mutation_Root = {
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
   delete_users_by_pk?: Maybe<Users>;
-  /** insert data into the table: "collections" */
-  insert_collections?: Maybe<Collections_Mutation_Response>;
-  /** insert a single row into the table: "collections" */
-  insert_collections_one?: Maybe<Collections>;
+  /** insert data into the table: "campaign_event_rounds" */
+  insert_campaign_event_rounds?: Maybe<Campaign_Event_Rounds_Mutation_Response>;
+  /** insert a single row into the table: "campaign_event_rounds" */
+  insert_campaign_event_rounds_one?: Maybe<Campaign_Event_Rounds>;
+  /** insert data into the table: "campaign_events" */
+  insert_campaign_events?: Maybe<Campaign_Events_Mutation_Response>;
+  /** insert a single row into the table: "campaign_events" */
+  insert_campaign_events_one?: Maybe<Campaign_Events>;
+  /** insert data into the table: "campaigns" */
+  insert_campaigns?: Maybe<Campaigns_Mutation_Response>;
+  /** insert a single row into the table: "campaigns" */
+  insert_campaigns_one?: Maybe<Campaigns>;
   /** insert data into the table: "user_status" */
   insert_user_status?: Maybe<User_Status_Mutation_Response>;
   /** insert a single row into the table: "user_status" */
@@ -470,10 +1025,18 @@ export type Mutation_Root = {
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
   insert_users_one?: Maybe<Users>;
-  /** update data of the table: "collections" */
-  update_collections?: Maybe<Collections_Mutation_Response>;
-  /** update single row of the table: "collections" */
-  update_collections_by_pk?: Maybe<Collections>;
+  /** update data of the table: "campaign_event_rounds" */
+  update_campaign_event_rounds?: Maybe<Campaign_Event_Rounds_Mutation_Response>;
+  /** update single row of the table: "campaign_event_rounds" */
+  update_campaign_event_rounds_by_pk?: Maybe<Campaign_Event_Rounds>;
+  /** update data of the table: "campaign_events" */
+  update_campaign_events?: Maybe<Campaign_Events_Mutation_Response>;
+  /** update single row of the table: "campaign_events" */
+  update_campaign_events_by_pk?: Maybe<Campaign_Events>;
+  /** update data of the table: "campaigns" */
+  update_campaigns?: Maybe<Campaigns_Mutation_Response>;
+  /** update single row of the table: "campaigns" */
+  update_campaigns_by_pk?: Maybe<Campaigns>;
   /** update data of the table: "user_status" */
   update_user_status?: Maybe<User_Status_Mutation_Response>;
   /** update single row of the table: "user_status" */
@@ -486,13 +1049,37 @@ export type Mutation_Root = {
 
 
 /** mutation root */
-export type Mutation_RootDelete_CollectionsArgs = {
-  where: Collections_Bool_Exp;
+export type Mutation_RootDelete_Campaign_Event_RoundsArgs = {
+  where: Campaign_Event_Rounds_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootDelete_Collections_By_PkArgs = {
+export type Mutation_RootDelete_Campaign_Event_Rounds_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Campaign_EventsArgs = {
+  where: Campaign_Events_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Campaign_Events_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_CampaignsArgs = {
+  where: Campaigns_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Campaigns_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -517,21 +1104,49 @@ export type Mutation_RootDelete_UsersArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Users_By_PkArgs = {
-  userId: Scalars['String'];
+  email: Scalars['String'];
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_CollectionsArgs = {
-  objects: Array<Collections_Insert_Input>;
-  on_conflict?: InputMaybe<Collections_On_Conflict>;
+export type Mutation_RootInsert_Campaign_Event_RoundsArgs = {
+  objects: Array<Campaign_Event_Rounds_Insert_Input>;
+  on_conflict?: InputMaybe<Campaign_Event_Rounds_On_Conflict>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInsert_Collections_OneArgs = {
-  object: Collections_Insert_Input;
-  on_conflict?: InputMaybe<Collections_On_Conflict>;
+export type Mutation_RootInsert_Campaign_Event_Rounds_OneArgs = {
+  object: Campaign_Event_Rounds_Insert_Input;
+  on_conflict?: InputMaybe<Campaign_Event_Rounds_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Campaign_EventsArgs = {
+  objects: Array<Campaign_Events_Insert_Input>;
+  on_conflict?: InputMaybe<Campaign_Events_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Campaign_Events_OneArgs = {
+  object: Campaign_Events_Insert_Input;
+  on_conflict?: InputMaybe<Campaign_Events_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_CampaignsArgs = {
+  objects: Array<Campaigns_Insert_Input>;
+  on_conflict?: InputMaybe<Campaigns_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Campaigns_OneArgs = {
+  object: Campaigns_Insert_Input;
+  on_conflict?: InputMaybe<Campaigns_On_Conflict>;
 };
 
 
@@ -564,18 +1179,48 @@ export type Mutation_RootInsert_Users_OneArgs = {
 
 
 /** mutation root */
-export type Mutation_RootUpdate_CollectionsArgs = {
-  _inc?: InputMaybe<Collections_Inc_Input>;
-  _set?: InputMaybe<Collections_Set_Input>;
-  where: Collections_Bool_Exp;
+export type Mutation_RootUpdate_Campaign_Event_RoundsArgs = {
+  _inc?: InputMaybe<Campaign_Event_Rounds_Inc_Input>;
+  _set?: InputMaybe<Campaign_Event_Rounds_Set_Input>;
+  where: Campaign_Event_Rounds_Bool_Exp;
 };
 
 
 /** mutation root */
-export type Mutation_RootUpdate_Collections_By_PkArgs = {
-  _inc?: InputMaybe<Collections_Inc_Input>;
-  _set?: InputMaybe<Collections_Set_Input>;
-  pk_columns: Collections_Pk_Columns_Input;
+export type Mutation_RootUpdate_Campaign_Event_Rounds_By_PkArgs = {
+  _inc?: InputMaybe<Campaign_Event_Rounds_Inc_Input>;
+  _set?: InputMaybe<Campaign_Event_Rounds_Set_Input>;
+  pk_columns: Campaign_Event_Rounds_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Campaign_EventsArgs = {
+  _set?: InputMaybe<Campaign_Events_Set_Input>;
+  where: Campaign_Events_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Campaign_Events_By_PkArgs = {
+  _set?: InputMaybe<Campaign_Events_Set_Input>;
+  pk_columns: Campaign_Events_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_CampaignsArgs = {
+  _inc?: InputMaybe<Campaigns_Inc_Input>;
+  _set?: InputMaybe<Campaigns_Set_Input>;
+  where: Campaigns_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Campaigns_By_PkArgs = {
+  _inc?: InputMaybe<Campaigns_Inc_Input>;
+  _set?: InputMaybe<Campaigns_Set_Input>;
+  pk_columns: Campaigns_Pk_Columns_Input;
 };
 
 
@@ -626,12 +1271,24 @@ export enum Order_By {
 
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "collections" */
-  collections: Array<Collections>;
-  /** fetch aggregated fields from the table: "collections" */
-  collections_aggregate: Collections_Aggregate;
-  /** fetch data from the table: "collections" using primary key columns */
-  collections_by_pk?: Maybe<Collections>;
+  /** fetch data from the table: "campaign_event_rounds" */
+  campaign_event_rounds: Array<Campaign_Event_Rounds>;
+  /** fetch aggregated fields from the table: "campaign_event_rounds" */
+  campaign_event_rounds_aggregate: Campaign_Event_Rounds_Aggregate;
+  /** fetch data from the table: "campaign_event_rounds" using primary key columns */
+  campaign_event_rounds_by_pk?: Maybe<Campaign_Event_Rounds>;
+  /** fetch data from the table: "campaign_events" */
+  campaign_events: Array<Campaign_Events>;
+  /** fetch aggregated fields from the table: "campaign_events" */
+  campaign_events_aggregate: Campaign_Events_Aggregate;
+  /** fetch data from the table: "campaign_events" using primary key columns */
+  campaign_events_by_pk?: Maybe<Campaign_Events>;
+  /** fetch data from the table: "campaigns" */
+  campaigns: Array<Campaigns>;
+  /** fetch aggregated fields from the table: "campaigns" */
+  campaigns_aggregate: Campaigns_Aggregate;
+  /** fetch data from the table: "campaigns" using primary key columns */
+  campaigns_by_pk?: Maybe<Campaigns>;
   /** fetch data from the table: "user_status" */
   user_status: Array<User_Status>;
   /** fetch aggregated fields from the table: "user_status" */
@@ -647,25 +1304,71 @@ export type Query_Root = {
 };
 
 
-export type Query_RootCollectionsArgs = {
-  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+export type Query_RootCampaign_Event_RoundsArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Event_Rounds_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Collections_Order_By>>;
-  where?: InputMaybe<Collections_Bool_Exp>;
+  order_by?: InputMaybe<Array<Campaign_Event_Rounds_Order_By>>;
+  where?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
 };
 
 
-export type Query_RootCollections_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+export type Query_RootCampaign_Event_Rounds_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Event_Rounds_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Collections_Order_By>>;
-  where?: InputMaybe<Collections_Bool_Exp>;
+  order_by?: InputMaybe<Array<Campaign_Event_Rounds_Order_By>>;
+  where?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
 };
 
 
-export type Query_RootCollections_By_PkArgs = {
+export type Query_RootCampaign_Event_Rounds_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootCampaign_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaign_Events_Order_By>>;
+  where?: InputMaybe<Campaign_Events_Bool_Exp>;
+};
+
+
+export type Query_RootCampaign_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaign_Events_Order_By>>;
+  where?: InputMaybe<Campaign_Events_Bool_Exp>;
+};
+
+
+export type Query_RootCampaign_Events_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootCampaignsArgs = {
+  distinct_on?: InputMaybe<Array<Campaigns_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaigns_Order_By>>;
+  where?: InputMaybe<Campaigns_Bool_Exp>;
+};
+
+
+export type Query_RootCampaigns_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaigns_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaigns_Order_By>>;
+  where?: InputMaybe<Campaigns_Bool_Exp>;
+};
+
+
+export type Query_RootCampaigns_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -712,17 +1415,29 @@ export type Query_RootUsers_AggregateArgs = {
 
 
 export type Query_RootUsers_By_PkArgs = {
-  userId: Scalars['String'];
+  email: Scalars['String'];
 };
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "collections" */
-  collections: Array<Collections>;
-  /** fetch aggregated fields from the table: "collections" */
-  collections_aggregate: Collections_Aggregate;
-  /** fetch data from the table: "collections" using primary key columns */
-  collections_by_pk?: Maybe<Collections>;
+  /** fetch data from the table: "campaign_event_rounds" */
+  campaign_event_rounds: Array<Campaign_Event_Rounds>;
+  /** fetch aggregated fields from the table: "campaign_event_rounds" */
+  campaign_event_rounds_aggregate: Campaign_Event_Rounds_Aggregate;
+  /** fetch data from the table: "campaign_event_rounds" using primary key columns */
+  campaign_event_rounds_by_pk?: Maybe<Campaign_Event_Rounds>;
+  /** fetch data from the table: "campaign_events" */
+  campaign_events: Array<Campaign_Events>;
+  /** fetch aggregated fields from the table: "campaign_events" */
+  campaign_events_aggregate: Campaign_Events_Aggregate;
+  /** fetch data from the table: "campaign_events" using primary key columns */
+  campaign_events_by_pk?: Maybe<Campaign_Events>;
+  /** fetch data from the table: "campaigns" */
+  campaigns: Array<Campaigns>;
+  /** fetch aggregated fields from the table: "campaigns" */
+  campaigns_aggregate: Campaigns_Aggregate;
+  /** fetch data from the table: "campaigns" using primary key columns */
+  campaigns_by_pk?: Maybe<Campaigns>;
   /** fetch data from the table: "user_status" */
   user_status: Array<User_Status>;
   /** fetch aggregated fields from the table: "user_status" */
@@ -738,25 +1453,71 @@ export type Subscription_Root = {
 };
 
 
-export type Subscription_RootCollectionsArgs = {
-  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+export type Subscription_RootCampaign_Event_RoundsArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Event_Rounds_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Collections_Order_By>>;
-  where?: InputMaybe<Collections_Bool_Exp>;
+  order_by?: InputMaybe<Array<Campaign_Event_Rounds_Order_By>>;
+  where?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
 };
 
 
-export type Subscription_RootCollections_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Collections_Select_Column>>;
+export type Subscription_RootCampaign_Event_Rounds_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Event_Rounds_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Collections_Order_By>>;
-  where?: InputMaybe<Collections_Bool_Exp>;
+  order_by?: InputMaybe<Array<Campaign_Event_Rounds_Order_By>>;
+  where?: InputMaybe<Campaign_Event_Rounds_Bool_Exp>;
 };
 
 
-export type Subscription_RootCollections_By_PkArgs = {
+export type Subscription_RootCampaign_Event_Rounds_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootCampaign_EventsArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaign_Events_Order_By>>;
+  where?: InputMaybe<Campaign_Events_Bool_Exp>;
+};
+
+
+export type Subscription_RootCampaign_Events_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaign_Events_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaign_Events_Order_By>>;
+  where?: InputMaybe<Campaign_Events_Bool_Exp>;
+};
+
+
+export type Subscription_RootCampaign_Events_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootCampaignsArgs = {
+  distinct_on?: InputMaybe<Array<Campaigns_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaigns_Order_By>>;
+  where?: InputMaybe<Campaigns_Bool_Exp>;
+};
+
+
+export type Subscription_RootCampaigns_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Campaigns_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Campaigns_Order_By>>;
+  where?: InputMaybe<Campaigns_Bool_Exp>;
+};
+
+
+export type Subscription_RootCampaigns_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -803,7 +1564,7 @@ export type Subscription_RootUsers_AggregateArgs = {
 
 
 export type Subscription_RootUsers_By_PkArgs = {
-  userId: Scalars['String'];
+  email: Scalars['String'];
 };
 
 export type Timestamptz_Cast_Exp = {
@@ -963,7 +1724,7 @@ export type Users = {
   cryptoOffRampStrategy?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   discordUrl?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
+  email: Scalars['String'];
   ethWalletAddress?: Maybe<Scalars['String']>;
   expectedReleaseDate?: Maybe<Scalars['date']>;
   firstName?: Maybe<Scalars['String']>;
@@ -1069,7 +1830,7 @@ export type Users_Bool_Exp = {
 export enum Users_Constraint {
   /** unique or primary key constraint on columns "email" */
   UsersEmailKey = 'users_email_key',
-  /** unique or primary key constraint on columns "userId" */
+  /** unique or primary key constraint on columns "email" */
   UsersPkey = 'users_pkey',
   /** unique or primary key constraint on columns "userId" */
   UsersUserIdKey = 'users_userId_key'
@@ -1254,7 +2015,7 @@ export type Users_Order_By = {
 
 /** primary key columns input for table: users */
 export type Users_Pk_Columns_Input = {
-  userId: Scalars['String'];
+  email: Scalars['String'];
 };
 
 /** select columns of table "users" */
@@ -1533,14 +2294,14 @@ export type GetAllUsersQueryVariables = Exact<{
 }>;
 
 
-export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, contactEmail?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, status?: User_Status_Enum | null, createdAt: any }> };
+export type GetAllUsersQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, contactEmail?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email: string, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, status?: User_Status_Enum | null, createdAt: any }> };
 
 export type GetUserDetailsQueryVariables = Exact<{
-  userId: Scalars['String'];
+  email: Scalars['String'];
 }>;
 
 
-export type GetUserDetailsQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
+export type GetUserDetailsQuery = { __typename?: 'query_root', users_by_pk?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email: string, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
 
 export type CreateUserDetailsMutationVariables = Exact<{
   aliasName?: InputMaybe<Scalars['String']>;
@@ -1560,7 +2321,7 @@ export type CreateUserDetailsMutationVariables = Exact<{
   cryptoOffRampStrategy?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   discordUrl?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
   contactEmail?: InputMaybe<Scalars['String']>;
   ethWalletAddress?: InputMaybe<Scalars['String']>;
   expectedReleaseDate?: InputMaybe<Scalars['date']>;
@@ -1579,7 +2340,7 @@ export type CreateUserDetailsMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserDetailsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
+export type CreateUserDetailsMutation = { __typename?: 'mutation_root', insert_users_one?: { __typename?: 'users', aliasName?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email: string, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, maticWalletAddress?: string | null, primaryContactAddress?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null } | null };
 
 export type UpdateUserDetailsMutationVariables = Exact<{
   aliasName?: InputMaybe<Scalars['String']>;
@@ -1599,7 +2360,7 @@ export type UpdateUserDetailsMutationVariables = Exact<{
   cryptoOffRampStrategy?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   discordUrl?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
+  email: Scalars['String'];
   contactEmail?: InputMaybe<Scalars['String']>;
   ethWalletAddress?: InputMaybe<Scalars['String']>;
   expectedReleaseDate?: InputMaybe<Scalars['date']>;
@@ -1617,7 +2378,7 @@ export type UpdateUserDetailsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserDetailsMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', aliasName?: string | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email?: string | null, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, primaryContactAddress?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, maticWalletAddress?: string | null } | null };
+export type UpdateUserDetailsMutation = { __typename?: 'mutation_root', update_users_by_pk?: { __typename?: 'users', aliasName?: string | null, contactNumber?: string | null, country?: string | null, cryptoActivityRating?: number | null, cryptoConfidenceRating?: number | null, cryptoExperienceRating?: number | null, cryptoOffRampStrategy?: string | null, description?: string | null, discordUrl?: string | null, email: string, contactEmail?: string | null, ethWalletAddress?: string | null, expectedReleaseDate?: any | null, firstName?: string | null, id: any, isArtworkReady?: boolean | null, lastName?: string | null, logoUrl?: string | null, role?: string | null, solWalletAddress?: string | null, twitterUrl?: string | null, userId: string, userType?: string | null, websiteUrl?: string | null, charityEntityType?: string | null, charityAddress?: string | null, charityName?: string | null, charityAbn?: string | null, primaryContactAddress?: string | null, charityAcceptDirectDonations?: boolean | null, charityCreateFundraiser?: boolean | null, charityAllowProxyFundraiser?: boolean | null, charityApprovalBeforeGoLive?: boolean | null, maticWalletAddress?: string | null } | null };
 
 
 export const GetAllUsersDocument = gql`
@@ -1691,8 +2452,8 @@ export type GetAllUsersQueryHookResult = ReturnType<typeof useGetAllUsersQuery>;
 export type GetAllUsersLazyQueryHookResult = ReturnType<typeof useGetAllUsersLazyQuery>;
 export type GetAllUsersQueryResult = Apollo.QueryResult<GetAllUsersQuery, GetAllUsersQueryVariables>;
 export const GetUserDetailsDocument = gql`
-    query GetUserDetails($userId: String!) {
-  users_by_pk(userId: $userId) {
+    query GetUserDetails($email: String!) {
+  users_by_pk(email: $email) {
     aliasName
     charityEntityType
     charityAddress
@@ -1743,7 +2504,7 @@ export const GetUserDetailsDocument = gql`
  * @example
  * const { data, loading, error } = useGetUserDetailsQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      email: // value for 'email'
  *   },
  * });
  */
@@ -1759,7 +2520,7 @@ export type GetUserDetailsQueryHookResult = ReturnType<typeof useGetUserDetailsQ
 export type GetUserDetailsLazyQueryHookResult = ReturnType<typeof useGetUserDetailsLazyQuery>;
 export type GetUserDetailsQueryResult = Apollo.QueryResult<GetUserDetailsQuery, GetUserDetailsQueryVariables>;
 export const CreateUserDetailsDocument = gql`
-    mutation CreateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $role: String!, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
+    mutation CreateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String!, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $role: String!, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
   insert_users_one(
     object: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityName: $charityName, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, contactEmail: $contactEmail, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, role: $role, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userId: $userId, userType: $userType, websiteUrl: $websiteUrl}
   ) {
@@ -1859,9 +2620,9 @@ export type CreateUserDetailsMutationHookResult = ReturnType<typeof useCreateUse
 export type CreateUserDetailsMutationResult = Apollo.MutationResult<CreateUserDetailsMutation>;
 export type CreateUserDetailsMutationOptions = Apollo.BaseMutationOptions<CreateUserDetailsMutation, CreateUserDetailsMutationVariables>;
 export const UpdateUserDetailsDocument = gql`
-    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
+    mutation UpdateUserDetails($aliasName: String, $charityEntityType: String, $charityAddress: String, $charityName: String, $charityAbn: String, $charityAcceptDirectDonations: Boolean, $charityAllowProxyFundraiser: Boolean, $charityApprovalBeforeGoLive: Boolean, $charityCreateFundraiser: Boolean, $contactNumber: String, $country: String, $cryptoActivityRating: Int, $cryptoConfidenceRating: Int, $cryptoExperienceRating: Int, $cryptoOffRampStrategy: String, $description: String, $discordUrl: String, $email: String!, $contactEmail: String, $ethWalletAddress: String, $expectedReleaseDate: date, $firstName: String, $isArtworkReady: Boolean, $lastName: String, $logoUrl: String, $maticWalletAddress: String, $primaryContactAddress: String, $solWalletAddress: String, $twitterUrl: String, $userId: String!, $userType: String, $websiteUrl: String) {
   update_users_by_pk(
-    pk_columns: {userId: $userId}
+    pk_columns: {email: $email}
     _set: {aliasName: $aliasName, charityEntityType: $charityEntityType, charityAddress: $charityAddress, charityName: $charityName, charityAbn: $charityAbn, charityAcceptDirectDonations: $charityAcceptDirectDonations, charityCreateFundraiser: $charityCreateFundraiser, charityAllowProxyFundraiser: $charityAllowProxyFundraiser, charityApprovalBeforeGoLive: $charityApprovalBeforeGoLive, contactNumber: $contactNumber, country: $country, cryptoActivityRating: $cryptoActivityRating, cryptoConfidenceRating: $cryptoConfidenceRating, cryptoExperienceRating: $cryptoExperienceRating, cryptoOffRampStrategy: $cryptoOffRampStrategy, description: $description, discordUrl: $discordUrl, email: $email, contactEmail: $contactEmail, ethWalletAddress: $ethWalletAddress, expectedReleaseDate: $expectedReleaseDate, firstName: $firstName, isArtworkReady: $isArtworkReady, lastName: $lastName, logoUrl: $logoUrl, maticWalletAddress: $maticWalletAddress, primaryContactAddress: $primaryContactAddress, solWalletAddress: $solWalletAddress, twitterUrl: $twitterUrl, userType: $userType, websiteUrl: $websiteUrl}
   ) {
     aliasName

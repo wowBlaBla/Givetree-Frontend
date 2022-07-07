@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { Route, Router, Switch } from "wouter";
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
@@ -27,36 +27,37 @@ const App = () => (
             closeOnClick
           />
 
-          <Routes>
-            <Route path={PlatformRoute.Home} element={<HomeContainer />} />
+          <Switch>
+            <Route path={PlatformRoute.Home}>
+              <HomeContainer />
+            </Route>
 
-            <Route
-              path={PlatformRoute.CampaignDetails}
-              element={<CampaignDetailsContainer />}
-            />
+            <Route path={PlatformRoute.CampaignDetails}>
+              {(params) => (
+                <CampaignDetailsContainer campaignName={params.campaignName} />
+              )}
+            </Route>
 
-            <Route
-              path={PlatformRoute.CampaignListing}
-              element={<CampaignListingContainer />}
-            />
+            <Route path={PlatformRoute.CampaignListing}>
+              <CampaignListingContainer />
+            </Route>
 
-            <Route
-              path={PlatformRoute.MarketplaceListing}
-              element={<MarketplaceListingContainer />}
-            />
+            <Route path={PlatformRoute.CharityDetails}>
+              {(params) => <CharityDetailsContainer charityName={params.charityName} />}
+            </Route>
 
-            <Route
-              path={PlatformRoute.CharityDetails}
-              element={<CharityDetailsContainer />}
-            />
+            <Route path={PlatformRoute.CharityListing}>
+              <CharityListingContainer />
+            </Route>
 
-            <Route
-              path={PlatformRoute.CharityListing}
-              element={<CharityListingContainer />}
-            />
+            <Route path={PlatformRoute.MarketplaceListing}>
+              <MarketplaceListingContainer />
+            </Route>
 
-            <Route path="*" element={<HomeContainer />} />
-          </Routes>
+            <Route path="*">
+              <HomeContainer />
+            </Route>
+          </Switch>
         </div>
 
         <AppFooter />

@@ -56,13 +56,11 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
               charityThumbnail={charityThumbnail}
             />
 
-            <div className="pt-3">
-              {ctaLink && (
-                <PrimaryLink className="py-2" href={ctaLink}>
-                  {ctaLinkText}
-                </PrimaryLink>
-              )}
-            </div>
+            {ctaLink && (
+              <div className="flex pt-3">
+                <PrimaryLink href={ctaLink}>{ctaLinkText}</PrimaryLink>
+              </div>
+            )}
           </div>
         </div>
 

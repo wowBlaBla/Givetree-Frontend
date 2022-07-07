@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import cx from "classnames";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 // Base Prop Types
 

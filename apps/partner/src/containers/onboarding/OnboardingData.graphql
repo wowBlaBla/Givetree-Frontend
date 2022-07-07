@@ -1,5 +1,5 @@
-query GetUserDetails($userId: String!) {
-  users_by_pk(userId: $userId) {
+query GetUserDetails($email: String!) {
+  users_by_pk(email: $email) {
     aliasName
     charityEntityType
     charityAddress
@@ -55,7 +55,7 @@ mutation CreateUserDetails(
   $cryptoOffRampStrategy: String
   $description: String
   $discordUrl: String
-  $email: String
+  $email: String!
   $contactEmail: String
   $ethWalletAddress: String
   $expectedReleaseDate: date
@@ -164,7 +164,7 @@ mutation UpdateUserDetails(
   $cryptoOffRampStrategy: String
   $description: String
   $discordUrl: String
-  $email: String
+  $email: String!
   $contactEmail: String
   $ethWalletAddress: String
   $expectedReleaseDate: date
@@ -181,7 +181,7 @@ mutation UpdateUserDetails(
   $websiteUrl: String
 ) {
   update_users_by_pk(
-    pk_columns: { userId: $userId }
+    pk_columns: { email: $email }
     _set: {
       aliasName: $aliasName
       charityEntityType: $charityEntityType
