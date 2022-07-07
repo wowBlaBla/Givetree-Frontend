@@ -15,6 +15,8 @@ import { SectionContainer } from "../../../components/SectionContainer";
 import { CampaignBanner } from "../../../components/CampaignBanner";
 import { getRoyaltyPercentage } from "../../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../../typed/royalty-details";
+import { LoadingContainer } from "../../../components/LoadingContainer";
+import { ErrorContainer } from "../../../components/ErrorContainer";
 
 export const CampaignListingContainer = (): JSX.Element => {
   const { data, loading, error } = useQuery<GetCampaignListingDataQuery>(
@@ -22,18 +24,16 @@ export const CampaignListingContainer = (): JSX.Element => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <LoadingContainer message="Loading mints..." />;
   }
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <ErrorContainer message="Could not load mints." />;
   }
 
   if (!data) {
-    return <div>No Campaigns Found</div>;
+    return <ErrorContainer message="Could not load mints." />;
   }
-
-  const sliderCampaigns = [data.campaigns.find];
 
   return (
     <div>
@@ -51,6 +51,7 @@ export const CampaignListingContainer = (): JSX.Element => {
       <Carousel>
         {data.featuredCampaigns.map((campaign, idx) => (
           <CampaignBanner
+            key={idx}
             backgroundAsset={campaign.media.campaignBannerUrl}
             title={campaign.title}
             subtitle={`${getRoyaltyPercentage(

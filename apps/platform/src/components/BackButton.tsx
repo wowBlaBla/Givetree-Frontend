@@ -1,14 +1,15 @@
 import React, { FC } from "react";
 import cx from "classnames";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 
 interface BackButtonProps {
   className?: string;
+  goBackLocation: string;
 }
 
-export const BackButton: FC<BackButtonProps> = ({ className }) => {
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
+export const BackButton: FC<BackButtonProps> = ({ className, goBackLocation }) => {
+  const [_location, setLocation] = useLocation();
+  const goBack = () => setLocation(goBackLocation);
 
   return (
     <div

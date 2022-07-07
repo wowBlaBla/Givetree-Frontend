@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import cx from "classnames";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 export const ButtonStyles =
   "border-2 border-brand-orange rounded-lg text-brand-orange button-hover";

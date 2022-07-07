@@ -1,6 +1,6 @@
 import React, { FC, MouseEventHandler, ReactNode } from "react";
 import cx from "classnames";
-import { Link } from "react-router-dom";
+import { Link } from "wouter";
 
 const ButtonStyles =
   "py-2 px-3 rounded-lg bg-brand-orange whitespace-nowrap text-center font-medium tracking-wide cursor-pointer button-hover";

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
-import { useParams } from "react-router-dom";
+
 import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./DetailsData";
 import { BackgroundImage } from "../../../components/BackgroundImage";
 import { SocialGrid } from "../../../components/SocialGrid";
@@ -15,13 +15,17 @@ import { CauseBadge } from "../../../components/badges/CauseBadge";
 import { VerifiedBadge } from "../../../components/badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../../typed/enum/verifiedBadgeType";
 
-export const CharityDetailsContainer = () => {
-  const params = useParams();
+interface CharityDetailsContainerProps {
+  charityName: string;
+}
 
+export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
+  charityName,
+}) => {
   const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
     GET_CHARITY_DETAILS_DATA,
     {
-      variables: { slug: params.charityName },
+      variables: { slug: charityName },
     }
   );
 

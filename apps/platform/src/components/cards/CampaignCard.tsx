@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "wouter";
 
 import { BackgroundImage } from "../BackgroundImage";
 import { ContentCreatorBadge } from "../badges/ContentCreatorBadge";
@@ -16,10 +16,10 @@ interface CampaignCardProps {
 }
 
 export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
-  const navigate = useNavigate();
+  const [_location, setLocation] = useLocation();
   const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => navigate(`/mints/${campaign.slug}`);
+  const handleNextLocation = () => setLocation(`/mints/${campaign.slug}`);
 
   return (
     <div

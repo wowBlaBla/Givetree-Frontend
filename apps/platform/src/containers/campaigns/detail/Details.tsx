@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
 
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
 import { BackgroundImage } from "../../../components/BackgroundImage";
@@ -18,17 +17,17 @@ import { PrimaryButton } from "../../../components/PrimaryCta";
 import { BaseTile } from "../../../components/tiles/BaseTile";
 import { round } from "lodash";
 
-type CampaignDetailsParamTypes = {
+interface CampaignDetailsContainerProps {
   campaignName: string;
-};
+}
 
-export const CampaignDetailsContainer: FC = () => {
-  const params = useParams<CampaignDetailsParamTypes>();
-
+export const CampaignDetailsContainer: FC<CampaignDetailsContainerProps> = ({
+  campaignName,
+}) => {
   const { data, loading, error } = useQuery<GetCampaignDetailsDataQuery>(
     GET_CAMPAIGN_DETAILS_DATA,
     {
-      variables: { slug: params.campaignName },
+      variables: { slug: campaignName },
     }
   );
 

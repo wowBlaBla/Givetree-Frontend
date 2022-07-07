@@ -1,7 +1,6 @@
-import React, { FC, ReactElement, useState } from "react";
+import React, { FC, ReactElement, ReactNode, useState } from "react";
 import cx from "classnames";
-import { Link } from "react-router-dom";
-import { AppNavLink } from "./AppNavLink";
+import { Link, useRoute } from "wouter";
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
@@ -11,37 +10,80 @@ import { LaunchIcon } from "./icons/LaunchIcon";
 
 interface AppHeaderNavLink {
   title: string;
-  link: PlatformRoute;
+  href: PlatformRoute;
   disabled?: boolean;
   icon: ReactElement;
 }
 
-const appHeaderNavItems: AppHeaderNavLink[] = [
+const appHeaderNavLinks: AppHeaderNavLink[] = [
   {
     title: "Home",
-    link: PlatformRoute.Home,
+    href: PlatformRoute.Home,
     disabled: false,
     icon: <HomeIcon className="w-5 h-5" />,
   },
   {
     title: "Mints",
-    link: PlatformRoute.CampaignListing,
+    href: PlatformRoute.CampaignListing,
     disabled: false,
     icon: <LaunchIcon className="w-5 h-5" />,
   },
   {
     title: "Marketplace",
-    link: PlatformRoute.MarketplaceListing,
+    href: PlatformRoute.MarketplaceListing,
     disabled: true,
     icon: <CollectionIcon className="w-5 h-5" />,
   },
   {
     title: "Charities",
-    link: PlatformRoute.CharityListing,
+    href: PlatformRoute.CharityListing,
     disabled: false,
     icon: <GlobeIcon className="w-5 h-5" />,
   },
 ];
+
+interface AppHeaderNavLinkProps {
+  children: ReactNode;
+  disabled?: boolean;
+  href: PlatformRoute;
+  onClick?: () => void;
+}
+
+const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
+  children,
+  disabled,
+  href,
+  onClick,
+}) => {
+  const [match, _params] = useRoute(href);
+
+  return (
+    <>
+      {!disabled ? (
+        <Link
+          className={cx(
+            "text-base font-medium hover:text-brand-orange transition-hover",
+            {
+              "text-brand-orange": match,
+              "text-gray-800": !match,
+            }
+          )}
+          href={href}
+          onClick={onClick}
+        >
+          {children}
+        </Link>
+      ) : (
+        <div
+          className="text-base font-medium text-gray-400 cursor-default tooltip tooltip-bottom whitespace-nowrap"
+          data-tip="Coming soon"
+        >
+          {children}
+        </div>
+      )}
+    </>
+  );
+};
 
 export const AppHeader: FC = () => {
   const [openDropdown, setOpenDropdown] = useState<boolean>(false);
@@ -58,18 +100,18 @@ export const AppHeader: FC = () => {
             <MenuIcon className="w-7 h-7" />
           </div>
 
-          <Link className="flex items-center" to={PlatformRoute.Home}>
+          <Link className="flex items-center cursor-pointer" to={PlatformRoute.Home}>
             <GiveTreeLogo className="w-32 h-8 lg:h-12 text-brand-black" withText />
           </Link>
         </div>
 
         {/* Desktop Navigation */}
 
-        <div className="lg:flex items-center justify-center hidden w-full md:col-span-2 md:space-x-6 lg:space-x-16">
-          {appHeaderNavItems.map((navItem, idx) => (
-            <AppNavLink key={idx} href={navItem.link} disabled={navItem.disabled}>
-              <span>{navItem.title}</span>
-            </AppNavLink>
+        <div className="hidden lg:flex justify-center items-center w-full md:col-span-2 md:space-x-6 lg:space-x-16">
+          {appHeaderNavLinks.map((link, idx) => (
+            <AppHeaderNavLink key={idx} href={link.href} disabled={link.disabled}>
+              {link.title}
+            </AppHeaderNavLink>
           ))}
         </div>
 
@@ -91,19 +133,19 @@ export const AppHeader: FC = () => {
           }
         )}
       >
-        <div className="absolute flex flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
-          {appHeaderNavItems.map((navItem, idx) => (
-            <AppNavLink
+        <div className="flex absolute flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
+          {appHeaderNavLinks.map((link, idx) => (
+            <AppHeaderNavLink
               key={idx}
-              href={navItem.link}
-              disabled={navItem.disabled}
+              href={link.href}
+              disabled={link.disabled}
               onClick={handleDropdown}
             >
               <div className="flex items-center space-x-1">
-                {navItem.icon}
-                <span>{navItem.title}</span>
+                {link.icon}
+                <span>{link.title}</span>
               </div>
-            </AppNavLink>
+            </AppHeaderNavLink>
           ))}
         </div>
       </div>
