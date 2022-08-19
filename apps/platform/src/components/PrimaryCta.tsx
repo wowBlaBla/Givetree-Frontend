@@ -50,7 +50,7 @@ export const PrimaryLink: FC<PrimaryLinkProps> = ({
 }) => (
   <Link
     to={href}
-    className={cx(className, "primary-button", {
+    className={cx(className, "primary-button", "h-[45px]", {
       "text-white": !primaryColor,
       "text-brand-orange": primaryColor,
     })}

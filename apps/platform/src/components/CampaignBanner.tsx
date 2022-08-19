@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
-import { PrimaryLink } from "./PrimaryCta";
+import { PrimaryButton, PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
 import { CollabBadge } from "./badges/CollabBadge";
 import { CauseBadge } from "./badges/CauseBadge";
+import { OutlineLink } from "./OutlineCta";
+import { Link } from "wouter";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -34,39 +36,36 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
   return (
     <div className="relative w-full max-w-screen-xl min-h-full mx-auto overflow-hidden md:px-5">
-      <div className="grid grid-cols-1 border-b md:grid-cols-2 md:border md:rounded-xl">
-        <div className="relative z-10 flex items-center justify-center order-2 max-w-screen-xl min-h-full px-3 bg-white sm:justify-start md:py-16 md:rounded-l-xl md:order-1">
-          <div className="flex flex-col w-full px-5 py-10 space-y-5 text-black">
-            <h2 className="flex flex-col space-y-2 text-2xl font-semibold sm:text-5xl">
-              <span>{title}</span>
-            </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-3 px-2 md:px-0 md:rounded-xl items-center">
+        <div className="z-10 flex items-center justify-center max-w-screen-xl bg-white md:justify-start md:rounded-l-xl md:order-1">
+          <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
-            <h4 className="text-sm text-gray-500 sm:text-lg">{subtitle}</h4>
+            <h4 className="text-2xl sm:text-5xl font-bold">
+              <span className="block">Discover, collect, </span>
+              <span className="block">and sell NFTs </span>
+              <span className="block">which change the </span>
+              <span className="block">world</span>
+            </h4>
 
-            <div className="flex gap-3">
-              {causes.map((cause, idx) => (
-                <CauseBadge key={idx} cause={cause} />
-              ))}
+            <div className="short-description text-sm">
+              <span className="block">GiveTree is an NFT marketplace which enables you</span>
+              <span className="block"> to easily support the charities and causes you love</span>
             </div>
 
-            <CollabBadge
-              artistName={artistName}
-              artistThumbnail={artistThumbnail}
-              charityName={charityName}
-              charityThumbnail={charityThumbnail}
-            />
+            <div className="flex xxs:justify-between justify-center flex-wrap pt-3 gap-[18px]">
+              <PrimaryLink href={"/"} className="w-37">Explorer</PrimaryLink>
+              <OutlineLink href={"/"} className="w-37" >Create</OutlineLink>
+            </div>
 
-            {ctaLink && (
-              <div className="flex pt-3">
-                <PrimaryLink href={ctaLink}>{ctaLinkText}</PrimaryLink>
-              </div>
-            )}
+            <div>
+              <Link href="" className="text-brand-orange text-sm font-medium">Learn more about GiveTree</Link>
+            </div>
           </div>
         </div>
 
-        <div className="relative order-1 md:order-2">
+        <div className=" md:order-2 md:text-right text-center">
           {assetType === AssetType.Video && (
-            <div className="inset-0 z-10 w-auto min-w-full min-h-full md:absolute bg-brand-black md:rounded-r-xl">
+            <div className="inset-0 z-10 w-auto min-w-full min-h-full bg-brand-black md:rounded-r-xl">
               <video
                 autoPlay
                 loop
@@ -79,17 +78,31 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           )}
 
           {assetType === AssetType.Image && (
-            <>
+            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block">
               <div
-                className="absolute inset-0 hidden w-full min-h-full bg-center bg-no-repeat bg-cover border border-gray-200 md:rounded-r-xl md:flex"
+                className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-gray-200 rounded-t-2xl-1 md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
               />
               <img
                 alt="banner image"
-                className="block object-fill w-auto min-w-full min-h-full md:hidden"
+                className="block object-fill w-auto min-w-full h-[335px] md:hidden rounded-t-2xl-1"
                 src={backgroundAsset}
               />
-            </>
+              <div className="h-20 flex items-center justify-between p-4">
+                <div className="flex gap-2">
+                  <img
+                    src="/apple-touch-icon.png"
+                    alt="avatar"
+                    className="w-10 h-10 round-full"
+                  />
+                  <div className="text-left">
+                    <span className="font-bold text-base block">Rainbow Fish</span>
+                    <span className="block text-sm">By Mulga</span>
+                  </div>
+                </div>
+                <PrimaryButton className="w-37 h-[45px]">Mint</PrimaryButton>
+              </div>
+            </div>
           )}
         </div>
       </div>

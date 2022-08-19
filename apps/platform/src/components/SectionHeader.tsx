@@ -4,6 +4,7 @@ import { SectionTitle } from "./SectionTitle";
 import { SectionSubtitle } from "./SectionSubtitle";
 import { PlatformRoute } from "../configs/routes";
 import { PrimaryLink } from "./PrimaryCta";
+import { Link } from "wouter";
 
 export interface SectionHeaderProps {
   className?: string;
@@ -23,7 +24,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
   link,
 }) => (
   <div
-    className={cx("flex", className, {
+    className={cx("items-center", className, {
       "justify-between": link,
       "justify-center items-center text-center": textCenter,
     })}
@@ -38,8 +39,8 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
     </div>
 
     {link && (
-      <div className="flex items-center">
-        <PrimaryLink href={link}>{linkText}</PrimaryLink>
+      <div className="items-center text-right">
+        <Link href={link}>{linkText} &gt;</Link>
       </div>
     )}
   </div>

@@ -40,6 +40,12 @@ const appHeaderNavLinks: AppHeaderNavLink[] = [
     disabled: false,
     icon: <GlobeIcon className="w-5 h-5" />,
   },
+  {
+    title: "Creators",
+    href: PlatformRoute.CreatorsListing,
+    disabled: false,
+    icon: <GlobeIcon className="w-5 h-5" />,
+  },
 ];
 
 interface AppHeaderNavLinkProps {

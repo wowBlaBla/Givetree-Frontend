@@ -17,6 +17,8 @@ module.exports = {
         none: "0",
       },
       width: {
+        37: "9.25rem",
+        "80-1-4": "20.25rem",
         86: "20rem",
         96: "36rem",
         128: "42rem",
@@ -36,6 +38,7 @@ module.exports = {
       },
       maxWidth: {
         96: "36rem",
+        "229px": "229px",
         "screen-3xl": "1754px",
       },
       minHeight: {
@@ -46,6 +49,15 @@ module.exports = {
       spacing: {
         full: "100%",
       },
+      screens: {
+        xl: "1093px",
+        xs: "465px",
+        xxs: "352px"
+      },
+      borderRadius: {
+        "lg-m": "0.625rem",
+        "2xl-1": "1.25rem"
+      }
     },
   },
   plugins: [require("daisyui")],
