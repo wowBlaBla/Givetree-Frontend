@@ -53,7 +53,7 @@
 }
 
 .slick-slide img {
-  @apply block;
+  /* @apply block; */
 }
 
 .slick-slide.slick-loading img {
