@@ -1,20 +1,20 @@
-import React, { FC, useRef, useState } from "react";
-import cx from "classnames";
+import React, { FC, useRef, /*useState*/ } from "react";
+// import cx from "classnames";
 import { useLocation } from "wouter";
 import { Charity } from "../../typed/charity";
-import { DonateModalButton } from "../DonateModalButton";
+// import { DonateModalButton } from "../DonateModalButton";
 import { PlatformRoute } from "../../configs/routes";
 import { BackgroundImage } from "../BackgroundImage";
-import { VerifiedBadge } from "../badges/VerifiedBadge";
-import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
-import { CauseBadge } from "../badges/CauseBadge";
+// import { VerifiedBadge } from "../badges/VerifiedBadge";
+// import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+// import { CauseBadge } from "../badges/CauseBadge";
 
 interface CharityCardProps {
   charity: Charity;
 }
 
 export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
-  const [showDonationButton, setShowDonationButton] = useState<boolean>(false);
+  // const [showDonationButton, setShowDonationButton] = useState<boolean>(false);
   const donationRef = useRef<HTMLDivElement>(null);
   const [_location, setLocation] = useLocation();
 
@@ -25,8 +25,8 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
     <div className="md:text-left text-center">
       <div
         ref={donationRef}
-        onMouseEnter={() => setShowDonationButton(true)}
-        onMouseLeave={() => setShowDonationButton(false)}
+        // onMouseEnter={() => setShowDonationButton(true)}
+        // onMouseLeave={() => setShowDonationButton(false)}
         className="relative w-full bg-white border border-t-0 border-black cursor-pointer rounded-2xl-1 hover:shadow-xl xxs:max-w-229px inline-block"
       >
         <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>

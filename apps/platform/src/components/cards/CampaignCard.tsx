@@ -2,14 +2,14 @@ import React, { FC } from "react";
 import { useLocation } from "wouter";
 
 import { BackgroundImage } from "../BackgroundImage";
-import { ContentCreatorBadge } from "../badges/ContentCreatorBadge";
-import { LiveBadge } from "../badges/LiveBadge";
-import { FeaturedBadge } from "../badges/FeaturedBadge";
-import { VerifiedBadge } from "../badges/VerifiedBadge";
-import { CurrencyIcon } from "../icons/CurrencyIcon";
+// import { ContentCreatorBadge } from "../badges/ContentCreatorBadge";
+// import { LiveBadge } from "../badges/LiveBadge";
+// import { FeaturedBadge } from "../badges/FeaturedBadge";
+// import { VerifiedBadge } from "../badges/VerifiedBadge";
+// import { CurrencyIcon } from "../icons/CurrencyIcon";
 import { Campaign } from "../../typed/campaign";
-import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
-import { getEventStatus } from "../../utils/getEventStatus";
+// import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+// import { getEventStatus } from "../../utils/getEventStatus";
 
 interface CampaignCardProps {
   campaign: Campaign;
@@ -17,7 +17,7 @@ interface CampaignCardProps {
 
 export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
-  const isLive = getEventStatus(campaign.event.rounds).isLive;
+  // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
   const handleNextLocation = () => setLocation(`/mints/${campaign.slug}`);
 
