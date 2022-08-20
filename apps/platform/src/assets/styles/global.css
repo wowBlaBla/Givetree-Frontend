@@ -22,11 +22,11 @@ img {
   }
 
   .primary-button {
-    @apply flex justify-center items-center py-1.5 px-3 rounded-lg bg-brand-orange text-base sm:text-lg font-medium tracking-wide cursor-pointer button-hover;
+    @apply flex justify-center items-center py-1.5 px-3 rounded-lg bg-brand-orange text-sm sm:text-sm font-bold tracking-wide cursor-pointer button-hover;
   }
 
   .outline-button {
-    @apply flex justify-center items-center py-1 px-3 border-2 border-brand-orange rounded-lg text-base sm:text-lg text-center text-brand-orange font-medium tracking-wide cursor-pointer button-hover;
+    @apply flex justify-center items-center py-1 px-3 border border-brand-black rounded-lg text-sm sm:text-sm font-bold text-center text-brand-orange tracking-wide cursor-pointer button-hover;
   }
   
   .tooltip::before {

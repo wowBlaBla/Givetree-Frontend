@@ -16,7 +16,7 @@ export const BackgroundImage: FC<BackgroundImageProps> = ({
 }) => (
   <div
     className={cx(
-      "absolute inset-0 bg-cover bg-center bg-no-repeat w-full min-h-full",
+      "bg-cover bg-center bg-no-repeat w-full aspect-square border-black border-y",
       className,
       {
         "border border-gray-200": includeBorder,

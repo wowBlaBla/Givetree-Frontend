@@ -31,6 +31,7 @@ export const HomeContainer = () => {
     return <ErrorContainer message="Failed to load collections." />;
   }
 
+  console.log("DATAA", data);
   return (
     <div className="w-full mx-auto">
       <Head>
@@ -75,7 +76,7 @@ export const HomeContainer = () => {
 
       <SectionContainer>
         <SectionHeader
-          mainTitle="Charities"
+          mainTitle="Support the causes you love"
           linkText="View more"
           link={PlatformRoute.CharityListing}
         />
