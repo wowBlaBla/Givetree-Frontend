@@ -3,7 +3,7 @@ import cx from "classnames";
 import { SectionTitle } from "./SectionTitle";
 import { SectionSubtitle } from "./SectionSubtitle";
 import { PlatformRoute } from "../configs/routes";
-import { PrimaryLink } from "./PrimaryCta";
+// import { PrimaryLink } from "./PrimaryCta";
 import { Link } from "wouter";
 
 export interface SectionHeaderProps {

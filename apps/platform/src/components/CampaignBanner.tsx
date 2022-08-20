@@ -2,8 +2,8 @@
 import React, { FC } from "react";
 import { PrimaryButton, PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-import { CollabBadge } from "./badges/CollabBadge";
-import { CauseBadge } from "./badges/CauseBadge";
+// import { CollabBadge } from "./badges/CollabBadge";
+// import { CauseBadge } from "./badges/CauseBadge";
 import { OutlineLink } from "./OutlineCta";
 import { Link } from "wouter";
 
@@ -22,15 +22,15 @@ interface CampaignBannerProps {
 
 export const CampaignBanner: FC<CampaignBannerProps> = ({
   backgroundAsset,
-  title,
-  subtitle,
-  ctaLink,
-  ctaLinkText,
-  artistName,
-  artistThumbnail,
-  charityName,
-  charityThumbnail,
-  causes,
+  // title,
+  // subtitle,
+  // ctaLink,
+  // ctaLinkText,
+  // artistName,
+  // artistThumbnail,
+  // charityName,
+  // charityThumbnail,
+  // causes,
 }) => {
   const assetType = getAssetType(backgroundAsset);
 

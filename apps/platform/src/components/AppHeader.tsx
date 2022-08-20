@@ -6,7 +6,7 @@ import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
 import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
-import { CollectionIcon, GlobeIcon, HomeIcon } from "@heroicons/react/outline";
+import { /*CollectionIcon, GlobeIcon,*/ HomeIcon } from "@heroicons/react/outline";
 import { LaunchIcon } from "./icons/LaunchIcon";
 import { ChevronDownIcon } from '@heroicons/react/solid'
 
@@ -126,7 +126,7 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
               {
                 list && list.map((item, idx) => {
                   return (
-                    <div className="py-1">
+                    <div className="py-1" key={idx}>
                       <Menu.Item>
                         {({ active }) => (
                           <a
