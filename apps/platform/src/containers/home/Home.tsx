@@ -31,7 +31,7 @@ export const HomeContainer = () => {
     return <ErrorContainer message="Failed to load collections." />;
   }
 
-  console.log("DATAA", data);
+  // console.log("DATAA", data);
   return (
     <div className="w-full mx-auto">
       <Head>
@@ -60,7 +60,7 @@ export const HomeContainer = () => {
         />
       </div>
 
-      <SectionContainer>
+      <SectionContainer className="max-w-screen-xl">
         <SectionHeader
           mainTitle="Upcoming collections"
           linkText="View more"
@@ -74,7 +74,7 @@ export const HomeContainer = () => {
         </CardGrid>
       </SectionContainer>
 
-      <SectionContainer>
+      <SectionContainer className="max-w-screen-xl">
         <SectionHeader
           mainTitle="Support the causes you love"
           linkText="View more"

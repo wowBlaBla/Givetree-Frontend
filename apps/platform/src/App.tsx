@@ -12,6 +12,8 @@ import { CampaignListingContainer } from "./containers/campaigns/listing/Listing
 import { CharityListingContainer } from "./containers/charities/listing/Listing";
 import { CharityDetailsContainer } from "./containers/charities/detail/Details";
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
+import { SalesContainer } from "./containers/sales/Sales";
+import { FundraisersContainer } from "./containers/fundraisers/fundraisers";
 
 const App = () => (
   <Router>
@@ -54,6 +56,16 @@ const App = () => (
               <MarketplaceListingContainer />
             </Route>
 
+            <Route path={PlatformRoute.FundraiserDetails}>
+                <FundraisersContainer/>
+            </Route>
+
+            <Route path={PlatformRoute.CollectionDetails}>
+              {(params) => (
+                <SalesContainer campaignName={params.campaignName}/>
+              )}
+            </Route>
+            
             <Route path="*">
               <HomeContainer />
             </Route>
