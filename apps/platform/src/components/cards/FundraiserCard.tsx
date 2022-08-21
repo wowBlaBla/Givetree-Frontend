@@ -11,11 +11,11 @@ import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 // import { getEventStatus } from "../../utils/getEventStatus";
 
-interface CampaignCardProps {
+interface FundraiserCardProps {
   campaign: Campaign;
 }
 
-export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
+export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
@@ -39,18 +39,13 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
               <div className="flex w-full space-x-1 flex-col text-left">
                 <span className="font-bold">{campaign.title}</span>
                 <span>
-                  by {campaign.creators[0].name.replace('-', ' ')}
+                  {campaign.creators[0].name.replace('-', ' ')}
                   <VerifiedBadge
                     isVerified={campaign.isVerified || false}
                     type={VerifiedBadgeType.Collection}
                     className="ml-1 inline-block"
                   />
                 </span>
-                <span className="hidden sm:block">Total items: {campaign.totalSupply}</span>
-                <span>Blockchain: <span className="capitalize">{campaign.currency}</span></span>
-                <span>Floor price: {campaign.floorPrice} SOL</span>
-                <span>01d 04h 05m</span>
-                <b className="text-black"></b>
               </div>
             </div>
           </div>

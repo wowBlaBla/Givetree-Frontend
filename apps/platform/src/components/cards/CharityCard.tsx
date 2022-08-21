@@ -5,8 +5,8 @@ import { Charity } from "../../typed/charity";
 // import { DonateModalButton } from "../DonateModalButton";
 import { PlatformRoute } from "../../configs/routes";
 import { BackgroundImage } from "../BackgroundImage";
-// import { VerifiedBadge } from "../badges/VerifiedBadge";
-// import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import { VerifiedBadge } from "../badges/VerifiedBadge";
+import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 // import { CauseBadge } from "../badges/CauseBadge";
 
 interface CharityCardProps {
@@ -27,17 +27,24 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         ref={donationRef}
         // onMouseEnter={() => setShowDonationButton(true)}
         // onMouseLeave={() => setShowDonationButton(false)}
-        className="relative w-full bg-white border border-t-0 border-black cursor-pointer rounded-2xl-1 hover:shadow-xl xxs:max-w-229px inline-block"
+        className="relative w-full h-full bg-white cursor-pointer hover:shadow-xl xxs:max-w-229px inline-block"
       >
         <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
 
-          <div className="relative border-b border-gray-200">
+          <div className="relative">
             <BackgroundImage imageAsset={charity.media.tileUrl} className="rounded-t-xl" />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-1 py-3 md:px-2">
+          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-1 py-3 md:px-2 border border-t-0 rounded-b-xl border-black">
             <h4 className="flex flex-col w-full gap-1 space-x-0.5 text-base text-left text-black sm:text-lg">
-              <span className="font-bold text-sm">{charity.name}</span>
+              <span className="font-bold text-sm">
+                {charity.name}
+                <VerifiedBadge
+                  isVerified={charity.isVerified}
+                  type={VerifiedBadgeType.Charity}
+                  className="ml-1 inline-block"
+                />
+              </span>
               <span className="country text-sm">Australia</span>
             </h4>
           </div>

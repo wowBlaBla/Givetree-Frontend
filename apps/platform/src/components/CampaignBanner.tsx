@@ -40,19 +40,15 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
         <div className="z-10 flex items-center justify-center max-w-screen-xl bg-white md:justify-start md:rounded-l-xl md:order-1">
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
-            <h4 className="text-2xl sm:text-5xl font-bold">
-              <span className="block">Discover, collect, </span>
-              <span className="block">and sell NFTs </span>
-              <span className="block">which change the </span>
-              <span className="block">world</span>
+            <h4 className="text-2xl sm:text-5xl font-bold max-w-[400px] w-full sm:text-left text-center">
+              Discover, collect, and sell NFTs which change the world
             </h4>
 
-            <div className="short-description text-sm">
-              <span className="block">GiveTree is an NFT marketplace which enables you</span>
-              <span className="block"> to easily support the charities and causes you love</span>
+            <div className="short-description text-sm max-w-[320px]">
+              GiveTree is an NFT marketplace which enables you to easily support the charities and causes you love
             </div>
 
-            <div className="flex xxs:justify-between justify-center flex-wrap pt-3 gap-[18px]">
+            <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
               <PrimaryLink href={"/"} className="w-37">Explorer</PrimaryLink>
               <OutlineLink href={"/"} className="w-37" >Create</OutlineLink>
             </div>

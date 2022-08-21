@@ -8,7 +8,7 @@ import { MenuIcon } from "./icons/MenuIcon";
 import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
 import { /*CollectionIcon, GlobeIcon,*/ HomeIcon } from "@heroicons/react/outline";
 import { LaunchIcon } from "./icons/LaunchIcon";
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon, XIcon } from '@heroicons/react/solid'
 
 interface Dropdown {
   title: string;
@@ -35,7 +35,7 @@ const appHeaderNavLinks: AppHeaderNavLink[] = [
     childrens: [
       {
         title: "NFT Fundraisers",
-        href: PlatformRoute.Home,
+        href: PlatformRoute.FundraiserDetails,
         disabled: false,
         icon: <HomeIcon className="w-5 h-5" />,
       },
@@ -105,9 +105,9 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
         // </div>
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="text-base font-medium hover:text-brand-orange transition-hover ">
-              <span>{children}</span>
-              <ChevronDownIcon className="-mr-1 ml-1 h-5 w-5 inline-block" aria-hidden="true" />
+            <Menu.Button className="text-base font-medium hover:text-brand-orange transition-hover flex items-center">
+              {children}
+              <ChevronDownIcon className="-mr-1 ml-1 h-5 w-5 inline-block mt-1" aria-hidden="true" />
             </Menu.Button>
           </div>
 
@@ -129,15 +129,15 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
                     <div className="py-1" key={idx}>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            href={item.href}
                             className={cx(
                               active ? 'bg-gray-100 text-gray-900 font-bold' : 'text-gray-700',
                               'block px-4 py-4 text-base'
                             )}
                           >
                             {item.title}
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </div>
@@ -163,10 +163,7 @@ export const AppHeader: FC = () => {
     <div className="fixed z-50 w-full py-2 bg-white border-b shadow-sm">
       <div className="grid w-full grid-cols-2 px-3">
         <div className="flex items-center space-x-1 lg:space-x-0">
-          <div className="relative cursor-pointer lg:hidden" onClick={handleDropdown}>
-            <MenuIcon className="w-7 h-7" />
-          </div>
-
+          
           <Link className="flex items-center cursor-pointer p-2" href={PlatformRoute.Home}>
             <a><GiveTreeLogo className="w-35 h-14-1/2 text-brand-black cursor-pointer" withText /></a>
           </Link>
@@ -185,7 +182,13 @@ export const AppHeader: FC = () => {
               </AppHeaderNavLink>
             ))}
           </div>
-          <ConnectWalletButton />
+          <div className="flex gap-2 items-center">
+            <ConnectWalletButton />
+
+            <div className="relative cursor-pointer lg:hidden" onClick={handleDropdown}>
+              <MenuIcon className="w-7 h-7" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -193,13 +196,19 @@ export const AppHeader: FC = () => {
 
       <div
         className={cx(
-          "absolute h-screen mt-2 bg-white overflow-hidden duration-300 origin-left",
+          "absolute h-screen mt-2 bg-white overflow-hidden duration-300 origin-left border-t",
           {
-            "w-48 shadow-lg border-r-2": openSidebar,
+            "w-52 shadow-lg border-r-2 p-4": openSidebar,
             "w-0": !openSidebar,
           }
         )}
       >
+        <div className="text-right">
+          <XIcon
+            className="w-8 h-8 inline-block text-gray-600 cursor-pointer"
+            onClick={handleDropdown}
+          />
+        </div>
         <div className="flex absolute flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
           {appHeaderNavLinks.map((link, idx) => (
             <AppHeaderNavLink
