@@ -64,7 +64,7 @@ export const HomeContainer = () => {
         <SectionHeader
           mainTitle="Upcoming collections"
           linkText="View more"
-          link={PlatformRoute.CampaignListing}
+          link={PlatformRoute.FundraiserDetails}
         />
 
         <CardGrid>

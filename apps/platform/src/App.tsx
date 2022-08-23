@@ -10,10 +10,12 @@ import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
 import { CharityListingContainer } from "./containers/charities/listing/Listing";
-import { CharityDetailsContainer } from "./containers/charities/detail/Details";
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
 import { SalesContainer } from "./containers/sales/Sales";
 import { FundraisersContainer } from "./containers/fundraisers/fundraisers";
+import { CreatorsContainer } from "./containers/creators/creators";
+import { CreatorProfile } from "./containers/creatorProfile/CreatorProfile";
+import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 
 const App = () => (
   <Router>
@@ -45,7 +47,7 @@ const App = () => (
             </Route>
 
             <Route path={PlatformRoute.CharityDetails}>
-              {(params) => <CharityDetailsContainer charityName={params.charityName} />}
+              {(params) => <CharityProfileContainer charityName={params.charityName} />}
             </Route>
 
             <Route path={PlatformRoute.CharityListing}>
@@ -55,9 +57,19 @@ const App = () => (
             <Route path={PlatformRoute.MarketplaceListing}>
               <MarketplaceListingContainer />
             </Route>
-
+            
             <Route path={PlatformRoute.FundraiserDetails}>
-                <FundraisersContainer/>
+              <FundraisersContainer/>
+            </Route>
+
+            <Route path={PlatformRoute.CreatorListing}>
+              <CreatorsContainer/>
+            </Route>
+
+            <Route path={PlatformRoute.CreatorDetails}>
+              {(params) => (
+                <CreatorProfile creatorName={params.creatorName}/>
+              )}
             </Route>
 
             <Route path={PlatformRoute.CollectionDetails}>
@@ -65,7 +77,7 @@ const App = () => (
                 <SalesContainer campaignName={params.campaignName}/>
               )}
             </Route>
-            
+
             <Route path="*">
               <HomeContainer />
             </Route>

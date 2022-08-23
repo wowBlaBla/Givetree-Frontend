@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 interface Props {
-    campaignName?: String
+    campaignName?: string
 }
 
 export const CollectionBadge:FC<Props> = ({ campaignName }) => {
