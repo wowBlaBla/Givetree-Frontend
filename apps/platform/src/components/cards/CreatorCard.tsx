@@ -15,11 +15,11 @@ interface FundraiserCardProps {
   campaign: Campaign;
 }
 
-export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
+export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => setLocation(`/mints/${campaign.slug}`);
+  const handleNextLocation = () => setLocation(`/creator/${campaign.slug}`);
   return (
     <div className="md:text-left text-center">
       <div
@@ -37,8 +37,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
           <div className="flex flex-col justify-between w-full rounded-b-xl border-black border-t-0 border">
             <div className="flex justify-between w-full p-5 text-xs sm:text-sm">
               <div className="flex w-full flex-col text-left">
-                <span className="font-bold">{campaign.title}</span>
-                <span>
+                <span className="font-bold">
                   {campaign.creators[0].name.replace('-', ' ')}
                   <VerifiedBadge
                     isVerified={campaign.isVerified || false}
@@ -46,6 +45,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
                     className="ml-1 inline-block"
                   />
                 </span>
+                <span>Australia</span>
               </div>
             </div>
           </div>

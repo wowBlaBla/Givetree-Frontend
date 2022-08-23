@@ -33,4 +33,8 @@ img {
     @apply hidden md:flex md:w-28 justify-center bg-white text-brand-black border border-gray-200 font-medium text-xs;
 
   }
+
+  .active-nav {
+    @apply border-b-brand-orange
+  }
 }

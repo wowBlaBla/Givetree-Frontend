@@ -41,13 +41,13 @@ const appHeaderNavLinks: AppHeaderNavLink[] = [
       },
       {
         title: "Charities",
-        href: PlatformRoute.Home,
+        href: PlatformRoute.CharityListing,
         disabled: false,
         icon: <HomeIcon className="w-5 h-5" />,
       },
       {
         title: "Creators",
-        href: PlatformRoute.Home,
+        href: PlatformRoute.CreatorListing,
         disabled: false,
         icon: <HomeIcon className="w-5 h-5" />,
       }

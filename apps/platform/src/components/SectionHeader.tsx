@@ -13,6 +13,7 @@ export interface SectionHeaderProps {
   subtitle?: string;
   linkText?: string;
   link?: PlatformRoute;
+  titleClassName?: string;
 }
 
 export const SectionHeader: FC<SectionHeaderProps> = ({
@@ -22,6 +23,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
   textCenter,
   linkText,
   link,
+  titleClassName,
 }) => (
   <div
     className={cx("items-center flex flex-wrap flex-col md:flex-row", className, {
@@ -30,7 +32,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
     })}
   >
     <div className="flex flex-col px-1 my-3 space-y-3 text-left w-full md:w-auto">
-      <SectionTitle>{mainTitle}</SectionTitle>
+      <SectionTitle className={titleClassName}>{mainTitle}</SectionTitle>
       {subtitle && (
         <SectionSubtitle className="font-semibold text-gray-600">
           {subtitle}
