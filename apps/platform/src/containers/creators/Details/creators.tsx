@@ -1,51 +1,26 @@
 import { FC } from "react";
 import cx from "classnames";
-import { PersonalInfo } from "../../components/PersonalInfo";
-import { ProfileBanner } from "../../components/ProfileBanner";
-import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./detail/DetailsData";
-import { useQuery } from "@apollo/client";
-import { LoadingContainer } from "../../components/LoadingContainer";
-import { ErrorContainer } from "../../components/ErrorContainer";
-import { Fundraisers } from "../../components/Fundraisers";
+import { PersonalInfo } from "../../../components/PersonalInfo";
+import { ProfileBanner } from "../../../components/ProfileBanner";
+import { Fundraisers } from "../../../components/Fundraisers";
 
 interface CreatorProfileProps {
-    charityName: string
+    creatorName?: string
 }
 
 const navs = [
     "Fundraiser",
-    "Donations",
     "About",
 ];
 
-export const CharityProfileContainer:FC<CreatorProfileProps> = ({ charityName }) => {
+export const CreatorProfile:FC<CreatorProfileProps> = () => {
 
-    const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
-        GET_CHARITY_DETAILS_DATA,
-        {
-          variables: { slug: charityName },
-        }
-    );
-
-    if (loading) {
-        return <LoadingContainer message="Loading charity details..." />;
-    }
-
-    if (error) {
-        return <ErrorContainer message="Could not load charity details." />;
-    }
-
-    if (!data) {
-        return <ErrorContainer message="Could not load charity details." />;
-    }
-    
     return (
         <div className="grid grid-cols-1 gap-3 mb-2">
             <ProfileBanner/>
             <div className="max-w-screen-2xl mx-auto w-full md:px-20 px-4">
                 <PersonalInfo
-                    avatar={data.charity.media.tileUrl}
-                    name={data.charity.name}
+                    name={"Mulga The Artist"}
                 />
             </div>
             <div className="border-b border-black overflow-x-auto scroll-pb-5">

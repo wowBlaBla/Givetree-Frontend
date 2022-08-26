@@ -13,9 +13,10 @@ import { CharityListingContainer } from "./containers/charities/listing/Listing"
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
 import { SalesContainer } from "./containers/sales/Sales";
 import { FundraisersContainer } from "./containers/fundraisers/fundraisers";
-import { CreatorsContainer } from "./containers/creators/creators";
-import { CreatorProfile } from "./containers/creatorProfile/CreatorProfile";
+import { CreatorsContainer } from "./containers/creators/Listing/creators";
+import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
+import { CollectionContainer } from "./containers/collection/collection";
 
 const App = () => (
   <Router>
@@ -73,6 +74,12 @@ const App = () => (
             </Route>
 
             <Route path={PlatformRoute.CollectionDetails}>
+              {(params) => (
+                <CollectionContainer collectionName={params.collectionName}/>
+              )}
+            </Route>
+
+            <Route path={PlatformRoute.ItemDetails}>
               {(params) => (
                 <SalesContainer campaignName={params.campaignName}/>
               )}

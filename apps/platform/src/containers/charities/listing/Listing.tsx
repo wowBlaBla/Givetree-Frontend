@@ -35,6 +35,7 @@ export const CharityListingContainer = () => {
 
       <SectionHeader
         className="mt-6 sm:mt-8"
+        titleClassName="text-center"
         mainTitle="Charities"
         subtitle="Charities that help make the world a better place"
         textCenter

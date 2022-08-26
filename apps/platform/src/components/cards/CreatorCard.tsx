@@ -19,11 +19,11 @@ export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => setLocation(`/creator/${campaign.slug}`);
+  const handleNextLocation = () => setLocation(`/creators/${campaign.slug}`);
   return (
     <div className="md:text-left text-center">
       <div
-        className="relative w-full h-full bg-white inline-block cursor-pointer xxs:max-w-229px hover:shadow-xl"
+        className="relative w-full h-full bg-white inline-block cursor-pointer sm:max-w-229px hover:shadow-xl"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
