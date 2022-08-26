@@ -60,6 +60,20 @@ const appHeaderNavLinks: AppHeaderNavLink[] = [
     icon: <LaunchIcon className="w-5 h-5" />,
     childrens: undefined,
   },
+  // {
+  //   title: "SignIn",
+  //   href: PlatformRoute.CampaignListing,
+  //   disabled: false,
+  //   icon: <LaunchIcon className="w-5 h-5" />,
+  //   childrens: undefined,
+  // },
+  // {
+  //   title: "SignUp",
+  //   href: PlatformRoute.CampaignListing,
+  //   disabled: false,
+  //   icon: <LaunchIcon className="w-5 h-5" />,
+  //   childrens: undefined,
+  // },
 ];
 
 interface AppHeaderNavLinkProps {

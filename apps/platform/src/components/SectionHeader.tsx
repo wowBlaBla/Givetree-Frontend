@@ -34,7 +34,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
     <div className="flex flex-col px-1 my-3 space-y-3 text-left w-full md:w-auto">
       <SectionTitle className={titleClassName}>{mainTitle}</SectionTitle>
       {subtitle && (
-        <SectionSubtitle className="font-semibold text-gray-600">
+        <SectionSubtitle className={cx("font-semibold text-gray-600", titleClassName)}>
           {subtitle}
         </SectionSubtitle>
       )}

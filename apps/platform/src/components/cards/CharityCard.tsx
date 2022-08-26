@@ -27,7 +27,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         ref={donationRef}
         // onMouseEnter={() => setShowDonationButton(true)}
         // onMouseLeave={() => setShowDonationButton(false)}
-        className="relative w-full h-full bg-white cursor-pointer hover:shadow-xl xxs:max-w-229px inline-block"
+        className="relative w-full h-full bg-white cursor-pointer hover:shadow-xl sm:max-w-229px inline-block"
       >
         <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
 
