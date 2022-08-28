@@ -36,7 +36,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
 
           <div className="flex flex-col justify-between w-full rounded-b-xl border-black border-t-0 border">
             <div className="flex justify-between w-full p-5 text-xs sm:text-sm">
-              <div className="flex w-full flex-col text-left">
+              <div className="flex w-full flex-col text-center">
                 <span className="font-bold">{campaign.title}</span>
                 <span>
                   {campaign.creators[0].name.replace('-', ' ')}

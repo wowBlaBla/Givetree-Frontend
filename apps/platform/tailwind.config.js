@@ -67,6 +67,10 @@ module.exports = {
       borderRadius: {
         "lg-m": "0.625rem",
         "2xl-1": "1.25rem"
+      },
+      zIndex: {
+        full: "9999",
+        100: "100"
       }
     },
   },

@@ -8,13 +8,13 @@ import { CharityCard } from "../../components/cards/CharityCard";
 import { SectionContainer } from "../../components/SectionContainer";
 import { SectionHeader } from "../../components/SectionHeader";
 import { CardGrid } from "../../components/CardGrid";
-import { CampaignCard } from "../../components/cards/CampaignCard";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { CampaignBanner } from "../../components/CampaignBanner";
 
 import { getRoyaltyPercentage } from "../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../typed/royalty-details";
+import { FundraiserCard } from "../../components/cards/FundraiserCard";
 
 export const HomeContainer = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
@@ -62,14 +62,14 @@ export const HomeContainer = () => {
 
       <SectionContainer className="max-w-screen-xl">
         <SectionHeader
-          mainTitle="Upcoming collections"
+          mainTitle="NFT Fundraisers"
           linkText="View more"
           link={PlatformRoute.FundraiserDetails}
         />
 
         <CardGrid>
           {data.campaigns.slice(0, 4).map((campaign, idx) => (
-            <CampaignCard key={idx} campaign={campaign} />
+            <FundraiserCard key={idx} campaign={campaign} />
           ))}
         </CardGrid>
       </SectionContainer>
