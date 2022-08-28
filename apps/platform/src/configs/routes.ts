@@ -7,7 +7,7 @@ export enum PlatformRoute {
   MarketplaceListing = "/marketplace",
   CreatorsListing = "/creators",
   CollectionDetails = "/collection/:collectionName",
-  ItemDetails = "/collection/:campaignName",
+  ItemDetails = "/fundraiser/:campaignName",
   FundraiserDetails = "/fundraisers",
   CreatorListing = "/creators",
   CreatorDetails = "/creators/:creatorName",

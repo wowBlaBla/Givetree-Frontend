@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
-import { PrimaryButton, PrimaryLink } from "./PrimaryCta";
+import { /*PrimaryButton,*/PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
 // import { CollabBadge } from "./badges/CollabBadge";
 // import { CauseBadge } from "./badges/CauseBadge";
@@ -41,15 +41,15 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
             <h4 className="text-2xl sm:text-5xl font-bold max-w-[400px] w-full sm:text-left text-center">
-              Discover, collect, and sell NFTs which change the world
+              NFT Fundraisers for the causes you love
             </h4>
 
             <div className="short-description text-sm max-w-[320px]">
-              GiveTree is an NFT marketplace which enables you to easily support the charities and causes you love
+              GiveTree is an NFT marketplace which empowers you to easily support the charities and causes you love
             </div>
 
             <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
-              <PrimaryLink href={"/"} className="w-37">Explorer</PrimaryLink>
+              <PrimaryLink href={"/"} className="w-37">Explore</PrimaryLink>
               <OutlineLink href={"/"} className="w-37" >Create</OutlineLink>
             </div>
 
@@ -96,7 +96,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
                     <span className="block text-sm">By Mulga</span>
                   </div>
                 </div>
-                <PrimaryButton className="w-37 h-[45px]">Mint</PrimaryButton>
+                {/* <PrimaryButton className="w-37 h-[45px]">Mint</PrimaryButton> */}
               </div>
             </div>
           )}

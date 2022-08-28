@@ -5,10 +5,10 @@ import { Menu, Transition } from '@headlessui/react'
 import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
-import { ConnectWalletButton } from "./wallet/ConnectWalletButton";
 import { /*CollectionIcon, GlobeIcon,*/ HomeIcon } from "@heroicons/react/outline";
 import { LaunchIcon } from "./icons/LaunchIcon";
 import { ChevronDownIcon, XIcon } from '@heroicons/react/solid'
+import { SignButton } from "./SignButton";
 
 interface Dropdown {
   title: string;
@@ -175,7 +175,7 @@ export const AppHeader: FC = () => {
 
   return (
     <div className="fixed z-50 w-full py-2 bg-white border-b shadow-sm">
-      <div className="grid w-full grid-cols-2 px-3">
+      <div className="grid w-full grid-cols-2 px-3 max-w-screen-xl mx-auto">
         <div className="flex items-center space-x-1 lg:space-x-0">
           
           <Link className="flex items-center cursor-pointer p-2" href={PlatformRoute.Home}>
@@ -197,7 +197,7 @@ export const AppHeader: FC = () => {
             ))}
           </div>
           <div className="flex gap-2 items-center">
-            <ConnectWalletButton />
+            <SignButton />
 
             <div className="relative cursor-pointer lg:hidden" onClick={handleDropdown}>
               <MenuIcon className="w-7 h-7" />

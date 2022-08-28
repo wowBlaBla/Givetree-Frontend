@@ -35,7 +35,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
             <BackgroundImage imageAsset={charity.media.tileUrl} className="rounded-t-xl" />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-1 py-3 md:px-2 border border-t-0 rounded-b-xl border-black">
+          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-2 py-3 md:px-5 border border-t-0 rounded-b-xl border-black">
             <h4 className="flex flex-col w-full gap-1 space-x-0.5 text-base text-left text-black sm:text-lg">
               <span className="font-bold text-sm">
                 {charity.name}
