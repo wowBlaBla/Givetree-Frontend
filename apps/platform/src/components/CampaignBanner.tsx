@@ -37,7 +37,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
   return (
     <div className="relative w-full max-w-screen-xl min-h-full mx-auto overflow-hidden md:px-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-3 px-2 md:px-0 md:rounded-xl items-center">
-        <div className="z-10 flex items-center justify-center max-w-screen-xl bg-white md:justify-start md:rounded-l-xl md:order-1">
+        <div className="z-10 flex items-center justify-center max-w-screen-xl md:justify-start md:rounded-l-xl md:order-1">
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
             <h4 className="text-2xl sm:text-5xl font-bold max-w-[400px] w-full sm:text-left text-center">

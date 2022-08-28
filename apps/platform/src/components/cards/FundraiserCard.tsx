@@ -19,7 +19,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => setLocation(`/mints/${campaign.slug}`);
+  const handleNextLocation = () => setLocation(`/collection/${campaign.slug}`);
   return (
     <div className="md:text-left text-center">
       <div
