@@ -68,6 +68,9 @@ module.exports = {
         "lg-m": "0.625rem",
         "2xl-1": "1.25rem"
       },
+      boxShadow: {
+        'fixed': "0 0 60px rgba(0,0,0,0.4)"
+      },
       zIndex: {
         full: "9999",
         100: "100"

@@ -175,7 +175,7 @@ export const AppHeader: FC = () => {
 
   return (
     <div className="fixed z-50 w-full py-2 bg-white border-b shadow-sm">
-      <div className="grid w-full grid-cols-2 px-3 max-w-screen-xl mx-auto">
+      <div className="grid w-full grid-cols-2 px-3">
         <div className="flex items-center space-x-1 lg:space-x-0">
           
           <Link className="flex items-center cursor-pointer p-2" href={PlatformRoute.Home}>

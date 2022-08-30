@@ -4,8 +4,10 @@ import { /*PrimaryButton,*/PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
 // import { CollabBadge } from "./badges/CollabBadge";
 // import { CauseBadge } from "./badges/CauseBadge";
-import { OutlineLink } from "./OutlineCta";
-import { Link } from "wouter";
+import { OutlineButton } from "./OutlineCta";
+import { useLocation } from "wouter";
+import { PlatformRoute } from "../configs/routes";
+import { useAppContext } from "../context/state";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -33,9 +35,11 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
   // causes,
 }) => {
   const assetType = getAssetType(backgroundAsset);
+  const { setOpenAuthModal } = useAppContext();
+  const [, setLocation] = useLocation();
 
   return (
-    <div className="relative w-full max-w-screen-xl min-h-full mx-auto overflow-hidden md:px-5">
+    <div className="relative w-full max-w-screen-xl min-h-full mx-auto md:px-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pb-3 px-2 md:px-0 md:rounded-xl items-center">
         <div className="z-10 flex items-center justify-center max-w-screen-xl md:justify-start md:rounded-l-xl md:order-1">
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
@@ -49,12 +53,12 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
             </div>
 
             <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
-              <PrimaryLink href={"/"} className="w-37">Explore</PrimaryLink>
-              <OutlineLink href={"/"} className="w-37" >Create</OutlineLink>
+              <PrimaryLink href={PlatformRoute.FundraiserDetails} className="w-37">Explore</PrimaryLink>
+              <OutlineButton onClick={() => setOpenAuthModal(true)} className="w-37">Create</OutlineButton>
             </div>
 
             <div>
-              <Link href="" className="text-brand-orange text-sm font-medium">Learn more about GiveTree</Link>
+              <a href="https://vimeo.com/676109086/43485d2b64" target="_blank" rel="noreferrer" className="text-brand-orange text-sm font-medium">Learn more about GiveTree</a>
             </div>
           </div>
         </div>
@@ -74,7 +78,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           )}
 
           {assetType === AssetType.Image && (
-            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block">
+            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer" onClick={() => setLocation('/fundraiser/sale')}>
               <div
                 className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-gray-200 rounded-t-2xl-1 md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
