@@ -17,6 +17,7 @@ import { CreatorsContainer } from "./containers/creators/Listing/creators";
 import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
+import { ProfileContainer } from "./containers/profile/creator/container";
 
 const App = () => (
   <Router>
@@ -83,6 +84,12 @@ const App = () => (
               {(params) => (
                 <SalesContainer campaignName={params.campaignName}/>
               )}
+            </Route>
+
+            <Route path={PlatformRoute.ProfileDetails}>
+                {(params) => (
+                  <ProfileContainer/>
+                )}
             </Route>
 
             <Route path="*">

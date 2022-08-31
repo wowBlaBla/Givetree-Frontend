@@ -9,6 +9,7 @@ import { /*CollectionIcon, GlobeIcon,*/ HomeIcon } from "@heroicons/react/outlin
 import { LaunchIcon } from "./icons/LaunchIcon";
 import { ChevronDownIcon, XIcon } from '@heroicons/react/solid'
 import { SignButton } from "./SignButton";
+import { useAppContext } from "../context/state";
 
 interface Dropdown {
   title: string;
@@ -55,7 +56,7 @@ const appHeaderNavLinks: AppHeaderNavLink[] = [
   },
   {
     title: "Create",
-    href: PlatformRoute.CampaignListing,
+    href: PlatformRoute.Static,
     disabled: false,
     icon: <LaunchIcon className="w-5 h-5" />,
     childrens: undefined,
@@ -168,6 +169,7 @@ const AppHeaderNavLink: FC<AppHeaderNavLinkProps> = ({
 
 export const AppHeader: FC = () => {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const { setOpenAuthModal } = useAppContext();
 
   const handleDropdown = () => {
     setOpenSidebar(!openSidebar);
@@ -191,7 +193,7 @@ export const AppHeader: FC = () => {
 
           <div className="hidden lg:flex justify-end items-center w-full gap-8">
             {appHeaderNavLinks.map((link, idx) => (
-              <AppHeaderNavLink key={idx} list={link.childrens} href={link.href} disabled={link.disabled}>
+              <AppHeaderNavLink key={idx} list={link.childrens} href={link.href} onClick={() => link.href == PlatformRoute.Static ? setOpenAuthModal(true) : null} disabled={link.disabled}>
                 {link.title}
               </AppHeaderNavLink>
             ))}
@@ -230,10 +232,10 @@ export const AppHeader: FC = () => {
               href={link.href}
               disabled={link.disabled}
               list={link.childrens}
-              onClick={handleDropdown}
+              onClick={() => link.href == PlatformRoute.Static ? setOpenAuthModal(true) : handleDropdown}
               openSidebar={openSidebar}
             >
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-1 cursor-pointer">
                 {link.icon}
                 <div>{link.title}</div>
               </div>
