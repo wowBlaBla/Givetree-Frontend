@@ -34,6 +34,55 @@ export const Profile:FC = () => {
                             />
                         </div>
                         <div className="input-grop">
+                            <label>DGR status</label>
+                            <div className="flex gap-8">
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="dgr-status"
+                                        className="cursor-pointer mt-1 w-8 h-8 border border-black"
+                                    />
+                                    <label>Yes</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="dgr-status"
+                                        className="cursor-pointer mt-1 w-8 h-8 border border-black"
+                                    />
+                                    <label>No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-grop">
+                            <label>Location</label>
+                            <input
+                                type="text"
+                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                            />
+                        </div>
+                        <div className="input-grop">
+                            <label>Require donor information</label>
+                            <div className="flex gap-8">
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="donor-information"
+                                        className="cursor-pointer mt-1 w-8 h-8 border border-black"
+                                    />
+                                    <label>Yes</label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="radio"
+                                        name="donor-information"
+                                        className="cursor-pointer mt-1 w-8 h-8 border border-black"
+                                    />
+                                    <label>No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="input-grop">
                             <label>Website & Social media links</label>
                             <input
                                 type="text"
@@ -46,6 +95,13 @@ export const Profile:FC = () => {
                         </div>
                         <div className="input-grop">
                             <label>Wallet address</label>
+                            <input
+                                type="text"
+                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                            />
+                        </div>
+                        <div className="input-grop">
+                            <label>Causes you help with</label>
                             <input
                                 type="text"
                                 className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"

@@ -7,24 +7,24 @@ import { ProfileNFTs } from "./nfts";
 import { Profile } from "./profile";
 import { Settings } from "./settings";
 
-export const CreatorCustomerPortal:FC = () => {
+export const CharityCustomerPortal:FC = () => {
     return (
         <div className="profile-container flex">
             <ProfileSideBar/>
             <div className="content-wrapper w-full">
-                <Route path="/profile/creator/home">
+                <Route path="/profile/charity/home">
                     <Profile/>
                 </Route>
-                <Route path="/profile/creator/nft">
+                <Route path="/profile/charity/nft">
                     <ProfileNFTs/>
                 </Route>
-                <Route path="/profile/creator/mint">
+                <Route path="/profile/charity/mint">
                     <Mint/>
                 </Route>
-                <Route path="/profile/creator/fundraisers">
+                <Route path="/profile/charity/fundraisers">
                     <Fundraisers/>
                 </Route>
-                <Route path="/profile/creator/settings">
+                <Route path="/profile/charity/settings">
                     <Settings/>
                 </Route>
             </div>

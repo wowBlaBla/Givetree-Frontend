@@ -1,29 +1,31 @@
 import { FC } from "react";
-import { Link } from "wouter";
+import { Link, useRoute } from "wouter";
+import { PlatformRoute } from "../configs/routes";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 const navs = [
     {
-        href: "/profile/creator/home",
+        category: "home",
         title: "My Profile"
     },
     {
-        href: "/profile/creator/nft",
+        category: "nft",
         title: "My NFTs"
     },
     {
-        href: "/profile/creator/mint",
+        category: "mint",
         title: "Create NFT"
     },
     {
-        href: "/profile/creator/fundraisers",
+        category: "fundraisers",
         title: "My Fundraisers"
     },
     {
-        href: "/profile/creator/settings",
+        category: "settings",
         title: "Settings"
     },
 ]
 export const ProfileSideBar:FC = () => {
+    const [, params] = useRoute(PlatformRoute.ProfileDetails);
     return (
         <div className="flex flex-col w-75 py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -43,7 +45,7 @@ export const ProfileSideBar:FC = () => {
                     {
                         navs.map((item, idx) => (
                             <Link
-                                href={item.href}
+                                href={("/profile/" + params?.role + "/" + item.category)}
                                 key={idx}
                             >
                                 <a
