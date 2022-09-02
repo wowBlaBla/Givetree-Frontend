@@ -17,7 +17,8 @@ import { CreatorsContainer } from "./containers/creators/Listing/creators";
 import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
-import { ProfileContainer } from "./containers/profile/creator/container";
+import { CreatorCustomerPortal } from "./containers/profile/creator/container";
+import { CharityCustomerPortal } from "./containers/profile/charity/container";
 
 const App = () => (
   <Router>
@@ -87,9 +88,12 @@ const App = () => (
             </Route>
 
             <Route path={PlatformRoute.ProfileDetails}>
-                {(params) => (
-                  <ProfileContainer/>
-                )}
+                {(params) => {
+                  console.log(params);
+                  return (
+                    params.role == 'creator' ? <CreatorCustomerPortal/> : <CharityCustomerPortal/>
+                  )
+                }}
             </Route>
 
             <Route path="*">
