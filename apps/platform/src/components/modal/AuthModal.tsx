@@ -1,7 +1,12 @@
 import { Dialog, Transition } from "@headlessui/react";
 import cx from "classnames";
-import { FC, Fragment, useRef, useState } from "react";
-import { useAppContext } from "../../context/state";
+import { FC, Fragment, useRef, useState, useCallback } from "react";
+import Web3 from "web3";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+import Web3Modal from "web3modal";
+import { useSelector, useDispatch } from "react-redux";
+import { openModal, updateProvider } from "../../store/actions/auth.action";
+import { IStore } from "../../store/reducers/auth.reducer";
 
 const navs = [
     "Ethereum",
@@ -9,15 +14,47 @@ const navs = [
     "Solana"
 ];
 
+const providerOptions = {
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: "460f40a260564ac4a4f4b3fffb032dad", // required
+      },
+    },
+}
+
+let web3Modal:Web3Modal;
+    if (typeof window !== 'undefined') {
+    web3Modal = new Web3Modal({
+        network: 'mainnet', // optional
+        cacheProvider: true,
+        providerOptions, // required,
+    })
+}
+
 export const AuthModal:FC = () => {
-    const { openAuthModal, setOpenAuthModal } = useAppContext();
+
+    const openAuthModal = useSelector<IStore, boolean>((state) => state.auth.openAuthModal);
+    const dispatch = useDispatch();
+    
     const cancelButtonRef = useRef(null)
     const [activePanel, setActivePanel] = useState(0);
+
+    const connect = useCallback(async() => {
+        try {
+            const provider = await web3Modal.connect();
+            const web3Provider = new Web3(provider);
+            dispatch(updateProvider(web3Provider));
+            dispatch(openModal(false));
+        } catch(err) {
+            console.log(err);
+        }
+    }, [dispatch])
 
     return (
         <Transition.Root show={openAuthModal} as={Fragment}>
             <Dialog as="div" className="relative z-100" initialFocus={cancelButtonRef} onClose={() => {
-                setOpenAuthModal(false);
+                dispatch(openModal(false));
                 setActivePanel(0);
             }}>
                 <Transition.Child
@@ -54,7 +91,7 @@ export const AuthModal:FC = () => {
                                             Log in or create account
                                         </Dialog.Title>
                                         <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-cyan-400" onClick={() => setActivePanel(1)}>Sign Up</button>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-cyan-400">Sign In</button>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-cyan-400" onClick={() => connect()}>Sign In</button>
                                     </div>
                                     <div className={cx("flex-col gap-5 items-center sm:mt-0 sm:ml-4", {
                                         "flex": activePanel == 1,

@@ -80,7 +80,10 @@ module.exports = {
       }
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+    require("daisyui"),
+    require('@shrutibalasa/tailwind-grid-auto-fit'),
+  ],
   daisyui: {
     themes: false,
   },

@@ -7,17 +7,18 @@ import { SOLANA_NETWORK } from "../configs/constants";
 
 import "../assets/styles/global.css";
 import "react-toastify/dist/ReactToastify.css";
-import { AppWrapper } from "../context/state";
+import { store } from "../store/store";
+import { Provider } from "react-redux";
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <AppWrapper>
-      <ApolloProvider client={client}>
-        <WalletProvider network={SOLANA_NETWORK}>
-          <Component {...pageProps} suppressHydrationWarning />
-        </WalletProvider>
-      </ApolloProvider>
-    </AppWrapper>
+      <Provider store={store}>
+        <ApolloProvider client={client}>
+          <WalletProvider network={SOLANA_NETWORK}>
+            <Component {...pageProps} suppressHydrationWarning />
+          </WalletProvider>
+        </ApolloProvider>
+      </Provider>
 
   );
 };

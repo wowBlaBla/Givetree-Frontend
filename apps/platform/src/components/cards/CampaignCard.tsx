@@ -23,7 +23,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   return (
     <div className="md:text-left text-center">
       <div
-        className="relative w-full h-full bg-white inline-block cursor-pointer md:max-w-229px hover:shadow-xl"
+        className="relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
