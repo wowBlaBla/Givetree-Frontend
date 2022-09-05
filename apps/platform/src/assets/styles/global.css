@@ -12,6 +12,10 @@ img {
   @apply select-none pointer-events-none;
 }
 
+.web3modal-modal-lightbox {
+  z-index: 200 !important;
+}
+
 @layer components {
   .transition-hover {
     @apply transition ease-in-out duration-200;
@@ -37,4 +41,5 @@ img {
   .active-nav {
     @apply border-b-brand-orange
   }
+
 }

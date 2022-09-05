@@ -7,7 +7,8 @@ import { AssetType, getAssetType } from "../utils/getAssetType";
 import { OutlineButton } from "./OutlineCta";
 import { useLocation } from "wouter";
 import { PlatformRoute } from "../configs/routes";
-import { useAppContext } from "../context/state";
+import { useDispatch } from "react-redux";
+import { openModal } from "../store/actions/auth.action";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -35,7 +36,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
   // causes,
 }) => {
   const assetType = getAssetType(backgroundAsset);
-  const { setOpenAuthModal } = useAppContext();
+  const dispatch = useDispatch();
   const [, setLocation] = useLocation();
 
   return (
@@ -54,7 +55,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
             <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
               <PrimaryLink href={PlatformRoute.FundraiserDetails} className="w-37">Explore</PrimaryLink>
-              <OutlineButton onClick={() => setOpenAuthModal(true)} className="w-37">Create</OutlineButton>
+              <OutlineButton onClick={() => dispatch(openModal(true))} className="w-37">Create</OutlineButton>
             </div>
 
             <div>
