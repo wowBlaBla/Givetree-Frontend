@@ -5,7 +5,7 @@ import Web3 from "web3";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 import { useSelector, useDispatch } from "react-redux";
-import { openModal, updateProvider } from "../../store/actions/auth.action";
+import { openModal, updateAddress, updateProvider } from "../../store/actions/auth.action";
 import { IStore } from "../../store/reducers/auth.reducer";
 
 const navs = [
@@ -27,7 +27,7 @@ let web3Modal:Web3Modal;
     if (typeof window !== 'undefined') {
     web3Modal = new Web3Modal({
         network: 'mainnet', // optional
-        cacheProvider: true,
+        cacheProvider: false,
         providerOptions, // required,
     })
 }
@@ -44,8 +44,10 @@ export const AuthModal:FC = () => {
         try {
             const provider = await web3Modal.connect();
             const web3Provider = new Web3(provider);
+            const address = await web3Provider.eth.getAccounts();
             dispatch(updateProvider(web3Provider));
             dispatch(openModal(false));
+            dispatch(updateAddress(address[0]));
         } catch(err) {
             console.log(err);
         }

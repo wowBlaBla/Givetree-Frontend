@@ -7,8 +7,9 @@ import { AssetType, getAssetType } from "../utils/getAssetType";
 import { OutlineButton } from "./OutlineCta";
 import { useLocation } from "wouter";
 import { PlatformRoute } from "../configs/routes";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../store/actions/auth.action";
+import { IStore } from "../store/reducers/auth.reducer";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -37,6 +38,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 }) => {
   const assetType = getAssetType(backgroundAsset);
   const dispatch = useDispatch();
+  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
   const [, setLocation] = useLocation();
 
   return (
@@ -55,7 +57,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
             <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
               <PrimaryLink href={PlatformRoute.FundraiserDetails} className="w-37">Explore</PrimaryLink>
-              <OutlineButton onClick={() => dispatch(openModal(true))} className="w-37">Create</OutlineButton>
+              <OutlineButton onClick={() => walletAddress ? null : dispatch(openModal(true))} className="w-37">Create</OutlineButton>
             </div>
 
             <div>

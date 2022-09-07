@@ -1,4 +1,4 @@
-import { AUTH_REDUCER, UPDATE_PROVIDER, OPEN_MODAL } from "../types";
+import { AUTH_REDUCER, UPDATE_PROVIDER, OPEN_MODAL, UPDATE_ADDRESS } from "../types";
 
 export interface AUTH {
     openAuthModal: boolean;
@@ -24,6 +24,8 @@ export default function(state = data, action:AUTH_REDUCER) {
             return { ...state, openAuthModal: action.payload };
         case UPDATE_PROVIDER:
             return { ...state, provider: action.payload };
+        case UPDATE_ADDRESS:
+            return { ...state, walletAddress: action.payload};
         default:
             return state;
     }
