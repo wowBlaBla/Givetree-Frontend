@@ -9,7 +9,7 @@ import { IStore } from "../../store/reducers/auth.reducer";
 import { MetaMaskIcon } from "../icons/MetaMaskIcon";
 import { WalletConnectIcon } from "../icons/WalletConnectIcon";
 import { CoinbaseIcon } from "../icons/CoinbaseIcon";
-import { PlusIcon } from "@heroicons/react/outline";
+import { MailIcon, PlusIcon } from "@heroicons/react/outline";
 import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 import CoinbaseWalletSDK, {CoinbaseWalletProvider} from "@coinbase/wallet-sdk";
 import { XIcon } from "@heroicons/react/solid";
@@ -130,7 +130,10 @@ export const AuthModal:FC = () => {
                                             <ConnectWalletIcon/>
                                             <span>Wallet</span>
                                         </button>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-cyan-400" onClick={() => setActivePanel(activePanel == "up-1" ? "up-3": "in-3")}>Email</button>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-cyan-400 flex items-center gap-3 justify-center" onClick={() => setActivePanel(activePanel == "up-1" ? "up-3": "in-3")}>
+                                            <MailIcon className="w-8 h-8"/>
+                                            <span>Email</span>
+                                        </button>
                                     </div>
                                     <div className={cx("flex-col gap-5 items-center sm:mt-0 sm:ml-4", {
                                         "flex": activePanel == "up-2" || activePanel == "in-2",
