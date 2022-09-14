@@ -27,7 +27,7 @@ const navs = [
 export const ProfileSideBar:FC = () => {
     const [, params] = useRoute(PlatformRoute.ProfileDetails);
     return (
-        <div className="hidden sm:flex flex-col w-75 py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700">
+        <div className="hidden sm:flex flex-col w-75 py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700 min-h-screen">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <div className="flex flex-col items-start mt-6 px-8">
                 {/* eslint-disable-next-line @next/next/no-img-element */}

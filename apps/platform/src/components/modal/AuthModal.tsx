@@ -39,7 +39,8 @@ export const AuthModal:FC = () => {
             const provider = new WalletConnectProvider({
                 infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
             });
-            await connectAndUpdate(provider as WalletConnectWeb3Provider);
+            const accounts = await provider.enable();
+            connectAndUpdate(provider as WalletConnectWeb3Provider, accounts[0]);
         } catch(err) {
 
         }
@@ -47,24 +48,43 @@ export const AuthModal:FC = () => {
 
     const connectMetaMask = async() => {
         if (window.ethereum) {
-            await connectAndUpdate(window.ethereum);
+            const ethereum = window.ethereum;
+            let provider;
+            if (ethereum.providerMap) {
+                for (const [key, value] of ethereum.providerMap) {
+                    if (key.toLowerCase() == 'metamask') provider = value;
+                }
+            }
+
+            else {
+                if (ethereum.isMetaMask) {
+                    provider = ethereum;
+                }
+            }
+            if (provider) {
+                const accounts = await provider.request({
+                    method: "eth_requestAccounts"
+                });
+                connectAndUpdate(provider, accounts[0]);
+            }
         }
     }
 
     const connectCoinbase = async() => {
         const coinbaseWallet = new CoinbaseWalletSDK({
-            appName: "Givetree"
+            appName: "Givetree",
+            overrideIsMetaMask: true
         });
 
         const ethereum = coinbaseWallet.makeWeb3Provider("https://mainnet.infura.io/v3/9278c04944064d5a8f9ad13e549e550c", 1);
-        await connectAndUpdate(ethereum);
+        const accounts = await ethereum.enable();
+        connectAndUpdate(ethereum, accounts[0]);
     }
     
-    const connectAndUpdate = async(provider:WalletConnectWeb3Provider | CoinbaseWalletProvider) => {
-        const accounts = await provider.enable();
+    const connectAndUpdate = (provider:WalletConnectWeb3Provider | CoinbaseWalletProvider, address:string) => {
         dispatch(updateProvider(new Web3(provider)));
         dispatch(openModal(false));
-        dispatch(updateAddress(accounts[0]));
+        dispatch(updateAddress(address));
     }
 
     return (

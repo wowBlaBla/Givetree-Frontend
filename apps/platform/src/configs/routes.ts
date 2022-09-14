@@ -13,4 +13,5 @@ export enum PlatformRoute {
   CreatorListing = "/creators",
   CreatorDetails = "/creators/:creatorName",
   ProfileDetails = "/profile/:role/:category",
+  CreateDetails = "/profile/creator/mint",
 }

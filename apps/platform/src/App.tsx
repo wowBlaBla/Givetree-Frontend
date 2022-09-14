@@ -21,30 +21,32 @@ import { CreatorCustomerPortal } from "./containers/profile/creator/container";
 import { CharityCustomerPortal } from "./containers/profile/charity/container";
 import { useSelector } from "react-redux";
 import { IStore } from "./store/reducers/auth.reducer";
+import { SideNavigation } from "./components/SideNavigation";
 
 const App = () => {
   const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+
   return (
     <Router>
       <ScrollToTop>
         <div className="flex flex-col h-full min-h-screen bg-gray-50">
           <AppHeader />
-
-            <ToastContainer
-              className="mt-16"
-              position="top-right"
-              autoClose={5000}
-              closeOnClick
-            />
+          <SideNavigation/>
+          <ToastContainer
+            className="mt-16"
+            position="top-right"
+            autoClose={5000}
+            closeOnClick
+          />
 
             <Switch>
               <Route path={PlatformRoute.Home}>
-                <div className="flex flex-col flex-1 mt-12 sm:mt-16">
+                <div className="flex flex-col flex-1 mt-12 sm:mt-16 lg:ml-20">
                   <HomeContainer />
                   <AppFooter />
                 </div>
               </Route>
-              <div className="flex flex-col flex-1 mt-12 sm:mt-16">
+              <div className="flex flex-col flex-1 mt-12 sm:mt-16 lg:ml-20">
                 <Route path={PlatformRoute.CampaignDetails}>
                   {(params) => (
                     <CampaignDetailsContainer campaignName={params.campaignName} />
