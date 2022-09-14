@@ -1,5 +1,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { FC, useState } from "react";
+import { HomeIcon, XIcon } from "@heroicons/react/outline";
+import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import cx from "classnames";
+import { PlatformRoute } from "../configs/routes";
+import { LaunchIcon } from "./icons/LaunchIcon";
+import { Link, useLocation } from "wouter";
+import { useDispatch, useSelector } from "react-redux";
+import { IStore } from "../store/reducers/auth.reducer";
+import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
+import { openModal } from "../store/actions/auth.action";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -24,144 +33,176 @@ export type SideNavigationProps = {
   onSelect?: ({ itemId }: { itemId: string }) => void;
 };
 
-export const SideNavigation: FC<SideNavigationProps> = ({
-  activeItemId,
-  onSelect,
-  items,
-}) => {
-  const [activeSubNav, setActiveSubNav] = useState({
-    expanded: true,
-    selectedId: activeItemId,
-  });
+interface Dropdown {
+  title: string;
+  href: string;
+  disabled?: boolean;
+  icon: ReactElement;
+  onClick?: () => void;
+}
 
-  // Listen for parent prop changes and update state
-  React.useEffect(() => {
-    setActiveSubNav((originalSubNav) => ({
-      expanded: originalSubNav.expanded,
-      selectedId: activeItemId,
-    }));
-  }, [activeItemId]);
+interface AppHeaderNavLink {
+  title: string;
+  href: string;
+  disabled?: boolean;
+  icon: ReactElement;
+  childrens?: Array<Dropdown>;
+  iconColor?: string;
+  openSidebar?: boolean;
+}
 
-  function handleClick(itemId: string): void {
-    // call the callback if supplied
-    onSelect?.({ itemId });
-  }
+const list: AppHeaderNavLink[] = [
+  {
+    title: "Home",
+    href: PlatformRoute.Home,
+    disabled: false,
+    icon: <LaunchIcon className="w-5 h-5" />,
+    childrens: undefined,
+    iconColor: "bg-sky-500",
+  },
+  {
+    title: "Explore",
+    href: PlatformRoute.Static,
+    disabled: true,
+    icon: <HomeIcon className="w-5 h-5" />,
+    iconColor: "bg-orange-500",
+    childrens: [
+      {
+        title: "NFT Fundraisers",
+        href: PlatformRoute.FundraiserDetails,
+        disabled: false,
+        icon: <HomeIcon className="w-5 h-5" />,
+      },
+      {
+        title: "Charities",
+        href: PlatformRoute.CharityListing,
+        disabled: false,
+        icon: <HomeIcon className="w-5 h-5" />,
+      },
+      {
+        title: "Creators",
+        href: PlatformRoute.CreatorListing,
+        disabled: false,
+        icon: <HomeIcon className="w-5 h-5" />,
+      }
+    ]
+  },
+  {
+    title: "Create",
+    href: PlatformRoute.Static,
+    disabled: false,
+    icon: <LaunchIcon className="w-5 h-5" />,
+    iconColor: "bg-red-500",
+    childrens: undefined,
+  },
+  {
+    title: "About",
+    href: PlatformRoute.Static,
+    disabled: false,
+    icon: <LaunchIcon className="w-5 h-5" />,
+    iconColor: "bg-yellow-500",
+    childrens: undefined,
+  },
+];
 
-  function handleSubNavExpand(item: NavItemProps): void {
-    if (activeSubNav.expanded) {
-      const currentItemOrSubNavItemIsOpen: boolean =
-        // either the parent item is expanded already
-        item.itemId === activeSubNav.selectedId ||
-        // or one of its expandable children is selected
-        (item.subNav &&
-          item.subNav.some(
-            (_subNavItem) => _subNavItem.itemId === activeSubNav.selectedId
-          )) ||
-        false;
+export const SideNavigation: FC = () => {
 
-      setActiveSubNav({
-        expanded:
-          item.subNav && item.subNav.length > 0 ? !currentItemOrSubNavItemIsOpen : false, // disable expansion value, if not expandable
-        selectedId: item.itemId,
-      });
-    } else {
-      setActiveSubNav({
-        expanded: !!(item.subNav && item.subNav.length > 0), // expand if expandable
-        selectedId: item.itemId,
-      });
+  const dispatch = useDispatch();
+  const [,setLocation] = useLocation();
+
+  const [appHeaderNavLinks, setHeaderNavLinks] = useState<AppHeaderNavLink[]>(list);
+  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  const openSideMenu = useSelector<IStore, boolean>((state) => state.auth.openSidebarMenu);
+  const prevAddy = usePrevious(walletAddress);
+
+  useEffect(() => {
+    if (prevAddy != walletAddress) {
+      const _list:AppHeaderNavLink[] = [...appHeaderNavLinks];
+      if (walletAddress)
+        _list.push({
+          title: "Profile",
+          href: "/profile/creator/home",
+          disabled: false,
+          icon: <LaunchIcon className="w-5 h-5" />,
+          iconColor: "",
+        });
+      else _list.pop();
+      setHeaderNavLinks(_list)
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [walletAddress])
 
   return (
     <>
-      {items.length > 0 && (
-        <nav
-          role="navigation"
-          aria-label="side-navigation"
-          className="side-navigation-panel"
-        >
-          {items.map((item: NavItemProps) => {
-            const ElemBefore = item.elemBefore;
-            const isItemSelected: boolean = item.itemId === activeSubNav.selectedId;
-            const isActiveTab: boolean =
-              // item is expanded and
-              activeSubNav.expanded &&
-              // either the current expandable section is selected
-              (isItemSelected ||
-                // or some item in the expandable section of the current item is selected or active
-                (item.subNav &&
-                  item.subNav.some(
-                    (_subNavItem: NavItemProps) =>
-                      _subNavItem.itemId === activeSubNav.selectedId
-                  )) ||
-                false);
-
-            return (
-              <ul key={item.itemId} className="side-navigation-panel-select">
-                <li className="side-navigation-panel-select-wrap">
-                  <div
-                    onClick={(): void => {
-                      handleSubNavExpand(item);
-                      handleClick(item.itemId);
-                    }}
-                    className={`side-navigation-panel-select-option ${
-                      isItemSelected ? "side-navigation-panel-select-option-selected" : ""
-                    }`}
-                  >
-                    <span className="side-navigation-panel-select-option-wrap">
-                      {/** Prefix Icon Component */}
-                      {ElemBefore && <ElemBefore />}
-
-                      <span className="side-navigation-panel-select-option-text">
-                        {item.title}
-                      </span>
-                    </span>
+      <div
+        className={
+          cx(
+            "vertical-navbar",
+            {
+              "hidden": !openSideMenu
+            }
+          )
+        }
+      >
+        {
+          appHeaderNavLinks.map((item, idx) => (
+            <div
+              className="nav-item px-2"
+              key={idx}
+              onClick={
+                () => item.title == 'Create' && item.href == PlatformRoute.Static ?
+                  ( walletAddress ? setLocation('/profile/creator/mint') : dispatch(openModal(true))) : setLocation(item.href)
+              }
+            >
+              <div
+                className={`w-12 h-12 rounded-full bg-cover ${item.iconColor}`}
+                style={
+                  walletAddress && item.title == "Profile" ? {
+                    backgroundImage: `url(${avatar.src})`
+                  }: {}
+                }
+              />
+              <p className="text-center text-xs text-black">{item.title}</p>
+              {
+                item.childrens && (
+                  <div className="extra-panel hidden">
+                    <div
+                      className={cx(
+                        "absolute h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 shadow-lg border-r border-t p-4",
+                        {
+                          "-translate-x-full": !true,
+                          "translate-x-0": false,
+                        }
+                      )}
+                    >
+                      <div className="text-right">
+                        <XIcon
+                          className="w-8 h-8 inline-block text-gray-600 cursor-pointer"
+                        />
+                      </div>
+                      <div className="flex absolute flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
+                        {
+                          item.childrens.map((itemt, index) => (
+                            <Link href={itemt.href} key={index} className="py-4 px-6 hover:bg-slate-200" onClick={itemt.onClick}>{itemt.title}</Link>
+                          ))
+                        }
+                      </div>
+                    </div>
                   </div>
-                </li>
-
-                {item.subNav && item.subNav.length > 0 && isActiveTab && (
-                  <ul className="side-navigation-panel-select-inner">
-                    {item.subNav.map((subNavItem: NavItemProps) => {
-                      const SubItemElemBefore = subNavItem.elemBefore;
-
-                      return (
-                        <li
-                          key={subNavItem.itemId}
-                          className="side-navigation-panel-select-inner-wrap"
-                        >
-                          <div
-                            onClick={(): void => {
-                              setActiveSubNav({
-                                ...activeSubNav,
-                                selectedId: subNavItem.itemId,
-                              });
-                              handleClick(subNavItem.itemId);
-                            }}
-                            className={`side-navigation-panel-select-inner-option ${
-                              activeSubNav.selectedId === subNavItem.itemId
-                                ? "side-navigation-panel-select-inner-option-selected"
-                                : ""
-                            } `}
-                          >
-                            <span className="side-navigation-panel-select-inner-option-wrap">
-                              {/** Prefix Icon Component */}
-                              {SubItemElemBefore && <SubItemElemBefore />}
-
-                              <span className="side-navigation-panel-select-inner-option-text">
-                                {subNavItem.title}
-                              </span>
-                            </span>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </ul>
-            );
-          })}
-        </nav>
-      )}
+                )
+              }
+            </div>
+          ))
+        }
+      </div>
     </>
-  );
+  )
 };
+
+function usePrevious(value:string) {
+  const ref = useRef('');
+  useEffect(() => {
+    ref.current = value;
+  },[value]);
+  return ref.current;
+}

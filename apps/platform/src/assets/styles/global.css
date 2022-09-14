@@ -42,4 +42,19 @@ img {
     @apply border-b-brand-orange
   }
 
+  .vertical-navbar {
+    @apply fixed h-full border-r border-slate-300 bg-white z-50 top-16 shadow-md flex flex-col items-center gap-2
+  }
+
+  .vertical-navbar {
+    margin-top: 11px;
+  }
+  
+  .vertical-navbar .nav-item {
+    @apply cursor-pointer w-full flex items-center flex-col pt-3 pb-2 hover:bg-cyan-200 border-x-8 border-transparent hover:border-l-cyan-800
+  }
+
+  .vertical-navbar .nav-item:hover > .extra-panel {
+    display: block;
+  }
 }

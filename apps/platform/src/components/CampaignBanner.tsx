@@ -47,12 +47,12 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
         <div className="z-10 flex items-center justify-center max-w-screen-xl md:justify-start md:rounded-l-xl md:order-1">
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
-            <h4 className="text-2xl sm:text-5xl font-bold max-w-[400px] w-full sm:text-left text-center">
-              NFT Fundraisers for the causes you love
+            <h4 className="text-2xl sm:text-5xl font-bold max-w-[500px] w-full sm:text-left text-center">
+              NFT Fundraisers for causes you love
             </h4>
 
-            <div className="short-description text-sm max-w-[320px]">
-              GiveTree is an NFT marketplace which empowers you to easily support the charities and causes you love
+            <div className="short-description md:text-2xl text-base text-center md:text-start md:max-w-[230px]">
+              GiveTree is an NFT marketplace for good
             </div>
 
             <div className="flex sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
