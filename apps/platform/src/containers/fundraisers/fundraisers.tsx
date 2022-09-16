@@ -24,14 +24,14 @@ export const FundraisersContainer:FC = () => {
     }
 
     return (
-        <SectionContainer className={"max-w-[1025px]"}>
+        <SectionContainer>
             <SectionHeader
                 mainTitle="NFT Fundraisers"
                 subtitle="Discover NFTs helping to make the world a better place"
                 className="mx-auto"
                 titleClassName="text-center"
             />
-            <div className="category text-sm -mb-6">
+            <div className="category text-sm mb-6 dark:text-white">
                 <span>Display: </span>
                 <span className="ml-1">All</span>
             </div>

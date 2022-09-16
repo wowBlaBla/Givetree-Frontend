@@ -46,7 +46,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                 <div className="collection-brand flex flex-wrap gap-2">
                     <img
                         src={data.campaign.creators[0].media.previewUrl}
-                        className="w-50 h-50 rounded-2xl-1 border border-black"
+                        className="w-50 h-50 rounded-2xl-1 border border-base-content border-opacity-25"
                         alt="collection-brand"
                     />
                     <div className="max-w-xl">
@@ -61,7 +61,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                         </div>
                     </div>
                 </div>
-                <div className="collection-specifications grid md:grid-cols-2 gap-2 mt-10 items-center">
+                <div className="collection-specifications grid md:grid-cols-2 gap-2 mt-10 items-center dark:text-white">
                     <div className="flex flex-wrap gap-10 text-lg">
                         <div className="flex flex-col gap-1">
                             <span className="font-bold">5.6K</span>
@@ -87,24 +87,24 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                     <div className="hidden md:flex gap-4 justify-end">
                         <Link
                             href="#"
-                            className="border border-black w-10 h-8 rounded-2xl-1 inline-block"
+                            className="border border-base-content border-opacity-25 w-10 h-8 rounded-2xl-1 inline-block"
                         ></Link>
                         <Link
                             href="#"
-                            className="border border-black w-10 h-8 rounded-2xl-1 inline-block"
+                            className="border border-base-content border-opacity-25 w-10 h-8 rounded-2xl-1 inline-block"
                         ></Link>
                         <Link
                             href="#"
-                            className="border border-black w-10 h-8 rounded-2xl-1 inline-block"
+                            className="border border-base-content border-opacity-25 w-10 h-8 rounded-2xl-1 inline-block"
                         ></Link>
                         <Link
                             href="#"
-                            className="border border-black w-10 h-8 rounded-2xl-1 inline-block"
+                            className="border border-base-content border-opacity-25 w-10 h-8 rounded-2xl-1 inline-block"
                         ></Link>
                     </div>
                 </div>
             </div>
-            <div className="border-b border-black overflow-x-auto scroll-pb-5">
+            <div className="border-b border-base-content border-opacity-25 overflow-x-auto scroll-pb-5">
                 <div className="mx-auto w-full md:px-10 px-4">
                     <ul
                         className="nav nav-tabs flex gap-2 list-none border-b-0 pl-0"
@@ -117,7 +117,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                         >
                             <a
                                 href="#tabs-home"
-                                className="nav-link block text-lg leading-tight capitalize p-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active"
+                                className="nav-link block text-lg leading-tight capitalize p-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:hover:bg-deep-dark"
                                 id="tabs-home-tab"
                                 data-bs-toggle="pill"
                                 data-bs-target="#tabs-home"
@@ -125,7 +125,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                                 aria-controls="tabs-home"
                                 aria-selected="true"
                             >
-                                <FilterListIcon className="w-8 h-8"/>
+                                <FilterListIcon className="w-8 h-8 dark:text-white"/>
                             </a>
                         </li>
                         {
@@ -140,7 +140,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                                 >
                                     <a
                                         href="#tabs-home"
-                                        className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active"
+                                        className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:text-white dark:hover:bg-deep-dark"
                                         id="tabs-home-tab"
                                         data-bs-toggle="pill"
                                         data-bs-target="#tabs-home"
@@ -157,19 +157,19 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                 </div>
             </div>
             <div className="flex min-h-[800px]">
-                <div className="sidebar border-r border-black w-full max-w-[300px] hidden xl:block">
-                    <ul className="cursor-pointer">
-                        <li className="text-lg px-3 py-2 border-b border-black">Buy Now</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Price</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Accessory</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Background</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Ears</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Extra</li>
-                        <li className="text-lg px-3 py-2 border-b border-black">Eyes</li>
+                <div className="sidebar border-r border-base-content border-opacity-25 w-full max-w-[300px] hidden xl:block">
+                    <ul className="cursor-pointer dark:text-white">
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Buy Now</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Price</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Accessory</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Background</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Ears</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Extra</li>
+                        <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Eyes</li>
                     </ul>
                 </div>
                 <div className="flex flex-col gap-3 w-full p-4">
-                    <div className="md:grid grid-cols-3 items-center hidden gap-2">
+                    <div className="md:grid grid-cols-3 items-center hidden gap-2 dark:text-white">
                         <div>
                             <span>Updated 5mins ago</span>
                         </div>
@@ -177,12 +177,12 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                className="rounded-2xl-1 h-10 px-3 border border-black w-full outline-0 focus:shadow-lg"
+                                className="rounded-2xl-1 h-10 px-3 border border-base-content border-opacity-25 dark:bg-deep-dark w-full outline-0 focus:shadow-lg"
                             />
                         </div>
                         <div className="flex gap-2 justify-end">
-                            <span className="border border-black rounded-2xl-1 p-2">Price high to low </span>
-                            <span className="border border-black rounded-2xl-1 p-2 px-4">View</span>
+                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 p-2">Price high to low </span>
+                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 p-2 px-4">View</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 md:hidden block">
@@ -194,17 +194,17 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-1">
-                            <button className="border border-black rounded-lg p-2 cursor-pointer">Filter</button>
-                            <button className="border border-black rounded-lg p-2 cursor-pointer">Sort</button>
+                            <button className="border border-black rounded-lg p-2 cursor-pointer dark:bg-white dark:border-white dark:hover:bg-mid-dark dark:hover:text-white">Filter</button>
+                            <button className="border border-black rounded-lg p-2 cursor-pointer dark:bg-white dark:border-white dark:hover:bg-mid-dark dark:hover:text-white">Sort</button>
                         </div>
                     </div>
                     <div className="md:flex items-end justify-between hidden">
-                        <div className="active-filters flex gap-1">
-                            <span className="py-1 px-2 border border-black">Clear All</span>
-                            <span className="py-1 px-2 border border-black">Head: Mustache</span>
+                        <div className="active-filters flex gap-1 dark:text-white">
+                            <span className="py-1 px-2 border border-base-content border-opacity-25">Clear All</span>
+                            <span className="py-1 px-2 border border-base-content border-opacity-25">Head: Mustache</span>
                         </div>
                         <div>
-                            <span>50 items</span>
+                            <span className="dark:text-white">50 items</span>
                         </div>
                     </div>
 

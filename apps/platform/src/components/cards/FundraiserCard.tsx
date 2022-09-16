@@ -21,9 +21,9 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
 
   const handleNextLocation = () => setLocation(`/collection/${campaign.slug}`);
   return (
-    <div className="md:text-left text-center">
+    <div className="text-center h-full">
       <div
-        className="relative w-full h-full bg-white inline-block cursor-pointer sm:max-w-229px hover:shadow-xl"
+        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer sm:max-w-229px hover:shadow-xl rounded-xl"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
@@ -34,7 +34,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
             />
           </div>
 
-          <div className="flex flex-col justify-between w-full rounded-b-xl border-black border-t-0 border">
+          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border">
             <div className="flex justify-between w-full p-5 text-xs sm:text-sm">
               <div className="flex w-full flex-col text-center">
                 <span className="font-bold">{campaign.title}</span>

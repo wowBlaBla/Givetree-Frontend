@@ -22,21 +22,24 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
     setLocation(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
   return (
-    <div className="md:text-left text-center">
+    <div className="text-center h-full">
       <div
         ref={donationRef}
         // onMouseEnter={() => setShowDonationButton(true)}
         // onMouseLeave={() => setShowDonationButton(false)}
-        className="relative w-full h-full bg-white cursor-pointer hover:shadow-xl sm:max-w-229px inline-block"
+        className="bg-base-100 relative w-full h-full bg-white cursor-pointer hover:shadow-xl sm:max-w-229px inline-block rounded-xl"
       >
         <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
 
           <div className="relative">
-            <BackgroundImage imageAsset={charity.media.tileUrl} className="rounded-t-xl" />
+            <BackgroundImage
+              imageAsset={charity.media.tileUrl}
+              className="rounded-t-xl"
+            />
           </div>
 
-          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-2 py-3 md:px-5 border border-t-0 rounded-b-xl border-black">
-            <h4 className="flex flex-col w-full gap-1 space-x-0.5 text-base text-left text-black sm:text-lg">
+          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-2 py-3 md:px-5 border border-t-0 rounded-b-xl border-base-content border-opacity-25">
+            <h4 className="flex flex-col w-full gap-1 space-x-0.5 text-base text-left sm:text-lg">
               <span className="font-bold text-sm">
                 {charity.name}
                 <VerifiedBadge

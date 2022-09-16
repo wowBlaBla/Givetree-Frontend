@@ -4,32 +4,32 @@ import { PrimaryButton } from "../../../components/PrimaryCta";
 export const Mint:FC = () => {
     return (
         <div className="grid w-[468px] p-8">
-            <h2 className="text-2xl font-bold py-7">Create NFT</h2>
+            <h2 className="text-2xl font-bold py-7 dark:text-white">Create NFT</h2>
             <div className="flex flex-col gap-10 items-center w-full">
                 <div className="grid mt-6 gap-8 w-full">
                     <div className="input-grop">
-                        <label>Title</label>
+                        <label className="dark:text-white">Title</label>
                         <input
                             type="text"
                             className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                         />
                     </div>
                     <div className="input-grop">
-                        <label>Description</label>
+                        <label className="dark:text-white">Description</label>
                         <textarea
                             className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-4"
                             rows={6}
                         />
                     </div>
                     <div className="input-grop">
-                        <label>How many items in collection?</label>
+                        <label className="dark:text-white">How many items in collection?</label>
                         <input
                             type="number"
                             className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                         />
                     </div>
                     <div className="input-grop">
-                        <label>Which blockchain would you like to use?</label>
+                        <label className="dark:text-white">Which blockchain would you like to use?</label>
                         <input
                             type="text"
                             className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
@@ -44,7 +44,7 @@ export const Mint:FC = () => {
                         </div>
                     </div>
                     <div className="input-grop">
-                        <label>Would like to have a whitelist event? What time / date?</label>
+                        <label className="dark:text-white">Would like to have a whitelist event? What time / date?</label>
                         <p className="my-3">
                             <span className="font-bold">Yes</span>
                             <span className="mx-2">or</span>
@@ -62,7 +62,7 @@ export const Mint:FC = () => {
                         </div>
                     </div>
                     <div className="input-grop">
-                        <label>What time/date would you like the mint to occur?</label>
+                        <label className="dark:text-white">What time/date would you like the mint to occur?</label>
                         <div className="flex gap-8">
                             <input
                                 type="date"

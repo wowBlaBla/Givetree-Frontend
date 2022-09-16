@@ -26,7 +26,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
   titleClassName,
 }) => (
   <div
-    className={cx("items-center flex flex-wrap flex-col md:flex-row", className, {
+    className={cx("items-center flex flex-wrap flex-col md:flex-row dark:text-white", className, {
       "justify-between": link,
       "justify-center items-center text-center": textCenter,
     })}
@@ -34,7 +34,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
     <div className="flex flex-col px-1 my-3 space-y-3 text-left w-full md:w-auto">
       <SectionTitle className={titleClassName}>{mainTitle}</SectionTitle>
       {subtitle && (
-        <SectionSubtitle className={cx("font-semibold text-gray-600", titleClassName)}>
+        <SectionSubtitle className={cx("font-semibold text-gray-600 dark:text-white", titleClassName)}>
           {subtitle}
         </SectionSubtitle>
       )}

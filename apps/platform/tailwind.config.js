@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -12,6 +13,10 @@ module.exports = {
         "brand-orange-secondary": "#fe8646",
         "gradient-orange-from": "#f95c32",
         "gradient-orange-to": "#fcAc4e",
+        "menu-orange": "#fb5022",
+        "deep-dark": "#202225",
+        "mid-dark": "#2F3136",
+        "light-dark": "#37393E"
       },
       fontSize: {
         none: "0",
@@ -48,6 +53,7 @@ module.exports = {
         86: "30rem",
         96: "36rem",
         128: "42rem",
+        layout: "calc(100vh - 60px)"
       },
       maxWidth: {
         96: "36rem",
@@ -85,6 +91,6 @@ module.exports = {
     require('@shrutibalasa/tailwind-grid-auto-fit'),
   ],
   daisyui: {
-    themes: false,
+    themes: ["light", "dark"],
   },
 };

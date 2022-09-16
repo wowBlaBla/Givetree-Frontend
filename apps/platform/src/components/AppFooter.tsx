@@ -4,7 +4,7 @@ import { Link } from "wouter";
 import { PrimaryButton } from "./PrimaryCta";
 
 export const AppFooter = () => (
-  <div className="text-gray-800 bg-gray-100 border-t border-black text-black">
+  <div className="text-gray-800 bg-gray-100 border-t border-black text-black dark:text-white dark:bg-deep-dark">
     <div className="flex flex-col items-center justify-between gap-2 mx-auto pb-6">
       <div className="text-lg grid md:grid-cols-2 grid-cols-1 gap-8 justify-between w-full max-w-screen-xl mt-10 px-5">
         <div className="gap-5 md:order-1 order-2 sm:text-left text-center">
@@ -31,7 +31,7 @@ export const AppFooter = () => (
                 />
                 <PrimaryButton className="rounded-full py-4 px-6 md:w-auto w-full">Subscribe</PrimaryButton>
               </div>
-              <label className="text-xs">I understand I can subscribe at any time <Link href="#">Privacy Policy</Link></label>
+              <label className="text-xs">I understand I can unsubscribe at any time <Link href="#" className="text-blue-600 font-bold">Privacy Policy</Link></label>
             </div>
           </div>
         </div>

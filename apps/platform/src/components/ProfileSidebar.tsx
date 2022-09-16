@@ -27,7 +27,7 @@ const navs = [
 export const ProfileSideBar:FC = () => {
     const [, params] = useRoute(PlatformRoute.ProfileDetails);
     return (
-        <div className="hidden sm:flex flex-col w-75 py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700 min-h-screen">
+        <div className="hidden sm:flex flex-col w-75 py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark min-h-screen">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <div className="flex flex-col items-start mt-6 px-8">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -49,7 +49,7 @@ export const ProfileSideBar:FC = () => {
                                 key={idx}
                             >
                                 <a
-                                    className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
+                                    className={`flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700 ${item.category == params?.category ? "bg-gray-200" : ""}`}
                                     href=""
                                 >
                                     <span className="mx-4 font-medium">{item.title}</span>

@@ -24,7 +24,7 @@ export const CreatorsContainer:FC = () => {
     }
 
     return (
-        <SectionContainer className={"max-w-[1025px]"}>
+        <SectionContainer>
             <SectionHeader
                 mainTitle="Creators"
                 subtitle="Discover creators helping to make the world a better place"
