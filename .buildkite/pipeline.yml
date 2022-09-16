@@ -33,7 +33,7 @@ steps:
       - "cd apps/platform/out"
       - "ls"
       - "basename=$($BUILDKITE_BRANCH)"
-      - aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/${basename}
+      - "aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/${basename}"
     if: build.branch != "master"
     env:
       AWS_ASSUME_ROLE_ARN: arn:aws:iam::576424575048:role/DevOpsDeployRole
