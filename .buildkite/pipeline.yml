@@ -1,0 +1,44 @@
+steps:
+  - label: ":hammer: Running Tests..."
+    commands:
+      - "echo 'Checking AWS access...'"
+      - "aws sts get-caller-identity"
+      - "aws s3 ls"
+      - "echo 'Running tests...'"
+    env:
+      AWS_ASSUME_ROLE_ARN: arn:aws:iam::576424575048:role/DevOpsDeployRole
+    plugins:
+      - cultureamp/aws-assume-role
+  
+  - wait
+  
+  - label: ":package: Package Project"
+    command:
+      - "apt update"
+      - "apt install -y git"
+      - "yarn add -W sharp"
+      - "yarn install"
+      - "cd apps/platform"
+      - "yarn export"
+    plugins:
+      - docker#v4.0.0:
+          image: "node:18.9-slim"
+          always-pull: false
+    artifact_paths: "apps/platform/out/**"
+  
+  - wait  
+  
+  - label: ":shipit: Deploy!"
+    command:
+      - "cd apps/platform/out"
+      - "ls"
+      - "basename=$($BUILDKITE_BRANCH)"
+      - aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/${basename}
+    if: build.branch != "master"
+    env:
+      AWS_ASSUME_ROLE_ARN: arn:aws:iam::576424575048:role/DevOpsDeployRole
+    plugins:
+      - artifacts#v1.5.0:
+          download: "apps/platform/out/**"
+      - cultureamp/aws-assume-role
+  
