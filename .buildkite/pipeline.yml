@@ -28,12 +28,25 @@ steps:
   
   - wait  
   
-  - label: ":shipit: Deploy"
+  - label: ":shipit: Deploy Feature"
     command:
       - "cd apps/platform/out"
       - "ls"
-      - "basename=$($BUILDKITE_BRANCH)"
-      - "aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/${basename}"
+      - "aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/${BUILDKITE_COMMIT:0:7}"
+    if: "build.branch != 'master'"
+    env:
+      AWS_ASSUME_ROLE_ARN: arn:aws:iam::576424575048:role/DevOpsDeployRole
+    plugins:
+      - artifacts#v1.5.0:
+          download: "apps/platform/out/**"
+      - cultureamp/aws-assume-role
+  
+  - label: ":shipit: Deploy Master"
+    command:
+      - "cd apps/platform/out"
+      - "ls"
+      - "aws s3 sync . s3://gt-frontend-9b6q4ua7/preview/release --delete"
+    if: "build.branch == 'master'"
     env:
       AWS_ASSUME_ROLE_ARN: arn:aws:iam::576424575048:role/DevOpsDeployRole
     plugins:
