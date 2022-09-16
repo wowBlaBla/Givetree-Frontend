@@ -47,11 +47,11 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
         <div className="z-10 flex items-center justify-center max-w-screen-xl md:justify-start md:rounded-l-xl md:order-1">
           <div className="flex flex-col px-5 py-10 space-y-5 text-black">
 
-            <h4 className="text-2xl sm:text-5xl font-bold max-w-[500px] w-full sm:text-left text-center">
+            <h4 className="text-2xl sm:text-5xl font-bold max-w-[500px] w-full sm:text-left text-center dark:text-white">
               NFT Fundraisers for causes you love
             </h4>
 
-            <div className="short-description md:text-2xl text-base text-center md:text-start md:max-w-[230px]">
+            <div className="short-description md:text-2xl text-base md:text-start md:max-w-[230px] dark:text-white">
               GiveTree is an NFT marketplace for good
             </div>
 
@@ -81,7 +81,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           )}
 
           {assetType === AssetType.Image && (
-            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer" onClick={() => setLocation('/fundraiser/sale')}>
+            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer bg-white" onClick={() => setLocation('/fundraiser/sale')}>
               <div
                 className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-gray-200 rounded-t-2xl-1 md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}

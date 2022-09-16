@@ -19,10 +19,10 @@ export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     alt="creator avatar"
-                    className="w-37-1/2 aspect-square rounded-full border border-black"
+                    className="w-37-1/2 aspect-square rounded-full border border-black dark:border-white"
                     src={avatar ? avatar : MulgaKongz.src}
                 />
-                <h1 className="md:text-[50px] md:leading-[3.5rem] text-center md:text-left text-base font-bold">{name}</h1>
+                <h1 className="md:text-[50px] md:leading-[3.5rem] text-center md:text-left text-base font-bold dark:text-white">{name}</h1>
             </div>
 
             <div className={cx("button-group", {

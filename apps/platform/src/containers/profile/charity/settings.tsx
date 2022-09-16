@@ -5,7 +5,7 @@ import { PrimaryButton } from "../../../components/PrimaryCta";
 export const Settings:FC = () => {
     return (
         <div className="p-8">
-            <h2 className="text-2xl font-bold py-7">Settings</h2>
+            <h2 className="text-2xl font-bold py-7 dark:text-white">Settings</h2>
             <div className="flex flex-col gap-8 w-[468px]">
                 <div className="input-grop">
                     <label>Email</label>

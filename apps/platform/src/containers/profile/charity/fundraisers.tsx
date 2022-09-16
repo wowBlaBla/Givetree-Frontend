@@ -11,8 +11,8 @@ export const Fundraisers:FC = () => {
     return (
         <div className="flex flex-col w-full">
             <div className="p-8">
-                <h2 className="text-2xl">My Fundraisers</h2>
-                <button className="mt-3 border border-black p-3">Create Fundraisers</button>
+                <h2 className="text-2xl font-bold py-7 dark:text-white">My Fundraisers</h2>
+                <button className="mt-3 border border-black p-3 dark:border-white dark:text-white">Create Fundraisers</button>
             </div>
             <div className="border-b dark:bg-gray-900 dark:border-gray-700 overflow-x-auto scroll-pb-5 mt-4">
                 <div className="w-full md:px-20 px-4">

@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { HomeIcon, XIcon } from "@heroicons/react/outline";
+import { HomeIcon, QuestionMarkCircleIcon, SearchIcon, ViewGridAddIcon } from "@heroicons/react/outline";
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import cx from "classnames";
 import { PlatformRoute } from "../configs/routes";
-import { LaunchIcon } from "./icons/LaunchIcon";
-import { Link, useLocation } from "wouter";
+// import matcherType from "wouter/types/matcher";
+import { Link, Match, MatcherFn, useLocation } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from "../store/reducers/auth.reducer";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
-import { openModal } from "../store/actions/auth.action";
+import { openModal, openSidebar } from "../store/actions/auth.action";
+import makeMatcher from "../utils/matcher";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -18,20 +19,6 @@ declare global {
     }
   }
 }
-
-export type NavItemProps = {
-  title: string;
-  itemId: string;
-  // disabled?: boolean;
-  elemBefore?: React.FC<unknown>;
-  subNav?: NavItemProps[];
-};
-
-export type SideNavigationProps = {
-  items: NavItemProps[];
-  activeItemId: string;
-  onSelect?: ({ itemId }: { itemId: string }) => void;
-};
 
 interface Dropdown {
   title: string;
@@ -45,7 +32,7 @@ interface AppHeaderNavLink {
   title: string;
   href: string;
   disabled?: boolean;
-  icon: ReactElement;
+  icon?: ReactElement;
   childrens?: Array<Dropdown>;
   iconColor?: string;
   openSidebar?: boolean;
@@ -56,42 +43,22 @@ const list: AppHeaderNavLink[] = [
     title: "Home",
     href: PlatformRoute.Home,
     disabled: false,
-    icon: <LaunchIcon className="w-5 h-5" />,
+    icon: <HomeIcon className="w-7 h-7" />,
     childrens: undefined,
     iconColor: "bg-sky-500",
   },
   {
     title: "Explore",
-    href: PlatformRoute.Static,
+    href: PlatformRoute.FundraiserDetails,
     disabled: true,
-    icon: <HomeIcon className="w-5 h-5" />,
+    icon: <SearchIcon className="w-7 h-7" />,
     iconColor: "bg-orange-500",
-    childrens: [
-      {
-        title: "NFT Fundraisers",
-        href: PlatformRoute.FundraiserDetails,
-        disabled: false,
-        icon: <HomeIcon className="w-5 h-5" />,
-      },
-      {
-        title: "Charities",
-        href: PlatformRoute.CharityListing,
-        disabled: false,
-        icon: <HomeIcon className="w-5 h-5" />,
-      },
-      {
-        title: "Creators",
-        href: PlatformRoute.CreatorListing,
-        disabled: false,
-        icon: <HomeIcon className="w-5 h-5" />,
-      }
-    ]
   },
   {
     title: "Create",
     href: PlatformRoute.Static,
     disabled: false,
-    icon: <LaunchIcon className="w-5 h-5" />,
+    icon: <ViewGridAddIcon className="w-7 h-7" />,
     iconColor: "bg-red-500",
     childrens: undefined,
   },
@@ -99,16 +66,52 @@ const list: AppHeaderNavLink[] = [
     title: "About",
     href: PlatformRoute.Static,
     disabled: false,
-    icon: <LaunchIcon className="w-5 h-5" />,
+    icon: <QuestionMarkCircleIcon className="w-7 h-7" />,
     iconColor: "bg-yellow-500",
     childrens: undefined,
   },
 ];
 
+const exploreSub: Dropdown[] = [
+  {
+    title: "NFT Fundraisers",
+    href: PlatformRoute.FundraiserDetails,
+    disabled: false,
+    icon: <HomeIcon className="w-7 h-7" />,
+  },
+  {
+    title: "Charities",
+    href: PlatformRoute.CharityListing,
+    disabled: false,
+    icon: <HomeIcon className="w-7 h-7" />,
+  },
+  {
+    title: "Creators",
+    href: PlatformRoute.CreatorListing,
+    disabled: false,
+    icon: <HomeIcon className="w-7 h-7" />,
+  }
+];
+
+const _home = PlatformRoute.Home;
+const _explore = [
+  "/fundraisers",
+  "/charities",
+  "/creators",
+  "/mints",
+];
+const _about = "/about";
+const _create = "/profile/:role/mint";
+const _profile = PlatformRoute.ProfileDetails;
+
 export const SideNavigation: FC = () => {
 
   const dispatch = useDispatch();
-  const [,setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
+
+  const [activeTab, setActiveTab] = useState(0);
+  const [activeSub, setActiveSub] = useState(-1);
+  const [subList, setSubList] = useState<Dropdown[]>([]);
 
   const [appHeaderNavLinks, setHeaderNavLinks] = useState<AppHeaderNavLink[]>(list);
   const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
@@ -118,36 +121,73 @@ export const SideNavigation: FC = () => {
   useEffect(() => {
     if (prevAddy != walletAddress) {
       const _list:AppHeaderNavLink[] = [...appHeaderNavLinks];
-      if (walletAddress)
-        _list.push({
+
+      if (walletAddress) {
+        const _profile = {
           title: "Profile",
           href: "/profile/creator/home",
           disabled: false,
-          icon: <LaunchIcon className="w-5 h-5" />,
           iconColor: "",
-        });
+        };
+
+        _list.push(_profile);
+      }
+
       else _list.pop();
+      
       setHeaderNavLinks(_list)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletAddress])
 
+  useEffect(() => {
+
+    setSubList([]);
+    
+    const list = [_home, _explore, _create, _about, _profile];
+    
+    list.map((link, idx) => {
+      let matched:Match = [false, null];
+      const matcher = makeMatcher() as MatcherFn;
+
+      if (typeof link == 'string') matched = matcher(link, location);
+
+      else {
+        link.map((item, index) => {
+          const _matched = matcher(item, location);
+          if (_matched[0]) {
+            matched = _matched;
+            setActiveSub(index);
+            setSubList(exploreSub);
+            return;
+          }
+        })
+      }
+
+      if (matched[0]) {
+        setActiveTab(idx);
+        return;
+      }
+    });
+    if (typeof window !== undefined) {
+      if (window.innerWidth < 1023) {
+        dispatch(openSidebar(false));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
   return (
-    <>
-      <div
-        className={
-          cx(
-            "vertical-navbar",
-            {
-              "hidden": !openSideMenu
-            }
-          )
-        }
-      >
+    <div className={
+      cx("flex absolute z-50 md:relative", {
+      "hidden": !openSideMenu
+      })
+    }>
+      <div className="vertical-navbar">
         {
           appHeaderNavLinks.map((item, idx) => (
             <div
-              className="nav-item px-2"
+              className={`nav-item px-2 ${activeTab == idx ? "active" : ""}`}
               key={idx}
               onClick={
                 () => item.title == 'Create' && item.href == PlatformRoute.Static ?
@@ -155,47 +195,49 @@ export const SideNavigation: FC = () => {
               }
             >
               <div
-                className={`w-12 h-12 rounded-full bg-cover ${item.iconColor}`}
+                className={`w-12 h-12 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
                 style={
                   walletAddress && item.title == "Profile" ? {
                     backgroundImage: `url(${avatar.src})`
                   }: {}
                 }
-              />
-              <p className="text-center text-xs text-black">{item.title}</p>
-              {
-                item.childrens && (
-                  <div className="extra-panel hidden">
-                    <div
-                      className={cx(
-                        "absolute h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 shadow-lg border-r border-t p-4",
-                        {
-                          "-translate-x-full": !true,
-                          "translate-x-0": false,
-                        }
-                      )}
-                    >
-                      <div className="text-right">
-                        <XIcon
-                          className="w-8 h-8 inline-block text-gray-600 cursor-pointer"
-                        />
-                      </div>
-                      <div className="flex absolute flex-col flex-1 h-screen px-5 mt-3 space-y-5 text-gray-500">
-                        {
-                          item.childrens.map((itemt, index) => (
-                            <Link href={itemt.href} key={index} className="py-4 px-6 hover:bg-slate-200" onClick={itemt.onClick}>{itemt.title}</Link>
-                          ))
-                        }
-                      </div>
-                    </div>
-                  </div>
-                )
-              }
+              >
+                {item.icon}
+              </div>
+              <p className="text-center text-xs">{item.title}</p>
             </div>
           ))
         }
       </div>
-    </>
+      {
+        subList.length ? (
+          <div className="extra-panel">
+            <div
+              className={cx(
+                "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-64 border-r dark:bg-mid-dark border-base-content border-opacity-25",
+                {
+                  "-translate-x-full": !true,
+                  "translate-x-0": false,
+                }
+              )}
+            >
+              <div className="flex flex-col flex-1 h-screen w-full text-gray-500 dark:text-white">
+                {
+                  subList.map((link, index) => (
+                    <Link
+                      href={link.href}
+                      key={index}
+                      className={`py-4 px-6 sub-nav-item border-b border-base-content border-opacity-25 ${activeSub == index ? "active text-white" : ""}`}
+                    >{link.title}</Link>
+                  ))
+                }
+              </div>
+            </div>
+          </div>
+        )
+        : ""
+      }
+    </div>
   )
 };
 

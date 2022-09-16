@@ -7,7 +7,7 @@ interface Props {
 export const ShowMore:FC<Props> = ({ text }) => {
     const [expand, setExpand] = useState(false);
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 dark:text-white">
             <span>
                 {
                     text.length > 100 ? (

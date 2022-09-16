@@ -4,51 +4,51 @@ import avatar from "../../../temp/images/campaigns/mulgakongz-collection.png";
 export const Profile:FC = () => {
     return (
         <div className="grid p-8">
-            <h2 className="text-2xl font-bold py-7">Profile details</h2>
+            <h2 className="text-2xl font-bold py-7 ">Profile details</h2>
             <div className="flex gap-10">
                 <div>
                     <div className="profile-type-details flex gap-3 mt-3">
-                        <div className="border border-black px-3 py-1">Account type</div>
-                        <div className="border border-black px-3 py-1">Profile public</div>
+                        <div className="border border-base-content border-opacity-25 bg-base-100 px-3 py-1">Account type</div>
+                        <div className="border border-base-content border-opacity-25 bg-base-100 px-3 py-1">Profile public</div>
                     </div>
                     <div className="grid mt-6 gap-3">
                         <div className="input-grop">
-                            <label>Username</label>
+                            <label className="">Username</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                         <div className="input-grop">
-                            <label>Bio</label>
+                            <label className="">Bio</label>
                             <textarea
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-4"
+                                className="textarea textarea-bordered mt-1 block w-full shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-4"
                                 rows={6}
                             />
                         </div>
                         <div className="input-grop">
-                            <label>Email</label>
+                            <label className="">Email</label>
                             <input
                                 type="email"
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                         <div className="input-grop">
-                            <label>Website & Social media links</label>
+                            <label className="">Website & Social media links</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                             />
                             <input
                                 type="text"
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4 mt-4"
+                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4 mt-4"
                             />
                         </div>
                         <div className="input-grop">
-                            <label>Wallet address</label>
+                            <label className="">Wallet address</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full rounded-md border border-black shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                     </div>
@@ -58,7 +58,7 @@ export const Profile:FC = () => {
                 </div>
                 <div className="flex flex-col gap-4 mt-20">
                     <div className="photo-group flex flex-col gap-3">
-                        <label>Profile image</label>
+                        <label className="">Profile image</label>
                         <img
                             className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-full"
                             src={avatar.src}
@@ -66,9 +66,9 @@ export const Profile:FC = () => {
                         />
                     </div>
                     <div className="photo-group flex flex-col gap-3">
-                        <label>Profile banner</label>
+                        <label className="">Profile banner</label>
                         <div
-                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-lg border border-black"
+                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-lg border border-base-content border-opacity-25 bg-base-100"
                         />
                     </div>
                 </div>

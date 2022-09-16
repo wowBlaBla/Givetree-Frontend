@@ -4,6 +4,10 @@
 
 @import "./carousel.css";
 
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -23,6 +27,7 @@ img {
 
   .button-hover {
     @apply transition-hover hover:bg-brand-orange-hover hover:border-brand-orange-hover hover:text-white;
+    @apply dark:hover:bg-brand-orange-hover dark:hover:text-white;
   }
 
   .primary-button {
@@ -31,6 +36,7 @@ img {
 
   .outline-button {
     @apply flex justify-center items-center py-1 px-3 border border-brand-black rounded-lg text-sm sm:text-sm font-bold text-center text-brand-orange tracking-wide cursor-pointer button-hover;
+    @apply dark:bg-white dark:text-black;
   }
   
   .tooltip::before {
@@ -43,15 +49,19 @@ img {
   }
 
   .vertical-navbar {
-    @apply fixed h-full border-r border-slate-300 bg-white z-50 top-16 shadow-md flex flex-col items-center gap-2
-  }
-
-  .vertical-navbar {
-    margin-top: 11px;
+    @apply max-h-screen border-r border-slate-300 bg-white z-50 top-[75px] shadow-md flex flex-col items-center gap-2 bottom-0 dark:bg-deep-dark p-1 dark:border-slate-500
   }
   
   .vertical-navbar .nav-item {
-    @apply cursor-pointer w-full flex items-center flex-col pt-3 pb-2 hover:bg-cyan-200 border-x-8 border-transparent hover:border-l-cyan-800
+    @apply cursor-pointer w-full flex items-center flex-col pt-3 pb-2 dark:text-white
+  }
+
+  .vertical-navbar .nav-item.active, .vertical-navbar .nav-item:hover, .extra-panel .sub-nav-item.active, .extra-panel .sub-nav-item:hover {
+    @apply bg-menu-orange border-menu-orange border rounded-md text-white;
+  }
+
+  .vertical-navbar .nav-item, .extra-panel .sub-nav-item {
+    --tw-bg-opacity: 0.5 !important;
   }
 
   .vertical-navbar .nav-item:hover > .extra-panel {

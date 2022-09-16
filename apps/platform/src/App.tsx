@@ -29,8 +29,8 @@ const App = () => {
   return (
     <Router>
       <ScrollToTop>
-        <div className="flex flex-col h-full min-h-screen bg-gray-50">
-          <AppHeader />
+        <AppHeader />
+        <div className="flex h-full min-h-screen bg-gray-50">
           <SideNavigation/>
           <ToastContainer
             className="mt-16"
@@ -41,12 +41,12 @@ const App = () => {
 
             <Switch>
               <Route path={PlatformRoute.Home}>
-                <div className="flex flex-col flex-1 mt-12 sm:mt-16 lg:ml-20">
+                <div className="flex flex-col flex-1 max-h-layout overflow-y-auto dark:bg-light-dark">
                   <HomeContainer />
                   <AppFooter />
                 </div>
               </Route>
-              <div className="flex flex-col flex-1 mt-12 sm:mt-16 lg:ml-20">
+              <div className="flex flex-col flex-1 max-h-layout overflow-y-auto dark:bg-light-dark">
                 <Route path={PlatformRoute.CampaignDetails}>
                   {(params) => (
                     <CampaignDetailsContainer campaignName={params.campaignName} />

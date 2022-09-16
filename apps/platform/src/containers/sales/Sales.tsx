@@ -19,25 +19,25 @@ export const SalesContainer:FC<Props> = ({ campaignName }) => {
                         <img
                             src={MulgaKongz.src}
                             alt="art-work"
-                            className="w-full rounded-2xl-1 border border-black"
+                            className="w-full rounded-2xl-1 border border-black dark:border-white"
                         />
                     </div>
-                    <div className="meta-panel mt-5">
-                        <div className="border border-black border-b-0 rounded-t-2xl-1 p-5">
+                    <div className="meta-panel mt-5 dark:text-white">
+                        <div className="border border-black dark:border-white border-b-0 rounded-t-2xl-1 p-5">
                             <span className="text-base">Description</span>
                         </div>
-                        <div className="border border-black border-b-0 p-5">
+                        <div className="border border-black dark:border-white border-b-0 p-5">
                             <span className="text-base">Properties</span>
                         </div>
-                        <div className="border border-black border-b-0 p-5">
+                        <div className="border border-black dark:border-white border-b-0 p-5">
                             <span className="text-base">About Artist</span>
                         </div>
-                        <div className="border border-black rounded-b-2xl-1 p-5">
+                        <div className="border border-black dark:border-white rounded-b-2xl-1 p-5">
                             <span className="text-base">About Charity</span>
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-2 w-full">
+                <div className="flex flex-col gap-2 w-full dark:text-white">
                     <h1 className="text-6xl font-bold">Rainbow Fish</h1>
                     <ul className="list-none text-[18px] my-2">
                         <li>
