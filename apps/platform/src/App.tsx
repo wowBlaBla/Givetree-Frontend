@@ -22,6 +22,7 @@ import { CharityCustomerPortal } from "./containers/profile/charity/container";
 import { useSelector } from "react-redux";
 import { IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
+import { AboutContainer } from "./containers/about/container";
 
 const App = () => {
   const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
@@ -106,6 +107,10 @@ const App = () => {
                         </>
                       )
                     }}
+                </Route>
+                
+                <Route path={PlatformRoute.About}>
+                    <AboutContainer/>
                 </Route>
 
                 <Route path="*">

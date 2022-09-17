@@ -23,8 +23,6 @@ declare global {
 interface Dropdown {
   title: string;
   href: string;
-  disabled?: boolean;
-  icon: ReactElement;
   onClick?: () => void;
 }
 
@@ -64,7 +62,7 @@ const list: AppHeaderNavLink[] = [
   },
   {
     title: "About",
-    href: PlatformRoute.Static,
+    href: "/about/welcome",
     disabled: false,
     icon: <QuestionMarkCircleIcon className="w-7 h-7" />,
     iconColor: "bg-yellow-500",
@@ -76,21 +74,58 @@ const exploreSub: Dropdown[] = [
   {
     title: "NFT Fundraisers",
     href: PlatformRoute.FundraiserDetails,
-    disabled: false,
-    icon: <HomeIcon className="w-7 h-7" />,
   },
   {
     title: "Charities",
     href: PlatformRoute.CharityListing,
-    disabled: false,
-    icon: <HomeIcon className="w-7 h-7" />,
   },
   {
     title: "Creators",
     href: PlatformRoute.CreatorListing,
-    disabled: false,
-    icon: <HomeIcon className="w-7 h-7" />,
   }
+];
+
+const aboutSub: Dropdown[] = [
+  {
+    title: "Welcome",
+    href: "/about/welcome",
+  },
+  {
+    title: "Our story",
+    href: "",
+  },
+  {
+    title: "Our technology",
+    href: "",
+  },
+  {
+    title: "Our partners",
+    href: "",
+  },
+  {
+    title: "Risk management",
+    href: "",
+  },
+  {
+    title: "Media enquiries",
+    href: "",
+  },
+  {
+    title: "Blog",
+    href: "",
+  },
+  {
+    title: "Socials",
+    href: "",
+  },
+  {
+    title: "Terms of use",
+    href: "",
+  },
+  {
+    title: "Privacy policy",
+    href: "",
+  },
 ];
 
 const _home = PlatformRoute.Home;
@@ -100,7 +135,7 @@ const _explore = [
   "/creators",
   "/mints",
 ];
-const _about = "/about";
+const _about = PlatformRoute.About;
 const _create = "/profile/:role/mint";
 const _profile = PlatformRoute.ProfileDetails;
 
@@ -150,7 +185,13 @@ export const SideNavigation: FC = () => {
       let matched:Match = [false, null];
       const matcher = makeMatcher() as MatcherFn;
 
-      if (typeof link == 'string') matched = matcher(link, location);
+      if (typeof link == 'string') {
+        matched = matcher(link, location);
+        if (link == _about && matched[0]) {
+          setActiveSub(0);
+          setSubList(aboutSub);
+        }
+      }
 
       else {
         link.map((item, index) => {

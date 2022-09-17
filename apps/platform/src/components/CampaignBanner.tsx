@@ -81,7 +81,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           )}
 
           {assetType === AssetType.Image && (
-            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer bg-white" onClick={() => setLocation('/fundraiser/sale')}>
+            <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer bg-base-100" onClick={() => setLocation('/fundraiser/sale')}>
               <div
                 className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-gray-200 rounded-t-2xl-1 md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
