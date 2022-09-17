@@ -33,7 +33,7 @@ module.exports = {
         75: "18.75rem",
         "80-1-4": "20.25rem",
         // 86: "20rem",
-        96: "36rem",
+        100: "25rem",
         128: "42rem",
         "inherit": "inherit"
       },
@@ -42,8 +42,7 @@ module.exports = {
         25: "6.25rem",
         "37-1/2": "9.375rem",
         50: "12.5rem",
-        86: "28rem",
-        96: "36rem",
+        100: "25rem",
         128: "42rem",
       },
       lineHeight: {
