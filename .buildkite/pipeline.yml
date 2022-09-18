@@ -24,12 +24,12 @@ steps:
   
   - wait  
   
-  - label: ":shipit: Deploy Feature"
+  - label: ":rocket: Deploy Feature"
     command:
       - "cd apps/platform/out"
       - "ls"
-      - "export BRANCH_SLUG=$(echo $BUILDKITE_BRANCH | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)"
-      - "aws s3 sync . s3://${S3_TEST_BUCKET_NAME}/preview/${BRANCH_SLUG}"
+      - "export BRANCH_SLUG=$(echo '$BUILDKITE_BRANCH' | iconv -c -t ascii//TRANSLIT | sed -E 's/[~^]+//g' | sed -E 's/[^a-zA-Z0-9]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z)"
+      - "aws s3 sync . s3://${S3_TEST_BUCKET_NAME}/preview/$${BRANCH_SLUG}"
     if: "build.branch != 'master'"
     env:
       AWS_ASSUME_ROLE_ARN: ${DEPLOY_TEST_ROLE_ARN}
@@ -38,7 +38,7 @@ steps:
           download: "apps/platform/out/**"
       - cultureamp/aws-assume-role
   
-  - label: ":shipit: Deploy Master to Test"
+  - label: ":rocket: Deploy Master to Test"
     command:
       - "cd apps/platform/out"
       - "ls"
@@ -53,10 +53,10 @@ steps:
 
   - wait  
 
-  - block: ":shipit: Deploy To Staging"
+  - block: ":rocket: Deploy To Staging"
     branches: "master"
 
-  - label: ":shipit: Deploy Master to Stage"
+  - label: ":rocket: Deploy Master to Stage"
     command:
       - "Deploying to Staging..."
       # - "cd apps/platform/out"
@@ -73,10 +73,10 @@ steps:
   
   - wait  
 
-  - block: ":shipit: Deploy To Production"
+  - block: ":rocket: Deploy To Production"
     branches: "master"
 
-  - label: ":shipit: Deploy Master to Production"
+  - label: ":rocket: Deploy Master to Production"
     command:
       - "Deploying to Production..."
       # - "cd apps/platform/out"
