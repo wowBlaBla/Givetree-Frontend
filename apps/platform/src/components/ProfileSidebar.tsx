@@ -49,7 +49,7 @@ export const ProfileSideBar:FC = () => {
                                 key={idx}
                             >
                                 <a
-                                    className={`flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700 ${item.category == params?.category ? "bg-gray-200" : ""}`}
+                                    className={`flex items-center p-4 transition-colors duration-300 transform dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700 ${item.category == params?.category ? "bg-menu-orange text-white" : " text-gray-600 "}`}
                                     href=""
                                 >
                                     <span className="mx-4 font-medium">{item.title}</span>

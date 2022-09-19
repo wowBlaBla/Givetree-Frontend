@@ -116,7 +116,7 @@ export const Profile:FC = () => {
                     <div className="photo-group flex flex-col gap-3">
                         <label className="dark:text-white">Profile image</label>
                         <img
-                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-full"
+                            className="object-cover w-37.5 h-37.5 mx-2 rounded-full"
                             src={avatar.src}
                             alt="avatar"
                         />
@@ -124,7 +124,7 @@ export const Profile:FC = () => {
                     <div className="photo-group flex flex-col gap-3">
                         <label className="dark:text-white">Profile banner</label>
                         <div
-                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-lg border border-black dark:border-white"
+                            className="object-cover w-37.5 h-37.5 mx-2 rounded-lg border border-black dark:border-white"
                         />
                     </div>
                 </div>

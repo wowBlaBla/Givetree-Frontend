@@ -41,7 +41,7 @@ const list: AppHeaderNavLink[] = [
     title: "Home",
     href: PlatformRoute.Home,
     disabled: false,
-    icon: <HomeIcon className="w-7 h-7" />,
+    icon: <HomeIcon className="w-7 h-7 text-white" />,
     childrens: undefined,
     iconColor: "bg-sky-500",
   },
@@ -49,14 +49,14 @@ const list: AppHeaderNavLink[] = [
     title: "Explore",
     href: PlatformRoute.FundraiserDetails,
     disabled: true,
-    icon: <SearchIcon className="w-7 h-7" />,
+    icon: <SearchIcon className="w-7 h-7 text-white" />,
     iconColor: "bg-orange-500",
   },
   {
     title: "Create",
     href: PlatformRoute.Static,
     disabled: false,
-    icon: <ViewGridAddIcon className="w-7 h-7" />,
+    icon: <ViewGridAddIcon className="w-7 h-7 text-white" />,
     iconColor: "bg-red-500",
     childrens: undefined,
   },
@@ -64,7 +64,7 @@ const list: AppHeaderNavLink[] = [
     title: "About",
     href: "/about/welcome",
     disabled: false,
-    icon: <QuestionMarkCircleIcon className="w-7 h-7" />,
+    icon: <QuestionMarkCircleIcon className="w-7 h-7 text-white" />,
     iconColor: "bg-yellow-500",
     childrens: undefined,
   },
@@ -220,11 +220,11 @@ export const SideNavigation: FC = () => {
 
   return (
     <div className={
-      cx("flex absolute z-50 md:relative", {
+      cx("flex absolute z-50 top-[75px] bottom-0 md:static", {
       "hidden": !openSideMenu
       })
     }>
-      <div className="vertical-navbar">
+      <div className="vertical-navbar scroll-none">
         {
           appHeaderNavLinks.map((item, idx) => (
             <div
@@ -245,7 +245,7 @@ export const SideNavigation: FC = () => {
               >
                 {item.icon}
               </div>
-              <p className="text-center text-xs">{item.title}</p>
+              <p className="mt-1 font-bold text-center text-xs uppercase">{item.title}</p>
             </div>
           ))
         }
