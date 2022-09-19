@@ -177,7 +177,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                className="rounded-2xl-1 h-10 px-3 border border-base-content border-opacity-25 dark:bg-deep-dark w-full outline-0 focus:shadow-lg"
+                                className="rounded-2xl-1 h-10 px-4 border border-base-content border-opacity-25 dark:bg-deep-dark w-full outline-0 focus:border-indigo-500"
                             />
                         </div>
                         <div className="flex gap-2 justify-end">
@@ -190,7 +190,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                className="rounded-2xl-1 h-10 px-3 border border-black w-full outline-0 focus:shadow-lg"
+                                className="rounded-2xl-1 h-10 px-3 border border-black w-full outline-0 focus:border-indigo-500"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-1">

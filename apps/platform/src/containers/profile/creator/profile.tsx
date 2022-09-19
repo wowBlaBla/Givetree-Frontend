@@ -16,13 +16,13 @@ export const Profile:FC = () => {
                             <label className="">Username</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                         <div className="input-grop">
                             <label className="">Bio</label>
                             <textarea
-                                className="textarea textarea-bordered mt-1 block w-full shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-4"
+                                className="textarea textarea-bordered mt-1 block w-full outline-none focus:border-indigo-500 sm:text-sm p-4"
                                 rows={6}
                             />
                         </div>
@@ -30,37 +30,37 @@ export const Profile:FC = () => {
                             <label className="">Email</label>
                             <input
                                 type="email"
-                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                         <div className="input-grop">
                             <label className="">Website & Social media links</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
                             />
                             <input
                                 type="text"
-                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4 mt-4"
+                                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4 mt-4"
                             />
                         </div>
                         <div className="input-grop">
                             <label className="">Wallet address</label>
                             <input
                                 type="text"
-                                className="mt-1 block w-full input input-bordered shadow-sm outline-none focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-12 px-4"
+                                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
                             />
                         </div>
                     </div>
                     <div className="button-group mt-4">
-                        <button className="px-6 py-2 bg-cyan-300 rounded-md hover:bg-cyan-500">Save</button>
+                        <button className="px-6 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-700">Save</button>
                     </div>
                 </div>
                 <div className="flex flex-col gap-4 mt-20">
                     <div className="photo-group flex flex-col gap-3">
                         <label className="">Profile image</label>
                         <img
-                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-full"
+                            className="object-cover w-37.5 h-37.5 mx-2 rounded-full"
                             src={avatar.src}
                             alt="avatar"
                         />
@@ -68,7 +68,7 @@ export const Profile:FC = () => {
                     <div className="photo-group flex flex-col gap-3">
                         <label className="">Profile banner</label>
                         <div
-                            className="object-cover w-37-1/2 h-37-1/2 mx-2 rounded-lg border border-base-content border-opacity-25 bg-base-100"
+                            className="object-cover w-37.5 h-37.5 mx-2 rounded-lg border border-base-content border-opacity-25 bg-base-100"
                         />
                     </div>
                 </div>

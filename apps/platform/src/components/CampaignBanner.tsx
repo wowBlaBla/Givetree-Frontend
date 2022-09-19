@@ -83,7 +83,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           {assetType === AssetType.Image && (
             <div className="max-w-[487px] w-full shadow-md rounded-2xl-1 inline-block md:hover:shadow-fixed transition-all cursor-pointer bg-base-100" onClick={() => setLocation('/fundraiser/sale')}>
               <div
-                className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-gray-200 rounded-t-2xl-1 md:flex"
+                className="inset-0 hidden w-full h-[335px] bg-center bg-no-repeat bg-cover border border-base-content border-opacity-50 rounded-t-2xl-1 md:flex"
                 style={{ backgroundImage: `url(${backgroundAsset})` }}
               />
               <img
@@ -91,7 +91,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
                 className="block object-fill w-auto min-w-full h-[335px] md:hidden rounded-t-2xl-1"
                 src={backgroundAsset}
               />
-              <div className="h-20 flex items-center justify-between p-4">
+              <div className="h-20 flex items-center justify-between p-4 border border-t-0 border-base-content border-opacity-25 rounded-b-2xl-1">
                 <div className="flex gap-2">
                   <img
                     src="/apple-touch-icon.png"
