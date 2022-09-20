@@ -58,7 +58,7 @@ img {
   }
 
   .vertical-navbar .nav-item {
-    @apply cursor-pointer w-full flex items-center flex-col pt-3 pb-2 dark:text-white
+    @apply cursor-pointer w-full flex items-center flex-col pt-3 pb-2 dark:text-white w-20 h-20
   }
 
   .scroll-none::-webkit-scrollbar {

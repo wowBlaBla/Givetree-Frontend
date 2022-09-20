@@ -117,7 +117,7 @@ export const SignupWithEmail:FC = () => {
                 </div>
                 <div>
                     <button
-                        className={`flex text-white justify-center items-center mt-2 p-3 gap-1 rounded-lg bg-cyan-600 text-sm sm:text-sm font-bold tracking-wide cursor-pointer button-hover w-full btn`}
+                        className={`flex text-white justify-center items-center mt-2 p-3 gap-1 rounded-lg bg-cyan-600 text-sm sm:text-sm font-bold tracking-wide cursor-pointer button-hover w-full`}
                         onClick={registerByEmail}
                         disabled={isLoading}
                     >
