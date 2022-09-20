@@ -236,7 +236,7 @@ export const SideNavigation: FC = () => {
               }
             >
               <div
-                className={`w-12 h-12 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
+                className={`w-10 h-10 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
                 style={
                   walletAddress && item.title == "Profile" ? {
                     backgroundImage: `url(${avatar.src})`
@@ -245,7 +245,7 @@ export const SideNavigation: FC = () => {
               >
                 {item.icon}
               </div>
-              <p className="mt-1 font-bold text-center text-xs uppercase">{item.title}</p>
+              <p className="mt-1 text-center text-xs uppercase font-side-menu">{item.title}</p>
             </div>
           ))
         }

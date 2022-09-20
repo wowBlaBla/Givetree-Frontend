@@ -5,8 +5,8 @@ import { PrimaryButton } from "./PrimaryCta";
 
 export const AppFooter = () => (
   <div className="text-gray-800 bg-gray-100 border-t border-base-content border-opacity-25 text-black dark:text-white dark:bg-deep-dark">
-    <div className="flex flex-col items-center justify-between gap-2 mx-auto pb-6">
-      <div className="text-lg grid md:grid-cols-2 grid-cols-1 gap-8 justify-between w-full max-w-screen-xl mt-10 px-5">
+    <div className="flex flex-col items-center justify-between gap-2 mx-auto pb-6 max-w-screen-xl px-5 ">
+      <div className="text-lg grid md:grid-cols-2 grid-cols-1 gap-8 justify-between w-full mt-10">
         <div className="gap-5 md:order-1 order-2 sm:text-left text-center">
           <div className="about-givetree flex flex-col gap-5">
             <GiveTreeLogo className="w-10 text-brand-black"/>
@@ -36,8 +36,8 @@ export const AppFooter = () => (
           </div>
         </div>
       </div>
-      <div className="copyright p-5 mt-5 border-t border-base-content border-opacity-25 w-full">
-        <p className="text-center text-md">&copy; Givetree 2022</p>
+      <div className="copyright py-5 mt-3 w-full">
+        <p className="text-start text-md text-base-content">&copy; Givetree 2022</p>
       </div>
     </div>
   </div>

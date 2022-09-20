@@ -7,7 +7,7 @@ export interface SectionTitleProps {
 }
 
 export const SectionTitle: FC<SectionTitleProps> = ({ className, children }) => (
-  <h1 className={cx("text-gray-900 text-4xl sm:text-5xl font-bold dark:text-white", className)}>
+  <h1 className={cx("text-gray-900 text-2xl sm:text-3xl font-bold dark:text-white", className)}>
     {children}
   </h1>
 );

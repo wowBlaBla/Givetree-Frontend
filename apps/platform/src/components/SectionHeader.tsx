@@ -5,6 +5,7 @@ import { SectionSubtitle } from "./SectionSubtitle";
 import { PlatformRoute } from "../configs/routes";
 // import { PrimaryLink } from "./PrimaryCta";
 import { Link } from "wouter";
+import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 
 export interface SectionHeaderProps {
   className?: string;
@@ -42,7 +43,10 @@ export const SectionHeader: FC<SectionHeaderProps> = ({
 
     {link && (
       <div className="text-right w-full md:w-auto">
-        <Link href={link}>{linkText} &gt;</Link>
+        <Link href={link} className="flex gap-1 items-center">
+          <span>{linkText}</span>
+          <ArrowCircleRightIcon className="w-5 h-5 mt-1" />
+        </Link>
       </div>
     )}
   </div>

@@ -28,7 +28,7 @@ export const Fundraisers:FC<Props> = ({ className }) => {
 
     return (
         <div className={cx(className, "mx-auto w-full")}>
-            <div className="grid gap-4 grid-auto-fit">
+            <div className="grid gap-4 grid-auto-fit-sm">
                 {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (
                     <CampaignCard key={idx} campaign={campaign} />
                 ))}

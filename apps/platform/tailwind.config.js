@@ -22,6 +22,9 @@ module.exports = {
         none: "0",
         "lg-m": "0.625rem",
       },
+      fontFamily: {
+        "side-menu": `"Montserrat Bold","Arial Black",sans-serif`,
+      },
       width: {
         22.5: "5.625rem",
         25: "6.25rem",

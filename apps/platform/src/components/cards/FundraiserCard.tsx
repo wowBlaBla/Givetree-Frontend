@@ -23,7 +23,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   return (
     <div className="text-center h-full">
       <div
-        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer sm:max-w-229px hover:shadow-xl rounded-xl"
+        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
