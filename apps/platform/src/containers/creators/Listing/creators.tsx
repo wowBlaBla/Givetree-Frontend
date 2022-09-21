@@ -28,9 +28,14 @@ export const CreatorsContainer:FC = () => {
             <SectionHeader
                 mainTitle="Creators"
                 subtitle="Discover creators helping to make the world a better place"
-                className="mx-auto text-center"
+                className="mx-auto"
                 titleClassName="text-center"
             />
+            
+            <div className="category text-sm mb-2 dark:text-white">
+                <span>Display: </span>
+                <span className="ml-1">All</span>
+            </div>
             
             <CardGrid>
                 {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (

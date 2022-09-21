@@ -19,20 +19,20 @@ export const SalesContainer:FC<Props> = ({ campaignName }) => {
                         <img
                             src={MulgaKongz.src}
                             alt="art-work"
-                            className="w-full rounded-2xl-1 border border-black dark:border-white"
+                            className="w-full rounded-2xl-1 border border-base-content border-opacity-25"
                         />
                     </div>
                     <div className="meta-panel mt-5 dark:text-white">
-                        <div className="border border-black dark:border-white border-b-0 rounded-t-2xl-1 p-5">
+                        <div className="border border-base-content border-opacity-25 border-b-0 rounded-t-2xl-1 p-5">
                             <span className="text-base">Description</span>
                         </div>
-                        <div className="border border-black dark:border-white border-b-0 p-5">
+                        <div className="border border-base-content border-opacity-25 border-b-0 p-5">
                             <span className="text-base">Properties</span>
                         </div>
-                        <div className="border border-black dark:border-white border-b-0 p-5">
+                        <div className="border border-base-content border-opacity-25 border-b-0 p-5">
                             <span className="text-base">About Artist</span>
                         </div>
-                        <div className="border border-black dark:border-white rounded-b-2xl-1 p-5">
+                        <div className="border border-base-content border-opacity-25 rounded-b-2xl-1 p-5">
                             <span className="text-base">About Charity</span>
                         </div>
                     </div>
@@ -54,7 +54,7 @@ export const SalesContainer:FC<Props> = ({ campaignName }) => {
                         </li>
                     </ul>
                     <div className="shadow-lg rounded-2xl-1">
-                        <div className="grid grid-cols-1 gap-1 pl-7 pr-4 pt-2 pb-6 border-[3px] rounded-t-2xl-1">
+                        <div className="grid grid-cols-1 gap-1 pl-7 pr-4 pt-2 pb-6 border-[3px] border-base-content border-opacity-25 rounded-t-2xl-1">
                             <div className="text-right">
                                 <CollectionBadge campaignName={campaignName}/>
                             </div>
@@ -65,7 +65,7 @@ export const SalesContainer:FC<Props> = ({ campaignName }) => {
                                 <label className="md:text-3xl text-xl">2 days 3 hours 45 min 55 sec</label>
                             </div>
                         </div>
-                        <div className="grid grid-cols-1 gap-1 pl-7 p-5 border-t-0 border-[3px] rounded-b-2xl-1">
+                        <div className="grid grid-cols-1 gap-1 pl-7 p-5 border-t-0 border-[3px] border-base-content border-opacity-25 rounded-b-2xl-1">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
                                 <div className="grid grid-cols-1">
                                     <label className="text-xl">{PriceDescription[campaignName]}</label>

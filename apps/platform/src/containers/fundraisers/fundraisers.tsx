@@ -31,7 +31,7 @@ export const FundraisersContainer:FC = () => {
                 className="mx-auto"
                 titleClassName="text-center"
             />
-            <div className="category text-sm mb-6 dark:text-white">
+            <div className="category text-sm mb-2 dark:text-white">
                 <span>Display: </span>
                 <span className="ml-1">All</span>
             </div>

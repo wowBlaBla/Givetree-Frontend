@@ -9,6 +9,7 @@ import { CharityCard } from "../../../components/cards/CharityCard";
 import { SectionHeader } from "../../../components/SectionHeader";
 import { LoadingContainer } from "../../../components/LoadingContainer";
 import { ErrorContainer } from "../../../components/ErrorContainer";
+import { SectionContainer } from "../../../components/SectionContainer";
 
 export const CharityListingContainer = () => {
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
@@ -33,21 +34,25 @@ export const CharityListingContainer = () => {
         <title>GiveTree - Charities</title>
       </Head>
 
-      <SectionHeader
-        className="mt-6 sm:mt-8"
-        titleClassName="text-center"
-        mainTitle="Charities"
-        subtitle="Charities that help make the world a better place"
-        textCenter
-      />
+      <SectionContainer>
+        <SectionHeader
+          className="mx-auto"
+          titleClassName="text-center"
+          mainTitle="Charities"
+          subtitle="Charities that help make the world a better place"
+        />
 
-      <div className="flex flex-col flex-1 w-full p-5 mx-auto">
+        <div className="category text-sm mb-2 dark:text-white">
+          <span>Display: </span>
+          <span className="ml-1">All</span>
+        </div>
+        
         <CardGrid>
           {[...data.charities, ...data.charities, ...data.charities].map((charity, idx) => (
             <CharityCard key={idx} charity={charity} />
           ))}
         </CardGrid>
-      </div>
+      </SectionContainer>
     </div>
   );
 };

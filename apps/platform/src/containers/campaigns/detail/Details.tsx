@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
 import { useQuery } from "@apollo/client";
-
 import { GetCampaignDetailsDataQuery, GET_CAMPAIGN_DETAILS_DATA } from "./DetailsData";
 import { BackgroundImage } from "../../../components/BackgroundImage";
 import { GradientDivider } from "../../../components/GradientDivider";
