@@ -8,7 +8,7 @@ export const CollectionBadge:FC<Props> = ({ campaignName }) => {
     return (
         <a
             href="#"
-            className="text-lg-m py-1 px-3 text-center border rounded-lg-m inline-block"
+            className="text-lg-m py-1 px-3 text-center border border-base-content border-opacity-25 rounded-lg-m inline-block"
         >
             {
                 campaignName == 'mint' ? "What is minting?" : (
