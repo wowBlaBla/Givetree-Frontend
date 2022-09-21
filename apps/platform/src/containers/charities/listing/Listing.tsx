@@ -43,7 +43,7 @@ export const CharityListingContainer = () => {
 
       <div className="flex flex-col flex-1 w-full p-5 mx-auto">
         <CardGrid>
-          {data.charities.map((charity, idx) => (
+          {[...data.charities, ...data.charities, ...data.charities].map((charity, idx) => (
             <CharityCard key={idx} charity={charity} />
           ))}
         </CardGrid>

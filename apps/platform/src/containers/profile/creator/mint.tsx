@@ -3,9 +3,9 @@ import { PrimaryButton } from "../../../components/PrimaryCta";
 
 export const Mint:FC = () => {
     return (
-        <div className="grid w-[468px] p-8">
-            <h2 className="text-2xl font-bold py-7 ">Create NFT</h2>
-            <div className="flex flex-col gap-10 items-center w-full">
+        <div className="grid p-8">
+            <h2 className="text-2xl font-bold py-7 dark:text-white">Create NFT</h2>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
                 <div className="grid mt-6 gap-8 w-full">
                     <div className="input-grop">
                         <label className="">Title</label>
@@ -83,7 +83,7 @@ export const Mint:FC = () => {
                             <div className="p-3 border border-base-content border-opacity-25 bg-base-100 rounded-b-md">You will receive: </div>
                         </div>
                     </div>
-                    <PrimaryButton>Submit for review & approval</PrimaryButton>
+                    <PrimaryButton className="py-3">Submit for review & approval</PrimaryButton>
                 </div>
             </div>
         </div>

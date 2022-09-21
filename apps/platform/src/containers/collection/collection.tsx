@@ -116,7 +116,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             role="presentation"
                         >
                             <a
-                                href="#tabs-home"
+                                href="javascript:void(0);"
                                 className="nav-link block text-lg leading-tight capitalize p-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:hover:bg-deep-dark"
                                 id="tabs-home-tab"
                                 data-bs-toggle="pill"
@@ -139,7 +139,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                                     key={idx}
                                 >
                                     <a
-                                        href="#tabs-home"
+                                        href="javascript:void(0);"
                                         className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:text-white dark:hover:bg-deep-dark"
                                         id="tabs-home-tab"
                                         data-bs-toggle="pill"

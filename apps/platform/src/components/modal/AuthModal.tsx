@@ -4,8 +4,6 @@ import { FC, Fragment, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../../store/actions/auth.action";
 import { IStore } from "../../store/reducers/auth.reducer";
-import { MailIcon } from "@heroicons/react/outline";
-import { ConnectWalletIcon } from "../icons/ConnectWalletIcon";
 import { XIcon } from "@heroicons/react/solid";
 import { SignupWithEmail } from "../SignupWithEmail";
 import { SigninWithEmail } from "../SigninWithEmail";
@@ -67,8 +65,8 @@ export const AuthModal:FC = () => {
                                         <Dialog.Title as="h2" className="text-3xl leading-6 font-medium text-white">
                                             Log in or create account
                                         </Dialog.Title>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#262C33] hover:bg-[#262C55]" onClick={() => setActivePanel('up-1')}>Sign Up</button>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#262C33] hover:bg-[#262C55]" onClick={() => setActivePanel('in-1')}>Sign In</button>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#677489] hover:bg-[#262C55]" onClick={() => setActivePanel('up-1')}>Sign Up</button>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#677489] hover:bg-[#262C55]" onClick={() => setActivePanel('in-1')}>Sign In</button>
                                     </div>
                                     <div className={cx("flex-col gap-5 items-center sm:mt-0 sm:ml-4", {
                                         "flex": activePanel == "up-1" || activePanel == "in-1",
@@ -77,17 +75,11 @@ export const AuthModal:FC = () => {
                                         <Dialog.Title as="h2" className="text-3xl leading-6 font-medium text-white">
                                             { activePanel == "up-1" ? "Create account" : "Sign in"}
                                         </Dialog.Title>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#262C33] hover:bg-[#262C55] flex items-center gap-3 justify-center" onClick={() => setActivePanel(activePanel == "up-1" ? "up-2": "in-2")}>
-                                            <div className="flex gap-2 w-24">
-                                                <ConnectWalletIcon className="ml-[3px]"/>
-                                                <span>Wallet</span>
-                                            </div>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#677489] hover:bg-[#262C55] flex items-center gap-3 justify-center" onClick={() => setActivePanel(activePanel == "up-1" ? "up-2": "in-2")}>
+                                            <span>Wallet</span>
                                         </button>
-                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#262C33] hover:bg-[#262C55] flex items-center gap-3 justify-center" onClick={() => setActivePanel(activePanel == "up-1" ? "up-3": "in-3")}>
-                                            <div className="flex gap-2 w-24">
-                                                <MailIcon className="w-8 h-8"/>
-                                                <span>Email</span>
-                                            </div>
+                                        <button className="w-72 h-20 rounded-lg text-lg font-bold text-white bg-[#677489] hover:bg-[#262C55] flex items-center gap-3 justify-center" onClick={() => setActivePanel(activePanel == "up-1" ? "up-3": "in-3")}>
+                                            <span>Email</span>
                                         </button>
                                     </div>
                                     <AuthWithWallet type={activePanel == "up-2" ? 0 : (activePanel == "in-2" ? 1 : -1)}/>
