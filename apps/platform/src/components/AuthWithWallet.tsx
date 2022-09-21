@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import cx from "classnames";
-import { PlusIcon } from "@heroicons/react/outline";
 import { CoinbaseIcon } from "./icons/CoinbaseIcon";
 import { MetaMaskIcon } from "./icons/MetaMaskIcon";
 import { WalletConnectIcon } from "./icons/WalletConnectIcon";
@@ -175,7 +174,7 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                                     >
                                         <a
                                             href="javascript:void(0);"
-                                            className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active text-white hover:text-black"
+                                            className="nav-link block text-lg leading-tight capitalize px-6 py-3 text-white hover:text-brand-orange font-bold"
                                             id="tabs-home-tab"
                                             data-bs-toggle="pill"
                                             data-bs-target="#tabs-home"
@@ -193,7 +192,7 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                 </div>
                 <div className={
                     cx(
-                        "ethereum-wallet w-full flex-col gap-3 h-64",
+                        "ethereum-wallet w-full flex-col gap-3 h-52",
                         {
                             "flex": activeTab < 2,
                             "hidden": activeTab > 1
@@ -233,14 +232,10 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                         </div>
                         { active == 2 ? <LoadingIcon className="w-6 h-6"/> : ""}
                     </button>
-                    <button className="cursor-pointer text-white font-bold shadow-md py-4 px-5 bg-slate-500 rounded-[2px] flex justify-center gap-2 items-center">
-                    <span>Show more options</span>
-                        <PlusIcon className="w-4 h-4"/>
-                    </button>
                 </div>
                 <div className={
                     cx(
-                        "solana-wallet w-full flex flex-col gap-3 h-64",
+                        "solana-wallet w-full flex flex-col gap-3 h-52",
                         {
                             "flex": activeTab > 1,
                             "hidden": activeTab < 2
@@ -257,10 +252,6 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                             <span>Phantom</span>
                         </div>
                         { active == 2 ? <LoadingIcon className="w-6 h-6"/> : ""}
-                    </button>
-                    <button className="cursor-pointer text-white font-bold shadow-md py-4 px-5 bg-slate-500 rounded-[2px] flex justify-center gap-2 items-center">
-                        <span>Show more options</span>
-                        <PlusIcon className="w-4 h-4"/>
                     </button>
                 </div>
             </div>

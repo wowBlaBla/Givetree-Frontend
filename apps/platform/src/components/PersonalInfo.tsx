@@ -19,7 +19,7 @@ export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     alt="creator avatar"
-                    className="w-37.5 aspect-square rounded-full border border-black dark:border-white"
+                    className="w-37.5 aspect-square rounded-full border border-base-content border-opacity-25"
                     src={avatar ? avatar : MulgaKongz.src}
                 />
                 <h1 className="md:text-[50px] md:leading-[3.5rem] text-center md:text-left text-base font-bold dark:text-white">{name}</h1>

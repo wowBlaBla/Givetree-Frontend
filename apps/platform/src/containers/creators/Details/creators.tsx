@@ -23,7 +23,7 @@ export const CreatorProfile:FC<CreatorProfileProps> = () => {
                     name={"Mulga The Artist"}
                 />
             </div>
-            <div className="border-b border-black overflow-x-auto scroll-pb-5 dark:border-white">
+            <div className="border-b border-base-content border-opacity-25 overflow-x-auto scroll-pb-5">
                 <div className="max-w-screen-2xl mx-auto w-full md:px-20 px-4">
                     <ul
                         className="nav nav-tabs flex gap-2 list-none border-b-0 pl-0 dark:text-white"
@@ -41,7 +41,7 @@ export const CreatorProfile:FC<CreatorProfileProps> = () => {
                                     key={idx}
                                 >
                                     <a
-                                        href="#tabs-home"
+                                        href="javascript:void(0);"
                                         className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active hover:bg-deep-dark"
                                         id="tabs-home-tab"
                                         data-bs-toggle="pill"

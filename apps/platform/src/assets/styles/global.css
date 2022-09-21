@@ -39,7 +39,7 @@ img {
   }
 
   .outline-button {
-    @apply flex justify-center items-center py-1 px-3 border border-brand-black rounded-lg text-sm sm:text-sm font-bold text-center text-brand-orange tracking-wide cursor-pointer button-hover;
+    @apply flex justify-center items-center py-1 px-3 border border-base-content border-opacity-25 rounded-lg text-sm sm:text-sm font-bold text-center text-brand-orange tracking-wide cursor-pointer button-hover;
     @apply dark:bg-white dark:text-black;
   }
   

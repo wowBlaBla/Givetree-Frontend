@@ -86,6 +86,9 @@ module.exports = {
       zIndex: {
         full: "9999",
         100: "100"
+      },
+      gridTemplateColumns: {
+        'card-layout': "repeat(auto-fill, minmax(14rem, 1fr))"
       }
     },
   },

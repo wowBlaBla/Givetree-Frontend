@@ -5,7 +5,7 @@ export const Profile:FC = () => {
     return (
         <div className="grid p-8">
             <h2 className="text-2xl font-bold py-7 ">Profile details</h2>
-            <div className="flex gap-10">
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
                 <div>
                     <div className="profile-type-details flex gap-3 mt-3">
                         <div className="border border-base-content border-opacity-25 bg-base-100 px-3 py-1">Account type</div>
@@ -52,25 +52,25 @@ export const Profile:FC = () => {
                             />
                         </div>
                     </div>
-                    <div className="button-group mt-4">
-                        <button className="px-6 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-700">Save</button>
-                    </div>
                 </div>
-                <div className="flex flex-col gap-4 mt-20">
-                    <div className="photo-group flex flex-col gap-3">
+                <div className="flex flex-col gap-4 md:mt-20">
+                    <div className="photo-group flex flex-col gap-y-3">
                         <label className="">Profile image</label>
                         <img
-                            className="object-cover w-37.5 h-37.5 mx-2 rounded-full"
+                            className="object-cover w-37.5 h-37.5 rounded-full"
                             src={avatar.src}
                             alt="avatar"
                         />
                     </div>
-                    <div className="photo-group flex flex-col gap-3">
+                    <div className="photo-group flex flex-col gap-y-3">
                         <label className="">Profile banner</label>
                         <div
-                            className="object-cover w-37.5 h-37.5 mx-2 rounded-lg border border-base-content border-opacity-25 bg-base-100"
+                            className="object-cover w-37.5 h-37.5 rounded-lg border border-base-content border-opacity-25 bg-base-100"
                         />
                     </div>
+                </div>
+                <div className="button-group">
+                    <button className="px-6 py-2 text-white bg-cyan-500 rounded-md hover:bg-cyan-700">Save</button>
                 </div>
             </div>
         </div>
