@@ -12,14 +12,14 @@ import { MoonIcon, SunIcon } from "@heroicons/react/outline";
 
 export const AppHeader: FC = () => {
   const dispatch = useDispatch();
-  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  const isAuthed = useSelector<IStore, boolean>((state) => state.auth.isAuthed);
   const openSideMenu = useSelector<IStore, boolean>((state) => state.auth.openSidebarMenu);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       function handleResize() {
         // Set window width/height to state
-        if (window.innerWidth > 1023) {
+        if (window.innerWidth > 1280) {
           dispatch(openSidebar(true));
         }
         else dispatch(openSidebar(false));
@@ -54,8 +54,8 @@ export const AppHeader: FC = () => {
   }
 
   return (
-    <div className="sticky top-0 z-50 w-full py-2 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
-      <div className="grid w-full grid-cols-2 px-3">
+    <div className="sticky top-0 z-50 w-full py-3 h-20 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
+      <div className="grid w-full grid-cols-2 px-4">
         <div className="flex items-center space-x-1 lg:space-x-0">
           
           <Link className="flex items-center cursor-pointer p-2" href={PlatformRoute.Home}>
@@ -73,9 +73,9 @@ export const AppHeader: FC = () => {
               <MoonIcon className="w-7 h-7 hidden dark:text-white dark:inline-block"/>
             </div>
   
-            { walletAddress ? <DropdownMenu/> : <SignButton /> }
+            { isAuthed ? <DropdownMenu/> : <SignButton /> }
 
-            <div className="relative cursor-pointer lg:hidden" onClick={handleDropdown}>
+            <div className="relative cursor-pointer xl:hidden" onClick={handleDropdown}>
               <MenuIcon className="w-7 h-7" />
             </div>
           </div>

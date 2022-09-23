@@ -60,7 +60,7 @@ export const HomeContainer = () => {
         />
       </div>
 
-      <SectionContainer className="max-w-screen-xl">
+      <SectionContainer className="max-w-xxl">
         <SectionHeader
           mainTitle="NFT Fundraisers"
           linkText="View more"
@@ -74,7 +74,7 @@ export const HomeContainer = () => {
         </CardGrid>
       </SectionContainer>
 
-      <SectionContainer className="max-w-screen-xl">
+      <SectionContainer className="max-w-xxl">
         <SectionHeader
           mainTitle="Support the causes you love"
           linkText="View more"

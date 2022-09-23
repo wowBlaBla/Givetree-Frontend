@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "wouter";
-import { updateAddress } from "../store/actions/auth.action";
+import { updateAddress, updateAuthed } from "../store/actions/auth.action";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 
 export const DropdownMenu:FC = () => {
@@ -11,6 +11,7 @@ export const DropdownMenu:FC = () => {
 
     const logout = () => {
         dispatch(updateAddress(""));
+        dispatch(updateAuthed(false));
         setLocation('/')
     }
 

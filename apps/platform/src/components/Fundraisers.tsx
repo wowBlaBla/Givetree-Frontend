@@ -5,6 +5,7 @@ import { GetHomeDataQuery, GET_HOME_DATA } from "../containers/home/HomeData";
 import { CampaignCard } from "./cards/CampaignCard"
 import { ErrorContainer } from "./ErrorContainer";
 import { LoadingContainer } from "./LoadingContainer";
+import { CardGrid } from "./CardGrid";
 
 interface Props {
     className?: string;
@@ -28,11 +29,11 @@ export const Fundraisers:FC<Props> = ({ className }) => {
 
     return (
         <div className={cx(className, "mx-auto w-full")}>
-            <div className="grid gap-4 grid-auto-fit-sm">
+            <CardGrid>
                 {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (
                     <CampaignCard key={idx} campaign={campaign} />
                 ))}
-            </div>
+            </CardGrid>
         </div>
     )
 }

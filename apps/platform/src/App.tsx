@@ -25,7 +25,7 @@ import { SideNavigation } from "./components/SideNavigation";
 import { AboutContainer } from "./containers/about/container";
 
 const App = () => {
-  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  const isAuthed = useSelector<IStore, boolean>((state) => state.auth.isAuthed);
 
   return (
     <Router>
@@ -101,7 +101,7 @@ const App = () => {
                       return (
                         <>
                           {
-                            !walletAddress ? <Redirect to={PlatformRoute.Home}/>
+                            !isAuthed ? <Redirect to={PlatformRoute.Home}/>
                             : params.role == 'creator' ? <CreatorCustomerPortal/> : <CharityCustomerPortal/>
                           }
                         </>

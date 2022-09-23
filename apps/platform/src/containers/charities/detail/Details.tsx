@@ -51,7 +51,7 @@ export const CharityDetailsContainer: FC<CharityDetailsContainerProps> = ({
         <title>GiveTree - verified charity {data.charity.name}</title>
       </Head>
 
-      <div className="grid w-full max-w-screen-xl grid-cols-1 gap-4 px-3 mx-auto my-6 lg:grid-cols-2 lg:gap-8 sm:my-8">
+      <div className="grid w-full max-w-xxl grid-cols-1 gap-4 px-3 mx-auto my-6 lg:grid-cols-2 lg:gap-8 sm:my-8">
         <BaseTile className="flex flex-col px-2 bg-white">
           <div className="flex flex-row gap-3 mt-5">
             <div className="relative w-24 h-24">

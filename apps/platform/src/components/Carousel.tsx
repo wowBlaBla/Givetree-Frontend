@@ -17,7 +17,7 @@ export const Carousel: FC<CarouselProps> = ({ children }) => {
   };
 
   return (
-    <Slider className="relative max-w-screen-xl mx-auto" {...sliderProps}>
+    <Slider className="relative max-w-xxl mx-auto" {...sliderProps}>
       {children}
     </Slider>
   );
