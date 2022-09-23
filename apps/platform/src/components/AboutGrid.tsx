@@ -9,7 +9,7 @@ interface AboutGridProps {
 export const AboutGrid:FC<AboutGridProps> = ({ className, children }) => (
     <div className={
         cx(
-            "p-12 grid gap-8",
+            "p-12 grid gap-8 max-w-layout 3xl:max-w-layout-xl mx-auto",
             className
         )
     }>

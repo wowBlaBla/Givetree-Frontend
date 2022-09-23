@@ -83,7 +83,7 @@ export const CharityProfileContainer:FC<CreatorProfileProps> = ({ charityName })
                     </ul>
                 </div>
             </div>
-            <Fundraisers className="max-w-screen-2xl md:px-20 px-4 my-10"/>
+            <Fundraisers className="max-w-layout-xl w-full my-10"/>
         </div>
     )
 }

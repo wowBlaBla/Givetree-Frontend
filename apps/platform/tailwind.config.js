@@ -61,6 +61,9 @@ module.exports = {
       maxWidth: {
         96: "36rem",
         "229px": "229px",
+        layout: "910px",
+        xxl: "1093px",
+        "layout-xl": "1145px",
         "screen-3xl": "1754px",
       },
       minHeight: {
@@ -69,12 +72,14 @@ module.exports = {
         96: "32rem",
       },
       spacing: {
+        12.5: "3.125rem",
+        15: "3.75rem",
         full: "100%",
       },
       screens: {
-        xl: "1093px",
         xs: "465px",
-        xxs: "352px"
+        xxs: "352px",
+        "3xl": { "min" : "1920px", "max": "2560px" }
       },
       borderRadius: {
         "lg-m": "0.625rem",
@@ -88,7 +93,7 @@ module.exports = {
         100: "100"
       },
       gridTemplateColumns: {
-        'card-layout': "repeat(auto-fill, minmax(14rem, 1fr))"
+        'card-layout': "repeat(auto-fill, minmax(200px, 1fr))"
       }
     },
   },

@@ -13,7 +13,7 @@ export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
     const [match] = useRoute(PlatformRoute.CharityDetails);
     return (
         
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-2 py-10 items-center md:justify-start justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 py-10 items-center md:justify-start justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <div className="flex flex-wrap md:flex-nowrap items-center gap-4 justify-center md:justify-start">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,7 +28,7 @@ export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
             <div className={cx("button-group", {
                 "hidden": !match
             })}>
-                <div className="flex gap-8 justify-center xl:justify-end">
+                <div className="flex gap-8 justify-center lg:justify-end">
                     <button className="outline-button w-33.5 h-12 rounded-2xl-1 text-black">Donate</button>
                     <button className="outline-button w-33.5 h-12 rounded-2xl-1 text-black">Fundraise</button>
                 </div>

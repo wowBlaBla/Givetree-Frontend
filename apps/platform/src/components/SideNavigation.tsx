@@ -144,20 +144,20 @@ export const SideNavigation: FC = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useLocation();
 
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(-1);
   const [activeSub, setActiveSub] = useState(-1);
   const [subList, setSubList] = useState<Dropdown[]>([]);
 
   const [appHeaderNavLinks, setHeaderNavLinks] = useState<AppHeaderNavLink[]>(list);
-  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  const isAuthed = useSelector<IStore, boolean>((state) => state.auth.isAuthed);
   const openSideMenu = useSelector<IStore, boolean>((state) => state.auth.openSidebarMenu);
-  const prevAddy = usePrevious(walletAddress);
+  const preStatus = usePrevious(isAuthed);
 
   useEffect(() => {
-    if (prevAddy != walletAddress) {
+    if (preStatus != isAuthed) {
       const _list:AppHeaderNavLink[] = [...appHeaderNavLinks];
 
-      if (walletAddress) {
+      if (isAuthed) {
         const _profile = {
           title: "Profile",
           href: "/profile/creator/home",
@@ -173,7 +173,7 @@ export const SideNavigation: FC = () => {
       setHeaderNavLinks(_list)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [walletAddress])
+  }, [isAuthed])
 
   useEffect(() => {
 
@@ -220,7 +220,7 @@ export const SideNavigation: FC = () => {
 
   return (
     <div className={
-      cx("flex absolute z-50 top-[75px] bottom-0 md:static", {
+      cx("flex absolute z-50 top-20 bottom-0 xl:static", {
       "hidden": !openSideMenu
       })
     }>
@@ -232,13 +232,13 @@ export const SideNavigation: FC = () => {
               key={idx}
               onClick={
                 () => item.title == 'Create' && item.href == PlatformRoute.Static ?
-                  ( walletAddress ? setLocation('/profile/creator/mint') : dispatch(openModal(true))) : setLocation(item.href)
+                  ( isAuthed ? setLocation('/profile/creator/mint') : dispatch(openModal(true))) : setLocation(item.href)
               }
             >
               <div
                 className={`w-10 h-10 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
                 style={
-                  walletAddress && item.title == "Profile" ? {
+                  isAuthed && item.title == "Profile" ? {
                     backgroundImage: `url(${avatar.src})`
                   }: {}
                 }
@@ -255,7 +255,7 @@ export const SideNavigation: FC = () => {
           <div className="extra-panel">
             <div
               className={cx(
-                "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-64 border-r dark:bg-mid-dark border-base-content border-opacity-25",
+                "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 border-r dark:bg-mid-dark border-base-content border-opacity-25",
                 {
                   "-translate-x-full": !true,
                   "translate-x-0": false,
@@ -282,8 +282,8 @@ export const SideNavigation: FC = () => {
   )
 };
 
-function usePrevious(value:string) {
-  const ref = useRef('');
+function usePrevious(value:boolean) {
+  const ref = useRef(false);
   useEffect(() => {
     ref.current = value;
   },[value]);

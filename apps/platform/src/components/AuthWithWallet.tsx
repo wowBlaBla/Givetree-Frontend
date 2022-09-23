@@ -5,7 +5,7 @@ import { MetaMaskIcon } from "./icons/MetaMaskIcon";
 import { WalletConnectIcon } from "./icons/WalletConnectIcon";
 import { useDispatch } from "react-redux";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { openModal, updateAddress, updateProvider } from "../store/actions/auth.action";
+import { openModal, updateAddress, updateAuthed, updateProvider } from "../store/actions/auth.action";
 import Web3 from "web3";
 import CoinbaseWalletSDK, { CoinbaseWalletProvider } from "@coinbase/wallet-sdk";
 import { AbstractProvider } from 'web3-core/types';
@@ -13,6 +13,7 @@ import { JsonRpcPayload, JsonRpcResponse } from 'web3-core-helpers';
 import axios from "axios";
 import { LoadingIcon } from "./icons/LoadingIcon";
 import { PhantomIcon } from "./icons/PhantomIcon";
+import { useLocation } from "wouter";
 
 const navs = [
     "Ethereum",
@@ -26,11 +27,13 @@ export declare class WalletConnectWeb3Provider extends WalletConnectProvider imp
 
 interface Props {
     type: number;
+    hiddenTitle?: boolean;
 }
 
-export const AuthWithWallet:FC<Props> = ({ type }) => {
+export const AuthWithWallet:FC<Props> = ({ type, hiddenTitle = false }) => {
 
     const dispatch = useDispatch();
+    const [, setLocation] = useLocation();
     const [isLoading, setLoading] = useState<boolean>(false);
     const [active, setActive] = useState<number>(-1);
     const [activeTab, setActiveTab] = useState<number>(0);
@@ -57,7 +60,7 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                     const accounts = await provider.request({
                         method: "eth_requestAccounts"
                     });
-                    await authByWallet(accounts[0]);
+                    if (!hiddenTitle) await authByWallet(accounts[0]);
                     connectAndUpdate(provider, accounts[0]);
                 } catch(err) {
 
@@ -76,7 +79,7 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                 infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
             });
             const accounts = await provider.enable();
-            await authByWallet(accounts[0]);
+            if (!hiddenTitle) await authByWallet(accounts[0]);
             connectAndUpdate(provider as WalletConnectWeb3Provider, accounts[0]);
         } catch(err) {
 
@@ -96,7 +99,7 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
 
             const ethereum = coinbaseWallet.makeWeb3Provider("https://mainnet.infura.io/v3/9278c04944064d5a8f9ad13e549e550c", 1);
             const accounts = await ethereum.enable();
-            await authByWallet(accounts[0]);
+            if (!hiddenTitle) await authByWallet(accounts[0]);
             connectAndUpdate(ethereum, accounts[0]);
         } catch(err) {
 
@@ -140,6 +143,8 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
         dispatch(updateProvider(new Web3(provider)));
         dispatch(openModal(false));
         dispatch(updateAddress(address));
+        dispatch(updateAuthed(true));
+        setLocation('/profile/creator/home');
     }
 
     return (
@@ -151,9 +156,18 @@ export const AuthWithWallet:FC<Props> = ({ type }) => {
                 }
             )
         }>
-            <h2 className="text-3xl leading-6 font-medium text-white">Create account</h2>
+            <h2
+                className={
+                    cx(
+                        "text-3xl leading-6 font-medium text-white",
+                        {
+                            "hidden" : hiddenTitle
+                        }
+                    )
+                }
+            >{ type == 0 ? "Create account" : "Sign in"}</h2>
             <div className="flex flex-col gap-3 rounded-lg bg-gray-600 p-6">
-                <h3 className="text-white text-2xl font-bold">Wallet</h3>
+                <h3 className="text-white text-2xl font-bold text-center">Wallet</h3>
                 <div className="border-b border-white border-opacity-25 overflow-x-auto scroll-pb-5">
                     <div className="max-w-screen-2xl mx-auto w-full">
                         <ul

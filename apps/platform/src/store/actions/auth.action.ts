@@ -1,4 +1,4 @@
-import { OPEN_MODAL, OPEN_SIDEBAR, UPDATE_ADDRESS, UPDATE_PROVIDER } from "../types"
+import { OPEN_MODAL, OPEN_SIDEBAR, UPDATE_ADDRESS, UPDATE_AUTHED, UPDATE_PROVIDER } from "../types"
 
 export const openModal = (payload:boolean):any => (dispatch:any) => {
     dispatch({
@@ -26,4 +26,11 @@ export const updateAddress = (payload: string):any => (dispatch: any) => {
         payload,
         type: UPDATE_ADDRESS
     })
+}
+
+export const updateAuthed = (payload:boolean):any => (dispatch:any) => {
+    dispatch({
+        payload,
+        type: UPDATE_AUTHED
+    });
 }

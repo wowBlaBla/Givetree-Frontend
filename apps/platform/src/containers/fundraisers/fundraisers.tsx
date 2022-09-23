@@ -24,7 +24,7 @@ export const FundraisersContainer:FC = () => {
     }
 
     return (
-        <SectionContainer>
+        <SectionContainer className="3xl:max-w-layout-xl max-w-layout">
             <SectionHeader
                 mainTitle="NFT Fundraisers"
                 subtitle="Discover NFTs helping to make the world a better place"

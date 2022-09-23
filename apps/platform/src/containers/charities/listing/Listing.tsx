@@ -34,7 +34,7 @@ export const CharityListingContainer = () => {
         <title>GiveTree - Charities</title>
       </Head>
 
-      <SectionContainer>
+      <SectionContainer className="max-w-layout 3xl:max-w-layout-xl">
         <SectionHeader
           className="mx-auto"
           titleClassName="text-center"

@@ -157,7 +157,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                 </div>
             </div>
             <div className="flex min-h-[800px]">
-                <div className="sidebar border-r border-base-content border-opacity-25 w-full max-w-[300px] hidden xl:block">
+                <div className="sidebar border-r border-base-content border-opacity-25 w-full max-w-[300px] hidden lg:block">
                     <ul className="cursor-pointer dark:text-white">
                         <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Buy Now</li>
                         <li className="text-lg px-3 py-2 border-b border-base-content border-opacity-25">Price</li>
@@ -181,8 +181,8 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             />
                         </div>
                         <div className="flex gap-2 justify-end">
-                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 p-2">Price high to low </span>
-                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 p-2 px-4">View</span>
+                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 cursor-pointer p-2">Price high to low </span>
+                            <span className="border border-base-content border-opacity-25 rounded-2xl-1 cursor-pointer p-2 px-4">View</span>
                         </div>
                     </div>
                     <div className="flex flex-col gap-2 md:hidden block">
@@ -190,12 +190,12 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             <input
                                 type="text"
                                 placeholder="Search"
-                                className="rounded-2xl-1 h-10 px-3 border border-black w-full outline-0 focus:border-indigo-500"
+                                className="rounded-2xl-1 h-10 px-3 border border-base-content border-opacity-25 w-full bg-base-100 outline-0 focus:border-indigo-500"
                             />
                         </div>
                         <div className="grid grid-cols-2 gap-1">
-                            <button className="border border-black rounded-lg p-2 cursor-pointer dark:bg-white dark:border-white dark:hover:bg-mid-dark dark:hover:text-white">Filter</button>
-                            <button className="border border-black rounded-lg p-2 cursor-pointer dark:bg-white dark:border-white dark:hover:bg-mid-dark dark:hover:text-white">Sort</button>
+                            <button className="border border-base-content border-opacity-25 rounded-lg p-2 cursor-pointer bg-base-100 btn">Filter</button>
+                            <button className="border border-base-content border-opacity-25 rounded-lg p-2 cursor-pointer bg-base-100 btn">Sort</button>
                         </div>
                     </div>
                     <div className="md:flex items-end justify-between hidden">
@@ -208,7 +208,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                         </div>
                     </div>
 
-                    <Fundraisers/>
+                    <Fundraisers className="max-w-layout-xl"/>
                 </div>
             </div>
         </div>

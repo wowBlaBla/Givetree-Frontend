@@ -71,7 +71,7 @@ export const CampaignListingContainer = (): JSX.Element => {
         ))}
       </Carousel>
 
-      <SectionContainer className="mt-12">
+      <SectionContainer className="max-w-layout mt-12">
         <CardGrid>
           {data.campaigns.map((campaign, idx) => (
             <CampaignCard key={idx} campaign={campaign} />
