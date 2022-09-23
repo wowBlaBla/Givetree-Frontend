@@ -1,5 +1,5 @@
 # GiveTree - Ares
-
+[![Build status](https://badge.buildkite.com/1ba49948f25710af76d5b9b1dec5abdcd1a6cc53fd22ccfe71.svg)](https://buildkite.com/givetree/master-frontend)
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
