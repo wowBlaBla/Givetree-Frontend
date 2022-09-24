@@ -3,6 +3,7 @@ import { useRoute } from "wouter";
 import cx from "classnames";
 import MulgaKongz from "../temp/images/campaigns/omgkirby-creator.png";
 import { PlatformRoute } from "../configs/routes";
+import { DonateModal } from "./modal/DonateModal";
 
 interface PersonalProps {
     avatar?: string;
@@ -29,7 +30,10 @@ export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
                 "hidden": !match
             })}>
                 <div className="flex gap-8 justify-center lg:justify-end">
-                    <button className="outline-button w-33.5 h-12 rounded-2xl-1 text-black">Donate</button>
+                    <DonateModal
+                        logo={avatar ? avatar : MulgaKongz.src}
+                        title={"Women & Girls Empowerment Impact Index Fund"}
+                    />
                     <button className="outline-button w-33.5 h-12 rounded-2xl-1 text-black">Fundraise</button>
                 </div>
             </div>
