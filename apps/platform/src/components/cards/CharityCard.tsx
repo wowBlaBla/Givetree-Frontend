@@ -1,4 +1,4 @@
-import React, { FC, useRef, /*useState*/ } from "react";
+import React, { FC } from "react";
 // import cx from "classnames";
 import { useLocation } from "wouter";
 import { Charity } from "../../typed/charity";
@@ -7,6 +7,7 @@ import { PlatformRoute } from "../../configs/routes";
 import { BackgroundImage } from "../BackgroundImage";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import { OwnerAvatar } from "../OwnerAvatar";
 // import { CauseBadge } from "../badges/CauseBadge";
 
 interface CharityCardProps {
@@ -15,44 +16,45 @@ interface CharityCardProps {
 
 export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   // const [showDonationButton, setShowDonationButton] = useState<boolean>(false);
-  const donationRef = useRef<HTMLDivElement>(null);
   const [_location, setLocation] = useLocation();
 
   const handleNextLocation = () =>
     setLocation(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
+  console.log(charity);
   return (
-    <div className="text-center h-full">
+    <div className=" h-full">
       <div
-        ref={donationRef}
-        // onMouseEnter={() => setShowDonationButton(true)}
-        // onMouseLeave={() => setShowDonationButton(false)}
-        className="bg-base-100 relative w-full h-full bg-white cursor-pointer hover:shadow-xl inline-block rounded-xl"
+        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
+        onClick={handleNextLocation}
       >
-        <div className="flex relative flex-col w-full h-full" onClick={handleNextLocation}>
-
+        <div className="flex flex-col w-full h-full relative ">
           <div className="relative">
             <BackgroundImage
               imageAsset={charity.media.tileUrl}
               className="rounded-t-xl"
             />
           </div>
-
-          <div className="flex flex-wrap items-center justify-center flex-1 w-full h-full px-2 py-3 md:px-5 border border-t-0 rounded-b-xl border-base-content border-opacity-25">
-            <h4 className="flex flex-col w-full gap-1 space-x-0.5 text-base text-left sm:text-lg">
-              <span className="font-bold text-sm">
-                {charity.name}
-                <VerifiedBadge
-                  isVerified={charity.isVerified}
-                  type={VerifiedBadgeType.Charity}
-                  className="ml-1 inline-block"
-                />
-              </span>
-              <span className="country text-sm">Australia</span>
-            </h4>
+          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border h-28 relative">
+            <OwnerAvatar
+              src={charity.media.previewUrl}
+              alt={charity.slug}
+            />
+            <div className="flex justify-between w-full p-5 py-10 text-xs sm:text-sm">
+              <div className="flex w-full flex-col">
+                <span className="font-bold text-sm">
+                  {charity.name.length < 16 ? charity.name : charity.name.slice(0, 14) + '...'}
+                  <VerifiedBadge
+                    isVerified={charity.isVerified}
+                    type={VerifiedBadgeType.Charity}
+                    className="ml-1 inline-block"
+                  />
+                </span>
+                <span className="country text-sm">Australia</span>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </div>
   );

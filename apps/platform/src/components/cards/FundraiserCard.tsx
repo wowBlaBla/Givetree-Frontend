@@ -9,6 +9,7 @@ import { BackgroundImage } from "../BackgroundImage";
 import { Campaign } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import { OwnerAvatar } from "../OwnerAvatar";
 // import { getEventStatus } from "../../utils/getEventStatus";
 
 interface FundraiserCardProps {
@@ -18,7 +19,6 @@ interface FundraiserCardProps {
 export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
-
   const handleNextLocation = () => setLocation(`/collection/${campaign.slug}`);
   return (
     <div className="text-center h-full">
@@ -26,16 +26,19 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
         className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
         onClick={handleNextLocation}
       >
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full relative text-center">
           <div className="relative">
             <BackgroundImage
               imageAsset={campaign.media.campaignTilePreviewUrl}
               className="rounded-t-xl"
             />
           </div>
-
-          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border">
-            <div className="flex justify-between w-full p-5 text-xs sm:text-sm">
+          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border h-28 relative">
+            <OwnerAvatar
+              src={campaign.creators[0].media.previewUrl}
+              alt={campaign.creators[0].name}
+            />
+            <div className="flex justify-between w-full p-5 py-10 text-xs sm:text-sm">
               <div className="flex w-full flex-col text-center">
                 <span className="font-bold">{campaign.title}</span>
                 <span>

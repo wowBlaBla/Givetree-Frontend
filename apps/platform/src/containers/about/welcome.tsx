@@ -4,19 +4,19 @@ import image from "../../temp/images/campaigns/mulgakongz-collection.png";
 export const Welcome:FC = () => {
     return (
         <>
-            <div className="grid grid-auto-fit md:flex justify-center gap-[4rem]">
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-[4rem]">
                 <div className="description flex justify-center">
                     <div>
                         <h2 className="title text-3xl font-bold">Welcome</h2>
                         <p className="mt-4 text-xl leading-10">
-                            What is GiveTree?<br className="hidden md:inline-block"/>
-                            GiveTree is a NFT Marketplace<br className="hidden md:inline-block"/>
-                            which makes it really easy to create<br className="hidden md:inline-block"/>
-                            NFT fundraisers for the organisations<br className="hidden md:inline-block"/>
+                            What is GiveTree?<br/>
+                            GiveTree is a NFT Marketplace
+                            which makes it really easy to create
+                            NFT fundraisers for the organisations
                             who help with causes you love.
                         </p>
                         <p className="text-xl leading-10">
-                            We also enable you to make direct<br className="hidden md:inline-block"/>
+                            We also enable you to make direct
                             donation of cryptocurrency.
                         </p>
                     </div>
@@ -29,18 +29,18 @@ export const Welcome:FC = () => {
                     />
                 </div>
             </div>
-            <div className="grid grid-auto-fit md:flex justify-center gap-[4rem]">
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-[4rem]">
                 <div className="description flex justify-center">
                     <div>
-                        <p className="text-xl leading-10 ">
-                            What is GiveTree?<br className="hidden md:inline-block"/>
-                            GiveTree is a NFT Marketplace<br className="hidden md:inline-block"/>
-                            which makes it really easy to create<br className="hidden md:inline-block"/>
-                            NFT fundraisers for the organisations<br className="hidden md:inline-block"/>
+                        <p className="mt-4 text-xl leading-10">
+                            What is GiveTree?<br/>
+                            GiveTree is a NFT Marketplace
+                            which makes it really easy to create
+                            NFT fundraisers for the organisations
                             who help with causes you love.
                         </p>
                         <p className="text-xl leading-10">
-                            We also enable you to make direct<br className="hidden md:inline-block"/>
+                            We also enable you to make direct
                             donation of cryptocurrency.
                         </p>
                     </div>
@@ -53,18 +53,18 @@ export const Welcome:FC = () => {
                     />
                 </div>
             </div>
-            <div className="grid grid-auto-fit md:flex justify-center gap-[4rem]">
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-[4rem]">
                 <div className="description flex justify-center">
                     <div>
-                        <p className="text-xl leading-10 ">
-                            What is GiveTree?<br className="hidden md:inline-block"/>
-                            GiveTree is a NFT Marketplace<br className="hidden md:inline-block"/>
-                            which makes it really easy to create<br className="hidden md:inline-block"/>
-                            NFT fundraisers for the organisations<br className="hidden md:inline-block"/>
+                        <p className="mt-4 text-xl leading-10">
+                            What is GiveTree?<br/>
+                            GiveTree is a NFT Marketplace
+                            which makes it really easy to create
+                            NFT fundraisers for the organisations
                             who help with causes you love.
                         </p>
                         <p className="text-xl leading-10">
-                            We also enable you to make direct<br className="hidden md:inline-block"/>
+                            We also enable you to make direct
                             donation of cryptocurrency.
                         </p>
                     </div>

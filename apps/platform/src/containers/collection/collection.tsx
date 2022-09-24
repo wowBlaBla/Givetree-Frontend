@@ -208,7 +208,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                         </div>
                     </div>
 
-                    <Fundraisers className="max-w-layout-xl"/>
+                    <Fundraisers/>
                 </div>
             </div>
         </div>
