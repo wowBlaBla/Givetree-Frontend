@@ -3,6 +3,7 @@ import { REDUCER, OPEN_MODAL, UPDATE_ADDRESS, OPEN_SIDEBAR, UPDATE_AUTHED } from
 export interface AUTH {
     openAuthModal: boolean;
     walletAddress: string;
+    registeredWallets: string[];
     email: string;
     openSidebarMenu: boolean;
     isAuthed: boolean;
@@ -15,6 +16,7 @@ export interface IStore {
 const data:AUTH = {
     openAuthModal: false,
     walletAddress: "",
+    registeredWallets:[],
     email: "",
     openSidebarMenu: true,
     isAuthed: false,

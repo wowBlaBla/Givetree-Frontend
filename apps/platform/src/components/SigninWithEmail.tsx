@@ -1,7 +1,10 @@
 import axios from "axios";
 import { FC, useState } from "react"
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useLocation } from "wouter";
 import * as yup from 'yup';
+import { openModal, updateAuthed } from "../store/actions/auth.action";
 import { LoadingIcon } from "./icons/LoadingIcon";
 
 interface ErrorInterface {
@@ -15,6 +18,9 @@ interface InnerType {
 }
 
 export const SigninWithEmail:FC = () => {
+    const dispatch = useDispatch();
+    const [, setLocation] = useLocation();
+
     const [isLoading, setLoading] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -41,8 +47,12 @@ export const SigninWithEmail:FC = () => {
             if (Object.keys(_errors).length) return;
             setLoading(true);
             await axios.post(`${process.env.BACKEND}/api/auth/login-email`, payload).then(res => {
+                console.log(res.data);
                 localStorage.sessions = JSON.stringify(res.data);
                 toast.success("You have logged in successfully!");
+                dispatch(openModal(false));
+                dispatch(updateAuthed(true));
+                setLocation('/profile/creator/home');
             }).catch(err => {
                 if (err?.response?.data?.message) {
                     toast.error(err?.response?.data?.message);
@@ -50,6 +60,7 @@ export const SigninWithEmail:FC = () => {
             });
             setLoading(false);
         } catch(err) {
+
         }
     }
 

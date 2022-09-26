@@ -54,7 +54,7 @@ export const AppHeader: FC = () => {
   }
 
   return (
-    <div className="sticky top-0 z-50 w-full py-3 h-20 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
+    <div className="sticky top-0 z-50 w-full py-3 h-18 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
       <div className="grid w-full grid-cols-2 px-4">
         <div className="flex items-center space-x-1 lg:space-x-0">
           

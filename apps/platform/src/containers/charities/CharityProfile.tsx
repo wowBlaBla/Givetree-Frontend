@@ -65,18 +65,11 @@ export const CharityProfileContainer:FC<CreatorProfileProps> = ({ charityName })
                                     role="presentation"
                                     key={idx}
                                 >
-                                    <a
-                                        href="javascript:void(0);"
+                                    <span
                                         className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active"
-                                        id="tabs-home-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#tabs-home"
-                                        role="tab"
-                                        aria-controls="tabs-home"
-                                        aria-selected="true"
                                     >
                                         {item}
-                                    </a>
+                                    </span>
                                 </li>
                             ))
                         }

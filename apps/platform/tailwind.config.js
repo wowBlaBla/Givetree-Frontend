@@ -19,66 +19,67 @@ module.exports = {
         "light-dark": "#37393E"
       },
       fontSize: {
-        none: "0",
+        "none": "0",
         "lg-m": "0.625rem",
       },
       fontFamily: {
         "side-menu": `"Montserrat Bold","Arial Black",sans-serif`,
       },
       width: {
-        22.5: "5.625rem",
-        25: "6.25rem",
+        "22.5": "5.625rem",
+        "25": "6.25rem",
         "33.5": "8.125rem",
-        35: "8.75rem",
-        37: "9.25rem",
+        "35": "8.75rem",
+        "37": "9.25rem",
         "37.5": "9.375rem",
-        39: "9.75rem",
-        50: "12.5rem",
-        75: "18.75rem",
+        "39": "9.75rem",
+        "50": "12.5rem",
+        "75": "18.75rem",
         "80-1-4": "20.25rem",
         // 86: "20rem",
-        100: "25rem",
-        128: "42rem",
+        "100": "25rem",
+        "128": "42rem",
         "inherit": "inherit"
       },
       height: {
+        "18": "4.5rem",
         "14.5": "3.625rem",
-        25: "6.25rem",
+        "25": "6.25rem",
         "37.5": "9.375rem",
-        50: "12.5rem",
-        100: "25rem",
-        128: "42rem",
+        "50": "12.5rem",
+        "100": "25rem",
+        "128": "42rem",
       },
       lineHeight: {
         15: "5rem",
       },
       maxHeight: {
-        86: "30rem",
-        96: "36rem",
-        128: "42rem",
-        layout: "calc(100vh - 60px)"
+        "86": "30rem",
+        "96": "36rem",
+        "128": "42rem",
+        "layout": "calc(100vh - 60px)"
       },
       maxWidth: {
-        96: "36rem",
+        "96": "36rem",
         "229px": "229px",
-        layout: "910px",
-        xxl: "1093px",
+        "layout": "910px",
+        "xxl": "1093px",
         "layout-xl": "1145px",
         "screen-3xl": "1754px",
       },
       minHeight: {
-        72: "20rem",
-        86: "28rem",
-        96: "32rem",
+        "72": "20rem",
+        "86": "28rem",
+        "96": "32rem",
       },
       spacing: {
-        12.5: "3.125rem",
-        15: "3.75rem",
-        full: "100%",
+        "12.5": "3.125rem",
+        "15": "3.75rem",
+        "full": "100%",
       },
       screens: {
-        xs: "465px",
-        xxs: "352px",
+        "xs": "465px",
+        "xxs": "352px",
         "3xl": { "min" : "1920px", "max": "2560px" }
       },
       borderRadius: {
@@ -89,8 +90,8 @@ module.exports = {
         'fixed': "0 0 60px rgba(0,0,0,0.4)"
       },
       zIndex: {
-        full: "9999",
-        100: "100"
+        "full": "9999",
+        "100": "100"
       },
       gridTemplateColumns: {
         'card-layout': "repeat(auto-fill, minmax(200px, 1fr))"
