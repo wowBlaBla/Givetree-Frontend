@@ -5,10 +5,10 @@ import { PrimaryButton } from "./PrimaryCta";
 
 export const AppFooter = () => (
   <div className="text-gray-800 bg-gray-100 border-t border-base-content border-opacity-25 text-black dark:text-white dark:bg-deep-dark">
-    <div className="flex flex-col items-center justify-between gap-2 mx-auto pb-6 max-w-xxl px-5 ">
-      <div className="text-lg grid md:grid-cols-2 grid-cols-1 gap-8 justify-between w-full mt-10">
-        <div className="gap-5 md:order-1 order-2 sm:text-left text-center">
-          <div className="about-givetree flex flex-col gap-5">
+    <div className="flex flex-col items-center justify-between gap-2 mx-auto pb-6 max-w-layout px-2">
+      <div className="text-lg grid xs:grid-cols-2 grid-cols-1 gap-8 justify-between w-full mt-10">
+        <div className="gap-5 xs:text-left text-center order-2 xs:order-1">
+          <div className="about-givetree flex flex-col gap-5 xs:items-start items-center">
             <GiveTreeLogo className="w-10 text-brand-black"/>
             <ul className="list-none flex flex-col gap-3">
               <li>Blog</li>
@@ -19,7 +19,7 @@ export const AppFooter = () => (
             </ul>
           </div>
         </div>
-        <div className="copyright flex flex-col gap-5 items-end md:order-2 order-1">
+        <div className="copyright flex flex-col gap-5 xs:items-end items-center order-1 xs:order-2">
           <div className="flex flex-col gap-2">
             <label className="text-xl font-bold">Join our growing community</label>
             <div>
