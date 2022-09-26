@@ -23,7 +23,7 @@ export const OutlineButton: FC<OutlineButtonProps> = ({
   type,
 }) => (
   <button
-    className={cx(className, "outline-button")}
+    className={cx(className, "outline-button h-[45px]")}
     type={type || "button"}
     onClick={onClick}
   >
