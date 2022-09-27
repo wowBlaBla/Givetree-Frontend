@@ -5,75 +5,88 @@ import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
 import { SignButton } from "./SignButton";
 import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../store/reducers/auth.reducer";
+import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import { DropdownMenu } from "./DropdownMenu";
 import { openSidebar } from "../store/actions/auth.action";
 import { MoonIcon, SunIcon } from "@heroicons/react/outline";
 
 export const AppHeader: FC = () => {
   const dispatch = useDispatch();
-  const isAuthed = useSelector<IStore, boolean>((state) => state.auth.isAuthed);
-  const openSideMenu = useSelector<IStore, boolean>((state) => state.auth.openSidebarMenu);
+  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
+    (state) => state.auth.authedUser
+  );
+  const openSideMenu = useSelector<IStore, boolean>(
+    (state) => state.auth.openSidebarMenu
+  );
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       function handleResize() {
         // Set window width/height to state
         if (window.innerWidth > 1280) {
           dispatch(openSidebar(true));
-        }
-        else dispatch(openSidebar(false));
+        } else dispatch(openSidebar(false));
       }
 
-      window.addEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
       handleResize();
     }
-    
-    if (localStorage.theme == 'dark') {
-      document.documentElement.classList.add('dark');
+
+    if (localStorage.theme == "dark") {
+      document.documentElement.classList.add("dark");
       document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.theme = 'dark';
-    } 
+      localStorage.theme = "dark";
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   const handleDropdown = () => {
     dispatch(openSidebar(!openSideMenu));
   };
 
   const toggleDarkMode = () => {
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.remove('dark');
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      document.documentElement.classList.remove("dark");
       document.documentElement.removeAttribute("data-theme");
-      localStorage.theme = 'light';
+      localStorage.theme = "light";
     } else {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
       document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.theme = 'dark';
+      localStorage.theme = "dark";
     }
-  }
+  };
 
   return (
     <div className="sticky top-0 z-50 w-full py-3 h-18 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
       <div className="grid w-full grid-cols-2 px-4">
         <div className="flex items-center space-x-1 lg:space-x-0">
-          
-          <Link className="flex items-center cursor-pointer p-2" href={PlatformRoute.Home}>
-            <a><GiveTreeLogo className="w-35 h-14.5 text-brand-black dark:text-white cursor-pointer" withText /></a>
+          <Link
+            className="flex items-center cursor-pointer p-2"
+            href={PlatformRoute.Home}
+          >
+            <a>
+              <GiveTreeLogo
+                className="w-35 h-14.5 text-brand-black dark:text-white cursor-pointer"
+                withText
+              />
+            </a>
           </Link>
         </div>
 
         {/* Wallet */}
 
         <div className="flex gap-10 justify-end items-center w-full">
-          
           <div className="flex gap-4 items-center">
             <div className="relative cursor-pointer" onClick={toggleDarkMode}>
               <SunIcon className="w-7 h-7 dark:hidden" />
-              <MoonIcon className="w-7 h-7 hidden dark:text-white dark:inline-block"/>
+              <MoonIcon className="w-7 h-7 hidden dark:text-white dark:inline-block" />
             </div>
-  
-            { isAuthed ? <DropdownMenu/> : <SignButton /> }
+
+            {authedUser ? <DropdownMenu /> : <SignButton />}
 
             <div className="relative cursor-pointer xl:hidden" onClick={handleDropdown}>
               <MenuIcon className="w-7 h-7" />
@@ -81,7 +94,6 @@ export const AppHeader: FC = () => {
           </div>
         </div>
       </div>
-
     </div>
   );
 };

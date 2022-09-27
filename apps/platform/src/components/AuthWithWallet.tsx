@@ -109,7 +109,7 @@ export const AuthWithWallet:FC<Props> = ({ type, hiddenTitle = false }) => {
     }
     
     const authByWallet = async(address:string) => {
-        const api = !type ? `${process.env.BACKEND}/api/auth/register-wallet` : `${process.env.BACKEND}/api/auth/login-wallet`;
+        const api = !type ? `${process.env.NEXT_PUBLIC_API}/api/auth/register-wallet` : `${process.env.NEXT_PUBLIC_API}/api/auth/login-wallet`;
         await axios.post(api, {
             address
         }).then(res => {
