@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useLocation } from "wouter";
 import * as yup from "yup";
 import { openModal, updateAuthed } from "../store/actions/auth.action";
+import { AUTH_USER } from "../store/reducers/auth.reducer";
 import { LoadingIcon } from "./icons/LoadingIcon";
 
 interface ErrorInterface {
@@ -51,6 +52,9 @@ export const SigninWithEmail: FC = () => {
         .post(`${process.env.API_URL}/api/auth/login-email`, payload)
         .then((res) => {
           toast.success("You have logged in successfully!");
+          localStorage.setItem("email", res.data.user.email);
+          localStorage.setItem("access_token", res.data.accessToken);
+          localStorage.setItem("refresh_token", res.data.refreshToken);
           dispatch(openModal(false));
           dispatch(updateAuthed(res.data));
           setLocation("/profile/creator/home");

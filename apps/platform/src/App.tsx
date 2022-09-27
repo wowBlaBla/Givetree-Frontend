@@ -19,15 +19,44 @@ import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
 import { CreatorCustomerPortal } from "./containers/profile/creator/container";
 import { CharityCustomerPortal } from "./containers/profile/charity/container";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
 import { AboutContainer } from "./containers/about/container";
+import axios from "axios";
+import { updateAuthed } from "./store/actions/auth.action";
 
 const App = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
   );
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (refreshToken) {
+      axios
+        .post(`${process.env.NEXT_PUBLIC_API}/api/auth/refresh`, { refreshToken })
+        .then((res) => {
+          localStorage.setItem("access_token", res.data.accessToken);
+          dispatch(
+            updateAuthed({
+              ...res.data,
+              refreshToken: refreshToken,
+            })
+          );
+        })
+        .catch((err) => {
+          console.log(err);
+          dispatch(updateAuthed(undefined));
+          localStorage.clear();
+        });
+    } else {
+      dispatch(updateAuthed(undefined));
+      localStorage.clear();
+    }
+  }, [dispatch]);
 
   return (
     <Router>

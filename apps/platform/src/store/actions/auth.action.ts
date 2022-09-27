@@ -44,7 +44,7 @@ export const updateAddress =
   };
 
 export const updateAuthed =
-  (payload: AUTH_USER): any =>
+  (payload: AUTH_USER | undefined): any =>
   (dispatch: any) => {
     dispatch({
       payload,
