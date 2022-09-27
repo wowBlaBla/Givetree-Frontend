@@ -16,6 +16,7 @@ export const DropdownMenu: FC = () => {
   const logout = () => {
     dispatch(updateAddress(""));
     dispatch(updateAuthed(undefined));
+    localStorage.clear();
     setLocation("/");
   };
 

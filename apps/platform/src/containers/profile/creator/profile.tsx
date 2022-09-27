@@ -83,7 +83,7 @@ export const Profile: FC = () => {
 
         dispatch(
           updateAuthed({
-            ...res.data,
+            ...authedUser,
             user: res.data,
           })
         );

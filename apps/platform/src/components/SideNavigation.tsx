@@ -147,33 +147,27 @@ export const SideNavigation: FC = () => {
   const [activeSub, setActiveSub] = useState(-1);
   const [subList, setSubList] = useState<Dropdown[]>([]);
 
-  const [appHeaderNavLinks, setHeaderNavLinks] = useState<AppHeaderNavLink[]>(list);
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
   );
   const openSideMenu = useSelector<IStore, boolean>(
     (state) => state.auth.openSidebarMenu
   );
-  const preStatus = usePrevious(authedUser);
 
-  useEffect(() => {
-    if (preStatus != authedUser) {
-      const _list: AppHeaderNavLink[] = [...appHeaderNavLinks];
-
-      if (authedUser) {
-        const _profile = {
+  const appHeaderNavLinks = React.useMemo<AppHeaderNavLink[]>(() => {
+    if (authedUser) {
+      return [
+        ...list,
+        {
           title: "Profile",
           href: "/profile/creator/home",
           disabled: false,
           iconColor: "",
-        };
-
-        _list.push(_profile);
-      } else _list.pop();
-
-      setHeaderNavLinks(_list);
+        },
+      ];
+    } else {
+      return list;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authedUser]);
 
   useEffect(() => {
@@ -285,11 +279,3 @@ export const SideNavigation: FC = () => {
     </div>
   );
 };
-
-function usePrevious(value: AUTH_USER | undefined) {
-  const ref = useRef<AUTH_USER | undefined>();
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
