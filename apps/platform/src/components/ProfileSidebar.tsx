@@ -47,7 +47,7 @@ export const ProfileSideBar:FC = () => {
     return (
         <div className="hidden sm:flex flex-col w-75 py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark min-h-screen">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <div className="flex flex-col items-start mt-6 px-8">
+            <div className="flex flex-col items-center mt-6 px-8">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     className="object-cover w-25 h-25 mx-2 rounded-full"
@@ -60,7 +60,7 @@ export const ProfileSideBar:FC = () => {
             </div>
             <div>
                 <PrimaryButton
-                    className="ml-10 py-2 px-4 mt-4"
+                    className="py-2 px-4 mt-4 mx-auto"
                     onClick={
                         () => walletAddress ? disconnect() : setOpenModal(true)
                     }

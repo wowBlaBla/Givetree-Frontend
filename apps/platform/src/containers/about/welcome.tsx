@@ -21,7 +21,7 @@ export const Welcome:FC = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center sm:justify-end">
                     <img
                         src={image.src}
                         alt="about-image"
@@ -45,7 +45,7 @@ export const Welcome:FC = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center sm:justify-end">
                     <img
                         src={image.src}
                         alt="about-image"
@@ -69,7 +69,7 @@ export const Welcome:FC = () => {
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center sm:justify-end">
                     <img
                         src={image.src}
                         alt="about-image"
