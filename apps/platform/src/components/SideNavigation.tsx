@@ -1,12 +1,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { HomeIcon, QuestionMarkCircleIcon, SearchIcon, ViewGridAddIcon } from "@heroicons/react/outline";
+import {
+  HomeIcon,
+  QuestionMarkCircleIcon,
+  SearchIcon,
+  ViewGridAddIcon,
+} from "@heroicons/react/outline";
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import cx from "classnames";
 import { PlatformRoute } from "../configs/routes";
 // import matcherType from "wouter/types/matcher";
 import { Link, Match, MatcherFn, useLocation } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../store/reducers/auth.reducer";
+import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 import { openModal, openSidebar } from "../store/actions/auth.action";
 import makeMatcher from "../utils/matcher";
@@ -82,7 +87,7 @@ const exploreSub: Dropdown[] = [
   {
     title: "Creators",
     href: PlatformRoute.CreatorListing,
-  }
+  },
 ];
 
 const aboutSub: Dropdown[] = [
@@ -129,18 +134,12 @@ const aboutSub: Dropdown[] = [
 ];
 
 const _home = PlatformRoute.Home;
-const _explore = [
-  "/fundraisers",
-  "/charities",
-  "/creators",
-  "/mints",
-];
+const _explore = ["/fundraisers", "/charities", "/creators", "/mints"];
 const _about = PlatformRoute.About;
 const _create = "/profile/:role/mint";
 const _profile = PlatformRoute.ProfileDetails;
 
 export const SideNavigation: FC = () => {
-
   const dispatch = useDispatch();
   const [location, setLocation] = useLocation();
 
@@ -148,52 +147,45 @@ export const SideNavigation: FC = () => {
   const [activeSub, setActiveSub] = useState(-1);
   const [subList, setSubList] = useState<Dropdown[]>([]);
 
-  const [appHeaderNavLinks, setHeaderNavLinks] = useState<AppHeaderNavLink[]>(list);
-  const isAuthed = useSelector<IStore, boolean>((state) => state.auth.isAuthed);
-  const openSideMenu = useSelector<IStore, boolean>((state) => state.auth.openSidebarMenu);
-  const preStatus = usePrevious(isAuthed);
+  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
+    (state) => state.auth.authedUser
+  );
+  const openSideMenu = useSelector<IStore, boolean>(
+    (state) => state.auth.openSidebarMenu
+  );
 
-  useEffect(() => {
-    if (preStatus != isAuthed) {
-      const _list:AppHeaderNavLink[] = [...appHeaderNavLinks];
-
-      if (isAuthed) {
-        const _profile = {
+  const appHeaderNavLinks = React.useMemo<AppHeaderNavLink[]>(() => {
+    if (authedUser) {
+      return [
+        ...list,
+        {
           title: "Profile",
           href: "/profile/creator/home",
           disabled: false,
           iconColor: "",
-        };
-
-        _list.push(_profile);
-      }
-
-      else _list.pop();
-      
-      setHeaderNavLinks(_list)
+        },
+      ];
+    } else {
+      return list;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthed])
+  }, [authedUser]);
 
   useEffect(() => {
-
     setSubList([]);
-    
+
     const list = [_home, _explore, _create, _about, _profile];
-    
+
     list.map((link, idx) => {
-      let matched:Match = [false, null];
+      let matched: Match = [false, null];
       const matcher = makeMatcher() as MatcherFn;
 
-      if (typeof link == 'string') {
+      if (typeof link == "string") {
         matched = matcher(link, location);
         if (link == _about && matched[0]) {
           setActiveSub(0);
           setSubList(aboutSub);
         }
-      }
-
-      else {
+      } else {
         link.map((item, index) => {
           const _matched = matcher(item, location);
           if (_matched[0]) {
@@ -202,7 +194,7 @@ export const SideNavigation: FC = () => {
             setSubList(exploreSub);
             return;
           }
-        })
+        });
       }
 
       if (matched[0]) {
@@ -219,73 +211,71 @@ export const SideNavigation: FC = () => {
   }, [location]);
 
   return (
-    <div className={
-      cx("flex absolute z-50 top-20 bottom-0 xl:static", {
-      "hidden": !openSideMenu
-      })
-    }>
+    <div
+      className={cx("flex absolute z-50 top-20 bottom-0 xl:static", {
+        hidden: !openSideMenu,
+      })}
+    >
       <div className="vertical-navbar scroll-none">
-        {
-          appHeaderNavLinks.map((item, idx) => (
+        {appHeaderNavLinks.map((item, idx) => (
+          <div
+            className={`nav-item px-2 ${activeTab == idx ? "active" : ""}`}
+            key={idx}
+            onClick={() =>
+              item.title == "Create" && item.href == PlatformRoute.Static
+                ? authedUser
+                  ? setLocation("/profile/creator/mint")
+                  : dispatch(openModal(true))
+                : setLocation(item.href)
+            }
+          >
             <div
-              className={`nav-item px-2 ${activeTab == idx ? "active" : ""}`}
-              key={idx}
-              onClick={
-                () => item.title == 'Create' && item.href == PlatformRoute.Static ?
-                  ( isAuthed ? setLocation('/profile/creator/mint') : dispatch(openModal(true))) : setLocation(item.href)
+              className={`w-10 h-10 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
+              style={
+                authedUser !== undefined && item.title == "Profile"
+                  ? {
+                      backgroundImage: `url(${avatar.src})`,
+                    }
+                  : {}
               }
             >
-              <div
-                className={`w-10 h-10 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
-                style={
-                  isAuthed && item.title == "Profile" ? {
-                    backgroundImage: `url(${avatar.src})`
-                  }: {}
-                }
-              >
-                {item.icon}
-              </div>
-              <p className="mt-1 text-center text-xs uppercase font-side-menu">{item.title}</p>
+              {item.icon}
             </div>
-          ))
-        }
+            <p className="mt-1 text-center text-xs uppercase font-side-menu">
+              {item.title}
+            </p>
+          </div>
+        ))}
       </div>
-      {
-        subList.length ? (
-          <div className="extra-panel">
-            <div
-              className={cx(
-                "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 border-r dark:bg-mid-dark border-base-content border-opacity-25",
-                {
-                  "-translate-x-full": !true,
-                  "translate-x-0": false,
-                }
-              )}
-            >
-              <div className="flex flex-col flex-1 h-screen w-full text-gray-500 dark:text-white">
-                {
-                  subList.map((link, index) => (
-                    <Link
-                      href={link.href}
-                      key={index}
-                      className={`py-4 px-6 sub-nav-item border-b border-base-content border-opacity-25 ${activeSub == index ? "active text-white" : ""}`}
-                    >{link.title}</Link>
-                  ))
-                }
-              </div>
+      {subList.length ? (
+        <div className="extra-panel">
+          <div
+            className={cx(
+              "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 border-r dark:bg-mid-dark border-base-content border-opacity-25",
+              {
+                "-translate-x-full": !true,
+                "translate-x-0": false,
+              }
+            )}
+          >
+            <div className="flex flex-col flex-1 h-screen w-full text-gray-500 dark:text-white">
+              {subList.map((link, index) => (
+                <Link
+                  href={link.href}
+                  key={index}
+                  className={`py-4 px-6 sub-nav-item border-b border-base-content border-opacity-25 ${
+                    activeSub == index ? "active text-white" : ""
+                  }`}
+                >
+                  {link.title}
+                </Link>
+              ))}
             </div>
           </div>
-        )
-        : ""
-      }
+        </div>
+      ) : (
+        ""
+      )}
     </div>
-  )
+  );
 };
-
-function usePrevious(value:boolean) {
-  const ref = useRef(false);
-  useEffect(() => {
-    ref.current = value;
-  },[value]);
-  return ref.current;
-}

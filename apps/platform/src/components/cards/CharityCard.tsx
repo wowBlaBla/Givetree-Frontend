@@ -21,7 +21,6 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const handleNextLocation = () =>
     setLocation(`${PlatformRoute.CharityListing}/${charity.slug}`);
 
-  console.log(charity);
   return (
     <div className=" h-full">
       <div

@@ -41,8 +41,8 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
     }
 
     return (
-        <div>
-            <div className="flex flex-col gap-2 my-10 px-10">
+        <div className="max-w-layout mx-auto">
+            <div className="flex flex-col gap-2 my-10">
                 <div className="collection-brand flex flex-wrap gap-2">
                     <img
                         src={data.campaign.creators[0].media.previewUrl}
@@ -105,7 +105,7 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                 </div>
             </div>
             <div className="border-b border-base-content border-opacity-25 overflow-x-auto scroll-pb-5">
-                <div className="mx-auto w-full md:px-10 px-4">
+                <div className="mx-auto w-full">
                     <ul
                         className="nav nav-tabs flex gap-2 list-none border-b-0 pl-0"
                         id="tabs-tab"
@@ -115,18 +115,11 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                             className={cx("nav-item hidden md:list-item")}
                             role="presentation"
                         >
-                            <a
-                                href="javascript:void(0);"
+                            <span
                                 className="nav-link block text-lg leading-tight capitalize p-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:hover:bg-deep-dark"
-                                id="tabs-home-tab"
-                                data-bs-toggle="pill"
-                                data-bs-target="#tabs-home"
-                                role="tab"
-                                aria-controls="tabs-home"
-                                aria-selected="true"
-                            >
+                                >
                                 <FilterListIcon className="w-8 h-8 dark:text-white"/>
-                            </a>
+                            </span>
                         </li>
                         {
                             navs.map((item, idx) => (
@@ -138,18 +131,11 @@ export const CollectionContainer:FC<Props> = ({ collectionName }) => {
                                     role="presentation"
                                     key={idx}
                                 >
-                                    <a
-                                        href="javascript:void(0);"
+                                    <span
                                         className="nav-link block text-lg leading-tight capitalize px-6 py-3 hover:border-b-brand-orange hover:bg-gray-100 focus:border-transparent active dark:text-white dark:hover:bg-deep-dark"
-                                        id="tabs-home-tab"
-                                        data-bs-toggle="pill"
-                                        data-bs-target="#tabs-home"
-                                        role="tab"
-                                        aria-controls="tabs-home"
-                                        aria-selected="true"
                                     >
                                         {item}
-                                    </a>
+                                    </span>
                                 </li>
                             ))
                         }
