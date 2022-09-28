@@ -24,7 +24,7 @@ export const CreatorsContainer:FC = () => {
     }
 
     return (
-        <SectionContainer className="3xl:max-w-layout-xl max-w-layout">
+        <SectionContainer className="max-w-layout">
             <SectionHeader
                 mainTitle="Creators"
                 subtitle="Discover creators helping to make the world a better place"

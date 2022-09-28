@@ -175,7 +175,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
       <div className="flex flex-col gap-3 rounded-lg bg-gray-600 p-6">
         <h3 className="text-white text-2xl font-bold text-center">Wallet</h3>
         <div className="border-b border-white border-opacity-25 overflow-x-auto scroll-pb-5">
-          <div className="max-w-screen-2xl mx-auto w-full">
+          <div className="max-w-layout mx-auto w-full">
             <ul
               className="nav nav-tabs flex gap-2 list-none border-b-0 pl-0"
               id="tabs-tab"
