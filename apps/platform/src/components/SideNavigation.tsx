@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import {
-  HomeIcon,
-  QuestionMarkCircleIcon,
-  SearchIcon,
-  ViewGridAddIcon,
-} from "@heroicons/react/outline";
+import HomeIcon from "../assets/images/home.png";
+import ExploreIcon from "../assets/images/explore.png";
+import CreateIcon from "../assets/images/create.png";
+import AboutIcon from "../assets/images/about.png";
+
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import cx from "classnames";
 import { PlatformRoute } from "../configs/routes";
@@ -46,7 +44,9 @@ const list: AppHeaderNavLink[] = [
     title: "Home",
     href: PlatformRoute.Home,
     disabled: false,
-    icon: <HomeIcon className="w-7 h-7 text-white" />,
+    icon: (
+      <img src={HomeIcon.src} className="w-5 h-5 text-white" />
+    ),
     childrens: undefined,
     iconColor: "bg-sky-500",
   },
@@ -54,14 +54,18 @@ const list: AppHeaderNavLink[] = [
     title: "Explore",
     href: PlatformRoute.FundraiserDetails,
     disabled: true,
-    icon: <SearchIcon className="w-7 h-7 text-white" />,
+    icon: (
+      <img src={ExploreIcon.src} className="w-5 h-5 text-white" />
+    ),
     iconColor: "bg-orange-500",
   },
   {
     title: "Create",
     href: PlatformRoute.Static,
     disabled: false,
-    icon: <ViewGridAddIcon className="w-7 h-7 text-white" />,
+    icon: (
+      <img src={CreateIcon.src} className="w-5 h-5 text-white" />
+    ),
     iconColor: "bg-red-500",
     childrens: undefined,
   },
@@ -69,7 +73,7 @@ const list: AppHeaderNavLink[] = [
     title: "About",
     href: "/about/welcome",
     disabled: false,
-    icon: <QuestionMarkCircleIcon className="w-7 h-7 text-white" />,
+    icon: <img src={AboutIcon.src} className="w-5 h-5 text-white" />,
     iconColor: "bg-yellow-500",
     childrens: undefined,
   },
