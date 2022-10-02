@@ -1,10 +1,10 @@
 env:
-  S3_TEST_BUCKET_NAME: "gt-frontend-9b6q4ua7"
-  S3_STAGE_BUCKET_NAME: ""
-  S3_PROD_BUCKET_NAME: ""
-  DEPLOY_TEST_ROLE_ARN: "arn:aws:iam::576424575048:role/DevOpsDeployRole"
+  DEPLOY_TEST_ROLE_ARN: "arn:aws:iam::576424575048:role/DevOpsToolingAppDeployRole"
   DEPLOY_STAGE_ROLE_ARN: ""
   DEPLOY_PROD_ROLE_ARN: ""
+  DEPLOY_TEST_ECR: "576424575048.dkr.ecr.ap-southeast-2.amazonaws.com"
+  DEPLOY_STAGE_ECR: "576424575048.dkr.ecr.ap-southeast-2.amazonaws.com"
+  DEPLOY_PROD_ECR: "576424575048.dkr.ecr.ap-southeast-2.amazonaws.com"
 
 steps:
   - block: ":rocket: Build & Deploy Branch To Test"
