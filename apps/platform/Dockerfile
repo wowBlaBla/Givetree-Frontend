@@ -19,20 +19,28 @@ RUN yarn build
 # RUN yarn build
 
 # Build runtime image
-# FROM node:16.17-bullseye-slim
+FROM node:18.10-slim
 
 # # Hard-bake full commit sha into container env
-# ARG COMMIT_SHA
-# ENV APP_COMMIT_SHA=${COMMIT_SHA}
+ARG COMMIT_SHA
+ENV APP_COMMIT_SHA=${COMMIT_SHA}
 
 # # Hard-bake short commit sha into container env
 # ARG COMMIT_SHA_SHORT
 # ENV APP_COMMIT_SHA_SHORT=${COMMIT_SHA_SHORT}
 
-# WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
-# COPY --from=build-env /usr/src/app /usr/src/app
-# WORKDIR /usr/src/app/apps/platform
+COPY --from=build-env /usr/src/app/.next /usr/src/app/.next
+COPY --from=build-env /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --from=build-env /usr/src/app/public /usr/src/app/public
 
-CMD ["yarn", "start:prod"]
+COPY --from=build-env /usr/src/app/.eslintrc.json /usr/src/app/.eslintrc.json
+COPY --from=build-env /usr/src/app/.eslintrc.base.json /usr/src/app/.eslintrc.base.json
+COPY --from=build-env /usr/src/app/next.config.js /usr/src/app/next.config.js
+COPY --from=build-env /usr/src/app/package.json /usr/src/app/package.json
+COPY --from=build-env /usr/src/app/eslint.js /usr/src/app/eslint.js
+COPY --from=build-env /usr/src/app/tsconfig.json /usr/src/app/tsconfig.json
+
+CMD ["yarn", "start:dist"]
 

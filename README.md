@@ -30,18 +30,13 @@ Clone this project from GitHub:
 git clone https://github.com/Give-Tree/ares.git
 ```
 
-Install project dependencies:
-
-```bash
-yarn install
-```
-
 Next, `cd` into the project you would like to develop. Depending on which project you would like to develop, you will need to run the following commands, for example:
 
 For partner portal:
 
 ```bash
 cd /apps/partner
+yarn install
 yarn start
 ```
 
@@ -49,6 +44,10 @@ For platform portal:
 
 ```bash
 cd /apps/platform
+yarn install
+
+cp .env/example .env.local
+
 yarn dev
 ```
 
