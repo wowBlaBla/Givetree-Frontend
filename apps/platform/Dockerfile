@@ -8,7 +8,7 @@ RUN apt update && apt install -y git
 WORKDIR /usr/src/app
 
 COPY . .
-COPY ./apps/platform/.env.${APP_ENV} ./apps/platform/.env
+COPY ./.env.${APP_ENV} ./.env
 
 RUN yarn add -W sharp
 RUN yarn install
