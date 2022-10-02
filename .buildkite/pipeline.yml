@@ -28,7 +28,7 @@ steps:
 
   - label: ":rocket: Deploy Branch to Test"
     command:
-      - "Deploying Branch to ECS..."
+      - "echo 'Deploying Branch to ECS...'"
       - "./ecs-deploy -c ecs-spot-test -n givetree-frontend -i ${DEPLOY_TEST_ECR}/gtfrontend:$$BUILDKITE_BUILD_NUMBER -t 600 --enable-rollback"
     if: "build.branch != 'master'"
     env:
