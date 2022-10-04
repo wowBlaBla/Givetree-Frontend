@@ -20,6 +20,18 @@ export const AppHeader: FC = () => {
   );
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      function handleResize() {
+        // Set window width/height to state
+        if (window.innerWidth > 960) {
+          dispatch(openSidebar(false));
+        }
+      }
+
+      window.addEventListener("resize", handleResize);
+      handleResize();
+    }
+
     // if (localStorage.theme == "dark") {
     document.documentElement.classList.add("dark");
     document.documentElement.setAttribute("data-theme", "dark");
