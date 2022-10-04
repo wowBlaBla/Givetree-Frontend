@@ -18,6 +18,7 @@ module.exports = {
         "mid-dark": "#2F3136",
         "light-dark": "#37393E",
         "menu": "#75FCC1",
+        "primary": "#3897F0",
       },
       fontSize: {
         "none": "0",
