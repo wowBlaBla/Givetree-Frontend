@@ -1,67 +1,7 @@
 import React, { FC } from "react";
-import { PlatformRoute } from "../configs/routes";
+import { MenuList } from "../configs/routes";
 import cx from "classnames";
 import { Link } from "wouter";
-
-interface AppHeaderNavLink {
-  title: string;
-  href?: string;
-  disabled?: boolean;
-  onClick?: () => void;
-  childrens?: Array<AppHeaderNavLink>;
-}
-
-const list: AppHeaderNavLink[] = [
-  {
-    title: "HOME",
-    href: PlatformRoute.Home,
-  },
-  {
-    title: "BROWSE",
-    childrens: [
-      { title: "NFT Fundraisers", href: "/fundraisers" },
-      { title: "Creators", href: "/creators" },
-      { title: "Charities", href: "/charities" },
-      { title: "Donors", href: "" },
-    ],
-  },
-  {
-    title: "NFT FUNDRAISERS",
-    childrens: [
-      { title: "All", href: "" },
-      { title: "Minting", href: "" },
-      { title: "Sales", href: "" },
-      { title: "Auctions", href: "" },
-      { title: "Stats", href: "" },
-      { title: "Archive", href: "" },
-    ],
-  },
-  {
-    title: "CREATE",
-    childrens: [
-      { title: "Create NFT", href: "" },
-      { title: "Create NFT Fundraiser", href: "" },
-    ],
-  },
-  {
-    title: "DONATE",
-    href: "",
-  },
-  {
-    title: "ABOUT",
-    childrens: [
-      { title: "Welcome", href: "/about/welcome" },
-      { title: "For creators", href: "" },
-      { title: "For charities", href: "" },
-      { title: "For donors", href: "" },
-      { title: "Our story", href: "" },
-      { title: "Our Blog", href: "" },
-      { title: "Our socials", href: "" },
-      { title: "Terms of use", href: "" },
-      { title: "Privacy policy", href: "" },
-    ],
-  },
-];
 
 interface MenuBarProps extends React.HTMLAttributes<HTMLElement> {
   horizontal?: boolean;
@@ -75,44 +15,36 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
         `menu ${horizontal ? "menu-horizontal" : ""} text-white text-t1`
       )}
     >
-      {list.map((menu, mIndex) => (
+      {MenuList.map((menu, mIndex) => (
         <li
           key={`top-menu-${mIndex}`}
           className={`indicator ${horizontal ? "" : "w-[200px]"}`}
         >
           {menu.childrens ? (
             <>
-              <span
-                className={`indicator-item indicator-middle indicator-end p-0`}
-              >
+              <span className={`indicator-item indicator-middle indicator-end p-0`}>
                 {horizontal ? (
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-3 h-3 ml-1"
+                    viewBox="0 0 185 100"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-3 h-3"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                      d="M-3.05176e-05 23.0807V7.69649C-3.05176e-05 4.72733 1.71532 2.0197 4.39987 0.742808C7.08441 -0.534084 10.2613 -0.141785 12.5689 1.74278L92.3054 66.9873L172.05 1.74278C174.35 -0.141785 177.526 -0.526392 180.219 0.742808C182.911 2.01201 184.611 4.72733 184.611 7.69649V23.0807C184.611 25.3884 183.572 27.5729 181.788 29.0344L97.1745 98.2635C94.3361 100.579 90.267 100.579 87.4286 98.2635L2.81528 29.0344C1.03841 27.5729 -3.05176e-05 25.3884 -3.05176e-05 23.0807Z"
+                      fill="white"
                     />
                   </svg>
                 ) : (
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
                     className="w-3 h-3"
+                    viewBox="0 0 100 185"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                      d="M23.0807 184.611H7.69649C4.72733 184.611 2.0197 182.896 0.742808 180.211C-0.534084 177.526 -0.141785 174.35 1.74278 172.042L66.9873 92.3054L1.74278 12.5612C-0.141785 10.2613 -0.526392 7.08444 0.742808 4.3922C2.01201 1.69996 4.72733 0 7.69649 0H23.0807C25.3884 0 27.5729 1.03844 29.0344 2.82301L98.2635 87.4363C100.579 90.2747 100.579 94.3438 98.2635 97.1822L29.0344 181.796C27.5729 183.572 25.3884 184.611 23.0807 184.611Z"
+                      fill="white"
                     />
                   </svg>
                 )}
