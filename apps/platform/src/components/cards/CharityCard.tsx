@@ -23,12 +23,11 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         onClick={handleNextLocation}
       >
         <div className="flex w-full justify-center mt-[24px] mb-[12px]">
-          <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center">
+          <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={charity.media.previewUrl}
               alt={charity.slug}
-              className="w-[50px] h-[50px] rounded-full border-4 border-base-100"
             />
           </div>
         </div>
@@ -47,7 +46,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
               <div className="flex flex-col items-center w-full">
                 <Link
                   className={
-                    "outline-button h-[34px] text-xs !bg-primary !border-0 !text-white w-[80%] mt-[0.5rem]"
+                    "outline-button h-[34px] text-xs !bg-primary w-[80%] mt-[0.5rem] hover:shadow-lg"
                   }
                   to=""
                 >
@@ -55,7 +54,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
                 </Link>
                 <Link
                   className={
-                    "outline-button h-[34px] text-xs !bg-primary !border-0 !text-white w-[80%] mt-[0.5rem]"
+                    "outline-button h-[34px] text-xs !bg-primary w-[80%] mt-[0.5rem] hover:shadow-lg"
                   }
                   to=""
                 >
