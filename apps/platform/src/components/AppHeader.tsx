@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import { DropdownMenu } from "./DropdownMenu";
 import { openSidebar } from "../store/actions/auth.action";
-import { MoonIcon, SunIcon } from "@heroicons/react/outline";
 import { MenuBar } from "./MenuBar";
 
 export const AppHeader: FC = () => {
@@ -21,18 +20,6 @@ export const AppHeader: FC = () => {
   );
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      function handleResize() {
-        // Set window width/height to state
-        if (window.innerWidth > 1280) {
-          dispatch(openSidebar(true));
-        } else dispatch(openSidebar(false));
-      }
-
-      window.addEventListener("resize", handleResize);
-      handleResize();
-    }
-
     // if (localStorage.theme == "dark") {
     document.documentElement.classList.add("dark");
     document.documentElement.setAttribute("data-theme", "dark");

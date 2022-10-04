@@ -43,7 +43,7 @@ const data: AUTH = {
   walletAddress: "",
   registeredWallets: [],
   email: "",
-  openSidebarMenu: true,
+  openSidebarMenu: false,
   authedUser: undefined,
 };
 
