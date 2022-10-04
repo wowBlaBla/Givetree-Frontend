@@ -9,6 +9,7 @@ import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import { DropdownMenu } from "./DropdownMenu";
 import { openSidebar } from "../store/actions/auth.action";
 import { MoonIcon, SunIcon } from "@heroicons/react/outline";
+import { MenuBar } from "./MenuBar";
 
 export const AppHeader: FC = () => {
   const dispatch = useDispatch();
@@ -61,11 +62,15 @@ export const AppHeader: FC = () => {
   };
 
   return (
-    <div className="flex sticky top-0 z-50 w-full py-3 h-18 bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
+    <div className="flex sticky top-0 z-50 w-full h-[5rem] bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">
       <div className="grid w-full grid-cols-2 px-4">
         <div className="flex items-center space-x-1 lg:space-x-0">
-          <div className="relative cursor-pointer xl:hidden mr-2" onClick={handleDropdown}>
+          <div
+            className="relative cursor-pointer mr-2 menu-icon"
+            onClick={handleDropdown}
+          >
             <MenuIcon className="w-7 h-7" />
+            {openSideMenu && <MenuBar className="absolute bg-deep-dark"/>}
           </div>
           <Link
             className="flex items-center cursor-pointer p-2"
@@ -78,6 +83,8 @@ export const AppHeader: FC = () => {
               />
             </a>
           </Link>
+
+          <MenuBar horizontal />
         </div>
 
         {/* Wallet */}

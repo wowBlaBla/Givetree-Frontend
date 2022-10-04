@@ -63,7 +63,7 @@ const App = () => {
       <ScrollToTop>
         <AppHeader />
         <div className="flex h-full min-h-screen bg-gray-50">
-          <SideNavigation />
+          {/* <SideNavigation /> */}
           <ToastContainer
             className="mt-16"
             position="top-right"
