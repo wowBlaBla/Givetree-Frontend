@@ -47,7 +47,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
               <div className="flex flex-col items-center w-full">
                 <Link
                   className={
-                    "outline-button h-[34px] text-xs !bg-primary !border-0 !text-white w-[80%] mt-[0.5rem]"
+                    "outline-button h-[34px] text-xs !bg-primary w-[80%] mt-[0.5rem] hover:shadow-lg"
                   }
                   to=""
                 >
@@ -55,7 +55,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
                 </Link>
                 <Link
                   className={
-                    "outline-button h-[34px] text-xs !bg-primary !border-0 !text-white w-[80%] mt-[0.5rem]"
+                    "outline-button h-[34px] text-xs !bg-primary w-[80%] mt-[0.5rem] hover:shadow-lg"
                   }
                   to=""
                 >

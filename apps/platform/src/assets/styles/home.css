@@ -16,3 +16,13 @@
 .charity-card .card .card-body {
   padding: 0;
 }
+
+.charity-card .card .card-body .outline-button {
+  color: white;
+  font-weight: 500;
+  border: 0;
+}
+
+.charity-card .card .card-body .outline-button:hover {
+  font-weight: 700;
+}
