@@ -76,7 +76,7 @@ export const HomeContainer = () => {
 
       <SectionContainer className="max-w-layout">
         <SectionHeader
-          mainTitle="Support the causes you love"
+          mainTitle="Charities"
           linkText="View more"
           link={PlatformRoute.CharityListing}
         />

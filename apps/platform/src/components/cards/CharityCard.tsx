@@ -23,12 +23,11 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
         onClick={handleNextLocation}
       >
         <div className="flex w-full justify-center mt-[24px] mb-[12px]">
-          <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center">
+          <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={charity.media.previewUrl}
               alt={charity.slug}
-              className="w-[50px] h-[50px] rounded-full border-4 border-base-100"
             />
           </div>
         </div>
