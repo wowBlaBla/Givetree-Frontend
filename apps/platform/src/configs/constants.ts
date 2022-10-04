@@ -2,5 +2,4 @@
 
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
-export const SOLANA_NETWORK: WalletAdapterNetwork = process.env
-  .NEXT_PUBLIC_SOLANA_NETWORK as WalletAdapterNetwork;
+export const SOLANA_NETWORK: WalletAdapterNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK as WalletAdapterNetwork;

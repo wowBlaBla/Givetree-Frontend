@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  app:
+    build:
+      context: ./apps/platform
+      dockerfile: Dockerfile
+    environment:
+      APP_ENV: dev
+      NEXT_PUBLIC_SOLANA_NETWORK: testnet
+      NEXT_PUBLIC_API: http://localhost:3010
+    ports:
+      - 30010:80
+    networks:
+      - dev
+
+networks:
+  dev:
+
