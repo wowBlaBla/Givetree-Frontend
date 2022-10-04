@@ -1,18 +1,10 @@
-import HomeIcon from "../assets/images/home.png";
-import ExploreIcon from "../assets/images/explore.png";
-import CreateIcon from "../assets/images/create.png";
-import AboutIcon from "../assets/images/about.png";
-
-import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect } from "react";
 import cx from "classnames";
-import { AppHeaderNavLink, MenuList, PlatformRoute } from "../configs/routes";
-// import matcherType from "wouter/types/matcher";
-import { Link, Match, MatcherFn, useLocation } from "wouter";
+import { AppHeaderNavLink, MenuList } from "../configs/routes";
+import { Link } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
-import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
-import { openModal, openSidebar } from "../store/actions/auth.action";
-import makeMatcher from "../utils/matcher";
+import { openSidebar } from "../store/actions/auth.action";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -25,7 +17,6 @@ declare global {
 
 export const SideNavigation: FC = () => {
   const dispatch = useDispatch();
-  const [location, setLocation] = useLocation();
 
   const [menu, setMenu] = React.useState<AppHeaderNavLink[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = React.useState<AppHeaderNavLink>();
@@ -60,6 +51,7 @@ export const SideNavigation: FC = () => {
     }
   }, [selectedMenuItem]);
 
+  console.log("==========", openSideMenu)
   return (
     <div
       className={cx("flex absolute z-50 top-20 bottom-0 xl:static w-full", {
