@@ -2,6 +2,14 @@
   margin-left: 2rem !important;
 }
 
+.menu.menu-horizontal .indicator-item {
+  right: 0.5rem;
+}
+
+.menu.absolute .indicator-item {
+  right: 10px;
+}
+
 .menu.absolute {
   top: calc(100% + 1.5rem);
 }

@@ -83,9 +83,7 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
           {menu.childrens ? (
             <>
               <span
-                className={`indicator-item indicator-middle indicator-end p-0 right-[${
-                  horizontal ? "0.5rem" : "0.5rem"
-                }]`}
+                className={`indicator-item indicator-middle indicator-end p-0`}
               >
                 {horizontal ? (
                   <svg
