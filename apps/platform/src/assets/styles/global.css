@@ -4,6 +4,7 @@
 
 @import "./carousel.css";
 @import "./header.css";
+@import "./home.css";
 
 html {
   overflow: hidden;
