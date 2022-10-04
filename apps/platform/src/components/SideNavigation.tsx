@@ -5,7 +5,7 @@ import AboutIcon from "../assets/images/about.png";
 
 import React, { FC, ReactElement, useEffect, useRef, useState } from "react";
 import cx from "classnames";
-import { PlatformRoute } from "../configs/routes";
+import { AppHeaderNavLink, MenuList, PlatformRoute } from "../configs/routes";
 // import matcherType from "wouter/types/matcher";
 import { Link, Match, MatcherFn, useLocation } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,133 +23,12 @@ declare global {
   }
 }
 
-interface Dropdown {
-  title: string;
-  href: string;
-  onClick?: () => void;
-}
-
-interface AppHeaderNavLink {
-  title: string;
-  href: string;
-  disabled?: boolean;
-  icon?: ReactElement;
-  childrens?: Array<Dropdown>;
-  iconColor?: string;
-  openSidebar?: boolean;
-}
-
-const list: AppHeaderNavLink[] = [
-  {
-    title: "Home",
-    href: PlatformRoute.Home,
-    disabled: false,
-    icon: (
-      <img src={HomeIcon.src} className="w-5 h-5 text-white" />
-    ),
-    childrens: undefined,
-    iconColor: "bg-sky-500",
-  },
-  {
-    title: "Explore",
-    href: PlatformRoute.FundraiserDetails,
-    disabled: true,
-    icon: (
-      <img src={ExploreIcon.src} className="w-5 h-5 text-white" />
-    ),
-    iconColor: "bg-orange-500",
-  },
-  {
-    title: "Create",
-    href: PlatformRoute.Static,
-    disabled: false,
-    icon: (
-      <img src={CreateIcon.src} className="w-5 h-5 text-white" />
-    ),
-    iconColor: "bg-red-500",
-    childrens: undefined,
-  },
-  {
-    title: "About",
-    href: "/about/welcome",
-    disabled: false,
-    icon: <img src={AboutIcon.src} className="w-5 h-5 text-white" />,
-    iconColor: "bg-yellow-500",
-    childrens: undefined,
-  },
-];
-
-const exploreSub: Dropdown[] = [
-  {
-    title: "NFT Fundraisers",
-    href: PlatformRoute.FundraiserDetails,
-  },
-  {
-    title: "Charities",
-    href: PlatformRoute.CharityListing,
-  },
-  {
-    title: "Creators",
-    href: PlatformRoute.CreatorListing,
-  },
-];
-
-const aboutSub: Dropdown[] = [
-  {
-    title: "Welcome",
-    href: "/about/welcome",
-  },
-  {
-    title: "Our story",
-    href: "",
-  },
-  {
-    title: "Our technology",
-    href: "",
-  },
-  {
-    title: "Our partners",
-    href: "",
-  },
-  {
-    title: "Risk management",
-    href: "",
-  },
-  {
-    title: "Media enquiries",
-    href: "",
-  },
-  {
-    title: "Blog",
-    href: "",
-  },
-  {
-    title: "Socials",
-    href: "",
-  },
-  {
-    title: "Terms of use",
-    href: "",
-  },
-  {
-    title: "Privacy policy",
-    href: "",
-  },
-];
-
-const _home = PlatformRoute.Home;
-const _explore = ["/fundraisers", "/charities", "/creators", "/mints"];
-const _about = PlatformRoute.About;
-const _create = "/profile/:role/mint";
-const _profile = PlatformRoute.ProfileDetails;
-
 export const SideNavigation: FC = () => {
   const dispatch = useDispatch();
   const [location, setLocation] = useLocation();
 
-  const [activeTab, setActiveTab] = useState(-1);
-  const [activeSub, setActiveSub] = useState(-1);
-  const [subList, setSubList] = useState<Dropdown[]>([]);
+  const [menu, setMenu] = React.useState<AppHeaderNavLink[]>([]);
+  const [selectedMenuItem, setSelectedMenuItem] = React.useState<AppHeaderNavLink>();
 
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
@@ -158,128 +37,101 @@ export const SideNavigation: FC = () => {
     (state) => state.auth.openSidebarMenu
   );
 
-  const appHeaderNavLinks = React.useMemo<AppHeaderNavLink[]>(() => {
-    if (authedUser) {
-      return [
-        ...list,
-        {
-          title: "Profile",
-          href: "/profile/creator/home",
-          disabled: false,
-          iconColor: "",
-        },
-      ];
-    } else {
-      return list;
-    }
-  }, [authedUser]);
+  const handleDropdown = () => {
+    dispatch(openSidebar(!openSideMenu));
+  };
+
+  const handleSelectMenuItem = (menuItem: AppHeaderNavLink | undefined) => () => {
+    setSelectedMenuItem(menuItem);
+  };
 
   useEffect(() => {
-    setSubList([]);
+    setMenu(MenuList);
+    setSelectedMenuItem(undefined);
+  }, [openSideMenu]);
 
-    const list = [_home, _explore, _create, _about, _profile];
-
-    list.map((link, idx) => {
-      let matched: Match = [false, null];
-      const matcher = makeMatcher() as MatcherFn;
-
-      if (typeof link == "string") {
-        matched = matcher(link, location);
-        if (link == _about && matched[0]) {
-          setActiveSub(0);
-          setSubList(aboutSub);
-        }
-      } else {
-        link.map((item, index) => {
-          const _matched = matcher(item, location);
-          if (_matched[0]) {
-            matched = _matched;
-            setActiveSub(index);
-            setSubList(exploreSub);
-            return;
-          }
-        });
+  useEffect(() => {
+    if (selectedMenuItem) {
+      if (selectedMenuItem.childrens) {
+        setMenu(selectedMenuItem.childrens);
       }
-
-      if (matched[0]) {
-        setActiveTab(idx);
-        return;
-      }
-    });
-    if (typeof window !== undefined) {
-      if (window.innerWidth < 1023) {
-        dispatch(openSidebar(false));
-      }
+    } else {
+      setMenu(MenuList);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location]);
+  }, [selectedMenuItem]);
 
   return (
     <div
-      className={cx("flex absolute z-50 top-20 bottom-0 xl:static", {
+      className={cx("flex absolute z-50 top-20 bottom-0 xl:static w-full", {
         hidden: !openSideMenu,
       })}
     >
-      <div className="vertical-navbar scroll-none">
-        {appHeaderNavLinks.map((item, idx) => (
-          <div
-            className={`nav-item px-2 ${activeTab == idx ? "active" : ""}`}
-            key={idx}
-            onClick={() =>
-              item.title == "Create" && item.href == PlatformRoute.Static
-                ? authedUser
-                  ? setLocation("/profile/creator/mint")
-                  : dispatch(openModal(true))
-                : setLocation(item.href)
-            }
-          >
-            <div
-              className={`w-10 h-10 flex items-center justify-center rounded-full bg-cover ${item.iconColor}`}
-              style={
-                authedUser !== undefined && item.title == "Profile"
-                  ? {
-                      backgroundImage: `url(${avatar.src})`,
-                    }
-                  : {}
-              }
+      <div className="scroll-none w-full bg-light-dark">
+        <ul className="menu text-white text-t1">
+          {selectedMenuItem ? (
+            <li
+              className="indicator w-full bg-deep-dark side-menu-item"
+              onClick={handleSelectMenuItem(undefined)}
             >
-              {item.icon}
-            </div>
-            <p className="mt-1 text-center text-xs uppercase font-side-menu">
-              {item.title}
-            </p>
-          </div>
-        ))}
-      </div>
-      {subList.length ? (
-        <div className="extra-panel">
-          <div
-            className={cx(
-              "h-screen duration-200 bottom-0 left-[81px] bg-white overflow-hidden origin-left w-60 border-r dark:bg-mid-dark border-base-content border-opacity-25",
-              {
-                "-translate-x-full": !true,
-                "translate-x-0": false,
-              }
-            )}
-          >
-            <div className="flex flex-col flex-1 h-screen w-full text-gray-500 dark:text-white">
-              {subList.map((link, index) => (
-                <Link
-                  href={link.href}
-                  key={index}
-                  className={`py-4 px-6 sub-nav-item border-b border-base-content border-opacity-25 ${
-                    activeSub == index ? "active text-white" : ""
-                  }`}
+              <span
+                className={`indicator-item indicator-middle indicator-start p-0 left-[1.2rem]`}
+              >
+                <svg
+                  className="w-3 h-3"
+                  viewBox="0 0 100 185"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {link.title}
+                  <path
+                    d="M76.9193 -3.05176e-05H92.3035C95.2727 -3.05176e-05 97.9803 1.71532 99.2572 4.39987C100.534 7.08441 100.142 10.2613 98.2572 12.5689L33.0127 92.3054L98.2572 172.05C100.142 174.35 100.526 177.526 99.2572 180.219C97.988 182.911 95.2727 184.611 92.3035 184.611H76.9193C74.6116 184.611 72.4271 183.572 70.9656 181.788L1.7365 97.1745C-0.578827 94.3361 -0.578827 90.267 1.7365 87.4286L70.9656 2.81528C72.4271 1.03841 74.6116 -3.05176e-05 76.9193 -3.05176e-05Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+              <span className="font-bold hover:bg-transparent hover:text-menu uppercase pl-[2.5rem]">
+                {selectedMenuItem.title}
+              </span>
+            </li>
+          ) : null}
+          {menu.map((menu, mIndex) =>
+            menu.childrens ? (
+              <li
+                key={`top-menu-${mIndex}`}
+                className="indicator w-full side-menu-item"
+                onClick={handleSelectMenuItem(menu)}
+              >
+                <span
+                  className={`indicator-item indicator-middle indicator-end p-0 right-[1.5rem]`}
+                >
+                  <svg
+                    className="w-3 h-3"
+                    viewBox="0 0 100 185"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M23.0807 184.611H7.69649C4.72733 184.611 2.0197 182.896 0.742808 180.211C-0.534084 177.526 -0.141785 174.35 1.74278 172.042L66.9873 92.3054L1.74278 12.5612C-0.141785 10.2613 -0.526392 7.08444 0.742808 4.3922C2.01201 1.69996 4.72733 0 7.69649 0H23.0807C25.3884 0 27.5729 1.03844 29.0344 2.82301L98.2635 87.4363C100.579 90.2747 100.579 94.3438 98.2635 97.1822L29.0344 181.796C27.5729 183.572 25.3884 184.611 23.0807 184.611Z"
+                      fill="white"
+                    />
+                  </svg>
+                </span>
+                <span className="font-bold hover:bg-transparent hover:text-menu uppercase">
+                  {menu.title}
+                </span>
+              </li>
+            ) : (
+              <li key={`top-menu-${mIndex}`} className="w-full" onClick={handleDropdown}>
+                <Link
+                  className="font-bold hover:bg-transparent hover:text-menu uppercase"
+                  to={menu.href || ""}
+                >
+                  {menu.title}
                 </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+              </li>
+            )
+          )}
+        </ul>
+      </div>
     </div>
   );
 };

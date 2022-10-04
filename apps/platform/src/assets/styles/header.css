@@ -24,6 +24,10 @@
   border-top: 5px solid #75FCC1;
 }
 
+.side-menu-item:hover svg path {
+  fill: #75FCC1;
+}
+
 @media screen and (max-width: 960px) {
   .menu.menu-horizontal {
     display: none;
