@@ -33,11 +33,11 @@ export const AppHeader: FC = () => {
       handleResize();
     }
 
-    if (localStorage.theme == "dark") {
+    // if (localStorage.theme == "dark") {
       document.documentElement.classList.add("dark");
       document.documentElement.setAttribute("data-theme", "dark");
       localStorage.theme = "dark";
-    }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -91,10 +91,10 @@ export const AppHeader: FC = () => {
 
         <div className="flex gap-10 justify-end items-center w-full">
           <div className="flex gap-4 items-center">
-            <div className="relative cursor-pointer" onClick={toggleDarkMode}>
+            {/* <div className="relative cursor-pointer" onClick={toggleDarkMode}>
               <SunIcon className="w-7 h-7 dark:hidden" />
               <MoonIcon className="w-7 h-7 hidden dark:text-white dark:inline-block" />
-            </div>
+            </div> */}
 
             {authedUser ? <DropdownMenu /> : <SignButton />}
           </div>

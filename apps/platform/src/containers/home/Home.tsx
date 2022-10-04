@@ -40,7 +40,7 @@ export const HomeContainer = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative md:my-16">
+      <div className="relative flex items-center md:py-16 bg-[#F0926E] h-[800px]">
         <CampaignBanner
           backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
           title={data.homepageCampaign.title}
