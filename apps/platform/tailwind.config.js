@@ -16,11 +16,13 @@ module.exports = {
         "menu-orange": "#fb5022",
         "deep-dark": "#202225",
         "mid-dark": "#2F3136",
-        "light-dark": "#37393E"
+        "light-dark": "#37393E",
+        "menu": "#75FCC1",
       },
       fontSize: {
         "none": "0",
         "lg-m": "0.625rem",
+        "t1": "14px",
       },
       fontFamily: {
         "side-menu": `"Montserrat Bold","Arial Black",sans-serif`,

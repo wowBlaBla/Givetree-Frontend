@@ -1,0 +1,29 @@
+.menu.menu-horizontal {
+  margin-left: 2rem !important;
+}
+
+.menu.absolute {
+  top: calc(100% + 1.5rem);
+}
+
+.menu-horizontal .top-sub-menu {
+  left: 1rem;
+  padding-top: 0.8rem;
+  min-width: 143px;
+}
+
+.menu-horizontal .top-sub-menu li:first-child {
+  border-top: 5px solid #75FCC1;
+}
+
+@media screen and (max-width: 960px) {
+  .menu.menu-horizontal {
+    display: none;
+  }  
+}
+
+@media screen and (min-width: 960px) {
+  .menu-icon {
+    display: none;
+  }  
+}

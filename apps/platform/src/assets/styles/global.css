@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import "./carousel.css";
+@import "./header.css";
 
 html {
   overflow: hidden;
