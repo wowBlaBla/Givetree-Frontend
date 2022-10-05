@@ -26,13 +26,13 @@ export const WalletProvider: FC<WalletProviderProps> = ({ children, network }) =
     () => [
       new PhantomWalletAdapter(),
       new TorusWalletAdapter(),
-      new SolflareWalletAdapter({ network }),
+      // new SolflareWalletAdapter({ network }),
       new SolletWalletAdapter(),
       new Coin98WalletAdapter(),
       new LedgerWalletAdapter(),
       new SlopeWalletAdapter(),
     ],
-    [network]
+    []
   );
 
   return (
