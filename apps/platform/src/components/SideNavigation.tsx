@@ -5,6 +5,7 @@ import { Link } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import { openSidebar } from "../store/actions/auth.action";
+import { SignButton } from "./SignButton";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -51,7 +52,6 @@ export const SideNavigation: FC = () => {
     }
   }, [selectedMenuItem]);
 
-  console.log("==========", openSideMenu)
   return (
     <div
       className={cx("flex absolute z-50 top-20 bottom-0 xl:static w-full", {
@@ -123,6 +123,9 @@ export const SideNavigation: FC = () => {
             )
           )}
         </ul>
+        <div className="px-[1rem] py-[0.75rem]">
+          <SignButton className="w-full h-[45px]" />
+        </div>
       </div>
     </div>
   );

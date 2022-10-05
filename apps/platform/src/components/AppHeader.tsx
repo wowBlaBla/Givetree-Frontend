@@ -82,13 +82,13 @@ export const AppHeader: FC = () => {
         {/* Wallet */}
 
         <div className="flex gap-10 justify-end items-center w-full">
-          <div className="flex gap-4 items-center">
+          <div className="header-right flex gap-4 items-center">
             {/* <div className="relative cursor-pointer" onClick={toggleDarkMode}>
               <SunIcon className="w-7 h-7 dark:hidden" />
               <MoonIcon className="w-7 h-7 hidden dark:text-white dark:inline-block" />
             </div> */}
 
-            {authedUser ? <DropdownMenu /> : <SignButton />}
+            {authedUser ? <DropdownMenu /> : <SignButton className="w-24 h-8"/>}
           </div>
           <div
             className="relative cursor-pointer mr-2 menu-icon"
