@@ -29,6 +29,10 @@
 }
 
 @media screen and (max-width: 960px) {
+  .header-right {
+    display: none !important;
+  }
+
   .menu.menu-horizontal {
     display: none;
   }  
