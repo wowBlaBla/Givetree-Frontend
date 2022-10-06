@@ -4,7 +4,7 @@ import { ProfileSideBar } from "../../../components/ProfileSidebar";
 import { Fundraisers } from "./fundraisers";
 import { Mint } from "./mint";
 import { ProfileNFTs } from "./nfts";
-import { Profile } from "./profile";
+import { Profile } from "./Profile";
 import { Settings } from "./settings";
 
 export const CreatorCustomerPortal:FC = () => {

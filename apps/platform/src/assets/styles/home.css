@@ -26,3 +26,90 @@
 .charity-card .card .card-body .outline-button:hover {
   font-weight: 700;
 }
+
+.profile-section {
+  background: #303236;
+  border: 1px solid #5B626C;
+  box-shadow: 4px 4px 4px rgba(43, 45, 48, 0.25);
+  border-radius: 10px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 48px;
+  box-shadow: 4px 4px 4px rgba(43, 45, 48, 0.25);
+}
+
+.profile-section .profile-item {
+  background-color: #2B2D30;
+  border: 1px solid #5B626C;
+  border-radius: 10px;
+  width: 100%;
+  color: white;
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 400;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile-section label {
+  color: #DADADA;
+}
+
+.profile-section .profile-item:not(textarea) {
+  height: 49px;
+}
+
+.profile-section .profile-item:last-child {
+  margin-bottom: 0;
+}
+
+.profile-section .profile-box {
+  background: #2B2D30;
+  border: 1px solid #6A6A6B;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+
+.profile-section .profile-primary-button {
+  background: #2FB4D1;
+  border: 1px solid #2FB4D1;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 60px;
+}
+
+.profile-section .profile-secondary-button {
+  background: #37393E;
+  border: 1px solid rgba(217, 217, 217, 0.2);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 60px;
+}
+
+.profile-section .swatches-picker>div>div:first-child {
+  background: #2B2D30 !important;
+  border: 1px solid #6A6A6B !important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 10px !important;
+}
+
+.profile-section .swatches-picker {
+  width: 100% !important;
+}
+
+.profile-save-section {
+  background: #37393E;
+  border: 1px solid #696969;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.profile-save-section .tabs .tab {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  height: unset;
+  font-size: 16px;
+  color: white;
+}
+
+.profile-save-section .tabs .tab.tab-active {
+  border-bottom: 3px solid #A89F9F;
+  font-weight: bold;
+}

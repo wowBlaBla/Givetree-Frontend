@@ -17,7 +17,7 @@ import { CreatorsContainer } from "./containers/creators/Listing/creators";
 import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
-import { CreatorCustomerPortal } from "./containers/profile/creator/container";
+import { CreatorCustomerPortal } from "./containers/profile/creator/Container";
 import { CharityCustomerPortal } from "./containers/profile/charity/container";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
@@ -70,15 +70,12 @@ const App = () => {
             autoClose={5000}
             closeOnClick
           />
-
-          <Switch>
-            <Route path={PlatformRoute.Home}>
-              <div className="flex flex-col flex-1 max-h-layout overflow-y-auto dark:bg-light-dark">
+          <div className="flex flex-col flex-1 overflow-y-auto dark:bg-light-dark">
+            <Switch>
+              <Route path={PlatformRoute.Home}>
                 <HomeContainer />
                 <AppFooter />
-              </div>
-            </Route>
-            <div className="flex flex-col flex-1 max-h-layout overflow-y-auto dark:bg-light-dark">
+              </Route>
               <Route path={PlatformRoute.CampaignDetails}>
                 {(params) => (
                   <CampaignDetailsContainer campaignName={params.campaignName} />
@@ -146,8 +143,8 @@ const App = () => {
               <Route path="*">
                 <HomeContainer />
               </Route>
-            </div>
-          </Switch>
+            </Switch>
+          </div>
         </div>
       </ScrollToTop>
     </Router>
