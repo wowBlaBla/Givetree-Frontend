@@ -1,32 +1,30 @@
 import axios from "axios";
 import { FC, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import cx from "classnames";
-import { LoadingIcon } from "../../../components/icons/LoadingIcon";
-import { PencilIcon } from "@heroicons/react/solid";
+import { SwatchesPicker, ColorResult } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../../../store/reducers/auth.reducer";
 import { updateAuthed } from "../../../store/actions/auth.action";
+import { AddIcon } from "../../../components/icons/AddIcon";
 
 export const Profile: FC = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
   );
   const dispatch = useDispatch();
-  const [accountType, setAccountType] = useState<string>("standard");
+
+  const [viewType, setViewType] = useState<"edit" | "preview">("edit");
+
+  const [accountType, setAccountType] = useState<"standard" | "charity">("standard");
   const [userName, setUserName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [isLoading, setLoading] = useState<boolean>(false);
-  const [avatarOpenChange, setAvatarOpenChange] = useState<boolean>(false);
-  const [bannerOpenChange, setBannerOpenChange] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<File>();
-  const [banner, setBanner] = useState<File>();
+  const [banner, setBanner] = useState<string>();
   const [avatarUrl, setAvatarUrl] = useState<string>("");
-  const [bannerUrl, setBannerUrl] = useState<string>("");
 
   const avatarRef = useRef<HTMLInputElement>(null);
-  const bannerRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (authedUser && authedUser.user) {
@@ -35,7 +33,6 @@ export const Profile: FC = () => {
       setBio(authedUser.user.bio || "");
       setEmail(authedUser.user.email || "");
       setAvatarUrl(authedUser.user.profileImage || "");
-      setBannerUrl(authedUser.user.bannerImage || "");
     }
   }, [authedUser]);
 
@@ -59,14 +56,10 @@ export const Profile: FC = () => {
           }
         );
 
-        if (avatar || banner) {
+        if (avatar) {
           const imageBody = new FormData();
           if (avatar) {
             imageBody.append("profile", avatar);
-          }
-
-          if (banner) {
-            imageBody.append("banner", banner);
           }
 
           res = await axios.put(
@@ -103,110 +96,85 @@ export const Profile: FC = () => {
     }
   };
 
-  const handleBannerFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length) {
-      const file = e.target.files[0];
-      setBanner(file);
-      setBannerUrl(URL.createObjectURL(file));
-    }
+  const handleAvatarRemove = () => {
+    setAvatar(undefined);
+    setAvatarUrl("");
+  };
+
+  const handleBannerSelect = (color: ColorResult) => {
+    setBanner(color.hex);
+  };
+
+  const handleBannerRemove = () => {
+    setBanner("");
   };
 
   return (
-    <div className="grid p-8">
-      <h2 className="text-2xl font-bold py-7 ">Profile details</h2>
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
-        <div>
-          <div className="grid mt-6 gap-3">
-            <div className="input-grop">
-              <label className="">Account Type</label>
-              <select
-                className="select select-bordered block outline-none focus:border-indigo-500 mt-1 w-full max-w-xs"
-                onChange={(e) => setAccountType(e.target.value)}
-              >
-                <option value="standard" selected={accountType === "standard"}>
-                  Standard
-                </option>
-                <option value="charity" selected={accountType === "charity"}>
-                  Charity
-                </option>
-              </select>
+    <div className="profile">
+      <div className="profile-save-section px-8">
+        <div className="flex justify-between max-w-[632px] items-center">
+          <div className="tabs">
+            <div
+              className={`tab ${viewType === "edit" ? "tab-active" : ""}`}
+              onClick={() => setViewType("edit")}
+            >
+              Edit profile
             </div>
-            <div className="input-grop">
-              <label className="">Username</label>
-              <input
-                type="text"
-                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="input-grop">
-              <label className="">Bio</label>
-              <textarea
-                className="textarea textarea-bordered mt-1 block w-full outline-none focus:border-indigo-500 sm:text-sm p-4"
-                rows={6}
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="input-grop">
-              <label className="">Email</label>
-              <input
-                type="email"
-                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={isLoading}
-              />
-            </div>
-            <div className="input-grop">
-              <label className="">Website & Social media links</label>
-              <input
-                type="text"
-                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
-                disabled={isLoading}
-              />
-              <input
-                type="text"
-                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4 mt-4"
-                disabled={isLoading}
-              />
-            </div>
-            <div className="input-grop">
-              <label className="">Wallet address</label>
-              <input
-                type="text"
-                className="mt-1 block w-full input input-bordered outline-none focus:border-indigo-500 sm:text-sm h-12 px-4"
-                disabled={isLoading}
-              />
+            <div
+              className={`tab ${viewType === "preview" ? "tab-active" : ""}`}
+              onClick={() => setViewType("preview")}
+            >
+              View public profile
             </div>
           </div>
+          <button className="btn bg-[#0075FF] text-white h-[30px] min-h-0">Save</button>
         </div>
-        <div className="flex flex-col gap-4 md:mt-20">
-          <div className="photo-group flex flex-col gap-y-3">
-            <label className="">Profile image</label>
-            <div
-              className="relative bg-base-100 flex w-37.5 h-37.5 rounded-full p-1 cursor-pointer"
-              onMouseEnter={() => (isLoading ? null : setAvatarOpenChange(true))}
-              onMouseLeave={() => (isLoading ? null : setAvatarOpenChange(false))}
-              onClick={() => avatarRef.current?.click()}
-            >
+      </div>
+      <div className="p-8 max-w-[700px]">
+        <h1 className="font-bold text-white text-xl mb-4">Profile Settings</h1>
+        <div className="profile-section">
+          <label className="mb-1 text-sm text-white">Account Type</label>
+          <select
+            className="select profile-item outline-none block mt-1"
+            onChange={(e) => setAccountType(e.target.value)}
+          >
+            <option value="standard" selected={accountType === "standard"}>
+              Standard
+            </option>
+            <option value="charity" selected={accountType === "charity"}>
+              Charity
+            </option>
+          </select>
+          <label className="mb-1 text-sm text-white">Status</label>
+          <select
+            className="select profile-item outline-none block mt-1"
+            // onChange={(e) => setAccountType(e.target.value)}
+          >
+            <option value="standard">Pending approval</option>
+            <option value="charity">Verified</option>
+          </select>
+          <label className="mb-1 text-sm text-white">Visibility</label>
+          <select
+            className="select profile-item outline-none block mt-1"
+            // onChange={(e) => setAccountType(e.target.value)}
+          >
+            <option value="standard">Private</option>
+            <option value="charity">Public</option>
+          </select>
+        </div>
+        <h1 className="font-bold text-white text-xl mb-4">Profile Details</h1>
+        <div className="profile-section">
+          <div className="flex mb-[48px]">
+            <div className="profile-box w-[150px] h-[164px] flex justify-center items-center mr-8 !bg-[#303236]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               {avatarUrl && (
-                <img className="object-cover rounded-full" src={avatarUrl} alt="avatar" />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  className="object-cover rounded-full w-[100px] h-[100px]"
+                  src={avatarUrl}
+                  alt="avatar"
+                />
               )}
-              <div
-                className={cx(
-                  "absolute w-37.5 h-37.5 bg-base-100 bg-opacity-50 items-center justify-center rounded-full left-0 top-0 flex",
-                  {
-                    "z-10": avatarOpenChange,
-                    "-z-10": !avatarOpenChange,
-                  }
-                )}
-              >
-                <PencilIcon className="w-7 h-7 text-white" />
-              </div>
               <input
                 ref={avatarRef}
                 type="file"
@@ -214,57 +182,199 @@ export const Profile: FC = () => {
                 onChange={handleAvatarFileSelect}
               />
             </div>
-          </div>
-          <div className="photo-group flex flex-col gap-y-3">
-            <label className="">Profile banner</label>
-            <div
-              className="relative bg-base-100 flex w-37.5 h-37.5 p-1 cursor-pointer"
-              onMouseEnter={() => (isLoading ? null : setBannerOpenChange(true))}
-              onMouseLeave={() => (isLoading ? null : setBannerOpenChange(false))}
-              onClick={() => bannerRef.current?.click()}
-            >
-              {bannerUrl && <img className="object-cover" src={bannerUrl} alt="banner" />}
-              <div
-                className={cx(
-                  "absolute w-37.5 h-37.5 bg-base-100 bg-opacity-50 items-center justify-center left-0 top-0 flex",
-                  {
-                    "z-10": bannerOpenChange,
-                    "-z-10": !bannerOpenChange,
-                  }
-                )}
+            <div className="flex flex-col flex-1">
+              <button
+                className="btn profile-primary-button text-lg font-bold rounded-[30px] text-white w-full mb-4 normal-case"
+                onClick={() => avatarRef.current?.click()}
               >
-                <PencilIcon className="w-7 h-7 text-white" />
-              </div>
+                Pick an image
+              </button>
+              <button
+                className="btn profile-secondary-button text-lg font-bold rounded-[30px] text-white w-full normal-case"
+                onClick={handleAvatarRemove}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+          <label className="mb-1 text-md text-white">Profile title</label>
+          <input
+            type="text"
+            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            // value={userName}
+            // onChange={(e) => setUserName(e.target.value)}
+            disabled={isLoading}
+          />
+          <label className="mb-1 text-md text-white">Bio</label>
+          <textarea
+            className="textarea textarea-bordered profile-item mt-1 block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]"
+            rows={4}
+            // value={bio}
+            // onChange={(e) => setBio(e.target.value)}
+            disabled={isLoading}
+          />
+          <label className="mb-1 text-md text-white">Email</label>
+          <input
+            type="email"
+            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading}
+          />
+          {accountType === "charity" && (
+            <>
+              <label className="mb-1 text-md text-white">
+                When was the charity founded?
+              </label>
               <input
-                ref={bannerRef}
-                type="file"
-                hidden
-                onChange={handleBannerFileSelect}
+                type="number"
+                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
               />
+              <label className="mb-1 text-md text-white">
+                How many employees does the charity have?
+              </label>
+              <input
+                type="number"
+                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+              />
+              <label className="mb-1 text-md text-white">
+                Who were the founders of the charity?
+              </label>
+              <input
+                type="text"
+                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+              />
+              <label className="mb-1 text-md text-white">
+                What country is your charity located in?
+              </label>
+              <div className="profile-box mt-1 flex p-4 mb-[12px]">
+                <div className="flex flex-1"></div>
+                <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+                  <AddIcon />
+                </div>
+              </div>
+              <label className="mb-1 text-md text-white">
+                What causes does your charity help with?
+              </label>
+              <div className="profile-box mt-1 flex p-4 mb-[12px]">
+                <div className="flex flex-1"></div>
+                <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+                  <AddIcon />
+                </div>
+              </div>
+              <label className="mb-1 text-md text-white">
+                What is your organisations business number?
+              </label>
+              <input
+                type="number"
+                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                // value={email}
+                // onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+              />
+              <label className="mb-1 text-md text-white">
+                Are any types of donors blocked?
+              </label>
+              <div className="profile-box mt-1 flex p-4 mb-[12px]">
+                <div className="flex flex-1"></div>
+                <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+                  <AddIcon />
+                </div>
+              </div>
+            </>
+          )}
+          <label className="mb-1 text-md text-white">Website & social media</label>
+          <div className="profile-box mt-1 flex p-4 mb-[12px]">
+            <div className="flex flex-1"></div>
+            <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+              <AddIcon />
+            </div>
+          </div>
+          {accountType === "charity" && (
+            <>
+              <label className="mb-1 text-md text-white">
+                Does your charity have DGR status?
+              </label>
+              <div className="profile-box mt-1 flex p-4 mb-[12px]">
+                <div className="flex">
+                  <button className="btn profile-secondary-button text-lg rounded-[30px] text-white w-full disabled:transform mr-4">
+                    Yes
+                  </button>
+                  <button className="btn profile-secondary-button text-lg rounded-[30px] text-white w-full">
+                    No
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          <label className="mb-1 text-md text-white">
+            Does your charity require donor information for all donations?
+          </label>
+          <div className="profile-box mt-1 flex p-4 mb-[12px]">
+            <div className="flex">
+              <button className="btn profile-secondary-button text-lg rounded-[30px] text-white w-full disabled:transform mr-4">
+                Yes
+              </button>
+              <button className="btn profile-secondary-button text-lg rounded-[30px] text-white w-full">
+                No
+              </button>
+            </div>
+          </div>
+          <label className="mb-1 text-md text-white">
+            Which cryptocurrencies do you accept?
+          </label>
+          <div className="profile-box mt-1 flex p-4 mb-[12px]">
+            <div className="flex flex-1"></div>
+            <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+              <AddIcon />
+            </div>
+          </div>
+          <label className="mb-1 text-md text-white">Donation receipt details</label>
+          <div className="profile-box mt-1 flex p-4">
+            <div className="flex flex-1"></div>
+            <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer">
+              <AddIcon />
             </div>
           </div>
         </div>
-        <div className="button-group">
-          <button
-            className={cx(
-              "px-6 py-2 text-white bg-cyan-500 rounded-md flex gap-1 items-center",
-              {
-                "hover:bg-cyan-700": !isLoading,
-                "opacity-75": isLoading,
-              }
-            )}
-            onClick={updateProfile}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <span>Saving. . .</span>
-                <LoadingIcon className="w-5 h-5" />
-              </>
-            ) : (
-              "Save"
-            )}
-          </button>
+        <h1 className="font-bold text-white text-xl mb-4">Profile Theme</h1>
+        <div className="profile-section">
+          <div className="flex">
+            <div
+              className={`profile-box w-[150px] h-[164px] flex justify-center items-center mr-8`}
+              style={{
+                background: banner || "#303236",
+              }}
+            />
+            <div className="flex flex-col flex-1">
+              <div className="dropdown dropdown-top">
+                <label
+                  tabIndex={0}
+                  className="btn profile-primary-button text-lg font-bold rounded-[30px] text-white w-full normal-case"
+                >
+                  Pick a theme
+                </label>
+                <div tabIndex={0} className="dropdown-content">
+                  <SwatchesPicker color={banner} onChangeComplete={handleBannerSelect} />
+                </div>
+              </div>
+              <button
+                className="btn profile-secondary-button text-lg font-bold rounded-[30px] text-white w-full mt-4 normal-case"
+                onClick={handleBannerRemove}
+              >
+                Remove
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
