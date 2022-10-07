@@ -7,6 +7,8 @@ import { AUTH_USER, IStore } from "../../../store/reducers/auth.reducer";
 import { updateAuthed } from "../../../store/actions/auth.action";
 import { AddIcon } from "../../../components/icons/AddIcon";
 
+type AccountType = "standard" | "charity";
+
 export const Profile: FC = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
@@ -15,7 +17,7 @@ export const Profile: FC = () => {
 
   const [viewType, setViewType] = useState<"edit" | "preview">("edit");
 
-  const [accountType, setAccountType] = useState<"standard" | "charity">("standard");
+  const [accountType, setAccountType] = useState<AccountType>("standard");
   const [userName, setUserName] = useState<string>("");
   const [bio, setBio] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -127,7 +129,12 @@ export const Profile: FC = () => {
               View public profile
             </div>
           </div>
-          <button className="btn bg-[#0075FF] text-white h-[30px] min-h-0">Save</button>
+          <button
+            className="btn bg-[#0075FF] text-white h-[30px] min-h-0"
+            onClick={updateProfile}
+          >
+            Save
+          </button>
         </div>
       </div>
       <div className="p-8 max-w-[700px]">
@@ -136,7 +143,7 @@ export const Profile: FC = () => {
           <label className="mb-1 text-sm text-white">Account Type</label>
           <select
             className="select profile-item outline-none block mt-1"
-            onChange={(e) => setAccountType(e.target.value)}
+            onChange={(e) => setAccountType(e.target.value as AccountType)}
           >
             <option value="standard" selected={accountType === "standard"}>
               Standard
@@ -215,10 +222,20 @@ export const Profile: FC = () => {
           />
           <label className="mb-1 text-md text-white">Email</label>
           <input
+            readOnly
             type="email"
             className="input input-bordered profile-item mt-1 block w-full outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={isLoading}
+          />
+          <label className="mb-1 text-md text-white">Username</label>
+          <input
+            type="text"
+            readOnly
+            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             disabled={isLoading}
           />
           {accountType === "charity" && (
