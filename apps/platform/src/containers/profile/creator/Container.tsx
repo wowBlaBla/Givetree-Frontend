@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Route } from "wouter";
 import { ProfileSideBar } from "../../../components/ProfileSidebar";
-import { Fundraisers } from "./fundraisers";
-import { Mint } from "./mint";
-import { ProfileNFTs } from "./nfts";
+import { Fundraisers } from "./Fundraisers";
+import { Mint } from "./Mint";
+import { ProfileNFTs } from "./Nfts";
 import { Profile } from "./Profile";
-import { Settings } from "./settings";
+import { Settings } from "./Settings";
 
 export const CreatorCustomerPortal:FC = () => {
     return (
