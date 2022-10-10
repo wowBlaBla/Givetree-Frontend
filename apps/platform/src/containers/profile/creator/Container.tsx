@@ -24,6 +24,9 @@ export const CreatorCustomerPortal:FC = () => {
                 <Route path="/profile/creator/fundraisers">
                     <Fundraisers/>
                 </Route>
+                <Route path="/profile/creator/newfundraise">
+                    <Fundraisers/>
+                </Route>
                 <Route path="/profile/creator/settings">
                     <Settings/>
                 </Route>

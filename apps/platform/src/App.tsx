@@ -62,7 +62,7 @@ const App = () => {
     <Router>
       <ScrollToTop>
         <AppHeader />
-        <div className="flex w-screen h-screen bg-gray-50">
+        <div className="app-container flex w-screen bg-gray-50">
           <SideNavigation />
           <ToastContainer
             className="mt-16"

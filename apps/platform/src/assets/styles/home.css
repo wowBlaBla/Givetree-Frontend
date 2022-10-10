@@ -1,3 +1,7 @@
+.app-container {
+  height: calc(100vh - 80px);
+}
+
 .charity-card {
   background: #F5F5F5;
   border: 1px solid #EDEDED;
@@ -39,7 +43,7 @@
   box-shadow: 4px 4px 4px rgba(43, 45, 48, 0.25);
 }
 
-.profile-section .profile-item {
+.profile-container .profile-item {
   background-color: #2B2D30;
   border: 1px solid #5B626C;
   border-radius: 10px;
@@ -55,29 +59,29 @@
   color: #DADADA;
 }
 
-.profile-section .profile-item:not(textarea) {
+.profile-container .profile-item:not(textarea) {
   height: 49px;
 }
 
-.profile-section .profile-item:last-child {
+.profile-container .profile-item:last-child {
   margin-bottom: 0;
 }
 
-.profile-section .profile-box {
+.profile-container .profile-box {
   background: #2B2D30;
   border: 1px solid #6A6A6B;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
-.profile-section .profile-primary-button {
+.profile-container .profile-primary-button {
   background: #2FB4D1;
   border: 1px solid #2FB4D1;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   height: 60px;
 }
 
-.profile-section .profile-secondary-button {
+.profile-container .profile-secondary-button {
   background: #37393E;
   border: 1px solid rgba(217, 217, 217, 0.2);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
