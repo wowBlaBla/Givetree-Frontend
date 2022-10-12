@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import { AddIcon } from "../../../components/icons/AddIcon";
-import { ImageDefaultIcon } from "../../../components/icons/ImageDefaultIcon";
-import { InformationIcon } from "../../../components/icons/InformationIcon";
-import { RequiredIcon } from "../../../components/icons/RequiredIcon";
+import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
+import { RequiredIcon } from "../../components/icons/RequiredIcon";
 
 export const Fundraisers: FC = () => {
   const [viewType, setViewType] = React.useState<"edit" | "preview">("edit");

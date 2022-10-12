@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { AddIcon } from "../../../components/icons/AddIcon";
-import { ImageDefaultIcon } from "../../../components/icons/ImageDefaultIcon";
-import { InformationIcon } from "../../../components/icons/InformationIcon";
-import { RequiredIcon } from "../../../components/icons/RequiredIcon";
+import { AddIcon } from "../../components/icons/AddIcon";
+import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
+import { InformationIcon } from "../../components/icons/InformationIcon";
+import { RequiredIcon } from "../../components/icons/RequiredIcon";
 
 export const Mint: FC = () => {
   const [viewType, setViewType] = React.useState<"edit" | "preview">("edit");
@@ -326,11 +326,11 @@ export const Mint: FC = () => {
           <label className="text-lg text-white mr-2">Total 1%</label>
         </div>
         <button
-            className="btn bg-[#0075FF] text-white h-[40px] min-h-0"
-            // onClick={updateProfile}
-          >
-            Create
-          </button>
+          className="btn bg-[#0075FF] text-white h-[40px] min-h-0"
+          // onClick={updateProfile}
+        >
+          Create
+        </button>
       </div>
     </div>
   );

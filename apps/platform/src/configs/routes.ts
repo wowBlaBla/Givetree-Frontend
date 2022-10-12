@@ -40,17 +40,6 @@ export const MenuList: AppHeaderNavLink[] = [
     ],
   },
   {
-    title: "NFT FUNDRAISERS",
-    childrens: [
-      { title: "All", href: "" },
-      { title: "Minting", href: "" },
-      { title: "Sales", href: "" },
-      { title: "Auctions", href: "" },
-      { title: "Stats", href: "" },
-      { title: "Archive", href: "" },
-    ],
-  },
-  {
     title: "CREATE",
     childrens: [
       { title: "Create NFT", href: "" },

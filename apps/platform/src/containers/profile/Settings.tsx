@@ -1,11 +1,9 @@
 import axios from "axios";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { SwatchesPicker, ColorResult } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../../../store/reducers/auth.reducer";
-import { updateAuthed } from "../../../store/actions/auth.action";
-import { AddIcon } from "../../../components/icons/AddIcon";
+import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
+import { updateAuthed } from "../../store/actions/auth.action";
 
 export const Settings: FC = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(

@@ -17,8 +17,7 @@ import { CreatorsContainer } from "./containers/creators/Listing/creators";
 import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
-import { CreatorCustomerPortal } from "./containers/profile/creator/Container";
-import { CharityCustomerPortal } from "./containers/profile/charity/container";
+import { CreatorCustomerPortal } from "./containers/profile/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
@@ -121,15 +120,13 @@ const App = () => {
               </Route>
 
               <Route path={PlatformRoute.ProfileDetails}>
-                {(params) => {
+                {() => {
                   return (
                     <>
                       {!authedUser ? (
                         <Redirect to={PlatformRoute.Home} />
-                      ) : params.role == "creator" ? (
-                        <CreatorCustomerPortal />
                       ) : (
-                        <CharityCustomerPortal />
+                        <CreatorCustomerPortal />
                       )}
                     </>
                   );

@@ -3,9 +3,9 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { SwatchesPicker, ColorResult } from "react-color";
 import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../../../store/reducers/auth.reducer";
-import { updateAuthed } from "../../../store/actions/auth.action";
-import { Countries, SocialLinks } from "../../../utils/constants";
+import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
+import { updateAuthed } from "../../store/actions/auth.action";
+import { Countries, SocialLinks } from "../../utils/constants";
 
 type AccountType = "standard" | "charity";
 
@@ -375,7 +375,10 @@ export const Profile: FC = () => {
               {profileData.links ? (
                 <div className="rounded-xl border-[1px] mb-4">
                   {profileData.links.map((link, index) => (
-                    <div key={`social-media-${index}`} className="flex items-center p-4 border-b-[1px] last:border-b-0">
+                    <div
+                      key={`social-media-${index}`}
+                      className="flex items-center p-4 border-b-[1px] last:border-b-0"
+                    >
                       <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
                         {getSocialIcon(link)}
                       </div>
