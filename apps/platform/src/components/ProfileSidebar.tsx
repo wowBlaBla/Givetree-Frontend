@@ -69,7 +69,7 @@ export const ProfileSideBar: FC = () => {
   }, [walletAddress]);
 
   return (
-    <div className="hidden sm:flex flex-col min-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark min-h-screen">
+    <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="flex flex-col items-center mt-6 px-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}

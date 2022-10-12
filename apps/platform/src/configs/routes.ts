@@ -31,7 +31,7 @@ export const MenuList: AppHeaderNavLink[] = [
     href: PlatformRoute.Home,
   },
   {
-    title: "BROWSE",
+    title: "EXPLORE",
     childrens: [
       { title: "NFT Fundraisers", href: "/fundraisers" },
       { title: "Creators", href: "/creators" },
