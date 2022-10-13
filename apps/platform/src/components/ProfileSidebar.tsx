@@ -95,7 +95,7 @@ export const ProfileSideBar: FC = () => {
           {navs.map((item, idx) => (
             <Link
               className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
-              href={"/profile/" + params?.role + "/" + item.category}
+              href={"/profile/" + item.category}
               key={idx}
             >
               <div

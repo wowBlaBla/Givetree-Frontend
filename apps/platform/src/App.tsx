@@ -9,21 +9,19 @@ import { PlatformRoute } from "./configs/routes";
 import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
-import { CharityListingContainer } from "./containers/charities/listing/Listing";
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
 import { SalesContainer } from "./containers/sales/Sales";
-import { FundraisersContainer } from "./containers/fundraisers/fundraisers";
-import { CreatorsContainer } from "./containers/creators/Listing/creators";
 import { CreatorProfile } from "./containers/creators/Details/creators";
 import { CharityProfileContainer } from "./containers/charities/CharityProfile";
 import { CollectionContainer } from "./containers/collection/collection";
-import { CreatorCustomerPortal } from "./containers/profile/Container";
+import { ProfilePortal } from "./containers/profile/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
 import { AboutContainer } from "./containers/about/container";
 import axios from "axios";
 import { updateAuthed } from "./store/actions/auth.action";
+import { ExplorePortal } from "./containers/explore/Container";
 
 const App = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
@@ -89,20 +87,12 @@ const App = () => {
                 {(params) => <CharityProfileContainer charityName={params.charityName} />}
               </Route>
 
-              <Route path={PlatformRoute.CharityListing}>
-                <CharityListingContainer />
-              </Route>
-
               <Route path={PlatformRoute.MarketplaceListing}>
                 <MarketplaceListingContainer />
               </Route>
 
-              <Route path={PlatformRoute.FundraiserDetails}>
-                <FundraisersContainer />
-              </Route>
-
-              <Route path={PlatformRoute.CreatorListing}>
-                <CreatorsContainer />
+              <Route path={PlatformRoute.ExploreDetails}>
+                <ExplorePortal />
               </Route>
 
               <Route path={PlatformRoute.CreatorDetails}>
@@ -126,7 +116,7 @@ const App = () => {
                       {!authedUser ? (
                         <Redirect to={PlatformRoute.Home} />
                       ) : (
-                        <CreatorCustomerPortal />
+                        <ProfilePortal />
                       )}
                     </>
                   );
