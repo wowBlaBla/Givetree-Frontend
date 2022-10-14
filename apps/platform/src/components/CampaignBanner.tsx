@@ -57,13 +57,13 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
 
             <div className="flex flex-col sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
               <OutlineLink
-                href={PlatformRoute.FundraiserDetails}
+                href={PlatformRoute.ExploreNFTFundraisers}
                 className="w-[312px] h-[60px]"
               >
                 Explore NFT Fundraisers
               </OutlineLink>
               <OutlineLink
-                href={PlatformRoute.CharityListing}
+                href={PlatformRoute.ExploreCharities}
                 className="w-[312px] h-[60px]"
               >
                 Explore Charities

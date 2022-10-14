@@ -49,13 +49,22 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
                   </svg>
                 )}
               </span>
-              <span className="font-bold hover:bg-transparent">{menu.title}</span>
+              {menu.href ? (
+                <Link
+                  className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
+                  to={menu.href || ""}
+                >
+                  {menu.title}
+                </Link>
+              ) : (
+                <span className="font-bold hover:bg-transparent focus:bg-transparent">{menu.title}</span>
+              )}
               <ul className="bg-deep-dark top-sub-menu">
                 {menu.childrens.map((subMenu, sIndex) => (
                   <li key={`top-sub-menu-${sIndex}`}>
                     <Link
                       to={subMenu.href || ""}
-                      className="hover:bg-transparent hover:text-menu"
+                      className="hover:bg-transparent focus:bg-transparent hover:text-menu"
                     >
                       {subMenu.title}
                     </Link>
@@ -65,7 +74,7 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
             </>
           ) : (
             <Link
-              className="font-bold hover:bg-transparent hover:text-menu"
+              className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
               to={menu.href || ""}
             >
               {menu.title}

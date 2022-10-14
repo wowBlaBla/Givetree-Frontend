@@ -21,25 +21,25 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
   const handleNextLocation = () => setLocation(`/collection/${campaign.slug}`);
   return (
-    <div className="text-center h-full">
+    <div className="fundraiser-card text-center h-full">
       <div
-        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
+        className="bg-[#E9E9E9] relative w-full h-full inline-block cursor-pointer hover:shadow-xl rounded-xl border-1"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full relative text-center">
-          <div className="relative">
+          <div className="card-image relative">
             <BackgroundImage
               imageAsset={campaign.media.campaignTilePreviewUrl}
               className="rounded-t-xl"
             />
           </div>
-          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border h-28 relative">
+          <div className="card-body flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border h-28 relative">
             <OwnerAvatar
               src={campaign.creators[0].media.previewUrl}
               alt={campaign.creators[0].name}
             />
-            <div className="flex justify-between w-full p-5 py-10 text-xs sm:text-sm">
-              <div className="flex w-full flex-col text-center">
+            <div className="flex justify-between w-full text-xs sm:text-sm">
+              <div className="flex w-full flex-col text-black">
                 <span className="font-bold">{campaign.title}</span>
                 <span>
                   {campaign.creators[0].name.replace('-', ' ')}
