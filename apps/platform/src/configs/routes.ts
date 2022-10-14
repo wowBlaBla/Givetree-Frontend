@@ -37,11 +37,15 @@ export const MenuList: AppHeaderNavLink[] = [
     id: "explore",
     title: "EXPLORE",
     childrens: [
-      { id: "fundraisers", title: "NFT Fundraisers", href: "/explore/fundraisers" },
+      { id: "nfts", title: "NFTs", href: "" },
+      { id: "collections", title: "Collections", href: "" },
+      { id: "mint-page", title: "Mint pages", href: "" },
       { id: "creators", title: "Creators", href: "/explore/creators" },
       { id: "charities", title: "Charities", href: "/explore/charities" },
       { id: "donors", title: "Donors", href: "/explore/donors" },
+      { id: "leaderboards", title: "Leaderboards", href: "" },
     ],
+    href: "/explore/creators",
   },
   {
     id: "create",

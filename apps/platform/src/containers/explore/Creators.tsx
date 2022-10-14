@@ -24,7 +24,7 @@ export const Creators: FC = () => {
   }
 
   return (
-    <SectionContainer className="max-w-layout">
+    <SectionContainer>
 
       <CardGrid>
         {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (

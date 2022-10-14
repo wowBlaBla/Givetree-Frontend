@@ -44,7 +44,7 @@ export const Charities = () => {
         <title>GiveTree - Charities</title>
       </Head>
 
-      <SectionContainer className="max-w-layout">
+      <SectionContainer>
 
         <CardGrid>
           {[...data.charities, ...data.charities, ...data.charities].map(

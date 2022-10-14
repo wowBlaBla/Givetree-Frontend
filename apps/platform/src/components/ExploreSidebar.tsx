@@ -15,7 +15,7 @@ export const ExploreSideBar: FC = () => {
   );
 
   return (
-    <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark !h-auto">
+    <div className="hidden sm:flex flex-col min-w-[340px] max-w-[340px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark !relative">
       <div className="flex">
         <div className="dropdown w-[200px] relative mb-4">
           <label

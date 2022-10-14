@@ -7,7 +7,7 @@ import { Fundraisers } from "./Fundraisers";
 
 export const ExplorePortal: FC = () => {
   return (
-    <div className="profile-container flex">
+    <div className="profile-container flex flex-1">
       <ExploreSideBar />
       <div className="content-wrapper w-full">
         <Route path="/explore/fundraisers">
