@@ -1,15 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
-import { /*PrimaryButton,*/ PrimaryLink } from "./PrimaryCta";
 import { AssetType, getAssetType } from "../utils/getAssetType";
-// import { CollabBadge } from "./badges/CollabBadge";
-// import { CauseBadge } from "./badges/CauseBadge";
-import { OutlineButton, OutlineLink } from "./OutlineCta";
+import { OutlineLink } from "./OutlineCta";
 import { useLocation } from "wouter";
 import { PlatformRoute } from "../configs/routes";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../store/actions/auth.action";
-import { IStore } from "../store/reducers/auth.reducer";
+// import { useDispatch, useSelector } from "react-redux";
+// import { IStore } from "../store/reducers/auth.reducer";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -37,8 +33,8 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
   // causes,
 }) => {
   const assetType = getAssetType(backgroundAsset);
-  const dispatch = useDispatch();
-  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  // const dispatch = useDispatch();
+  // const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
   const [, setLocation] = useLocation();
 
   return (

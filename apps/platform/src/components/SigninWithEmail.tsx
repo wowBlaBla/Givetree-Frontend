@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useLocation } from "wouter";
 import * as yup from "yup";
 import { openModal, updateAuthed } from "../store/actions/auth.action";
-import { AUTH_USER } from "../store/reducers/auth.reducer";
 import { LoadingIcon } from "./icons/LoadingIcon";
 
 interface ErrorInterface {

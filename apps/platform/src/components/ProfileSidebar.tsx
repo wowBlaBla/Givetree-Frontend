@@ -7,7 +7,6 @@ import { updateAddress } from "../store/actions/auth.action";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 import { AuthWithWallet } from "./AuthWithWallet";
-import { PrimaryButton } from "./PrimaryCta";
 const navs = [
   {
     category: "home",

@@ -7,7 +7,6 @@ import {
   PhantomWalletAdapter,
   TorusWalletAdapter,
   SlopeWalletAdapter,
-  SolflareWalletAdapter,
   LedgerWalletAdapter,
   SolletWalletAdapter,
   Coin98WalletAdapter,
