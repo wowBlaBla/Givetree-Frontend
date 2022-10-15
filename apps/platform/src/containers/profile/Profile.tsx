@@ -64,12 +64,18 @@ export const Profile: FC = () => {
   );
 
   useEffect(() => {
+    
     if (authedUser && authedUser.user) {
       setProfileData({
         email: authedUser.user.email,
         userName: authedUser.user.userName,
+        title: authedUser.user.title,
         bio: authedUser.user.bio,
         type: authedUser.user.type,
+        visibility: authedUser.user.visibility,
+        banner: authedUser.user.banner || "",
+        location: authedUser.user.location,
+        tax: authedUser.user.tax
       });
       setAvatarUrl(authedUser.user.profileImage || "");
     }
@@ -262,9 +268,10 @@ export const Profile: FC = () => {
               <label className="mb-1 text-md text-white">Location(Country)</label>
               <select
                 className="select profile-item outline-none block mt-1"
-                onChange={(e) =>
-                  setProfileData({ ...profileData, location: e.target.value })
-                }
+                onChange={(e) => {
+                  setProfileData({ ...profileData, location: e.target.value });
+                  console.log(e.target.value);
+                }}
               >
                 {Countries.map((c) => (
                   <option

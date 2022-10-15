@@ -12,10 +12,14 @@ export interface User {
   updatedAt: string;
   email: string | undefined;
   userName: string | undefined;
+  title: string | undefined;
   type: "standard" | "charity";
+  visibility: "private" | "public";
   bio: string;
+  location: string;
+  tax: boolean;
   profileImage: string;
-  bannerImage: string;
+  banner: string;
   posts: string[];
   walletAddresses: string[];
   refreshTokens: string[];
