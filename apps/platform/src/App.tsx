@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HomeContainer from "./containers/home";
 import ProfilePortal from "./containers/profile";
 import ExplorePortal from "./containers/explore";
-import CharityProfileContainer from "./containers/publicProfile";
+import PublicProfileContainer from "./containers/publicProfile";
 
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
@@ -87,8 +87,8 @@ const App = () => {
                 <CampaignListingContainer />
               </Route>
 
-              <Route path={PlatformRoute.CharityDetails}>
-                {(params) => <CharityProfileContainer charityName={params.charityName} />}
+              <Route path={PlatformRoute.PublicProfileDetails}>
+                <PublicProfileContainer />
               </Route>
 
               <Route path={PlatformRoute.MarketplaceListing}>

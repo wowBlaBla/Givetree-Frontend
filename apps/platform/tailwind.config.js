@@ -98,7 +98,11 @@ module.exports = {
       },
       gridTemplateColumns: {
         'card-layout': "repeat(auto-fill, minmax(200px, 1fr))"
-      }
+      },
+      flex: {
+        "2": '2 2 0%',
+        "3": '3 3 0%',
+      },
     },
   },
   plugins: [
