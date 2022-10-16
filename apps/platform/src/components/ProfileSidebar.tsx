@@ -7,39 +7,35 @@ import { updateAddress } from "../store/actions/auth.action";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 import { AuthWithWallet } from "./AuthWithWallet";
-import { PrimaryButton } from "./PrimaryCta";
-const navs = [
+
+const defaultNavs = [
   {
     category: "home",
     title: "My profile",
   },
   {
-    category: "wallet",
+    category: "wallets",
     title: "My wallets",
   },
   {
-    category: "nft",
+    category: "nfts",
     title: "My NFTs",
   },
   {
-    category: "collection",
-    title: "My NFT collections",
+    category: "sales",
+    title: "My collections",
   },
   {
     category: "fundraisers",
-    title: "My Fundraisers",
+    title: "My sales/auctions",
   },
   {
-    category: "mint",
-    title: "Create NFT",
+    category: "donations",
+    title: "My donations",
   },
   {
-    category: "newcollection",
-    title: "Create NFT collection",
-  },
-  {
-    category: "newfundraise",
-    title: "Create fundraiser",
+    category: "domains",
+    title: "My domains",
   },
   {
     category: "txhistory",
@@ -50,6 +46,26 @@ const navs = [
     title: "Settings",
   },
 ];
+
+const createNavs = [
+  {
+    category: "mint",
+    title: "Create NFT",
+  },
+  {
+    category: "newcollection",
+    title: "Create collection",
+  },
+  {
+    category: "newsale",
+    title: "Create sale/auction",
+  },
+  {
+    category: "newmintpage",
+    title: "Create mint page",
+  },
+];
+
 export const ProfileSideBar: FC = () => {
   const [, params] = useRoute(PlatformRoute.ProfileDetails);
   const dispatch = useDispatch();
@@ -90,16 +106,36 @@ export const ProfileSideBar: FC = () => {
           {walletAddress ? "Disconnect Wallet" : "Connect Wallet"}
         </PrimaryButton>
       </div> */}
-      <div className="flex flex-col justify-between flex-1 mt-6 px-4">
+      <div className="flex flex-col flex-1 mt-6 px-4">
         <nav>
-          {navs.map((item, idx) => (
+          {defaultNavs.map((item, idx) => (
             <Link
               className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
               href={"/profile/" + item.category}
               key={idx}
             >
               <div
-                className={`cursor-pointer px-2 py-3 ${
+                className={`cursor-pointer px-2 py-2 ${
+                  item.category == params?.category
+                    ? "rounded-2xl-1 bg-light-dark text-white"
+                    : " text-gray-600 "
+                }`}
+              >
+                <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+              </div>
+            </Link>
+          ))}
+        </nav>
+        <span className="pl-[1.5rem] text-white text-[20px] font-bold mt-8 mb-4">CREATE</span>
+        <nav>
+          {createNavs.map((item, idx) => (
+            <Link
+              className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
+              href={"/profile/" + item.category}
+              key={idx}
+            >
+              <div
+                className={`cursor-pointer px-2 py-2 ${
                   item.category == params?.category
                     ? "rounded-2xl-1 bg-light-dark text-white"
                     : " text-gray-600 "
