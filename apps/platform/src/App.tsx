@@ -8,6 +8,7 @@ import HomeContainer from "./containers/home";
 import ProfilePortal from "./containers/profile";
 import ExplorePortal from "./containers/explore";
 import PublicProfileContainer from "./containers/publicProfile";
+import AboutPortal from "./containers/about";
 
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
@@ -22,7 +23,7 @@ import { CollectionContainer } from "./containers/collection/collection";
 
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
-import { AboutContainer } from "./containers/about/container";
+
 import { updateAuthed } from "./store/actions/auth.action";
 
 import { PlatformRoute } from "./configs/routes";
@@ -124,7 +125,7 @@ const App = () => {
               </Route>
 
               <Route path={PlatformRoute.About}>
-                <AboutContainer />
+                <AboutPortal />
               </Route>
 
               <Route path="*">

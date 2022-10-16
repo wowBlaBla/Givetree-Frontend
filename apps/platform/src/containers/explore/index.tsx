@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Route } from "wouter";
-import { ExploreSideBar } from "../../components/ExploreSidebar";
+import { ExploreSideBar } from "./ExploreSidebar";
 import { Charities } from "./Charities";
 import { Creators } from "./Creators";
 import { Fundraisers } from "./Fundraisers";

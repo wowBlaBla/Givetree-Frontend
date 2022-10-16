@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Route } from "wouter";
-import { ProfileSideBar } from "../../components/ProfileSidebar";
+import { ProfileSideBar } from "./ProfileSidebar";
 import { Fundraisers } from "./Fundraisers";
 import { Mint } from "./Mint";
 import { ProfileNFTs } from "./Nfts";
