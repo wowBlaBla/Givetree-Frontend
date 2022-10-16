@@ -7,7 +7,7 @@ import { ProfileNFTs } from "./Nfts";
 import { Profile } from "./Profile";
 import { Settings } from "./Settings";
 
-export const ProfilePortal: FC = () => {
+const ProfilePortal: FC = () => {
   return (
     <div className="profile-container flex">
       <ProfileSideBar />
@@ -34,3 +34,5 @@ export const ProfilePortal: FC = () => {
     </div>
   );
 };
+
+export default ProfilePortal;

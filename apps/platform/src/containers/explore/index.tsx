@@ -5,7 +5,7 @@ import { Charities } from "./Charities";
 import { Creators } from "./Creators";
 import { Fundraisers } from "./Fundraisers";
 
-export const ExplorePortal: FC = () => {
+const ExplorePortal: FC = () => {
   return (
     <div className="profile-container flex flex-1">
       <ExploreSideBar />
@@ -23,3 +23,5 @@ export const ExplorePortal: FC = () => {
     </div>
   );
 };
+
+export default ExplorePortal;

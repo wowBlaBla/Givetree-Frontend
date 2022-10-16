@@ -2,14 +2,11 @@ import { FC } from "react";
 import cx from "classnames";
 import { PersonalInfo } from "../../components/PersonalInfo";
 import { ProfileBanner } from "../../components/ProfileBanner";
-import {
-  GetCharityDetailsDataQuery,
-  GET_CHARITY_DETAILS_DATA,
-} from "./detail/DetailsData";
 import { useQuery } from "@apollo/client";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { Fundraisers } from "../../components/Fundraisers";
+import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./charities.data";
 
 interface CreatorProfileProps {
   charityName: string;
@@ -17,7 +14,7 @@ interface CreatorProfileProps {
 
 const navs = ["Fundraiser", "Donations", "About"];
 
-export const CharityProfileContainer: FC<CreatorProfileProps> = ({ charityName }) => {
+const CharityProfileContainer: FC<CreatorProfileProps> = ({ charityName }) => {
   const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
     GET_CHARITY_DETAILS_DATA,
     {
@@ -71,3 +68,5 @@ export const CharityProfileContainer: FC<CreatorProfileProps> = ({ charityName }
     </div>
   );
 };
+
+export default CharityProfileContainer;

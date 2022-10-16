@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Charity } from "../../../typed/charity";
+import { Charity } from "../../typed/charity";
 
 export interface GetCharityDetailsDataQuery {
   charity: Charity;

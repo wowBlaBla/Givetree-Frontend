@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 
-import { GetHomeDataQuery, GET_HOME_DATA } from "./HomeData";
+import { GetHomeDataQuery, GET_HOME_DATA } from "./home.data";
 import { PlatformRoute } from "../../configs/routes";
 import { CharityCard } from "../../components/cards/CharityCard";
 import { SectionContainer } from "../../components/SectionContainer";
@@ -17,7 +17,7 @@ import { RoyaltyType } from "../../typed/royalty-details";
 import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import Image from "next/image";
 
-export const HomeContainer = () => {
+const HomeContainer = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
   if (loading) {
@@ -133,3 +133,5 @@ export const HomeContainer = () => {
     </div>
   );
 };
+
+export default HomeContainer;
