@@ -2,16 +2,21 @@ import axios from "axios";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { SwatchesPicker, ColorResult } from "react-color";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
 import { updateAuthed } from "../../store/actions/auth.action";
 import { Countries, SocialLinks } from "../../utils/constants";
+import { CharityProperties } from "../../typed/charity";
+import { SocialLinkPatterns } from "../../utils/socialLinkPatterns";
+import { XIcon } from "@heroicons/react/outline";
 
 type AccountType = "standard" | "charity";
 
 interface LinkData {
+  id?: number;
   social: string;
-  url: string;
+  link: string;
 }
 
 interface ProfileData {
@@ -21,17 +26,12 @@ interface ProfileData {
   title?: string;
   bio?: string;
   location?: string;
-  links?: LinkData[];
+  socials?: LinkData[];
   banner?: string;
   visibility?: "private" | "public";
   donation?: boolean;
   tax?: boolean;
-
-  foundedDate?: number;
-  employee?: number;
-  founders?: string;
-  businessNumber?: string;
-  causes?: string[];
+  charityProperty?: CharityProperties,
 }
 
 export const Profile: FC = () => {
@@ -44,7 +44,7 @@ export const Profile: FC = () => {
 
   const [profileData, setProfileData] = useState<ProfileData>({});
 
-  const [link, setLink] = useState<LinkData>({ social: SocialLinks[0].name, url: "" });
+  const [link, setLink] = useState<LinkData>({ social: SocialLinks[0].name, link: "" });
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<File>();
@@ -64,12 +64,20 @@ export const Profile: FC = () => {
   );
 
   useEffect(() => {
+    
     if (authedUser && authedUser.user) {
       setProfileData({
         email: authedUser.user.email,
         userName: authedUser.user.userName,
+        title: authedUser.user.title,
         bio: authedUser.user.bio,
         type: authedUser.user.type,
+        visibility: authedUser.user.visibility,
+        banner: authedUser.user.banner || "",
+        location: authedUser.user.location,
+        tax: authedUser.user.tax,
+        charityProperty: authedUser.user.charityProperty,
+        socials: authedUser.user.socials
       });
       setAvatarUrl(authedUser.user.profileImage || "");
     }
@@ -149,12 +157,75 @@ export const Profile: FC = () => {
     });
   };
 
-  const handleAddLink = () => {
-    if (link.social && link.url) {
-      setProfileData({ ...profileData, links: [...(profileData.links || []), link] });
+  const handleAddLink = async() => {
+    if (link.social && link.link) {
+      const valid = SocialLinkPatterns(link.social, link.link);
+      if (!valid) {
+        return;
+      }
+      if (authedUser) {
+        const params = {
+          pending: `Adding ${link.social} link...`,
+          success: `${link.social} link is added succesfully!`,
+          error: `Failed`
+        };
+
+        toast.promise(
+          async() => {
+            const res = await axios.post(
+              `${process.env.NEXT_PUBLIC_API}/api/socials`,
+              {...link, userId: authedUser?.user.id},
+              {
+                headers: {
+                  Authorization: `Bearer ${authedUser.accessToken}`,
+                },
+              }
+            );
+            setProfileData({ ...profileData, socials: [...(profileData.socials || []), { ...link, id: res.data.id }] });
+          },
+          params
+        );
+      }
+      setLink({ social: SocialLinks[0].name, link: "" });
     }
   };
 
+  const handleRemoveLink = async(idx: number) => {
+    if (authedUser) {
+      if (profileData?.socials?.length) {
+        const _socials = profileData.socials.slice();
+        try {
+          const params = {
+            pending: `Removing ${link.social} link...`,
+            success: `${link.social} link is removed succesfully!`,
+            error: `Failed`
+          };
+          toast.promise(
+            async() => {
+                await axios.delete(
+                  `${process.env.NEXT_PUBLIC_API}/api/socials/${_socials[idx]?.id}`,
+                  {
+                    headers: {
+                      Authorization: `Bearer ${authedUser.accessToken}`,
+                    },
+                  }
+                );
+                
+                _socials.splice(idx, 1);
+                setProfileData({
+                  ...profileData,
+                  socials: _socials
+                });
+            },
+            params
+          );
+
+        } catch(err) {
+
+        }
+      }
+    }
+  }
   return (
     <div className="profile">
       <div className="profile-save-section px-8">
@@ -262,9 +333,10 @@ export const Profile: FC = () => {
               <label className="mb-1 text-md text-white">Location(Country)</label>
               <select
                 className="select profile-item outline-none block mt-1"
-                onChange={(e) =>
-                  setProfileData({ ...profileData, location: e.target.value })
-                }
+                onChange={(e) => {
+                  setProfileData({ ...profileData, location: e.target.value });
+                  console.log(e.target.value);
+                }}
               >
                 {Countries.map((c) => (
                   <option
@@ -282,13 +354,16 @@ export const Profile: FC = () => {
                     When was the charity founded?
                   </label>
                   <input
-                    type="number"
+                    type="date"
                     className="input input-bordered profile-item mt-1 block w-full outline-none"
-                    value={profileData.foundedDate || ""}
+                    value={moment(profileData.charityProperty?.foundedAt).format("YYYY-MM-DD") || ""}
                     onChange={(e) =>
                       setProfileData({
                         ...profileData,
-                        foundedDate: Number(e.target.value),
+                        charityProperty: {
+                          ...profileData.charityProperty,
+                          foundedAt: e.target.value
+                        },
                       })
                     }
                     disabled={isLoading}
@@ -299,21 +374,33 @@ export const Profile: FC = () => {
                   <input
                     type="number"
                     className="input input-bordered profile-item mt-1 block w-full outline-none"
-                    value={profileData.employee || ""}
+                    value={profileData.charityProperty?.employee || ""}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, employee: Number(e.target.value) })
+                      setProfileData({
+                        ...profileData,
+                        charityProperty: {
+                          ...profileData.charityProperty,
+                          employee: Number(e.target.value)
+                        }
+                      })
                     }
                     disabled={isLoading}
                   />
                   <label className="mb-1 text-md text-white">
-                    Who were the founders of the charity?
+                    Who were the founders of the charityProperty?
                   </label>
                   <input
                     type="text"
                     className="input input-bordered profile-item mt-1 block w-full outline-none"
-                    value={profileData.founders || ""}
+                    value={profileData.charityProperty?.founders || ""}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, founders: e.target.value })
+                      setProfileData({
+                        ...profileData,
+                        charityProperty: {
+                          ...profileData.charityProperty,
+                          founders: e.target.value
+                        }
+                      })
                     }
                     disabled={isLoading}
                   />
@@ -321,11 +408,17 @@ export const Profile: FC = () => {
                     What is your organisations business number?
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     className="input input-bordered profile-item mt-1 block w-full outline-none"
-                    value={profileData.businessNumber || ""}
+                    value={profileData.charityProperty?.phone || ""}
                     onChange={(e) =>
-                      setProfileData({ ...profileData, businessNumber: e.target.value })
+                      setProfileData({
+                        ...profileData,
+                        charityProperty: {
+                          ...profileData.charityProperty,
+                          phone: e.target.value
+                        }
+                      })
                     }
                     disabled={isLoading}
                   />
@@ -372,17 +465,25 @@ export const Profile: FC = () => {
                 </>
               )}
               <label className="mb-2 text-md text-white">Links</label>
-              {profileData.links ? (
+              {profileData.socials?.length ? (
                 <div className="rounded-xl border-[1px] mb-4">
-                  {profileData.links.map((link, index) => (
+                  {profileData.socials.map((link, index) => (
                     <div
                       key={`social-media-${index}`}
-                      className="flex items-center p-4 border-b-[1px] last:border-b-0"
+                      className="flex items-center p-4 border-b-[1px] last:border-b-0 justify-between"
                     >
-                      <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                        {getSocialIcon(link)}
+                      <div className="flex">
+                        <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                          {getSocialIcon(link)}
+                        </div>
+                        <span className="text-md text-white">{link.link}</span>
                       </div>
-                      <span className="text-md text-white">{link.url}</span>
+                      <span
+                        className="cursor-pointer hover:text-white"
+                        onClick={() => handleRemoveLink(index)}
+                      >
+                        <XIcon className="w-5 h-5"/>
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -416,8 +517,8 @@ export const Profile: FC = () => {
                     <input
                       type="text"
                       className="input input-bordered profile-item block w-full outline-none !w-auto flex-1"
-                      value={link.url}
-                      onChange={(e) => setLink({ ...link, url: e.target.value })}
+                      value={link.link}
+                      onChange={(e) => setLink({ ...link, link: e.target.value })}
                       disabled={isLoading}
                     />
                   </div>

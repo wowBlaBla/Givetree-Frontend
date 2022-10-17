@@ -44,21 +44,21 @@ export const AppHeader: FC = () => {
     dispatch(openSidebar(!openSideMenu));
   };
 
-  const toggleDarkMode = () => {
-    if (
-      localStorage.theme === "dark" ||
-      (!("theme" in localStorage) &&
-        window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      document.documentElement.classList.remove("dark");
-      document.documentElement.removeAttribute("data-theme");
-      localStorage.theme = "light";
-    } else {
-      document.documentElement.classList.add("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.theme = "dark";
-    }
-  };
+  // const toggleDarkMode = () => {
+  //   if (
+  //     localStorage.theme === "dark" ||
+  //     (!("theme" in localStorage) &&
+  //       window.matchMedia("(prefers-color-scheme: dark)").matches)
+  //   ) {
+  //     document.documentElement.classList.remove("dark");
+  //     document.documentElement.removeAttribute("data-theme");
+  //     localStorage.theme = "light";
+  //   } else {
+  //     document.documentElement.classList.add("dark");
+  //     document.documentElement.setAttribute("data-theme", "dark");
+  //     localStorage.theme = "dark";
+  //   }
+  // };
 
   return (
     <div className="flex sticky top-0 z-50 w-full h-[5rem] bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm">

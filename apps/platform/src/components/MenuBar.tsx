@@ -22,7 +22,7 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
         >
           {menu.childrens ? (
             <>
-              <span className={`indicator-item indicator-middle indicator-end p-0`}>
+              {/* <span className={`indicator-item indicator-middle indicator-end p-0`}>
                 {horizontal ? (
                   <svg
                     className="w-3 h-3 ml-1"
@@ -48,7 +48,7 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
                     />
                   </svg>
                 )}
-              </span>
+              </span> */}
               {menu.href ? (
                 <Link
                   className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
