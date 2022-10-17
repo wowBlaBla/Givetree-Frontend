@@ -6,18 +6,20 @@ export enum PlatformRoute {
   CharityDetails = "/charities/:charityName",
   CharityListing = "/charities",
   MarketplaceListing = "/marketplace",
-  CreatorsListing = "/creators",
   CollectionDetails = "/collection/:collectionName",
   ItemDetails = "/fundraiser/:campaignName",
-  FundraiserDetails = "/fundraisers",
   CreatorListing = "/creators",
   CreatorDetails = "/creators/:creatorName",
-  ProfileDetails = "/profile/:role/:category",
-  CreateDetails = "/profile/creator/mint",
+  ProfileDetails = "/profile/:category",
+  ExploreDetails = "/explore/:category",
+  ExploreNFTFundraisers = "/explore/fundraisers",
+  ExploreCreators = "/explore/creators",
+  ExploreCharities = "/explore/charities",
   About = "/about/:category",
-};
+}
 
 export interface AppHeaderNavLink {
+  id: string;
   title: string;
   href?: string;
   disabled?: boolean;
@@ -27,52 +29,50 @@ export interface AppHeaderNavLink {
 
 export const MenuList: AppHeaderNavLink[] = [
   {
+    id: "home",
     title: "HOME",
     href: PlatformRoute.Home,
   },
   {
-    title: "BROWSE",
+    id: "explore",
+    title: "EXPLORE",
     childrens: [
-      { title: "NFT Fundraisers", href: "/fundraisers" },
-      { title: "Creators", href: "/creators" },
-      { title: "Charities", href: "/charities" },
-      { title: "Donors", href: "" },
+      { id: "nfts", title: "NFTs", href: "" },
+      { id: "collections", title: "Collections", href: "" },
+      { id: "mint-page", title: "Mint pages", href: "" },
+      { id: "creators", title: "Creators", href: "/explore/creators" },
+      { id: "charities", title: "Charities", href: "/explore/charities" },
+      { id: "donors", title: "Donors", href: "/explore/donors" },
+      { id: "leaderboards", title: "Leaderboards", href: "" },
     ],
+    href: "/explore/creators",
   },
   {
-    title: "NFT FUNDRAISERS",
-    childrens: [
-      { title: "All", href: "" },
-      { title: "Minting", href: "" },
-      { title: "Sales", href: "" },
-      { title: "Auctions", href: "" },
-      { title: "Stats", href: "" },
-      { title: "Archive", href: "" },
-    ],
-  },
-  {
+    id: "create",
     title: "CREATE",
     childrens: [
-      { title: "Create NFT", href: "" },
-      { title: "Create NFT Fundraiser", href: "" },
+      { id: "create-nft", title: "Create NFT", href: "" },
+      { id: "create-nft-fundraiser", title: "Create NFT Fundraiser", href: "" },
     ],
   },
   {
+    id: "donate",
     title: "DONATE",
     href: "",
   },
   {
+    id: "about",
     title: "ABOUT",
     childrens: [
-      { title: "Welcome", href: "/about/welcome" },
-      { title: "For creators", href: "" },
-      { title: "For charities", href: "" },
-      { title: "For donors", href: "" },
-      { title: "Our story", href: "" },
-      { title: "Our Blog", href: "" },
-      { title: "Our socials", href: "" },
-      { title: "Terms of use", href: "" },
-      { title: "Privacy policy", href: "" },
+      { id: "welcome", title: "Welcome", href: "/about/welcome" },
+      { id: "for-creators", title: "For creators", href: "" },
+      { id: "for-charities", title: "For charities", href: "" },
+      { id: "for-donors", title: "For donors", href: "" },
+      { id: "our-story", title: "Our story", href: "" },
+      { id: "our-blog", title: "Our Blog", href: "" },
+      { id: "our-social", title: "Our socials", href: "" },
+      { id: "temrs-of-use", title: "Terms of use", href: "" },
+      { id: "privacy-policy", title: "Privacy policy", href: "" },
     ],
   },
 ];

@@ -3,7 +3,7 @@ import cx from "classnames";
 import { AppHeaderNavLink, MenuList } from "../configs/routes";
 import { Link } from "wouter";
 import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
+import { IStore } from "../store/reducers/auth.reducer";
 import { openSidebar } from "../store/actions/auth.action";
 import { SignButton } from "./SignButton";
 
@@ -22,9 +22,9 @@ export const SideNavigation: FC = () => {
   const [menu, setMenu] = React.useState<AppHeaderNavLink[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = React.useState<AppHeaderNavLink>();
 
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
+  // const authedUser = useSelector<IStore, AUTH_USER | undefined>(
+  //   (state) => state.auth.authedUser
+  // );
   const openSideMenu = useSelector<IStore, boolean>(
     (state) => state.auth.openSidebarMenu
   );

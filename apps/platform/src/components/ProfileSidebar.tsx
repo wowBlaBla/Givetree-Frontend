@@ -7,7 +7,6 @@ import { updateAddress } from "../store/actions/auth.action";
 import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 import { AuthWithWallet } from "./AuthWithWallet";
-import { PrimaryButton } from "./PrimaryCta";
 const navs = [
   {
     category: "home",
@@ -69,7 +68,7 @@ export const ProfileSideBar: FC = () => {
   }, [walletAddress]);
 
   return (
-    <div className="hidden sm:flex flex-col min-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark min-h-screen">
+    <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="flex flex-col items-center mt-6 px-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -95,7 +94,7 @@ export const ProfileSideBar: FC = () => {
           {navs.map((item, idx) => (
             <Link
               className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
-              href={"/profile/" + params?.role + "/" + item.category}
+              href={"/profile/" + item.category}
               key={idx}
             >
               <div

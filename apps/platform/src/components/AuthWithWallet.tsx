@@ -155,7 +155,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
     dispatch(updateProvider(new Web3(provider)));
     dispatch(openModal(false));
     dispatch(updateAddress(address));
-    setLocation("/profile/creator/home");
+    setLocation("/profile/home");
   };
 
   return (

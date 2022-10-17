@@ -15,6 +15,7 @@ import { CampaignBanner } from "../../components/CampaignBanner";
 import { getRoyaltyPercentage } from "../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../typed/royalty-details";
 import { FundraiserCard } from "../../components/cards/FundraiserCard";
+import Image from "next/image";
 
 export const HomeContainer = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
@@ -62,9 +63,30 @@ export const HomeContainer = () => {
 
       <SectionContainer className="max-w-layout">
         <SectionHeader
+          mainTitle="Trusted by charity"
+          linkText="View more"
+          link={PlatformRoute.ExploreNFTFundraisers}
+        />
+
+        <div className="inline-grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+          {Array(18)
+            .fill(0)
+            .map((_, idx) => (
+              <div
+                key={`trusted-charity-card-${idx}`}
+                className="flex w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer"
+              >
+                <Image src={require(`../../temp/images/trusted/${idx + 1}.png`)} alt="" objectFit="contain"/>
+              </div>
+            ))}
+        </div>
+      </SectionContainer>
+
+      <SectionContainer className="max-w-layout">
+        <SectionHeader
           mainTitle="NFT Fundraisers"
           linkText="View more"
-          link={PlatformRoute.FundraiserDetails}
+          link={PlatformRoute.ExploreNFTFundraisers}
         />
 
         <CardGrid>
@@ -76,9 +98,30 @@ export const HomeContainer = () => {
 
       <SectionContainer className="max-w-layout">
         <SectionHeader
+          mainTitle="Causes"
+          linkText="View more"
+          link={PlatformRoute.ExploreNFTFundraisers}
+        />
+
+        <div className="inline-grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
+          {Array(18)
+            .fill(0)
+            .map((_, idx) => (
+              <div
+                key={`cause-card-${idx}`}
+                className="flex w-[140px] h-[140px] cursor-pointer"
+              >
+                <Image src={require(`../../temp/images/causes/${idx + 1}.png`)} alt="" objectFit="contain"/>
+              </div>
+            ))}
+        </div>
+      </SectionContainer>
+
+      <SectionContainer className="max-w-layout">
+        <SectionHeader
           mainTitle="Charities"
           linkText="View more"
-          link={PlatformRoute.CharityListing}
+          link={PlatformRoute.ExploreCharities}
         />
 
         <CardGrid>
