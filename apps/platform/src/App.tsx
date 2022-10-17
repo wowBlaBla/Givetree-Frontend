@@ -1,27 +1,32 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { Redirect, Route, Router, Switch } from "wouter";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
+import HomeContainer from "./containers/home";
+import ProfilePortal from "./containers/profile";
+import ExplorePortal from "./containers/explore";
+import PublicProfileContainer from "./containers/publicProfile";
+import AboutPortal from "./containers/about";
+
 import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
-import { PlatformRoute } from "./configs/routes";
 
-import { HomeContainer } from "./containers/home/Home";
 import { CampaignDetailsContainer } from "./containers/campaigns/detail/Details";
 import { CampaignListingContainer } from "./containers/campaigns/listing/Listing";
 import { MarketplaceListingContainer } from "./containers/marketplace/MarketplaceListing";
 import { SalesContainer } from "./containers/sales/Sales";
-import { CreatorProfile } from "./containers/creators/Details/creators";
-import { CharityProfileContainer } from "./containers/charities/CharityProfile";
+
 import { CollectionContainer } from "./containers/collection/collection";
-import { ProfilePortal } from "./containers/profile/Container";
-import { useDispatch, useSelector } from "react-redux";
+
 import { AUTH_USER, IStore } from "./store/reducers/auth.reducer";
 import { SideNavigation } from "./components/SideNavigation";
-import { AboutContainer } from "./containers/about/container";
-import axios from "axios";
+
 import { updateAuthed } from "./store/actions/auth.action";
-import { ExplorePortal } from "./containers/explore/Container";
+
+import { PlatformRoute } from "./configs/routes";
 
 const App = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
@@ -83,8 +88,8 @@ const App = () => {
                 <CampaignListingContainer />
               </Route>
 
-              <Route path={PlatformRoute.CharityDetails}>
-                {(params) => <CharityProfileContainer charityName={params.charityName} />}
+              <Route path={PlatformRoute.PublicProfileDetails}>
+                <PublicProfileContainer />
               </Route>
 
               <Route path={PlatformRoute.MarketplaceListing}>
@@ -93,10 +98,6 @@ const App = () => {
 
               <Route path={PlatformRoute.ExploreDetails}>
                 <ExplorePortal />
-              </Route>
-
-              <Route path={PlatformRoute.CreatorDetails}>
-                {(params) => <CreatorProfile creatorName={params.creatorName} />}
               </Route>
 
               <Route path={PlatformRoute.CollectionDetails}>
@@ -124,7 +125,7 @@ const App = () => {
               </Route>
 
               <Route path={PlatformRoute.About}>
-                <AboutContainer />
+                <AboutPortal />
               </Route>
 
               <Route path="*">

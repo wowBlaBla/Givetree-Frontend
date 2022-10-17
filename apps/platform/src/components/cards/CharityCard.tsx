@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Link, useLocation } from "wouter";
 import { Charity } from "../../typed/charity";
-import { PlatformRoute } from "../../configs/routes";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 
@@ -14,7 +13,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const [_location, setLocation] = useLocation();
 
   const handleNextLocation = () =>
-    setLocation(`${PlatformRoute.CharityListing}/${charity.slug}`);
+    setLocation(`charities/${charity.slug}`);
 
   return (
     <div className="charity-card">

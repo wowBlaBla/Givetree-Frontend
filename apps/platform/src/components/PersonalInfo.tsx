@@ -11,7 +11,7 @@ interface PersonalProps {
 }
 
 export const PersonalInfo:FC<PersonalProps> = ({ avatar, name }) => {
-    const [match] = useRoute(PlatformRoute.CharityDetails);
+    const [match] = useRoute(PlatformRoute.PublicProfileDetails);
     return (
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 py-10 items-center md:justify-start justify-center">
