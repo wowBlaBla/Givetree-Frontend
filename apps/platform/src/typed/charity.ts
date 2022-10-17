@@ -14,3 +14,11 @@ export interface Charity {
   causes: Cause[];
   isVerified: boolean;
 }
+
+export interface CharityProperties {
+  foundedAt?: string;
+  employee?: number;
+  founders?: string;
+  phone?: string;
+  causes?: string[];
+}

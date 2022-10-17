@@ -1,3 +1,4 @@
+import { CharityProperties } from "../../typed/charity";
 import {
   REDUCER,
   OPEN_MODAL,
@@ -5,6 +6,11 @@ import {
   OPEN_SIDEBAR,
   UPDATE_AUTHED,
 } from "../types";
+
+interface LinkData {
+  social: string;
+  link: string;
+}
 
 export interface User {
   id: number;
@@ -23,6 +29,8 @@ export interface User {
   posts: string[];
   walletAddresses: string[];
   refreshTokens: string[];
+  charityProperty: CharityProperties | any,
+  socials: LinkData[]
 }
 export interface AUTH_USER {
   user: User;
