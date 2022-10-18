@@ -20,7 +20,7 @@ export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
 
-  const handleNextLocation = () => setLocation(`/creators/${campaign.slug}`);
+  const handleNextLocation = () => setLocation(`/explore/creators/${campaign.slug}`);
   return (
     <div className="md:text-left text-center">
       <div

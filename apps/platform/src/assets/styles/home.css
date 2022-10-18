@@ -181,7 +181,7 @@
   background-color: transparent;
 }
 
-.fundraiser-card .card-image > div {
+.fundraiser-card .card-image>div {
   border: 1px solid #000000;
 }
 
@@ -189,4 +189,95 @@
   border: 1px solid #E9E9E9;
   padding: 20px;
   justify-content: end;
+}
+
+.public-profile .profile-avatar-container {
+  width: 180px;
+  height: 150px;
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.public-profile .profile-banner {
+  background: #25BA25;
+  box-shadow: inset 100px 100px 100px rgba(0, 63, 185, 0.25);
+  padding-top: 128px;
+  padding-bottom: 72px;
+}
+
+.public-profile .profile-avatar-container+span {
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 48px;
+  color: white;
+  max-width: 490px;
+  margin-left: 20px;
+}
+
+.public-profile .profile-tab {
+  background: #007C00;
+}
+
+.public-profile .tabs .tab {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  height: 70px;
+}
+
+.public-profile .tabs .tab.tab-active {
+  border-bottom: 3px solid #00EF8B;
+  color: white;
+  font-weight: 700;
+}
+
+.public-profile .about-main {
+  background: #41444A;
+  border: 1px solid #000000;
+  border-radius: 20px;
+}
+
+.donate-container {
+  background: #41444A;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  height: fit-content;
+}
+
+.donate-container .donate-item {
+  background: #4D4C4C;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  height: 80px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.donate-container .donate-tab>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.donate-container .donate-tab>div:first-child {
+  border-top-left-radius: 20px;
+}
+
+.donate-container .donate-tab>div:last-child {
+  border-top-right-radius: 20px;
+}
+
+.donate-container .donate-tab .active-tab {
+  background-color: transparent;
+}
+
+.about-box {
+  background: rgba(32, 34, 36, 0.75);
+  border-radius: 10px;
+  padding: 24px 53px 38px 64px;
+  max-width: 500px;
 }

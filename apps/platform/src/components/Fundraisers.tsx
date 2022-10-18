@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { FC } from "react";
 import cx from "classnames";
-import { GetHomeDataQuery, GET_HOME_DATA } from "../containers/home/HomeData";
+import { GetHomeDataQuery, GET_HOME_DATA } from "../containers/home/home.data";
 import { CampaignCard } from "./cards/CampaignCard"
 import { ErrorContainer } from "./ErrorContainer";
 import { LoadingContainer } from "./LoadingContainer";
