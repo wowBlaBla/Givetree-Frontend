@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { Link, useRoute } from "wouter";
+import { useRoute } from "wouter";
 import { MenuList, PlatformRoute } from "../../configs/routes";
 import { CheckBox } from "../../components/CheckBox";
 import { InputBox } from "../../components/InputBox";
@@ -16,24 +16,17 @@ export const ExploreSideBar: FC = () => {
 
   return (
     <div className="hidden sm:flex flex-col min-w-[340px] max-w-[340px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark !relative">
-      <div className="flex">
-        <div className="dropdown w-[200px] relative mb-4">
-          <label
-            tabIndex={0}
-            className="justify-start btn m-1 w-full bg-transparent border-0 text-[18px] text-white hover:bg-transparent font-bold"
-          >
-            {navTitle || ""}
-          </label>
-          <ul tabIndex={0} className="dropdown-content menu p-2 rounded-box w-52 bg-deep-dark left-[16px]">
-            {navs.map((item, index) => (
-              <li key={`explore-nav-${index}`}>
-                <Link href={item.href || ""}>{item.title}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
       <div className="flex flex-col px-[20px]">
+        <label
+          tabIndex={0}
+          className="justify-start w-full mb-4 bg-transparent border-0 text-xl uppercase text-white hover:bg-transparent font-bold"
+        >
+          Explore
+        </label>
+        {navs.map((item, index) => (
+          <CheckBox key={`explore-nav-${index}`} title={item.title} className="mb-2" />
+        ))}
+        <div className="divider after:bg-[#C0C0C0] before:bg-[#C0C0C0]" />
         <CheckBox title="ALL" className="mb-2" />
         <CheckBox title="MINTS" className="mb-2" />
         <CheckBox title="SALES" className="mb-2" />

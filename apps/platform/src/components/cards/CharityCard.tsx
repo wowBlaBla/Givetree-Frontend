@@ -16,9 +16,9 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
     setLocation(`charities/${charity.slug}`);
 
   return (
-    <div className="charity-card">
+    <div className="charity-card hover:shadow-xl">
       <div
-        className="card relative w-full h-full bg-white cursor-pointer hover:shadow-xl rounded-xl"
+        className="card relative w-full h-full bg-white cursor-pointer"
         onClick={handleNextLocation}
       >
         <div className="flex w-full justify-center mt-[24px] mb-[12px]">

@@ -74,7 +74,7 @@ const HomeContainer = () => {
             .map((_, idx) => (
               <div
                 key={`trusted-charity-card-${idx}`}
-                className="flex w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer"
+                className="flex w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
               >
                 <Image src={require(`../../temp/images/trusted/${idx + 1}.png`)} alt="" objectFit="contain"/>
               </div>

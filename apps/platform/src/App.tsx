@@ -72,7 +72,7 @@ const App = () => {
             autoClose={5000}
             closeOnClick
           />
-          <div className="flex flex-col flex-1 overflow-y-auto dark:bg-light-dark">
+          <div className="flex flex-col flex-1 overflow-y-auto bg-light-gray">
             <Switch>
               <Route path={PlatformRoute.Home}>
                 <HomeContainer />

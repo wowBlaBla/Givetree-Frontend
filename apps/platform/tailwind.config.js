@@ -19,6 +19,8 @@ module.exports = {
         "light-dark": "#37393E",
         "menu": "#75FCC1",
         "primary": "#3897F0",
+        "light-gray": "#F1F4F7",
+        "light-black": "#070707",
       },
       fontSize: {
         "none": "0",
@@ -90,7 +92,8 @@ module.exports = {
         "2xl-1": "1.25rem"
       },
       boxShadow: {
-        'fixed': "0 0 60px rgba(0,0,0,0.4)"
+        "fixed": "0 0 60px rgba(0,0,0,0.4)",
+        "normal": "0px 4px 4px rgba(0, 0, 0, 0.25)",
       },
       zIndex: {
         "full": "9999",
