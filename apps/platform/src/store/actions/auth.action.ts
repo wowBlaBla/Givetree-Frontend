@@ -46,7 +46,7 @@ export const updateAddress =
 export const updateAuthed =
   (payload: AUTH_USER | undefined): any =>
   (dispatch: any) => {
-    if (payload?.user?.charityProperty.length) {
+    if (payload?.user?.charityProperty?.length) {
       payload.user.charityProperty = payload.user.charityProperty[0];
     }
     dispatch({

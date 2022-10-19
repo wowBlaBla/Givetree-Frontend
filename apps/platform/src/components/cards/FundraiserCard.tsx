@@ -23,7 +23,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
   return (
     <div className="fundraiser-card text-center h-full">
       <div
-        className="bg-[#E9E9E9] relative w-full h-full inline-block cursor-pointer hover:shadow-xl rounded-xl border-1"
+        className="bg-white relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl border border-[#3C3C3C]"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full relative text-center">
@@ -39,7 +39,7 @@ export const FundraiserCard: FC<FundraiserCardProps> = ({ campaign }) => {
               alt={campaign.creators[0].name}
             />
             <div className="flex justify-between w-full text-xs sm:text-sm">
-              <div className="flex w-full flex-col text-black">
+              <div className="flex w-full flex-col text-black items-start">
                 <span className="font-bold">{campaign.title}</span>
                 <span>
                   {campaign.creators[0].name.replace('-', ' ')}

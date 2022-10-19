@@ -60,7 +60,7 @@ export const Profile: FC = () => {
       }
       return null;
     },
-    [SocialLinks]
+    []
   );
 
   useEffect(() => {

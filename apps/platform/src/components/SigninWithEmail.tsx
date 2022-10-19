@@ -25,7 +25,7 @@ export const SigninWithEmail: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<ErrorInterface>({});
-
+  console.log(">>>>>>>>>>>>>>>>>>")
   const registerByEmail = async () => {
     try {
       const schema = yup.object().shape({
@@ -47,6 +47,7 @@ export const SigninWithEmail: FC = () => {
       });
       if (Object.keys(_errors).length) return;
       setLoading(true);
+      console.log("========================");
       await axios
         .post(`${process.env.API_URL}/api/auth/login-email`, payload)
         .then((res) => {
@@ -54,6 +55,7 @@ export const SigninWithEmail: FC = () => {
           localStorage.setItem("email", res.data.user.email);
           localStorage.setItem("access_token", res.data.accessToken);
           localStorage.setItem("refresh_token", res.data.refreshToken);
+          console.log("==========", res.data);
           dispatch(openModal(false));
           dispatch(updateAuthed(res.data));
           setLocation("/profile/home");

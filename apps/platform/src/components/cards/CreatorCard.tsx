@@ -24,7 +24,7 @@ export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
   return (
     <div className="md:text-left text-center">
       <div
-        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
+        className="bg-[#E9E9E9] relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
@@ -32,6 +32,7 @@ export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
             <BackgroundImage
               imageAsset={campaign.media.campaignTilePreviewUrl}
               className="rounded-t-xl"
+              includeBorder
             />
           </div>
 
@@ -40,7 +41,7 @@ export const CreatorCard: FC<FundraiserCardProps> = ({ campaign }) => {
               src={campaign.creators[0].media.previewUrl}
               alt={campaign.creators[0].name}
             />
-            <div className="flex justify-between w-full p-5 py-10 text-xs sm:text-sm">
+            <div className="flex justify-between w-full p-5 py-10 text-xs sm:text-sm text-black">
               <div className="flex w-full flex-col text-left">
                 <span className="font-bold">
                   {campaign.creators[0].name.replace('-', ' ')}
