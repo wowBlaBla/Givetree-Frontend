@@ -260,9 +260,9 @@ export const Profile: FC = () => {
       <div className="p-8 max-w-[700px]">
         {editType === "appearance" ? (
           <>
-            <h1 className="font-bold text-white text-xl mb-4">Profile type</h1>
+            <h1 className="font-bold text-black text-xl mb-4">Profile type</h1>
             <div className="profile-section">
-              <label className="mb-1 text-sm text-white">Account Type</label>
+              <label className="mb-1 text-sm">Account Type</label>
               <select
                 className="select profile-item outline-none block mt-1"
                 onChange={(e) =>
@@ -277,10 +277,10 @@ export const Profile: FC = () => {
                 </option>
               </select>
             </div>
-            <h1 className="font-bold text-white text-xl mb-4">Profile Appearance</h1>
+            <h1 className="font-bold text-black text-xl mb-4">Profile Appearance</h1>
             <div className="profile-section">
               <div className="flex mb-[48px]">
-                <div className="profile-box w-[150px] h-[164px] flex justify-center items-center mr-8 !bg-[#303236]">
+                <div className="profile-box w-[150px] h-[164px] flex justify-center items-center mr-8">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   {avatarUrl && (
                     // eslint-disable-next-line @next/next/no-img-element
@@ -534,13 +534,13 @@ export const Profile: FC = () => {
                 </label>
               </label>
             </div>
-            <h1 className="font-bold text-white text-xl mb-4">Profile Theme</h1>
+            <h1 className="font-bold text-black text-xl mb-4">Profile Theme</h1>
             <div className="profile-section">
               <div className="flex">
                 <div
                   className={`profile-box w-[150px] h-[164px] flex justify-center items-center mr-8`}
                   style={{
-                    background: profileData.banner || "#303236",
+                    background: profileData.banner || "white",
                   }}
                 />
                 <div className="flex flex-col flex-1">

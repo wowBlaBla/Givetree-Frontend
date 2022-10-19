@@ -40,8 +40,6 @@ const navs = [
 export const AboutSideBar: FC = () => {
   const [, params] = useRoute(PlatformRoute.About);
 
-  console.log("==========", params);
-
   return (
     <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark">
       <div className="flex flex-col flex-1 mt-2 px-4">

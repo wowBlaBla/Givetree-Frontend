@@ -32,7 +32,6 @@ const HomeContainer = () => {
     return <ErrorContainer message="Failed to load collections." />;
   }
 
-  // console.log("DATAA", data);
   return (
     <div className="w-full mx-auto">
       <Head>

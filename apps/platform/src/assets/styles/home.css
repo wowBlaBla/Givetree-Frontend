@@ -32,7 +32,7 @@
 }
 
 .profile-section {
-  background: #303236;
+  background: white;
   border: 1px solid #5B626C;
   box-shadow: 4px 4px 4px rgba(43, 45, 48, 0.25);
   border-radius: 10px;
@@ -44,19 +44,19 @@
 }
 
 .profile-container .profile-item {
-  background-color: #2B2D30;
+  background-color: #FFFFFF;
   border: 1px solid #5B626C;
   border-radius: 10px;
   width: 100%;
-  color: white;
+  color: black;
   margin-bottom: 0.75rem;
   font-size: 18px;
   font-weight: 400;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .profile-section label {
-  color: #DADADA;
+  font-weight: bold;
+  color: black;
 }
 
 .profile-container .profile-item:not(textarea) {
@@ -68,23 +68,22 @@
 }
 
 .profile-container .profile-box {
-  background: #2B2D30;
+  background: white;
   border: 1px solid #6A6A6B;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 }
 
 .profile-container .profile-primary-button {
-  background: #2FB4D1;
-  border: 1px solid #2FB4D1;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #0075FF;
+  border: 1px solid #0075FF;
   height: 60px;
 }
 
 .profile-container .profile-secondary-button {
-  background: #37393E;
-  border: 1px solid rgba(217, 217, 217, 0.2);
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #FFFFFF;
+  border: 1px solid #0075FF;
+  color: #0075FF;
   height: 60px;
 }
 
