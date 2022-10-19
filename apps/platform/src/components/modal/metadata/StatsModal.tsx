@@ -49,10 +49,10 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
         <div>
             <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} />
             <div className="modal">
-                <div className="modal-box">
+                <div className="modal-box bg-white">
                     <label
                         htmlFor="my-modal-3"
-                        className="hover:text-white cursor-pointer absolute right-4 top-4"
+                        className="hover:text-gray-500 cursor-pointer absolute right-4 top-4"
                         onClick={() => closeModal()}
                     >✕</label>
                     <h3 className="font-bold text-center text-lg">Add Stats</h3>
@@ -73,7 +73,7 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
                                                 <div className="form-control">
                                                     <label className="input-group">
                                                         <span
-                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-white cursor-pointer"
+                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-black cursor-pointer"
                                                             onClick={() => removeTrait(idx)}
                                                         >
                                                             <XIcon className="w-5 h-5"/>
@@ -81,7 +81,7 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="text"
                                                             placeholder="Speed"
-                                                            className="input input-bordered !rounded-none !outline-offset-0 w-36"
+                                                            className="input input-bordered bg-white !rounded-none !outline-offset-0 w-36"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
@@ -94,12 +94,12 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="number"
                                                             placeholder="3"
-                                                            className="input input-bordered !rounded-none !outline-offset-0 px-2 w-28"
+                                                            className="input input-bordered bg-white border-r-0 !rounded-l-none !outline-offset-0 px-2 w-28"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
                                                         <span
-                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-white cursor-pointer"
+                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-gray-500 cursor-pointer"
                                                             onClick={() => removeTrait(idx)}
                                                         >
                                                             Of
@@ -107,7 +107,7 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="number"
                                                             placeholder="5"
-                                                            className="input input-bordered !rounded-none !outline-offset-0 px-2 w-20"
+                                                            className="input input-bordered bg-white !rounded-none !outline-offset-0 px-2 w-20"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />

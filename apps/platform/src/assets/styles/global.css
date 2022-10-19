@@ -82,3 +82,8 @@ img {
     display: block;
   }
 }
+
+.property-close-btn {
+  border-color: hsl(var(--bc) / 0.2);
+  color: hsl(var(--bc) / 0.5);
+}
