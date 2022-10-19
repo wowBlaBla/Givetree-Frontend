@@ -36,7 +36,7 @@ export const DropdownMenu: FC = () => {
         className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <Link href="/profile/home">Profile</Link>
+          <Link href="/profile/home-appearance">Profile</Link>
         </li>
         <li>
           <span onClick={logout}>Log out</span>

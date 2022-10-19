@@ -7,51 +7,74 @@ interface Props {
 export const SolanaIcon: FC<Props> = ({ className }) => (
   <svg
     className={className}
-    version="1.1"
-    id="Layer_1"
-    x="0px"
-    y="0px"
-    viewBox="0 0 397.7 311.7"
+    width="46"
+    height="46"
+    viewBox="0 0 46 46"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <style type="text/css"></style>
-    <linearGradient
-      id="SVGID_1_"
-      gradientUnits="userSpaceOnUse"
-      x1="360.8791"
-      y1="351.4553"
-      x2="141.213"
-      y2="-69.2936"
-      gradientTransform="matrix(1 0 0 -1 0 314)"
-    >
-      <stop offset="0" style={{ stopColor: "#00FFA3" }} />
-      <stop offset="1" style={{ stopColor: ":#DC1FFF" }} />
-    </linearGradient>
-    <path d="M64.6,237.9c2.4-2.4,5.7-3.8,9.2-3.8h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5  c-5.8,0-8.7-7-4.6-11.1L64.6,237.9z" />
-    <linearGradient
-      id="SVGID_2_"
-      gradientUnits="userSpaceOnUse"
-      x1="264.8291"
-      y1="401.6014"
-      x2="45.163"
-      y2="-19.1475"
-      gradientTransform="matrix(1 0 0 -1 0 314)"
-    >
-      <stop offset="0" style={{ stopColor: "#00FFA3" }} />
-      <stop offset="1" style={{ stopColor: ":#DC1FFF" }} />
-    </linearGradient>
-    <path d="M64.6,3.8C67.1,1.4,70.4,0,73.8,0h317.4c5.8,0,8.7,7,4.6,11.1l-62.7,62.7c-2.4,2.4-5.7,3.8-9.2,3.8H6.5  c-5.8,0-8.7-7-4.6-11.1L64.6,3.8z" />
-    <linearGradient
-      id="SVGID_3_"
-      gradientUnits="userSpaceOnUse"
-      x1="312.5484"
-      y1="376.688"
-      x2="92.8822"
-      y2="-44.061"
-      gradientTransform="matrix(1 0 0 -1 0 314)"
-    >
-      <stop offset="0" style={{ stopColor: "#00FFA3" }} />
-      <stop offset="1" style={{ stopColor: ":#DC1FFF" }} />
-    </linearGradient>
-    <path d="M333.1,120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8,0-8.7,7-4.6,11.1l62.7,62.7c2.4,2.4,5.7,3.8,9.2,3.8h317.4  c5.8,0,8.7-7,4.6-11.1L333.1,120.1z" />
+    <g filter="url(#filter0_d_1086_27139)">
+      <circle cx="23" cy="22" r="20" fill="black" />
+      <g clipPath="url(#clip0_1086_27139)">
+        <path
+          d="M32.897 27.3201L29.5954 30.8078C29.5236 30.8836 29.4368 30.944 29.3403 30.9853C29.2438 31.0265 29.1397 31.0478 29.0345 31.0478H13.3833C13.3086 31.0478 13.2356 31.0263 13.1731 30.9859C13.1107 30.9456 13.0615 30.8882 13.0318 30.8207C13.002 30.7532 12.9929 30.6787 13.0056 30.6062C13.0182 30.5337 13.0521 30.4664 13.1031 30.4126L16.4071 26.9249C16.4787 26.8493 16.5653 26.7891 16.6615 26.7478C16.7577 26.7065 16.8614 26.6851 16.9664 26.6849H32.6167C32.6914 26.6849 32.7644 26.7064 32.8269 26.7468C32.8893 26.7871 32.9384 26.8446 32.9683 26.912C32.998 26.9795 33.0071 27.054 32.9945 27.1265C32.9818 27.199 32.9479 27.2663 32.897 27.3201ZM29.5954 20.2968C29.5236 20.221 29.4368 20.1606 29.3403 20.1193C29.2438 20.0781 29.1397 20.0568 29.0345 20.0568H13.3833C13.3086 20.0568 13.2356 20.0783 13.1731 20.1187C13.1107 20.159 13.0615 20.2164 13.0318 20.2839C13.002 20.3514 12.9929 20.4259 13.0056 20.4984C13.0182 20.5709 13.0521 20.6382 13.1031 20.692L16.4071 24.1797C16.4787 24.2553 16.5653 24.3155 16.6615 24.3568C16.7577 24.3981 16.8614 24.4195 16.9664 24.4196H32.6167C32.6914 24.4196 32.7644 24.3981 32.8269 24.3578C32.8893 24.3175 32.9384 24.26 32.9683 24.1926C32.998 24.1251 33.0071 24.0506 32.9945 23.9781C32.9818 23.9056 32.9479 23.8383 32.897 23.7845L29.5954 20.2968ZM13.3833 17.7915H29.0345C29.1397 17.7916 29.2438 17.7703 29.3403 17.729C29.4368 17.6877 29.5236 17.6273 29.5954 17.5516L32.897 14.0638C32.9479 14.0101 32.9818 13.9428 32.9945 13.8703C33.0071 13.7978 32.998 13.7232 32.9683 13.6558C32.9384 13.5883 32.8893 13.5309 32.8269 13.4905C32.7644 13.4502 32.6914 13.4287 32.6167 13.4287H16.9664C16.8614 13.4289 16.7577 13.4503 16.6615 13.4915C16.5653 13.5328 16.4787 13.5931 16.4071 13.6687L13.1039 17.1564C13.053 17.2101 13.0191 17.2773 13.0064 17.3497C12.9937 17.4221 13.0028 17.4966 13.0324 17.5641C13.0621 17.6315 13.1111 17.6889 13.1734 17.7293C13.2357 17.7697 13.3087 17.7913 13.3833 17.7915Z"
+          fill="url(#paint0_linear_1086_27139)"
+        />
+      </g>
+    </g>
+    <defs>
+      <filter
+        id="filter0_d_1086_27139"
+        x="0"
+        y="0"
+        width="46"
+        height="46"
+        filterUnits="userSpaceOnUse"
+        colorInterpolationFilters="sRGB"
+      >
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+        <feColorMatrix
+          in="SourceAlpha"
+          type="matrix"
+          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+          result="hardAlpha"
+        />
+        <feOffset dy="1" />
+        <feGaussianBlur stdDeviation="1.5" />
+        <feColorMatrix
+          type="matrix"
+          values="0 0 0 0 0.129412 0 0 0 0 0.105882 0 0 0 0 0.305882 0 0 0 0.15 0"
+        />
+        <feBlend
+          mode="normal"
+          in2="BackgroundImageFix"
+          result="effect1_dropShadow_1086_27139"
+        />
+        <feBlend
+          mode="normal"
+          in="SourceGraphic"
+          in2="effect1_dropShadow_1086_27139"
+          result="shape"
+        />
+      </filter>
+      <linearGradient
+        id="paint0_linear_1086_27139"
+        x1="14.6882"
+        y1="31.4677"
+        x2="30.824"
+        y2="13.0009"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop offset="0.08" stopColor="#9945FF" />
+        <stop offset="0.3" stopColor="#8752F3" />
+        <stop offset="0.5" stopColor="#5497D5" />
+        <stop offset="0.6" stopColor="#43B4CA" />
+        <stop offset="0.72" stopColor="#28E0B9" />
+        <stop offset="0.97" stopColor="#19FB9B" />
+      </linearGradient>
+      <clipPath id="clip0_1086_27139">
+        <rect width="20" height="17.619" fill="white" transform="translate(13 13.4287)" />
+      </clipPath>
+    </defs>
   </svg>
 );

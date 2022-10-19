@@ -25,7 +25,6 @@ export const SigninWithEmail: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<ErrorInterface>({});
-
   const registerByEmail = async () => {
     try {
       const schema = yup.object().shape({
@@ -56,7 +55,7 @@ export const SigninWithEmail: FC = () => {
           localStorage.setItem("refresh_token", res.data.refreshToken);
           dispatch(openModal(false));
           dispatch(updateAuthed(res.data));
-          setLocation("/profile/home");
+          setLocation("/profile/home-appearance");
         })
         .catch((err) => {
           if (err?.response?.data?.message) {
