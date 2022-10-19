@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { FC, useRef, useState } from "react";
 import { AddIcon } from "../../components/icons/AddIcon";
 import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
@@ -8,6 +7,7 @@ import { MintArtPreview } from "../../components/MintArt";
 import { LevelModal } from "../../components/modal/metadata/LevelModal";
 import { PropertyModal } from "../../components/modal/metadata/PropertyModal";
 import { StatsModal } from "../../components/modal/metadata/StatsModal";
+import { uploadArtToIPFS, uploadMetadataToIPFS } from "../../utils/metadataManage";
 
 interface propertyInterface {
   trait_type: string;
@@ -17,13 +17,15 @@ interface propertyInterface {
 interface metadataIns {
   name: string;
   description: string;
-  property: propertyInterface[],
+  image:string;
+  attributes: propertyInterface[],
 }
 
 const defaultMetadata:metadataIns = {
   name: "",
   description: "",
-  property: [],
+  image:"",
+  attributes: [],
 }
 const defaultTrait:propertyInterface = { trait_type: "", value: ""};
 
@@ -44,6 +46,7 @@ export const Mint: FC = () => {
   const [openProModal, setOpenProModal] = useState<boolean>(false);
   const [openLevelModal, setOpenLevelModal] = useState<boolean>(false);
   const [openStatModal, setOpenStatModal] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const handleAvatarFileSelect = (e: any) => {
     const file = e.target.files[0];
@@ -65,6 +68,27 @@ export const Mint: FC = () => {
   }
   
   const uploadMetadata = async() => {
+    try {
+      if (!nftImage) return;
+      setLoading(true);
+      const imageCid = await uploadArtToIPFS(nftImage);
+      const _metadata = {
+        ...metadata,
+        image: "ipfs://" + imageCid,
+        attributes: properties,
+        levels,
+        stats,
+      };
+      const metadataCid = await uploadMetadataToIPFS(_metadata);
+      console.log(imageCid, metadataCid);
+    } catch(err) {
+
+    }
+    setLoading(false);
+  }
+
+  const mint = async() => {
+    await uploadMetadata();
   }
 
   return (
@@ -378,8 +402,9 @@ export const Mint: FC = () => {
             readOnly
           />
           <input
-            type="text"
+            type="number"
             className="input input-bordered profile-item block outline-none !w-1/3"
+            min={1}
             // value={userName}
             // onChange={(e) => setUserName(e.target.value)}
           />
@@ -389,14 +414,14 @@ export const Mint: FC = () => {
         </div>
         <button
           className="btn bg-[#0075FF] text-white h-[40px] min-h-0"
-          // onClick={updateProfile}
+          onClick={mint}
         >
           Create
         </button>
       </div>
       { openProModal ? <PropertyModal _property={properties} updateAttrs={setProperties} closeModal={() => setOpenProModal(false)}/> : "" }
-      { openLevelModal ? <LevelModal _levels={levels} updateAttrs={setProperties} closeModal={() => setOpenLevelModal(false)}/> : "" }
-      { openStatModal ? <StatsModal _stats={stats} updateAttrs={setProperties} closeModal={() => setOpenStatModal(false)}/> : "" }
+      { openLevelModal ? <LevelModal _levels={levels} updateAttrs={setLevels} closeModal={() => setOpenLevelModal(false)}/> : "" }
+      { openStatModal ? <StatsModal _stats={stats} updateAttrs={setStats} closeModal={() => setOpenStatModal(false)}/> : "" }
 
     </div>
   );

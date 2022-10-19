@@ -1,6 +1,5 @@
 import { XIcon } from "@heroicons/react/solid";
-import { property } from "lodash";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 
 interface Property {
     trait_type: string;
