@@ -12,6 +12,8 @@ import {
   updateProvider,
 } from "../store/actions/auth.action";
 import Web3 from "web3";
+import {AbiItem} from 'web3-utils';
+import {Contract} from 'web3-eth-contract';
 import CoinbaseWalletSDK, { CoinbaseWalletProvider } from "@coinbase/wallet-sdk";
 import { AbstractProvider } from "web3-core/types";
 import { JsonRpcPayload, JsonRpcResponse } from "web3-core-helpers";
@@ -20,6 +22,12 @@ import { LoadingIcon } from "./icons/LoadingIcon";
 import { PhantomIcon } from "./icons/PhantomIcon";
 import { useLocation } from "wouter";
 import { toast } from "react-toastify";
+
+import factoryABI from "../assets/jsons/abi/factory.json";
+import singleNFTABI from "../assets/jsons/abi/singleNFT.json";
+import marketplaceABI from "../assets/jsons/abi/marketplace.json";
+import { EthereumNetwork } from "../configs/constants";
+import { updateContracts } from "../store/actions/mvp.actions";
 
 const navs = ["Ethereum", "Polygon", "Solana"];
 
@@ -139,7 +147,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
           const provider = window.phantom?.solana;
           const account = await provider.connect();
 
-          dispatch(updateProvider(provider));
+          // dispatch(updateProvider(provider));
           dispatch(openModal(false));
           dispatch(updateAddress(account.publicKey.toString()));
         }
@@ -152,9 +160,15 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
     provider: WalletConnectWeb3Provider | CoinbaseWalletProvider,
     address: string
   ) => {
+    const web3 = new Web3(provider);
+    const factoryContract:Contract = new web3.eth.Contract(factoryABI as AbiItem[] | AbiItem, EthereumNetwork.address.factory);
+    const singleNFTContract:Contract = new web3.eth.Contract(singleNFTABI as AbiItem[] | AbiItem, EthereumNetwork.address.singleNFT);
+    const marketplaceContract:Contract = new web3.eth.Contract(marketplaceABI as AbiItem[] | AbiItem, EthereumNetwork.address.marketplace);
+    
     dispatch(updateProvider(new Web3(provider)));
     dispatch(openModal(false));
     dispatch(updateAddress(address));
+    dispatch(updateContracts({ factoryContract, singleNFTContract, marketplaceContract }));
     setLocation("/profile/home");
   };
 

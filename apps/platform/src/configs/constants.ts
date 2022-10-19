@@ -9,9 +9,9 @@ export const SOLANA_NETWORK: WalletAdapterNetwork = process.env.NEXT_PUBLIC_SOLA
 
 export const EthereumNetwork = {
     address: {
-        factory: "0x9519777f4cD30aB23EE1627B29E05A54CC629017",
-        singleNFT: "0x2C04fE17B42304017bdA05C699520aBbf0B358d0",
-        marketplace: "0x1E6BF37cBA387AffA7Bddbf7459915a458eCaE3A",
+        factory: "0x7b3A3356A6B3364CCAf82F7183ee2f26272B8590",
+        singleNFT: "0x388b086AD7f9867852892B9B20132C94A8d373E4",
+        marketplace: "0xc04115694258649b4611f423Bd0d3D15e9Ec449f",
     },
     chainId: "5"
 }

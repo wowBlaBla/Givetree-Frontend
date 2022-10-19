@@ -1,3 +1,4 @@
+import Web3 from "web3";
 import { AUTH_USER } from "../reducers/auth.reducer";
 import {
   OPEN_MODAL,
@@ -26,7 +27,7 @@ export const openSidebar =
   };
 
 export const updateProvider =
-  (payload: any): any =>
+  (payload: Web3): any =>
   (dispath: any) => {
     dispath({
       payload,
