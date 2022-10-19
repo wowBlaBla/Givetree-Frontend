@@ -1,15 +1,71 @@
-import React, { FC } from "react";
+import axios from "axios";
+import React, { FC, useRef, useState } from "react";
 import { AddIcon } from "../../components/icons/AddIcon";
 import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
 import { InformationIcon } from "../../components/icons/InformationIcon";
 import { RequiredIcon } from "../../components/icons/RequiredIcon";
+import { MintArtPreview } from "../../components/MintArt";
+import { LevelModal } from "../../components/modal/metadata/LevelModal";
+import { PropertyModal } from "../../components/modal/metadata/PropertyModal";
+import { StatsModal } from "../../components/modal/metadata/StatsModal";
+
+interface propertyInterface {
+  trait_type: string;
+  value: string;
+}
+
+interface metadataIns {
+  name: string;
+  description: string;
+  property: propertyInterface[],
+}
+
+const defaultMetadata:metadataIns = {
+  name: "",
+  description: "",
+  property: [],
+}
+const defaultTrait:propertyInterface = { trait_type: "", value: ""};
 
 export const Mint: FC = () => {
-  const [viewType, setViewType] = React.useState<"edit" | "preview">("edit");
-  const [nftImage, setNftImage] = React.useState<File>();
-  const [nftImageUrl, setImageUrl] = React.useState<string>("");
+  const nftImageRef = useRef<HTMLInputElement>(null);
+  const [viewType, setViewType] = useState<"edit" | "preview">("edit");
+  const [artType, setArtType] = useState<"image" | "audio" | "video">("image");
+  const [nftImage, setNftImage] = useState<File>();
+  const [metadata, setMetadata] = useState<metadataIns>(defaultMetadata);
 
-  const nftImageRef = React.useRef<HTMLInputElement>(null);
+  const [properties, setProperties] = useState<propertyInterface[]>([defaultTrait]);
+  const [levels, setLevels] = useState<propertyInterface[]>([defaultTrait]);
+  const [stats, setStats] = useState<propertyInterface[]>([defaultTrait]);
+  const [unlockable, setUnlockable] = useState<boolean>(false);
+  const [explicit, setExplicit] = useState<boolean>(false);
+  const [supply, setSupply] = useState<string>('');
+  
+  const [openProModal, setOpenProModal] = useState<boolean>(false);
+  const [openLevelModal, setOpenLevelModal] = useState<boolean>(false);
+  const [openStatModal, setOpenStatModal] = useState<boolean>(false);
+
+  const handleAvatarFileSelect = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      const type = file.type;
+      if (type.indexOf("image") > -1) {
+        setArtType("image");
+        setNftImage(file);
+      }
+      else if (type.indexOf("audio") > -1) {
+        setArtType("audio");
+        setNftImage(file);
+      }
+      else if (type.indexOf("video") > -1) {
+        setArtType("video");
+        setNftImage(file);
+      }
+    }
+  }
+  
+  const uploadMetadata = async() => {
+  }
 
   return (
     <div className="profile">
@@ -31,7 +87,7 @@ export const Mint: FC = () => {
           </div>
           <button
             className="btn bg-[#0075FF] text-white h-[30px] min-h-0"
-            // onClick={updateProfile}
+            onClick={uploadMetadata}
           >
             Save
           </button>
@@ -51,15 +107,11 @@ export const Mint: FC = () => {
             File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF.
             Max size: 100 MB
           </span>
-          <div className="profile-box border-dashed border-2 w-[300px] h-[300px] flex justify-center items-center mt-4 !bg-[#303236]">
+          <label className="profile-box !border-dashed border-[#6A6A6B] border-2 w-[300px] h-[300px] flex justify-center items-center mt-4 !bg-[#303236]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {nftImageUrl ? (
+            {nftImage ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img
-                className="object-cover rounded-full w-[100px] h-[100px]"
-                src={nftImageUrl}
-                alt="avatar"
-              />
+              <MintArtPreview src={nftImage} type={artType}/>
             ) : (
               <ImageDefaultIcon />
             )}
@@ -67,9 +119,10 @@ export const Mint: FC = () => {
               ref={nftImageRef}
               type="file"
               hidden
-              // onChange={handleAvatarFileSelect}
+              onChange={handleAvatarFileSelect}
+              accept=".jpg, .png, .gif, .svg, .mp4, .webm, .mp3, .wav, .ogg, .glb, .gltf"
             />
-          </div>
+          </label>
         </div>
         <div className="flex items-center mb-1">
           <label className="text-lg text-white mr-2">Name</label>
@@ -78,8 +131,8 @@ export const Mint: FC = () => {
         <input
           type="text"
           className="input input-bordered profile-item block w-full outline-none"
-          // value={userName}
-          // onChange={(e) => setUserName(e.target.value)}
+          value={metadata.name}
+          onChange={(e) => setMetadata({ ...metadata, name: e.target.value })}
         />
         <div className="flex flex-col mb-2">
           <label className="text-lg text-white mb-1">Description</label>
@@ -90,9 +143,8 @@ export const Mint: FC = () => {
         <textarea
           className="textarea textarea-bordered profile-item block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]"
           rows={4}
-          // value={bio}
-          // onChange={(e) => setBio(e.target.value)}
-          // disabled={isLoading}
+          value={metadata.description}
+          onChange={(e) => setMetadata({ ...metadata, description: e.target.value })}
         />
         <div className="flex mb-2 items-center">
           <div className="flex flex-col mr-4">
@@ -133,7 +185,10 @@ export const Mint: FC = () => {
               </label>
             </div>
           </div>
-          <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark">
+          <div
+            className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark"
+              onClick={() => setOpenProModal(true)}
+          >
             <AddIcon />
           </div>
         </div>
@@ -160,7 +215,10 @@ export const Mint: FC = () => {
               </label>
             </div>
           </div>
-          <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark">
+          <div
+            className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark"
+            onClick={() => setOpenLevelModal(true)}
+          >
             <AddIcon />
           </div>
         </div>
@@ -187,7 +245,10 @@ export const Mint: FC = () => {
               </label>
             </div>
           </div>
-          <div className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark">
+          <div
+            className="flex justify-center items-center w-[100px] h-[100px] border border-white/40 rounded-lg cursor-pointer bg-deep-dark"
+            onClick={() => setOpenStatModal(true)}
+          >
             <AddIcon />
           </div>
         </div>
@@ -216,7 +277,7 @@ export const Mint: FC = () => {
             </div>
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
-            <input type="checkbox" className="toggle toggle-md" checked />
+            <input type="checkbox" className="toggle toggle-md" checked={unlockable} onClick={() => setUnlockable(!unlockable)} />
           </div>
         </div>
         <div className="flex items-center justify-between mt-8 border-b-[#8C8C8C] border-b-2 pb-8">
@@ -245,7 +306,7 @@ export const Mint: FC = () => {
             </div>
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
-            <input type="checkbox" className="toggle toggle-md" checked />
+            <input type="checkbox" className="toggle toggle-md" checked={explicit} onClick={() => setExplicit(!explicit)} />
           </div>
         </div>
         <div className="flex flex-col mb-2 mt-8">
@@ -254,14 +315,14 @@ export const Mint: FC = () => {
             <RequiredIcon />
           </div>
           <label className="text-sm text-white">
-            The number of items that can be minted. No gas cost to you!
+            The number of items that can be minted.
           </label>
         </div>
         <input
-          type="text"
+          type="number"
           className="input input-bordered profile-item block w-full outline-none"
-          // value={userName}
-          // onChange={(e) => setUserName(e.target.value)}
+          value={supply}
+          onChange={(e) => setSupply(e.target.value)}
         />
         <div className="flex flex-col mb-2 mt-8">
           <div className="flex items-center">
@@ -285,12 +346,11 @@ export const Mint: FC = () => {
             this item’s content in decentralised file storage.
           </label>
         </div>
-        <input
-          type="text"
-          className="input input-bordered profile-item block w-full outline-none"
-          // value={userName}
-          // onChange={(e) => setUserName(e.target.value)}
-        />
+        <p
+          className="input input-bordered profile-item block w-full outline-none flex items-center"
+        >
+          <span className="text-xs text-white/40">To freeze your metadata, you must create your item first</span>
+        </p>
         <div className="flex flex-col mb-2 mt-8">
           <div className="flex items-center">
             <label className="text-lg text-white mr-2">Charity donation</label>
@@ -305,6 +365,7 @@ export const Mint: FC = () => {
           className="select profile-item outline-none block mt-1"
           // onChange={(e) => setAccountType(e.target.value as AccountType)}
         >
+          <option value="">Select charity</option>
           <option value="ethereum">Ethereum</option>
           <option value="solana">Solana</option>
         </select>
@@ -314,6 +375,7 @@ export const Mint: FC = () => {
             className="input input-bordered profile-item block outline-none !w-2/3 mr-2"
             // value={userName}
             // onChange={(e) => setUserName(e.target.value)}
+            readOnly
           />
           <input
             type="text"
@@ -332,6 +394,10 @@ export const Mint: FC = () => {
           Create
         </button>
       </div>
+      { openProModal ? <PropertyModal _property={properties} updateAttrs={setProperties} closeModal={() => setOpenProModal(false)}/> : "" }
+      { openLevelModal ? <LevelModal _levels={levels} updateAttrs={setProperties} closeModal={() => setOpenLevelModal(false)}/> : "" }
+      { openStatModal ? <StatsModal _stats={stats} updateAttrs={setProperties} closeModal={() => setOpenStatModal(false)}/> : "" }
+
     </div>
   );
 };
