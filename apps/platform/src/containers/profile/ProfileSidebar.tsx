@@ -8,10 +8,26 @@ import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
 import avatar from "../../temp/images/campaigns/mulgakongz-collection.png";
 import { AuthWithWallet } from "../../components/AuthWithWallet";
 
-const defaultNavs = [
+interface NavItem {
+  category: string;
+  title: string;
+  children?: NavItem[];
+}
+
+const defaultNavs: NavItem[] = [
   {
     category: "home",
     title: "My profile",
+    children: [
+      {
+        category: "home-appearance",
+        title: "Appearance",
+      },
+      {
+        category: "home-settings",
+        title: "Settings",
+      },
+    ],
   },
   {
     category: "wallets",
@@ -47,7 +63,7 @@ const defaultNavs = [
   },
 ];
 
-const createNavs = [
+const createNavs: NavItem[] = [
   {
     category: "mint",
     title: "Create NFT",
@@ -87,7 +103,7 @@ export const ProfileSideBar: FC = () => {
   return (
     <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <div className="flex flex-col items-center mt-6 px-8">
+      <div className="flex flex-col items-center px-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="object-cover w-25 h-25 mx-2 rounded-full"
@@ -106,27 +122,59 @@ export const ProfileSideBar: FC = () => {
           {walletAddress ? "Disconnect Wallet" : "Connect Wallet"}
         </PrimaryButton>
       </div> */}
-      <div className="flex flex-col flex-1 mt-6 px-4">
-        <nav>
-          {defaultNavs.map((item, idx) => (
-            <Link
-              className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
-              href={"/profile/" + item.category}
-              key={idx}
-            >
-              <div
-                className={`cursor-pointer px-2 py-2 ${
-                  item.category == params?.category
-                    ? "rounded-2xl-1 bg-light-dark text-white"
-                    : " text-gray-600 "
-                }`}
-              >
-                <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+      <div className="flex flex-col flex-1 mt-6">
+        <div>
+          {defaultNavs.map((item, idx) =>
+            item.children ? (
+              <div className="collapse collapse-arrow" key={`default-side-sub-${idx}`}>
+                <input type="checkbox" />
+                <div className="collapse-title !px-2 !py-2">
+                  <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+                </div>
+                <div className="collapse-content">
+                  {item.children.map((subItem, sIdx) => (
+                    <Link
+                      className={`flex items-center transition-colors duration-300 transform dark:text-white`}
+                      href={"/profile/" + subItem.category}
+                      key={`default-side-sub-nav-${sIdx}`}
+                    >
+                      <div
+                        className={`cursor-pointer px-6 py-2 ${
+                          subItem.category == params?.category
+                            ? "bg-light-dark text-white"
+                            : " text-gray-600 "
+                        }`}
+                      >
+                        <span className={`text-white mx-4 font-medium `}>
+                          {subItem.title}
+                        </span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </Link>
-          ))}
-        </nav>
-        <span className="pl-[1.5rem] text-white text-[20px] font-bold mt-8 mb-4">CREATE</span>
+            ) : (
+              <Link
+                className={`flex items-center transition-colors duration-300 transform dark:text-white`}
+                href={"/profile/" + item.category}
+                key={`default-side-sub-${idx}`}
+              >
+                <div
+                  className={`cursor-pointer px-2 py-2 ${
+                    item.category == params?.category
+                      ? "bg-light-dark text-white"
+                      : " text-gray-600 "
+                  }`}
+                >
+                  <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+                </div>
+              </Link>
+            )
+          )}
+        </div>
+        <span className="pl-[1.5rem] text-white text-[20px] font-bold mt-8 mb-4">
+          CREATE
+        </span>
         <nav>
           {createNavs.map((item, idx) => (
             <Link
@@ -137,7 +185,7 @@ export const ProfileSideBar: FC = () => {
               <div
                 className={`cursor-pointer px-2 py-2 ${
                   item.category == params?.category
-                    ? "rounded-2xl-1 bg-light-dark text-white"
+                    ? "bg-light-dark text-white"
                     : " text-gray-600 "
                 }`}
               >
