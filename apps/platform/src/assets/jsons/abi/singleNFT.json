@@ -311,19 +311,21 @@
                 "type": "tuple"
             },
             {
-                "internalType": "address",
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "charity",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "percent",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct GivetreeSingle.Charity",
                 "name": "_charity",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_donationPercentage",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "mintFee",
-                "type": "uint256"
+                "type": "tuple"
             },
             {
                 "components": [
@@ -356,6 +358,38 @@
         "name": "mint",
         "outputs": [],
         "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "mintPrice",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "nonces",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -537,6 +571,19 @@
             }
         ],
         "name": "updateMarketplace",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "newPrice",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateMintPrice",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
