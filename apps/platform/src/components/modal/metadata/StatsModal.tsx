@@ -19,8 +19,8 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
     const [traits, setTraits] = useState<Stats[]>(_stats);
 
     const updateTrait = (value: string, key: "trait_type" | "value", index: number) => {
-        let _traits = [...traits];
-        let item = { ...traits[index]};
+        const _traits = [...traits];
+        const item = { ...traits[index]};
         item[key] = value;
         _traits[index] = item;
         setTraits(_traits);
@@ -47,7 +47,7 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
 
     return (
         <div>
-            <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} />
+            <input type="checkbox" id="my-modal" className="modal-toggle" checked readOnly />
             <div className="modal">
                 <div className="modal-box bg-white">
                     <label
@@ -56,7 +56,7 @@ export const StatsModal:FC<Props> = ({ _stats, closeModal, updateAttrs }) => {
                         onClick={() => closeModal()}
                     >✕</label>
                     <h3 className="font-bold text-center text-lg">Add Stats</h3>
-                    <p className="py-4">Stats show up underneath your item, are clickable, and can be filtered in your collection's sidebar.</p>
+                    <p className="py-4">Stats show up underneath your item, are clickable, and can be filtered in your collection&apos;s sidebar.</p>
                     <div className="max-h-[25rem] overflow-y-auto">
                         <table className="w-full">
                             <thead>

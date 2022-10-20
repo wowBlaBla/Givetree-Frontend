@@ -19,8 +19,8 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
     const [traits, setTraits] = useState<Property[]>(_property);
 
     const updateTrait = (value: string, key: "trait_type" | "value", index: number) => {
-        let _traits = [...traits];
-        let item = { ...traits[index]};
+        const _traits = [...traits];
+        const item = { ...traits[index]};
         item[key] = value;
         _traits[index] = item;
         setTraits(_traits);
@@ -47,7 +47,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
 
     return (
         <div>
-            <input type="checkbox" id="my-modal" className="modal-toggle" checked={true} readOnly />
+            <input type="checkbox" id="my-modal" className="modal-toggle" checked readOnly />
             <div className="modal">
                 <div className="modal-box bg-white">
                     <label
@@ -56,7 +56,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
                         onClick={() => closeModal()}
                     >✕</label>
                     <h3 className="font-bold text-center text-lg">Add Levels</h3>
-                    <p className="py-4">Properties show up underneath your item, are clickable, and can be filtered in your collection's sidebar.</p>
+                    <p className="py-4">Properties show up underneath your item, are clickable, and can be filtered in your collection&apos;s sidebar.</p>
                     <div className="max-h-[25rem] overflow-auto">
                         <table className="w-full">
                             <thead>
