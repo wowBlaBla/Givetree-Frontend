@@ -169,7 +169,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
     dispatch(openModal(false));
     dispatch(updateAddress(address));
     dispatch(updateContracts({ factoryContract, singleNFTContract, marketplaceContract }));
-    setLocation("/profile/home");
+    setLocation("/profile/home-appearance");
   };
 
   return (
