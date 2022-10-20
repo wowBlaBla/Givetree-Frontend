@@ -73,7 +73,7 @@ export const LevelModal:FC<Props> = ({ _levels, closeModal, updateAttrs }) => {
                                                 <div className="form-control">
                                                     <label className="input-group">
                                                         <span
-                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-gray-500 cursor-pointer"
+                                                            className="bg-transparent border border-r-0 property-close-btn border-base-content hover:text-gray-500 cursor-pointer"
                                                             onClick={() => removeTrait(idx)}
                                                         >
                                                             <XIcon className="w-5 h-5"/>
@@ -81,7 +81,7 @@ export const LevelModal:FC<Props> = ({ _levels, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="text"
                                                             placeholder="Speed"
-                                                            className="input input-bordered bg-white !rounded-none !outline-offset-0 w-36"
+                                                            className="input input-bordered bg-white !rounded-none border-base-content !outline-offset-0 w-36"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
@@ -94,12 +94,12 @@ export const LevelModal:FC<Props> = ({ _levels, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="number"
                                                             placeholder="3"
-                                                            className="input input-bordered bg-white !rounded-none border-r-0 !outline-offset-0 px-2 w-28"
+                                                            className="input input-bordered bg-white !rounded-none border-r-0 border-base-content !outline-offset-0 px-2 w-28"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
                                                         <span
-                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-white cursor-pointer"
+                                                            className="bg-transparent border border-r-0 property-close-btn border-base-content cursor-pointer"
                                                             onClick={() => removeTrait(idx)}
                                                         >
                                                             Of
@@ -107,7 +107,7 @@ export const LevelModal:FC<Props> = ({ _levels, closeModal, updateAttrs }) => {
                                                         <input
                                                             type="number"
                                                             placeholder="5"
-                                                            className="input input-bordered bg-white !rounded-l-none !outline-offset-0 px-2 w-20"
+                                                            className="input input-bordered bg-white !rounded-l-none border-base-content !outline-offset-0 px-2 w-20"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
@@ -121,7 +121,7 @@ export const LevelModal:FC<Props> = ({ _levels, closeModal, updateAttrs }) => {
                         </table>
                         <div className="mt-4">
                             <button
-                                className="btn btn-outline border-base-content/20"
+                                className="btn btn-outline border-base-content"
                                 onClick={() => addNewTrait()}
                             >add more</button>
                         </div>

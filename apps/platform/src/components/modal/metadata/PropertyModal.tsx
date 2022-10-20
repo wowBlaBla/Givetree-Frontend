@@ -73,7 +73,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
                                                 <div className="form-control">
                                                     <label className="input-group">
                                                         <span
-                                                            className="bg-transparent border border-r-0 property-close-btn hover:text-gray-500 cursor-pointer"
+                                                            className="bg-transparent border border-r-0 border-base-content property-close-btn hover:text-gray-500 cursor-pointer"
                                                             onClick={() => removeTrait(idx)}
                                                         >
                                                             <XIcon className="w-5 h-5"/>
@@ -81,7 +81,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
                                                         <input
                                                             type="text"
                                                             placeholder="Character"
-                                                            className="input input-bordered bg-white !rounded-none !outline-offset-0"
+                                                            className="input input-bordered bg-white border-base-content !rounded-none !outline-offset-0"
                                                             value={item.trait_type}
                                                             onChange={(e) => updateTrait(e.target.value, "trait_type", idx)}
                                                         />
@@ -92,7 +92,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
                                                 <input
                                                     type="text"
                                                     placeholder="Male"
-                                                    className="input input-bordered bg-white w-full max-w-xs rounded-l-none !outline-offset-0"
+                                                    className="input input-bordered bg-white border-base-content w-full max-w-xs rounded-l-none !outline-offset-0"
                                                     value={item.value}
                                                     onChange={(e) => updateTrait(e.target.value, "value", idx)}
                                                     />
@@ -104,7 +104,7 @@ export const PropertyModal:FC<Props> = ({ _property, closeModal , updateAttrs}) 
                         </table>
                         <div className="mt-4">
                             <button
-                                className="btn btn-outline border-base-content/20"
+                                className="btn btn-outline border-base-content"
                                 onClick={() => addNewTrait()}
                             >add more</button>
                         </div>

@@ -16,7 +16,7 @@ export const uploadArtToIPFS = async(file: File) => {
                 },
             }
         );
-        return res.data.cid;
+        return res.data.IpfsHash;
     } catch(err) {
         return false;
     }
@@ -34,7 +34,7 @@ export const uploadMetadataToIPFS = async(metadata: Object) => {
                 },
             }
         );
-        return res.data.cid;
+        return res.data.IpfsHash;
     } catch(err) {
         return false;
     }
