@@ -311,14 +311,21 @@
                 "type": "tuple"
             },
             {
-                "internalType": "address",
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "charity",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "percent",
+                        "type": "uint256"
+                    }
+                ],
+                "internalType": "struct GivetreeSingle.Charity",
                 "name": "_charity",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_donationPercentage",
-                "type": "uint256"
+                "type": "tuple"
             },
             {
                 "components": [

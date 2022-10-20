@@ -215,7 +215,7 @@ export const Mint: FC = () => {
               if (tokenID == false) throw Error();
               const mintPrice = await contract.methods.mintPrice().call();
 
-              await contract.methods.mint([tokenID, supply, "ipfs://" + cid], charityDonation.charity, charityDonation.donationFee, royalty).send({
+              await contract.methods.mint([tokenID, supply, "ipfs://" + cid], charityDonation, royalty).send({
                 from: walletAddress,
                 value: mintPrice
               });
