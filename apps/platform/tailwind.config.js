@@ -26,6 +26,7 @@ module.exports = {
         "none": "0",
         "lg-m": "0.625rem",
         "t1": "14px",
+        "h": "1.5rem",
       },
       fontFamily: {
         "side-menu": `"Montserrat Bold","Arial Black",sans-serif`,
@@ -69,7 +70,7 @@ module.exports = {
         "229px": "229px",
         "layout": "976px",
         "xxl": "1093px",
-        "layout-xl": "1145px",
+        "layout-xl": "1100px",
         "screen-3xl": "1754px",
       },
       minHeight: {

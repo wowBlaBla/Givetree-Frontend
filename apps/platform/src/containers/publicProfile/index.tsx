@@ -22,7 +22,7 @@ import { ChevronRight } from "../../components/icons/ChevronRight";
 import { DefaultParams, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
 
-const Tabs = ["About", "Fundraiser", "Donations", "More"];
+const Tabs = ["Donations", "NFTs", "Collections", "Mint pages"];
 
 interface ParamProps extends DefaultParams {
   category: string;
@@ -56,36 +56,82 @@ const PublicProfileContainer: FC = () => {
   return (
     <div className="public-profile">
       <div className="profile-banner">
-        <div className="flex flex-col items-center max-w-layout mx-auto md:flex-row">
+        <div className="flex flex-col items-center max-w-layout-xl mx-auto md:flex-row">
           <div className="profile-avatar-container">
-            <Image
-              src={data.charity.media.previewUrl}
-              width={100}
-              height={100}
-              objectFit="contain"
-              alt="charity"
-            />
+            <div className="relative w-full h-full">
+              <Image
+                src={data.charity.media.previewUrl}
+                layout="fill"
+                objectFit="contain"
+                alt="charity"
+              />
+            </div>
           </div>
-          <span>Foundation of National Parks & Wildlife</span>
         </div>
       </div>
-      <div className="profile-tab">
-        <div className="tabs max-w-layout mx-auto">
-          {Tabs.map((tab, index) => (
-            <div
-              key={`public-profile-tab-${index}`}
-              className={`tab ${currentTab === tab ? "tab-active" : ""}`}
-              onClick={() => setCurrentTab(tab)}
-            >
-              {tab}
+      <div className="profile-info">
+        <div className="max-w-layout-xl mx-auto flex flex-col">
+          <span className="text-h text-black font-bold max-w-[680px] mb-2">
+            Foundation of National Parks & Wildlife
+          </span>
+          <span className="text-black max-w-[680px] mb-1">
+            The Mulga The Artist is a funky cool artist from Sydney Australia who has a
+            unique style of art which is known all around the world and is very popular.
+          </span>
+          <span>Australia. #digitalart #painting</span>
+          <div className="flex py-4">
+            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-[20px] mr-4">
+              Donate
+            </button>
+            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[white] border border-[#0075FF] text-[#0075FF] rounded-[20px]">
+              Fundraise
+            </button>
+          </div>
+          <div className="profile-tab">
+            <div className="tabs">
+              {Tabs.map((tab, index) => (
+                <div
+                  key={`public-profile-tab-${index}`}
+                  className={`tab ${currentTab === tab ? "tab-active" : ""}`}
+                  onClick={() => setCurrentTab(tab)}
+                >
+                  {tab}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
       <div className="w-full mb-[80px]">
-        <div className="max-w-layout mx-auto pt-8">
+        <div className="max-w-layout-xl mx-auto pt-8">
           <div className="flex flex-col md:flex-row">
-            <div className="flex-3 about-main text-white mb-6 md:mb-0">
+            <div className="flex-3 bg-white rounded-t-[20px] border border-[#717171] text-black">
+              <div className="donation-item flex items-center">
+                <span className="text-lg font-bold">Donations</span>
+              </div>
+              <div className="donation-item flex items-center justify-between">
+                <span className="text-sm">Search</span>
+                <span className="text-sm">Filter</span>
+              </div>
+              <div className="donation-item flex items-center">
+                <span className="text-sm mr-4">#</span>
+                <span className="text-sm mr-4">Crypto</span>
+                <span className="text-sm mr-4">Amount</span>
+                <span className="text-sm mr-4">Currency</span>
+                <span className="text-sm mr-4">Amount</span>
+                <span className="text-sm mr-4">Date</span>
+                <span className="text-sm">Wallet</span>
+              </div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+              <div className="donation-item"></div>
+            </div>
+            {/* <div className="flex-3 about-main text-white mb-6 md:mb-0">
               <div className="flex border-b-[1px] border-black px-6 py-2 h-[60px] items-center">
                 <span className="font-bold">About</span>
               </div>
@@ -261,72 +307,72 @@ const PublicProfileContainer: FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex-2 donate-container md:ml-6">
               <div className="donate-tab flex h-[60px] mb-6">
                 <div
                   className={`${
                     currentDonateTab === "Donate" ? "active-tab" : "border-b-[1px]"
-                  } flex-1 border-r-[1px] border-black bg-[#37393E]`}
+                  } flex-1 border-r-[1px] border-black`}
                   onClick={() => setCurrentDonateTab("Donate")}
                 >
-                  <span className="text-[24px] text-white">Donate</span>
+                  <span className="text-[24px] text-black">Donate</span>
                 </div>
                 <div
                   className={`${
                     currentDonateTab === "Fundraise" ? "active-tab" : "border-b-[1px]"
-                  } flex-1 border-black bg-[#37393E]`}
+                  } flex-1 border-black`}
                   onClick={() => setCurrentDonateTab("Fundraise")}
                 >
-                  <span className="text-[24px] text-white">Fundraise</span>
+                  <span className="text-[24px] text-black">Fundraise</span>
                 </div>
               </div>
               <div className="px-6 pb-6">
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">Charity</span>
-                  <div className="flex flex-1 justify-between">
+                  <div className="flex flex-1 justify-between items-center">
                     <span className="text-md">Foundation of nat...</span>
-                    <ChevronRight className="cursor-pointer" />
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">AUD</span>
-                  <div className="flex flex-1 justify-between">
-                    <span className="text-md">100</span>
-                    <ChevronRight className="cursor-pointer" />
+                  <div className="flex flex-1 justify-between items-center">
+                    <span className="text-h">100</span>
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">BTC</span>
-                  <div className="flex flex-1 justify-between">
-                    <span className="text-md">0.000033</span>
-                    <ChevronRight className="cursor-pointer" />
+                  <div className="flex flex-1 justify-between items-center">
+                    <span className="text-h">0.000033</span>
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
                 <div className="flex justify-center">
-                  <select className="donate-item w-[75%] text-md text-white mb-4 outline-none !h-[40px]">
+                  <select className="donate-item w-[75%] text-md text-black mb-4 outline-none !h-[40px]">
                     <option>One time purchase</option>
                   </select>
                 </div>
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">Pay with</span>
-                  <div className="flex flex-1 justify-between">
+                  <div className="flex flex-1 justify-between items-center">
                     <span className="text-md">Ox028928</span>
-                    <ChevronRight className="cursor-pointer" />
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">Donor info</span>
-                  <div className="flex flex-1 justify-between">
+                  <div className="flex flex-1 justify-between items-center">
                     <span className="text-md">Name, Age, etc </span>
-                    <ChevronRight className="cursor-pointer" />
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
-                <div className="flex donate-item text-white items-center mb-4">
+                <div className="flex donate-item text-black items-center mb-4">
                   <span className="text-md w-[120px]">Tax info</span>
-                  <div className="flex flex-1 justify-between">
+                  <div className="flex flex-1 justify-between items-center">
                     <span className="text-md">Tax receipt, Email</span>
-                    <ChevronRight className="cursor-pointer" />
+                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
                   </div>
                 </div>
                 <button className="btn w-full bg-[#007A00] rounded-[20px] text-white h-[60px] capitalize">

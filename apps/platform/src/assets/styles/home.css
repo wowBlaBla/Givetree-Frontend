@@ -228,46 +228,52 @@
   justify-content: end;
 }
 
+.public-profile .profile-banner {
+  background: #25BA25;
+  box-shadow: inset 100px 100px 100px rgba(0, 63, 185, 0.25);
+  height: 254px;
+  position: relative;
+}
+
 .public-profile .profile-avatar-container {
-  width: 180px;
-  height: 150px;
+  position: absolute;
+  bottom: -50px;
+  padding: 12px;
+  width: 200px;
+  height: 196px;
   background: #FFFFFF;
-  border: 1px solid #000000;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.public-profile .profile-banner {
-  background: #25BA25;
-  box-shadow: inset 100px 100px 100px rgba(0, 63, 185, 0.25);
-  padding-top: 128px;
-  padding-bottom: 72px;
+.public-profile .profile-info {
+  background: white;
+  position: relative;
+  padding-top: 70px;
 }
 
-.public-profile .profile-avatar-container+span {
+.public-profile .profile-info+span {
   font-weight: 700;
   font-size: 30px;
   line-height: 48px;
-  color: white;
+  color: black;
   max-width: 490px;
   margin-left: 20px;
 }
 
 .public-profile .profile-tab {
-  background: #007C00;
 }
 
 .public-profile .tabs .tab {
   font-size: 20px;
-  color: rgba(255, 255, 255, 0.5);
-  height: 70px;
+  color: black;
+  height: 40px;
 }
 
 .public-profile .tabs .tab.tab-active {
-  border-bottom: 3px solid #00EF8B;
-  color: white;
+  border-bottom: 3px solid #606060;
   font-weight: 700;
 }
 
@@ -278,14 +284,13 @@
 }
 
 .donate-container {
-  background: #41444A;
+  background: white;
   border: 1px solid #000000;
   border-radius: 20px;
   height: fit-content;
 }
 
 .donate-container .donate-item {
-  background: #4D4C4C;
   border: 1px solid #000000;
   border-radius: 10px;
   height: 80px;
@@ -310,6 +315,13 @@
 
 .donate-container .donate-tab .active-tab {
   background-color: transparent;
+}
+
+.donation-item {
+  height: 69px;
+  border-bottom: 1px solid #717171;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
 .about-box {
