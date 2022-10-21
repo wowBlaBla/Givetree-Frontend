@@ -110,8 +110,8 @@ export const HomeSettings: FC = () => {
           </div>
         </div>
         <h1 className="font-bold text-black text-xl mb-4">Settings</h1>
-        <div className="profile-section relative !p-0 !mb-0">
-          <div className="flex px-6 py-3 border-b border-[#5B626C] border-b border-[#5B626C] items-center justify-between">
+        <div className="profile-section border-base-content relative !p-0 !mb-0">
+          <div className="flex px-6 py-3 border-b border-b border-base-content items-center justify-between">
             <label className="text-md text-white">Profile Visibility</label>
             <div className="form-control">
               <label className="label cursor-pointer">
@@ -130,7 +130,7 @@ export const HomeSettings: FC = () => {
               </label>
             </div>
           </div>
-          <div className="flex px-6 py-3 border-b border-[#5B626C] items-center justify-between">
+          <div className="flex px-6 py-3 border-b border-base-content items-center justify-between">
             <label className="text-md text-white">Will you accept donations?</label>
             <div className="form-control">
               <label className="label cursor-pointer">
@@ -148,13 +148,13 @@ export const HomeSettings: FC = () => {
               </label>
             </div>
           </div>
-          <div className="flex px-6 py-3 border-b border-[#5B626C] items-center justify-between">
+          <div className="flex px-6 py-3 border-b border-base-content items-center justify-between">
             <label className="text-md text-white">Will you accept donations?</label>
             <button className="btn profile-setting-button text-lg rounded-xl text-white">
               Add
             </button>
           </div>
-          <div className="flex px-6 py-3 border-b border-[#5B626C] items-center justify-between">
+          <div className="flex px-6 py-3 border-b border-base-content items-center justify-between">
             <label className="text-md text-white">Are donations tax deducatible?</label>
             <div className="form-control">
               <label className="label cursor-pointer">
