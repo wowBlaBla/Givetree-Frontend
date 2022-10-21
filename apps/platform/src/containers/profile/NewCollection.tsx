@@ -34,14 +34,27 @@ const themes = [
 export const NewCollection:FC = () => {
 
     const [logo, setLogo] = useState<File>();
+    const [featuredImage, setFeaturedImage] = useState<File>();
+    const [bannerImage, setBannerImage] = useState<File>();
+
     const [isLoading, setLoading] = useState<boolean>(false);
 
-    const handleLogoFileSelect = (e:any) => {
+    const handleFileSelect = (e:any, key: string) => {
         const file = e.target.files[0];
         if (file) {
           const type = file.type;
           if (type.indexOf("image") > -1) {
-            setLogo(file);
+            switch(key) {
+                case "logo":
+                    setLogo(file);
+                    break;
+                case "featured":
+                    setFeaturedImage(file);
+                    break;
+                case "banner":
+                    setBannerImage(file);
+                    break;
+            }
           }
         }
     }
@@ -80,7 +93,7 @@ export const NewCollection:FC = () => {
                             readOnly={isLoading}
                             type="file"
                             hidden
-                            onChange={handleLogoFileSelect}
+                            onChange={(e) => handleFileSelect(e, "logo") }
                             accept=".jpg, .png, .gif, .svg"
                         />
                     </label>
@@ -102,8 +115,8 @@ export const NewCollection:FC = () => {
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {
-                            logo ?
-                            <MintArtPreview src={logo} type="image"/>
+                            featuredImage ?
+                            <MintArtPreview src={featuredImage} type="image"/>
                             :
                             <ImageDefaultIcon className="text-base-content"/>
                         }
@@ -111,7 +124,7 @@ export const NewCollection:FC = () => {
                             readOnly={isLoading}
                             type="file"
                             hidden
-                            onChange={handleLogoFileSelect}
+                            onChange={(e) => handleFileSelect(e, "featured") }
                             accept=".jpg, .png, .gif, .svg"
                         />
                     </label>
@@ -133,8 +146,8 @@ export const NewCollection:FC = () => {
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         {
-                            logo ?
-                            <MintArtPreview src={logo} type="image"/>
+                            bannerImage ?
+                            <MintArtPreview src={bannerImage} type="image"/>
                             :
                             <ImageDefaultIcon className="text-base-content"/>
                         }
@@ -142,7 +155,7 @@ export const NewCollection:FC = () => {
                             readOnly={isLoading}
                             type="file"
                             hidden
-                            onChange={handleLogoFileSelect}
+                            onChange={(e) => handleFileSelect(e, "banner") }
                             accept=".jpg, .png, .gif, .svg"
                         />
                     </label>
