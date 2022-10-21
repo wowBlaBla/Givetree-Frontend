@@ -47,9 +47,14 @@ export const Appearance: FC = () => {
   const [link, setLink] = useState<LinkData>({ social: SocialLinks[0].name, link: "" });
 
   const [isLoading, setLoading] = useState<boolean>(false);
+
   const [avatar, setAvatar] = useState<File>();
   const [avatarUrl, setAvatarUrl] = useState<string>("");
   const avatarRef = useRef<HTMLInputElement>(null);
+
+  const [banner, setBanner] = useState<File>();
+  const [bannerUrl, setBannerUrl] = useState<string>("");
+  const bannerRef = useRef<HTMLInputElement>(null);
 
   const getSocialIcon = useCallback((link: LinkData) => {
     const social = SocialLinks.find((s) => s.name === link.social);
@@ -94,10 +99,14 @@ export const Appearance: FC = () => {
           }
         );
 
-        if (avatar) {
+        if (avatar || banner) {
           const imageBody = new FormData();
           if (avatar) {
             imageBody.append("profile", avatar);
+          }
+
+          if (banner) {
+            imageBody.append("banner", banner);
           }
 
           res = await axios.put(
@@ -139,7 +148,21 @@ export const Appearance: FC = () => {
     setAvatarUrl("");
   };
 
+  const handleBannerFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length) {
+      const file = e.target.files[0];
+      setBanner(file);
+      setBannerUrl(URL.createObjectURL(file));
+      setProfileData({
+        ...profileData,
+        banner: "",
+      });  
+    }
+  };
+
   const handleBannerSelect = (color: ColorResult) => {
+    setBanner(undefined);
+    setBannerUrl("");
     setProfileData({
       ...profileData,
       banner: color.hex,
@@ -147,6 +170,8 @@ export const Appearance: FC = () => {
   };
 
   const handleBannerRemove = () => {
+    setBanner(undefined);
+    setBannerUrl("");
     setProfileData({
       ...profileData,
       banner: "",
@@ -258,7 +283,9 @@ export const Appearance: FC = () => {
         <h1 className="font-bold text-black text-xl mb-4">Profile appearance</h1>
         <div className="profile-section">
           <label className="mb-1 text-md text-white">Profile picture</label>
-          <label className="mb-1 text-sm text-white !font-normal">We recommend size 200 x 200 px</label>
+          <label className="mb-1 text-sm text-white !font-normal">
+            We recommend size 200 x 200 px
+          </label>
           <div className="flex mb-[48px] mt-4">
             <div className="profile-box w-[300px] h-[328px] flex justify-center items-center mr-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -523,12 +550,27 @@ export const Appearance: FC = () => {
               style={{
                 background: profileData.banner || "white",
               }}
-            />
+            >
+              {bannerUrl && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  className="object-cover rounded-full w-[200px] h-[200px]"
+                  src={bannerUrl}
+                  alt="banner"
+                />
+              )}
+              <input
+                ref={bannerRef}
+                type="file"
+                hidden
+                onChange={handleBannerFileSelect}
+              />
+            </div>
             <div className="flex flex-col flex-1">
               <div className="dropdown dropdown-top">
                 <label
                   tabIndex={0}
-                  className="btn profile-primary-button text-lg font-bold rounded-[30px] text-white w-full normal-case"
+                  className="btn profile-primary-button text-lg font-bold rounded-[30px] !text-white w-full normal-case"
                 >
                   Pick a theme
                 </label>
@@ -539,6 +581,12 @@ export const Appearance: FC = () => {
                   />
                 </div>
               </div>
+              <button
+                className="btn profile-primary-button text-lg font-bold rounded-[30px] text-white w-full mt-4 normal-case"
+                onClick={() => bannerRef.current?.click()}
+              >
+                Pick an image
+              </button>
               <button
                 className="btn profile-secondary-button text-lg font-bold rounded-[30px] text-white w-full mt-4 normal-case"
                 onClick={handleBannerRemove}
