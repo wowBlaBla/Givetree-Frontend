@@ -33,6 +33,7 @@ interface ProfileData {
   donation?: boolean;
   tax?: boolean;
   charityProperty?: CharityProperties;
+  bannerIsImage?: boolean;
 }
 
 export const Appearance: FC = () => {
@@ -66,6 +67,7 @@ export const Appearance: FC = () => {
 
   useEffect(() => {
     if (authedUser && authedUser.user) {
+      const url = new URL(authedUser.user.banner);
       setProfileData({
         email: authedUser.user.email,
         userName: authedUser.user.userName,
@@ -78,6 +80,7 @@ export const Appearance: FC = () => {
         tax: authedUser.user.tax,
         charityProperty: authedUser.user.charityProperty,
         socials: authedUser.user.socials,
+        bannerIsImage: (url.protocol == 'http:' || url.protocol == 'https:')
       });
       setAvatarUrl(authedUser.user.profileImage || "");
     }
@@ -240,6 +243,7 @@ export const Appearance: FC = () => {
       }
     }
   };
+
   return (
     <div className="profile">
       <div className="p-8 max-w-[825px]">
@@ -267,14 +271,19 @@ export const Appearance: FC = () => {
           <label className="mb-1 text-sm">Account Type</label>
           <select
             className="select profile-item outline-none border-base-content block mt-1"
+            value={profileData.type || "standard"}
             onChange={(e) =>
               setProfileData({ ...profileData, type: e.target.value as AccountType })
             }
           >
-            <option value="standard" selected={profileData.type === "standard"}>
+            <option
+              value="standard"
+            >
               Standard
             </option>
-            <option value="charity" selected={profileData.type === "charity"}>
+            <option
+              value="charity"
+            >
               Charity
             </option>
           </select>
@@ -337,16 +346,16 @@ export const Appearance: FC = () => {
           <label className="mb-1 text-md text-white">Location(Country)</label>
           <select
             className="select profile-item outline-none border-base-content block mt-1"
+            value={profileData.location || Countries[0].name}
             onChange={(e) => {
               setProfileData({ ...profileData, location: e.target.value });
-              console.log(e.target.value);
             }}
           >
             {Countries.map((c) => (
               <option
                 key={`country-option-${c.code}`}
                 value={c.name}
-                selected={profileData.location === c.name}
+                //selected={profileData.location === c.name}
               >
                 {c.name}
               </option>
@@ -443,7 +452,9 @@ export const Appearance: FC = () => {
                 <label className="modal-box relative bg-deep-dark">
                   <h1 className="text-lg">Select Link</h1>
                   <div className="flex mt-2">
-                    <select className="select profile-item capitalize outline-none block mr-2 !w-auto">
+                    <select
+                      className="select profile-item capitalize outline-none block mr-2 !w-auto"
+                    >
                       {SocialLinks.map((l) => (
                         <option
                           className="capitalize"
@@ -508,6 +519,7 @@ export const Appearance: FC = () => {
               <div className="flex mt-2">
                 <select
                   className="select profile-item capitalize outline-none block mr-2 !w-auto border-base-content"
+                  value={link.social}
                   onChange={(e) => setLink({ ...link, social: e.target.value })}
                 >
                   {SocialLinks.map((l) => (
@@ -515,7 +527,7 @@ export const Appearance: FC = () => {
                       className="capitalize"
                       key={`country-option-${l.name}`}
                       value={l.name}
-                      selected={link.social === l.name}
+                      //selected={link.social === l.name}
                     >
                       {l.name}
                     </option>
@@ -558,6 +570,15 @@ export const Appearance: FC = () => {
                   alt="banner"
                 />
               )}
+              {
+                (!bannerUrl && profileData.bannerIsImage) && (
+                  <img
+                    className="object-cover rounded-full w-[200px] h-[200px]"
+                    src={profileData.banner}
+                    alt="banner"
+                  />
+                )
+              }
               <input
                 ref={bannerRef}
                 type="file"

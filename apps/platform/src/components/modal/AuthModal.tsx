@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import cx from "classnames";
-import { FC, Fragment, useRef, useState } from "react";
+import { FC, Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { openModal } from "../../store/actions/auth.action";
 import { IStore } from "../../store/reducers/auth.reducer";
@@ -15,6 +15,10 @@ export const AuthModal:FC = () => {
     const dispatch = useDispatch();
     const cancelButtonRef = useRef(null)
     const [activePanel, setActivePanel] = useState<string>('0');    
+
+    useEffect(() => {
+        if (!openAuthModal) setActivePanel('0');
+    }, [openAuthModal]);
 
     return (
         <Transition.Root show={openAuthModal} as={Fragment}>
