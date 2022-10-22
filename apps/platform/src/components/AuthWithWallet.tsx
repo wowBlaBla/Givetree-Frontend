@@ -73,7 +73,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
           const accounts = await provider.request({
             method: "eth_requestAccounts",
           });
-          if (!hiddenTitle) await authByWallet(accounts[0]);
+          if (!hiddenTitle) await authByWallet(accounts[0], "metamask");
           connectAndUpdate(provider, accounts[0]);
         } catch (err) {}
         setActive(-1);
@@ -90,7 +90,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
         infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
       });
       const accounts = await provider.enable();
-      if (!hiddenTitle) await authByWallet(accounts[0]);
+      if (!hiddenTitle) await authByWallet(accounts[0], "walletconnect");
       connectAndUpdate(provider as WalletConnectWeb3Provider, accounts[0]);
     } catch (err) {}
     setActive(-1);
@@ -111,14 +111,14 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
         1
       );
       const accounts = await ethereum.enable();
-      if (!hiddenTitle) await authByWallet(accounts[0]);
+      if (!hiddenTitle) await authByWallet(accounts[0], "coinbase");
       connectAndUpdate(ethereum, accounts[0]);
     } catch (err) {}
     setActive(-1);
     setLoading(false);
   };
 
-  const authByWallet = async (address: string) => {
+  const authByWallet = async (address: string, walletType: string) => {
     const api = !type
       ? `${process.env.NEXT_PUBLIC_API}/api/auth/register-wallet`
       : `${process.env.NEXT_PUBLIC_API}/api/auth/login-wallet`;
@@ -128,9 +128,13 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
       })
       .then((res) => {
         toast.success("You have logged in successfully!");
+        
         localStorage.setItem("wallet_address", address);
         localStorage.setItem("access_token", res.data.accessToken);
         localStorage.setItem("refresh_token", res.data.refreshToken);
+        localStorage.setItem("connected-address", address);
+        localStorage.setItem("connected-wallet", walletType);
+
         dispatch(openModal(false));
         dispatch(updateAuthed(res.data));
       })
