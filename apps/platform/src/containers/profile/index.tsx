@@ -7,6 +7,7 @@ import { ProfileNFTs } from "./Nfts";
 import { Appearance } from "./Appearance";
 import { Settings } from "./Settings";
 import { HomeSettings } from "./HomeSettings";
+import { MyWallets } from "./MyWallets";
 
 const ProfilePortal: FC = () => {
   return (
@@ -18,6 +19,9 @@ const ProfilePortal: FC = () => {
         </Route>
         <Route path="/profile/home-settings">
           <HomeSettings />
+        </Route>
+        <Route path="/profile/wallets">
+          <MyWallets />
         </Route>
         <Route path="/profile/nft">
           <ProfileNFTs />

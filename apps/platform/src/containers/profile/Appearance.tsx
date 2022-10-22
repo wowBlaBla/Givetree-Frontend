@@ -10,7 +10,6 @@ import { Countries, SocialLinks } from "../../utils/constants";
 import { CharityProperties } from "../../typed/charity";
 import { SocialLinkPatterns } from "../../utils/socialLinkPatterns";
 import { XIcon } from "@heroicons/react/outline";
-import { ChevronRight } from "../../components/icons/ChevronRight";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 type AccountType = "standard" | "charity";

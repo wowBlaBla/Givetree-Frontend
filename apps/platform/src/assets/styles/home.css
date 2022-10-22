@@ -170,8 +170,8 @@
 
 }
 
-.side-bar .collapse-arrow .collapse-title:after {
-  top: 0.8rem;
+.side-bar .collapse-plus .collapse-title:after {
+  top: 0.5rem;
   color: white;
 }
 
@@ -329,4 +329,10 @@
   border-radius: 10px;
   padding: 24px 53px 38px 64px;
   max-width: 500px;
+}
+
+.wallet-item {
+  display: flex;
+  align-items: center;
+  
 }
