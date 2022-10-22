@@ -95,6 +95,7 @@ module.exports = {
       boxShadow: {
         "fixed": "0 0 60px rgba(0,0,0,0.4)",
         "normal": "0px 4px 4px rgba(0, 0, 0, 0.25)",
+        "card-theme": "0px 0px 0px 1px",
       },
       zIndex: {
         "full": "9999",
