@@ -8,6 +8,7 @@ import { Appearance } from "./Appearance";
 import { Settings } from "./Settings";
 import { HomeSettings } from "./HomeSettings";
 import { MyWallets } from "./MyWallets";
+import { NewCollection } from "./NewCollection";
 
 const ProfilePortal: FC = () => {
   return (
@@ -34,6 +35,9 @@ const ProfilePortal: FC = () => {
         </Route>
         <Route path="/profile/newfundraise">
           <Fundraisers />
+        </Route>
+        <Route path="/profile/newcollection">
+          <NewCollection />
         </Route>
         <Route path="/profile/settings">
           <Settings />

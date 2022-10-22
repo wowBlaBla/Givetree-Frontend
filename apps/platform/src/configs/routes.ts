@@ -74,6 +74,6 @@ export const MenuList: AppHeaderNavLink[] = [
       { id: "temrs-of-use", title: "Terms of use", href: "" },
       { id: "privacy-policy", title: "Privacy policy", href: "" },
     ],
-    href: "",
+    href: "/about/welcome"
   },
 ];

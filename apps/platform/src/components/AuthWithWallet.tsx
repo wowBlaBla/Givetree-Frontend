@@ -12,6 +12,8 @@ import {
   updateProvider,
 } from "../store/actions/auth.action";
 import Web3 from "web3";
+import {AbiItem} from 'web3-utils';
+import {Contract} from 'web3-eth-contract';
 import CoinbaseWalletSDK, { CoinbaseWalletProvider } from "@coinbase/wallet-sdk";
 import { AbstractProvider } from "web3-core/types";
 import { JsonRpcPayload, JsonRpcResponse } from "web3-core-helpers";
@@ -20,6 +22,12 @@ import { LoadingIcon } from "./icons/LoadingIcon";
 import { PhantomIcon } from "./icons/PhantomIcon";
 import { useLocation } from "wouter";
 import { toast } from "react-toastify";
+
+import factoryABI from "../assets/jsons/abi/factory.json";
+import singleNFTABI from "../assets/jsons/abi/singleNFT.json";
+import marketplaceABI from "../assets/jsons/abi/marketplace.json";
+import { EthereumNetwork } from "../configs/constants";
+import { updateContracts } from "../store/actions/mvp.actions";
 
 const navs = ["Ethereum", "Polygon", "Solana"];
 
@@ -65,7 +73,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
           const accounts = await provider.request({
             method: "eth_requestAccounts",
           });
-          if (!hiddenTitle) await authByWallet(accounts[0]);
+          if (!hiddenTitle) await authByWallet(accounts[0], "metamask");
           connectAndUpdate(provider, accounts[0]);
         } catch (err) {}
         setActive(-1);
@@ -82,7 +90,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
         infuraId: "27e484dcd9e3efcfd25a83a78777cdf1",
       });
       const accounts = await provider.enable();
-      if (!hiddenTitle) await authByWallet(accounts[0]);
+      if (!hiddenTitle) await authByWallet(accounts[0], "walletconnect");
       connectAndUpdate(provider as WalletConnectWeb3Provider, accounts[0]);
     } catch (err) {}
     setActive(-1);
@@ -103,14 +111,14 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
         1
       );
       const accounts = await ethereum.enable();
-      if (!hiddenTitle) await authByWallet(accounts[0]);
+      if (!hiddenTitle) await authByWallet(accounts[0], "coinbase");
       connectAndUpdate(ethereum, accounts[0]);
     } catch (err) {}
     setActive(-1);
     setLoading(false);
   };
 
-  const authByWallet = async (address: string) => {
+  const authByWallet = async (address: string, walletType: string) => {
     const api = !type
       ? `${process.env.NEXT_PUBLIC_API}/api/auth/register-wallet`
       : `${process.env.NEXT_PUBLIC_API}/api/auth/login-wallet`;
@@ -120,9 +128,13 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
       })
       .then((res) => {
         toast.success("You have logged in successfully!");
+        
         localStorage.setItem("wallet_address", address);
         localStorage.setItem("access_token", res.data.accessToken);
         localStorage.setItem("refresh_token", res.data.refreshToken);
+        localStorage.setItem("connected-address", address);
+        localStorage.setItem("connected-wallet", walletType);
+
         dispatch(openModal(false));
         dispatch(updateAuthed(res.data));
       })
@@ -139,7 +151,7 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
           const provider = window.phantom?.solana;
           const account = await provider.connect();
 
-          dispatch(updateProvider(provider));
+          // dispatch(updateProvider(provider));
           dispatch(openModal(false));
           dispatch(updateAddress(account.publicKey.toString()));
         }
@@ -152,9 +164,15 @@ export const AuthWithWallet: FC<Props> = ({ type, hiddenTitle = false }) => {
     provider: WalletConnectWeb3Provider | CoinbaseWalletProvider,
     address: string
   ) => {
+    const web3 = new Web3(provider);
+    const factoryContract:Contract = new web3.eth.Contract(factoryABI as AbiItem[] | AbiItem, EthereumNetwork.address.factory);
+    const singleNFTContract:Contract = new web3.eth.Contract(singleNFTABI as AbiItem[] | AbiItem, EthereumNetwork.address.singleNFT);
+    const marketplaceContract:Contract = new web3.eth.Contract(marketplaceABI as AbiItem[] | AbiItem, EthereumNetwork.address.marketplace);
+    
     dispatch(updateProvider(new Web3(provider)));
     dispatch(openModal(false));
     dispatch(updateAddress(address));
+    dispatch(updateContracts({ factoryContract, singleNFTContract, marketplaceContract }));
     setLocation("/profile/home-appearance");
   };
 

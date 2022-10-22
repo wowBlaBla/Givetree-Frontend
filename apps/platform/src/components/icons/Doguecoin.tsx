@@ -11,6 +11,7 @@ export const Doguecoin: FC<Props> = ({ className }) => (
     viewBox="0 0 46 46"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className={className}
   >
     <g filter="url(#filter0_d_1086_27147)">
       <circle cx="23" cy="22" r="20" fill="#C2A633" />
