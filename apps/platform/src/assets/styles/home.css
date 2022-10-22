@@ -318,3 +318,11 @@
   padding: 24px 53px 38px 64px;
   max-width: 500px;
 }
+
+.category-badge {
+  @apply h-12 inline-flex border border-base-content bg-white gap-4 px-4 py-1 rounded-lg items-center cursor-pointer
+}
+
+.category-badge:hover {
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px 0;
+}

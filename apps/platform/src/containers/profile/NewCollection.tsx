@@ -12,20 +12,28 @@ import { TelegramIcon } from "../../components/icons/TelegramIcon";
 import PaddedCard from "../../assets/images/card-display-padded.svg";
 import CoveredCard from "../../assets/images/card-display-cover.svg";
 import ContainCard from "../../assets/images/card-display-contain.svg";
+import { Categories, Category } from "../../configs/constants";
+import { XIcon } from "@heroicons/react/solid";
+
+enum theme {
+    Padded = "padded",
+    Contained = "contained",
+    Covered = "covered"
+}
 
 const themes = [
     {
-        title: "Padded",
+        title: theme.Padded,
         text: "Recomended for assets with transparent background",
         icon: PaddedCard
     },
     {
-        title: "Contained",
+        title: theme.Contained,
         text: "Recomended for assets that are not 1:1 ratio",
         icon: ContainCard
     },
     {
-        title: "Covered",
+        title: theme.Covered,
         text: "Recomended for assets that can extend to the edge",
         icon: CoveredCard
     }
@@ -36,7 +44,13 @@ export const NewCollection:FC = () => {
     const [logo, setLogo] = useState<File>();
     const [featuredImage, setFeaturedImage] = useState<File>();
     const [bannerImage, setBannerImage] = useState<File>();
+    const [name, setName] = useState<string>('');
+    const [pattern, setPattern] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [activeCategory, setActiveCategory] = useState<Category | undefined>();
+    const [activeTheme, setActiveTheme] = useState<theme>(theme.Contained);
 
+    const [openCategoryDropdown, setOpenCategoryDropdown] = useState<boolean>(false);
     const [isLoading, setLoading] = useState<boolean>(false);
 
     const handleFileSelect = (e:any, key: string) => {
@@ -57,6 +71,11 @@ export const NewCollection:FC = () => {
             }
           }
         }
+    }
+
+    const toggleCategory = () => {
+        if (activeCategory) setOpenCategoryDropdown(false);
+        else setOpenCategoryDropdown(!openCategoryDropdown);
     }
 
     return (
@@ -87,7 +106,7 @@ export const NewCollection:FC = () => {
                             logo ?
                             <MintArtPreview src={logo} type="image"/>
                             :
-                            <ImageDefaultIcon className="text-base-content"/>
+                            <ImageDefaultIcon className="text-base-content w-12"/>
                         }
                         <input
                             readOnly={isLoading}
@@ -178,8 +197,8 @@ export const NewCollection:FC = () => {
                                 // }
                                 )
                             }
-                            // value={metadata.name}
-                            // onChange={(e) => setMetadata({ ...metadata, name: e.target.value })}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
 
@@ -199,8 +218,8 @@ export const NewCollection:FC = () => {
                                 // }
                                 )
                             }
-                            // value={metadata.name}
-                            // onChange={(e) => setMetadata({ ...metadata, name: e.target.value })}
+                            value={pattern}
+                            onChange={(e) => setPattern(e.target.value)}
                         />
                     </div>
 
@@ -220,8 +239,8 @@ export const NewCollection:FC = () => {
                             )
                             }
                             rows={4}
-                            // value={metadata.description}
-                            // onChange={(e) => setMetadata({ ...metadata, description: e.target.value })}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
 
@@ -231,7 +250,49 @@ export const NewCollection:FC = () => {
                             subTitle="Adding a category will help make your item discoverable on OpenSea."
                         />
                         <div className="mt-3">
-                            <button className="btn btn-outline inline-block">Add category</button>
+                            <div className="dropdown dropdown-open">
+                                <label
+                                    tabIndex={0}
+                                    className="btn btn-outline m-1"
+                                    onClick={toggleCategory}
+                                >Add Category</label>
+                                {
+                                    activeCategory ? (
+                                        <div className="category-badge ml-2">
+                                            <span className="text-base-content">{activeCategory.text}</span>
+                                            <XIcon
+                                                className="w-6 h-6 text-base-content hover:text-base-100"
+                                                onClick={() => setActiveCategory(undefined)}
+                                            />
+                                        </div>
+                                    ) : ""
+                                }
+                                <ul
+                                    tabIndex={0}
+                                    className={
+                                        cx(
+                                            "dropdown-content menu p-2 shadow bg-white border border-base-content rounded-box w-52",
+                                            {
+                                                "hidden": !openCategoryDropdown
+                                            }
+                                        )
+                                    }
+                                >
+                                    {
+                                        Categories.map((item, idx) => (
+                                            <li
+                                                key={idx}
+                                                onClick={() => {
+                                                    setActiveCategory(item);
+                                                    toggleCategory();
+                                                }}
+                                            >
+                                                <a className="bg-opacity-50">{item.text}</a>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
@@ -326,22 +387,51 @@ export const NewCollection:FC = () => {
                         <MintItemTitle
                             title="Display theme"
                             subTitle="Change how your items are shown."
-                            required
                         />
 
                         <div className="themes grid md:grid-cols-3 grid-cols-1 gap-4 mt-2">
                             {
                                 themes.map((item, idx) => (
-                                    <div className="flex flex-col text-center p-4 border border-base-content rounded-lg cursor-pointer hover:shadow-card-theme hover:shadow-sky-500 hover:border-sky-500" key={idx}>
+                                    <div
+                                        className={
+                                            cx(
+                                                "flex flex-col text-center p-4 border rounded-lg cursor-pointer",
+                                                {
+                                                    "border-sky-500 shadow-card-theme shadow-sky-500": activeTheme == item.title,
+                                                    "border-base-content hover:shadow-card-theme hover:shadow-sky-500 hover:border-sky-500": activeTheme != item.title
+                                                }
+                                            )
+                                        }
+                                        key={idx}
+                                        onClick={() => setActiveTheme(item.title)}
+                                    >
                                         <img
                                             src={item.icon.src}
                                             className="brightness-50"
                                         />
-                                        <label className="font-bold mt-4">{item.title}</label>
+                                        <label className="font-bold mt-4 capitalize">{item.title}</label>
                                         <p>{item.text}</p>
                                     </div>
                                 ))
                             }
+                        </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <MintItemTitle
+                                title="Explicit & sensitive content"
+                                subTitle="Set this collection as explicit and sensitive content"
+                            />
+                        </div>
+                        <div className="flex justify-end items-center w-[100px] h-[100px]">
+                            <input
+                                // readOnly={isLoading}
+                                type="checkbox"
+                                className="toggle toggle-primary"
+                                // checked={unlockable}
+                                // onClick={() => setUnlockable(!unlockable)}
+                            />
                         </div>
                     </div>
                 </div>
