@@ -303,11 +303,10 @@ export const Mint: FC = () => {
         <div className="flex flex-col mb-[48px]">
           <MintItemTitle
             title="Upload an Image, Video, Audio, or 3D model"
+            subTitle="File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF.
+            Max size: 100 MB"
+            required
           />
-          <span className="text-sm">
-            File types supported: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF.
-            Max size: 100 MB
-          </span>
           <label
             className={cx(
               "profile-box !border-dashed border-base-content border-2 w-[300px] h-[300px] flex justify-center items-center mt-4 ",
@@ -344,10 +343,9 @@ export const Mint: FC = () => {
             <div className="flex flex-col mb-[48px]">
                 <MintItemTitle
                   title="Preview Image"
+                  subTitle="Because you’ve included multimedia, you’ll need to provide an image (PNG, JPG, or GIF) for the card display of your item."
+                  required
                 />
-                <span className="text-sm">
-                Because you’ve included multimedia, you’ll need to provide an image (PNG, JPG, or GIF) for the card display of your item.
-                </span>
                 <label
                   className={cx(
                     "profile-box !border-dashed border-base-content border-2 w-[200px] h-[200px] flex justify-center items-center mt-4 ",
@@ -375,12 +373,12 @@ export const Mint: FC = () => {
           ) : ""
         }
 
-        <div>
+        <div className="mt-4">
           <div className="flex items-center mb-1 gap-x-1">
             <MintItemTitle
               title="Name"
+              required
             />
-            <RequiredIcon />
           </div>
           <input
             readOnly={isLoading}
@@ -396,14 +394,12 @@ export const Mint: FC = () => {
           />
         </div>
         
-        <div>
+        <div className="mt-4">
           <div className="flex flex-col mb-2">
             <MintItemTitle
               title="Description"
+              subTitle="Please provide a brief description of your item. 0 of 1000 characters used."
             />
-            <label className="text-sm text-black mb-1">
-              Please provide a brief description of your item. 0 of 1000 characters used.
-            </label>
           </div>
           <textarea
             readOnly={isLoading}
@@ -421,15 +417,13 @@ export const Mint: FC = () => {
           />
         </div>
         
-        <div>
+        <div className="mt-4">
           <div className="flex mb-2 items-center">
             <div className="flex flex-col mr-4">
               <MintItemTitle
                 title="Collection"
+                subTitle="This is the collection where your item will appear."
               />
-              <label className="text-sm text-black mb-1">
-                This is the collection where your item will appear.
-              </label>
             </div>
             <InformationIcon className="text-gray-500" />
           </div>
@@ -462,15 +456,13 @@ export const Mint: FC = () => {
             <div className="flex flex-col ml-8">
               <MintItemTitle
                 title="Properties"
+                subTitle="Textual traits that show up as rectangles"
               />
-              <label className="text-sm text-black mb-1">
-                Textual traits that show up as rectangles
-              </label>
             </div>
           </div>
           <div
             className="flex justify-center items-center w-[100px] h-[100px] border border-gray-500/40 rounded-lg cursor-pointer text-base-content"
-              onClick={() => setOpenProModal(true)}
+            onClick={() => setOpenProModal(true)}
           >
             <AddIcon />
           </div>
@@ -495,10 +487,8 @@ export const Mint: FC = () => {
             <div className="flex flex-col ml-8">
               <MintItemTitle
                 title="Levels"
+                subTitle="Numerical traits that show up as rectangles"
               />
-              <label className="text-sm text-black mb-1">
-                Numerical traits that show up as rectangles
-              </label>
             </div>
           </div>
           <div
@@ -528,10 +518,8 @@ export const Mint: FC = () => {
             <div className="flex flex-col ml-8">
               <MintItemTitle
                 title="Stats"
+                subTitle="Numerical traits that show up as rectangles"
               />
-              <label className="text-sm text-black mb-1">
-                Numerical traits that show up as rectangles
-              </label>
             </div>
           </div>
           <div
@@ -561,11 +549,9 @@ export const Mint: FC = () => {
             <div className="flex flex-col ml-8">
               <MintItemTitle
                 title="Unlockable Content"
+                subTitle="Include unlockable content that can only be revealed by the owner of the
+                item"
               />
-              <label className="text-sm text-black mb-1">
-                Include unlockable content that can only be revealed by the owner of the
-                item
-              </label>
             </div>
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
@@ -593,10 +579,8 @@ export const Mint: FC = () => {
             <div className="flex flex-col ml-8">
               <MintItemTitle
                 title="Explicit & Sensitive Content"
+                subTitle="Set this item as explicit and sensitive content"
               />
-              <label className="text-sm text-black mb-1">
-                Set this item as explicit and sensitive content
-              </label>
             </div>
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
@@ -607,15 +591,11 @@ export const Mint: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <div className="flex items-center">
-              <MintItemTitle
-                title="Supply"
-              />
-              <RequiredIcon />
-            </div>
-            <label className="text-sm text-black">
-              The number of items that can be minted.
-            </label>
+            <MintItemTitle
+              title="Supply"
+              subTitle="The number of items that can be minted."
+              required
+            />
           </div>
           <input
             readOnly={isLoading}
@@ -635,11 +615,9 @@ export const Mint: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <div className="flex items-center">
-              <MintItemTitle
-                title="Blockchain"
-              />
-            </div>
+            <MintItemTitle
+              title="Blockchain"
+            />
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"
@@ -652,15 +630,11 @@ export const Mint: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <div className="flex items-center">
-              <MintItemTitle
-                title="Freeze metadata"
-              />
-            </div>
-            <label className="text-sm text-black">
-              Freezing your metadata will allow you to permanently lock and store all of
-              this item’s content in decentralised file storage.
-            </label>
+            <MintItemTitle
+              title="Freeze metadata"
+              subTitle="Freezing your metadata will allow you to permanently lock and store all of
+              this item’s content in decentralised file storage."
+            />
           </div>
           <p
             className="input input-bordered border-base-content profile-item block w-full outline-none flex items-center"
@@ -671,16 +645,12 @@ export const Mint: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <div className="flex items-center">
-              <MintItemTitle
-                title="Charity donation"
-              />
-              <RequiredIcon />
-            </div>
-            <label className="text-sm text-black">
-              A minimum of 1% of your minting fee/price for each NFT is a required charity
-              donation.
-            </label>
+            <MintItemTitle
+              title="Charity donation"
+              subTitle="A minimum of 1% of your minting fee/price for each NFT is a required charity
+              donation."
+              required
+            />
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"
@@ -727,15 +697,11 @@ export const Mint: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <div className="flex items-center">
-              <MintItemTitle
-                title="Royalty"
-              />
-              <RequiredIcon />
-            </div>
-            <label className="text-sm text-black">
-              A maximum of 10 % of your secondary sale price for each NFT is a required.
-            </label>
+            <MintItemTitle
+              title="Royalty"
+              subTitle="A maximum of 10 % of your secondary sale price for each NFT is a required."
+              required
+            />
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"

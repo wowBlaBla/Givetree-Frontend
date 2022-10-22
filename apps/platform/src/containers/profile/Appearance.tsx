@@ -10,7 +10,6 @@ import { Countries, SocialLinks } from "../../utils/constants";
 import { CharityProperties } from "../../typed/charity";
 import { SocialLinkPatterns } from "../../utils/socialLinkPatterns";
 import { XIcon } from "@heroicons/react/outline";
-import { ChevronRight } from "../../components/icons/ChevronRight";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 type AccountType = "standard" | "charity";
@@ -264,10 +263,10 @@ export const Appearance: FC = () => {
           </div>
         </div>
         <h1 className="font-bold text-black text-xl mb-4">Profile type</h1>
-        <div className="profile-section">
+        <div className="profile-section border-base-content">
           <label className="mb-1 text-sm">Account Type</label>
           <select
-            className="select profile-item outline-none block mt-1"
+            className="select profile-item outline-none border-base-content block mt-1"
             onChange={(e) =>
               setProfileData({ ...profileData, type: e.target.value as AccountType })
             }
@@ -281,7 +280,7 @@ export const Appearance: FC = () => {
           </select>
         </div>
         <h1 className="font-bold text-black text-xl mb-4">Profile appearance</h1>
-        <div className="profile-section">
+        <div className="profile-section border-base-content">
           <label className="mb-1 text-md text-white">Profile picture</label>
           <label className="mb-1 text-sm text-white !font-normal">
             We recommend size 200 x 200 px
@@ -292,7 +291,7 @@ export const Appearance: FC = () => {
               {avatarUrl && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  className="object-cover rounded-full w-[200px] h-[200px]"
+                  className="object-cover !border-base-content rounded-full w-[200px] h-[200px]"
                   src={avatarUrl}
                   alt="avatar"
                 />
@@ -322,14 +321,14 @@ export const Appearance: FC = () => {
           <label className="mb-1 text-md text-white">Profile title</label>
           <input
             type="text"
-            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
             value={profileData.title || ""}
             onChange={(e) => setProfileData({ ...profileData, title: e.target.value })}
             disabled={isLoading}
           />
           <label className="mb-1 text-md text-white">Bio</label>
           <textarea
-            className="textarea textarea-bordered profile-item mt-1 block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]"
+            className="textarea textarea-bordered border-base-content profile-item mt-1 block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]"
             rows={4}
             value={profileData.bio || ""}
             onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
@@ -337,7 +336,7 @@ export const Appearance: FC = () => {
           />
           <label className="mb-1 text-md text-white">Location(Country)</label>
           <select
-            className="select profile-item outline-none block mt-1"
+            className="select profile-item outline-none border-base-content block mt-1"
             onChange={(e) => {
               setProfileData({ ...profileData, location: e.target.value });
               console.log(e.target.value);
@@ -360,7 +359,7 @@ export const Appearance: FC = () => {
               </label>
               <input
                 type="date"
-                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
                 value={
                   moment(profileData.charityProperty?.foundedAt).format("YYYY-MM-DD") ||
                   ""
@@ -381,7 +380,7 @@ export const Appearance: FC = () => {
               </label>
               <input
                 type="number"
-                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
                 value={profileData.charityProperty?.employee || ""}
                 onChange={(e) =>
                   setProfileData({
@@ -399,7 +398,7 @@ export const Appearance: FC = () => {
               </label>
               <input
                 type="text"
-                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
                 value={profileData.charityProperty?.founders || ""}
                 onChange={(e) =>
                   setProfileData({
@@ -417,7 +416,7 @@ export const Appearance: FC = () => {
               </label>
               <input
                 type="text"
-                className="input input-bordered profile-item mt-1 block w-full outline-none"
+                className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
                 value={profileData.charityProperty?.phone || ""}
                 onChange={(e) =>
                   setProfileData({
@@ -457,14 +456,14 @@ export const Appearance: FC = () => {
                     </select>
                     <input
                       type="text"
-                      className="input input-bordered profile-item block w-full outline-none !w-auto flex-1"
+                      className="input input-bordered border-base-content profile-item block w-full outline-none !w-auto flex-1"
                       // value={email}
                       // onChange={(e) => setEmail(e.target.value)}
                       disabled={isLoading}
                     />
                   </div>
                   <div className="flex justify-end">
-                    <label className="btn btn-outline" htmlFor="modal-add-cause">
+                    <label className="btn btn-outline border-base-content" htmlFor="modal-add-cause">
                       Add
                     </label>
                   </div>
@@ -498,17 +497,17 @@ export const Appearance: FC = () => {
           ) : null}
           <label
             htmlFor="modal-add-link"
-            className="btn btn-outline w-[140px] text-white"
+            className="btn btn-outline border-base-content w-[140px]"
           >
             ADD LINK
           </label>
           <input type="checkbox" id="modal-add-link" className="modal-toggle" />
           <label htmlFor="modal-add-link" className="modal cursor-pointer">
-            <label className="modal-box relative">
+            <label className="modal-box bg-white relative">
               <h1 className="text-lg">Select Link</h1>
               <div className="flex mt-2">
                 <select
-                  className="select profile-item capitalize outline-none block mr-2 !w-auto"
+                  className="select profile-item capitalize outline-none block mr-2 !w-auto border-base-content"
                   onChange={(e) => setLink({ ...link, social: e.target.value })}
                 >
                   {SocialLinks.map((l) => (
@@ -524,7 +523,7 @@ export const Appearance: FC = () => {
                 </select>
                 <input
                   type="text"
-                  className="input input-bordered profile-item block w-full outline-none !w-auto flex-1"
+                  className="input input-bordered border-base-content profile-item block w-full outline-none !w-auto flex-1"
                   value={link.link}
                   onChange={(e) => setLink({ ...link, link: e.target.value })}
                   disabled={isLoading}
@@ -543,7 +542,7 @@ export const Appearance: FC = () => {
           </label>
         </div>
         <h1 className="font-bold text-black text-xl mb-4">Profile Theme</h1>
-        <div className="profile-section">
+        <div className="profile-section border-base-content">
           <div className="flex">
             <div
               className={`profile-box w-[300px] h-[328px] flex justify-center items-center mr-8`}

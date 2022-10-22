@@ -51,3 +51,39 @@ export const ArbitrumNetwork = {
     },
     chainId: "421613"
 }
+
+export interface Category {
+    value?: string;
+    text?: string;
+}
+
+export const Categories: Category[] = [
+    {
+        value: 'art',
+        text: 'Art',
+    },
+    {
+        value: 'collectible',
+        text: 'Collectibles',
+    },
+    {
+        value: 'music',
+        text: 'Music NFTs',
+    },
+    {
+        value: 'photography',
+        text: 'Photography',
+    },
+    {
+        value: 'sport',
+        text: 'Sport NFTs',
+    },
+    {
+        value: 'trading',
+        text: 'Trading Card NFTs',
+    },
+    {
+        value: 'utility',
+        text: 'Utility'
+    },
+]
