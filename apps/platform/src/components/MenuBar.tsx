@@ -20,12 +20,39 @@ export const MenuBar: FC<MenuBarProps> = ({ className, horizontal }) => {
           key={`top-menu-${mIndex}`}
           className={`indicator ${horizontal ? "" : "w-[200px]"}`}
         >
-          <Link
-            className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
-            to={menu.href || "#"}
-          >
-            {menu.title}
-          </Link>
+          {/* {menu.childrens ? (
+            <>
+              {menu.href ? (
+                <Link
+                  className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
+                  to={menu.href || ""}
+                >
+                  {menu.title}
+                </Link>
+              ) : (
+                <span className="font-bold hover:bg-transparent focus:bg-transparent">{menu.title}</span>
+              )}
+              <ul className="bg-deep-dark top-sub-menu">
+                {menu.childrens.map((subMenu, sIndex) => (
+                  <li key={`top-sub-menu-${sIndex}`}>
+                    <Link
+                      to={subMenu.href || ""}
+                      className="hover:bg-transparent focus:bg-transparent hover:text-menu"
+                    >
+                      {subMenu.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : ( */}
+            <Link
+              className="font-bold hover:bg-transparent focus:bg-transparent hover:text-menu"
+              to={menu.href || ""}
+            >
+              {menu.title}
+            </Link>
+          {/* )} */}
         </li>
       ))}
     </ul>

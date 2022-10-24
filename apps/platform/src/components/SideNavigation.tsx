@@ -60,7 +60,7 @@ export const SideNavigation: FC = () => {
     >
       <div className="scroll-none w-full bg-light-gray">
         <ul className="menu text-black">
-          {selectedMenuItem ? (
+          {/* {selectedMenuItem ? (
             <li
               className="indicator w-full bg-deep-dark side-menu-item"
               onClick={handleSelectMenuItem(undefined)}
@@ -84,9 +84,9 @@ export const SideNavigation: FC = () => {
                 {selectedMenuItem.title}
               </span>
             </li>
-          ) : null}
+          ) : null} */}
           {menu.map((menu, mIndex) =>
-            menu.childrens ? (
+            /* menu.childrens ? (
               <li
                 key={`top-menu-${mIndex}`}
                 className="indicator w-full side-menu-item"
@@ -111,7 +111,7 @@ export const SideNavigation: FC = () => {
                   {menu.title}
                 </span>
               </li>
-            ) : (
+            ) :  */
               <li key={`top-menu-${mIndex}`} className="w-full" onClick={handleDropdown}>
                 <Link
                   className="font-bold hover:bg-transparent hover:text-menu uppercase"
@@ -120,7 +120,7 @@ export const SideNavigation: FC = () => {
                   {menu.title}
                 </Link>
               </li>
-            )
+            // )
           )}
         </ul>
         <div className="px-[1rem] py-[0.75rem]">

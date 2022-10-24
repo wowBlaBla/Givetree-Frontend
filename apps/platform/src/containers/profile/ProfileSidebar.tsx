@@ -38,24 +38,16 @@ const defaultNavs: NavItem[] = [
     title: "My NFTs",
   },
   {
-    category: "sales",
+    category: "collections",
     title: "My collections",
   },
   {
-    category: "fundraisers",
-    title: "My sales/auctions",
+    category: "listings",
+    title: "My listings",
   },
   {
     category: "donations",
     title: "My donations",
-  },
-  {
-    category: "domains",
-    title: "My domains",
-  },
-  {
-    category: "txhistory",
-    title: "Transaction history",
   },
   {
     category: "settings",
@@ -126,26 +118,24 @@ export const ProfileSideBar: FC = () => {
         <div>
           {defaultNavs.map((item, idx) =>
             item.children ? (
-              <div className="collapse collapse-arrow" key={`default-side-sub-${idx}`}>
+              <div className="collapse collapse-plus" key={`default-side-sub-${idx}`}>
                 <input type="checkbox" />
-                <div className="collapse-title !px-2 !py-2">
-                  <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+                <div className="collapse-title !px-2 !py-2 border-b border-t border-[#686868]">
+                  <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
                 </div>
                 <div className="collapse-content">
                   {item.children.map((subItem, sIdx) => (
                     <Link
-                      className={`flex items-center transition-colors duration-300 transform dark:text-white`}
+                      className={`flex items-center transition-colors duration-300 transform`}
                       href={"/profile/" + subItem.category}
                       key={`default-side-sub-nav-${sIdx}`}
                     >
                       <div
-                        className={`cursor-pointer px-6 py-2 ${
-                          subItem.category == params?.category
-                            ? "bg-light-dark text-white"
-                            : " text-gray-600 "
+                        className={`cursor-pointer px-6 py-2 border-b border-[#686868] ${
+                          subItem.category == params?.category ? "bg-[#5A5A5A]" : ""
                         }`}
                       >
-                        <span className={`text-white mx-4 font-medium `}>
+                        <span className={`mx-4 font-medium text-[#C4C4C4]`}>
                           {subItem.title}
                         </span>
                       </div>
@@ -155,41 +145,35 @@ export const ProfileSideBar: FC = () => {
               </div>
             ) : (
               <Link
-                className={`flex items-center transition-colors duration-300 transform dark:text-white`}
+                className={`flex items-center transition-colors duration-300 transform`}
                 href={"/profile/" + item.category}
                 key={`default-side-sub-${idx}`}
               >
                 <div
-                  className={`cursor-pointer px-2 py-2 ${
-                    item.category == params?.category
-                      ? "bg-light-dark text-white"
-                      : " text-gray-600 "
+                  className={`cursor-pointer px-2 py-2 border-b border-[#686868] ${
+                    item.category == params?.category ? "bg-[#5A5A5A]" : ""
                   }`}
                 >
-                  <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+                  <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
                 </div>
               </Link>
             )
           )}
         </div>
-        <span className="pl-[1.5rem] text-white text-[20px] font-bold mt-8 mb-4">
-          CREATE
-        </span>
+        <span className="pl-[1.5rem] text-[20px] font-bold mt-8 mb-4">CREATE</span>
         <nav>
           {createNavs.map((item, idx) => (
             <Link
-              className={`flex items-center p-2 transition-colors duration-300 transform dark:text-white`}
+              className={`flex items-center p-2 transition-colors duration-300 transform`}
               href={"/profile/" + item.category}
               key={idx}
             >
               <div
-                className={`cursor-pointer px-2 py-2 ${
-                  item.category == params?.category
-                    ? "bg-light-dark text-white"
-                    : " text-gray-600 "
-                }`}
+                className={`cursor-pointer px-2 py-2 border-b border-[#686868] ${
+                  item.category == params?.category ? "bg-[#5A5A5A]" : ""
+                } ${idx === 0 ? "border-t" : ""}`}
               >
-                <span className={`text-white mx-4 font-medium `}>{item.title}</span>
+                <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
               </div>
             </Link>
           ))}

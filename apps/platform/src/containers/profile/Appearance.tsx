@@ -67,7 +67,7 @@ export const Appearance: FC = () => {
 
   useEffect(() => {
     if (authedUser && authedUser.user) {
-      const url = new URL(authedUser.user.banner);
+      // const url = new URL(authedUser.user.banner);
       setProfileData({
         email: authedUser.user.email,
         userName: authedUser.user.userName,
@@ -80,7 +80,7 @@ export const Appearance: FC = () => {
         tax: authedUser.user.tax,
         charityProperty: authedUser.user.charityProperty,
         socials: authedUser.user.socials,
-        bannerIsImage: (url.protocol == 'http:' || url.protocol == 'https:')
+        // bannerIsImage: (url.protocol == 'http:' || url.protocol == 'https:')
       });
       setAvatarUrl(authedUser.user.profileImage || "");
     }
