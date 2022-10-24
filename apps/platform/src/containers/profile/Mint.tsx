@@ -248,7 +248,7 @@ export const Mint: FC = () => {
   }
 
   const validateForm = () => {
-    let _errors = { ...errors };
+    const _errors = { ...errors };
     if (artType == "image") {
       _errors.art = !nftImage ? true : false;
     }

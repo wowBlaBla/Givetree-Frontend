@@ -38,24 +38,16 @@ const defaultNavs: NavItem[] = [
     title: "My NFTs",
   },
   {
-    category: "sales",
+    category: "collections",
     title: "My collections",
   },
   {
-    category: "fundraisers",
-    title: "My sales/auctions",
+    category: "listings",
+    title: "My listings",
   },
   {
     category: "donations",
     title: "My donations",
-  },
-  {
-    category: "domains",
-    title: "My domains",
-  },
-  {
-    category: "txhistory",
-    title: "Transaction history",
   },
   {
     category: "settings",

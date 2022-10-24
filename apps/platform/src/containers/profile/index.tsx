@@ -3,12 +3,15 @@ import { Route } from "wouter";
 import { ProfileSideBar } from "./ProfileSidebar";
 import { Fundraisers } from "./Fundraisers";
 import { Mint } from "./Mint";
-import { ProfileNFTs } from "./Nfts";
 import { Appearance } from "./Appearance";
 import { Settings } from "./Settings";
 import { HomeSettings } from "./HomeSettings";
 import { MyWallets } from "./MyWallets";
 import { NewCollection } from "./NewCollection";
+import { MyNFTs } from "./MyNFTs";
+import { MyCollections } from "./MyCollections";
+import { MyListings } from "./MyListings";
+import { MyDonations } from "./MyDonations";
 
 const ProfilePortal: FC = () => {
   return (
@@ -24,8 +27,17 @@ const ProfilePortal: FC = () => {
         <Route path="/profile/wallets">
           <MyWallets />
         </Route>
-        <Route path="/profile/nft">
-          <ProfileNFTs />
+        <Route path="/profile/nfts">
+          <MyNFTs />
+        </Route>
+        <Route path="/profile/collections">
+          <MyCollections />
+        </Route>
+        <Route path="/profile/listings">
+          <MyListings />
+        </Route>
+        <Route path="/profile/donations">
+          <MyDonations />
         </Route>
         <Route path="/profile/mint">
           <Mint />
