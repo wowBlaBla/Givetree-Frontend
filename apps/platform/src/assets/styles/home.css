@@ -170,8 +170,8 @@
 
 }
 
-.side-bar .collapse-arrow .collapse-title:after {
-  top: 0.8rem;
+.side-bar .collapse-plus .collapse-title:after {
+  top: 0.5rem;
   color: white;
 }
 
@@ -263,8 +263,7 @@
   margin-left: 20px;
 }
 
-.public-profile .profile-tab {
-}
+.public-profile .profile-tab {}
 
 .public-profile .tabs .tab {
   font-size: 20px;
@@ -337,4 +336,59 @@
 
 .category-badge:hover {
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 8px 0;
+}
+
+.wallet-item {
+  display: flex;
+  align-items: center;
+  height: 80px;
+}
+
+.wallet-item>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.wallets-body .wallet-item:first-child {
+  margin-top: 24px;
+}
+
+.wallets-body .wallet-item:last-child {
+  margin-bottom: 24px;
+}
+
+.wallet-item>div:nth-child(1) {
+  width: 150px;
+  justify-content: start;
+}
+
+.wallet-item>div:nth-child(2) {
+  flex: 1;
+}
+
+.wallet-item>div:nth-child(3) {
+  width: 150px;
+}
+
+.profile .wallet-item input {
+  background-color: white;
+  border: 1px solid #5B626C;
+  border-radius: 10px;
+}
+
+.profile button.btn-connect {
+  background: white;
+  color: black;
+  border: 1px solid #5B626C;
+  border-radius: 10px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.profile button.btn-connect:hover {
+  background: #2FB4D1;
+  color: white;
 }

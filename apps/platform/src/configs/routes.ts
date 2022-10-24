@@ -53,6 +53,7 @@ export const MenuList: AppHeaderNavLink[] = [
       { id: "create-nft", title: "Create NFT", href: "" },
       { id: "create-nft-fundraiser", title: "Create NFT Fundraiser", href: "" },
     ],
+    href: "",
   },
   {
     id: "donate",
