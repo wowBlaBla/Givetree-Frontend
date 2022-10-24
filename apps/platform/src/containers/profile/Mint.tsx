@@ -30,7 +30,7 @@ interface metadataIns {
 
 interface Charity {
   charity: string;
-  donationFee: string;
+  percent: string;
 }
 
 interface Royalty {
@@ -60,7 +60,7 @@ const defaultMetadata:metadataIns = {
 const defaultTrait:propertyInterface = { trait_type: "", value: ""};
 const defaultCharity: Charity = {
   charity: "",
-  donationFee: ""
+  percent: ""
 };
 const defaultRoyalty: Royalty = {
   charity: "",
@@ -145,18 +145,28 @@ export const Mint: FC = () => {
 
 
   const controlRoyaltyPercents = (val: string, key: string) => {
+    if (val == '') val = '0';
     let percent = Math.floor(parseInt(val));
-    
     switch(key) {
       case "charity":
         if (percent < 1) percent = 1;
+        else if (percent >= 10) percent = 10;
         setRoyalty({ ...royalty, charityPercent: percent.toString(), creatorPercent: (10 - percent).toString() });
         break;
       case "creator":
         if (percent >= 10) percent = 9;
+        else if (percent <= 0) percent = 0;
         setRoyalty({ ...royalty, creatorPercent: percent.toString(), charityPercent: (10 - percent).toString() });
         break;
     }
+  }
+
+  const controlCharityPercent = (val:string) => {
+    if (val == '') val = '1';
+    let percent = Math.floor(parseInt(val));
+    if (percent < 1) percent = 1;
+    else if (percent >= 10) percent = 10;
+    setCharityDonation({...charityDonation, percent: percent.toString() });
   }
 
   const uploadMetadata = async() => {
@@ -260,7 +270,7 @@ export const Mint: FC = () => {
     else _errors.name = false;
     if (Number(supply) < 1) _errors.supply = true;
     else _errors.supply = false;
-    if (!charityDonation.charity || (Number(charityDonation.donationFee) < 1 || Number(charityDonation.donationFee) > 100)) _errors.charity = true;
+    if (!charityDonation.charity || (Number(charityDonation.percent) < 1 || Number(charityDonation.percent) > 100)) _errors.charity = true;
     else _errors.charity = false;
     if (!royalty.charity || !mvp?.provider?.utils.isAddress(royalty.creator) || Number(royalty.charityPercent) + Number(royalty.creatorPercent) < 1) _errors.royalty = true;
     else _errors.royalty = false;
@@ -689,8 +699,8 @@ export const Mint: FC = () => {
                 )
               }
               min={1}
-              value={charityDonation.donationFee}
-              onChange={(e) => setCharityDonation({...charityDonation, donationFee: e.target.value})}
+              value={charityDonation.percent}
+              onChange={(e) => controlCharityPercent(e.target.value)}
             />
           </div>
         </div>
