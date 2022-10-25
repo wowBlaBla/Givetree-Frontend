@@ -79,7 +79,7 @@ const defaultError:Errors = {
   royalty: false
 };
 
-export const Mint: FC = () => {
+export const NewNFT: FC = () => {
 
   const mvp = useSelector<IStoreMVP, MVP>((state) => state.mvp);
   const walletAddress = useSelector<IStoreAUTH, string>((state) => state.auth.walletAddress);
@@ -292,7 +292,7 @@ export const Mint: FC = () => {
 
   return (
     <div className="profile">
-      <div className="profile-save-section px-8">
+      {/* <div className="profile-save-section px-8">
         <div className="flex justify-between max-w-[632px] items-center">
           <div className="tabs">
             <div
@@ -315,9 +315,9 @@ export const Mint: FC = () => {
             Save
           </button>
         </div>
-      </div>
-      <div className="p-8 max-w-[700px] text-black">
-        <h1 className="font-bold text-black text-xl mb-2">Create an NFT</h1>
+      </div> */}
+      <div className="p-8 max-w-layout-xl text-black">
+        <h1 className="font-bold text-black text-[24px] mb-2">Create an NFT</h1>
         <div className="flex items-center mb-[48px]">
           <RequiredIcon />
           <span className="text-sm ml-2">Required fields</span>
@@ -804,7 +804,7 @@ export const Mint: FC = () => {
           </div>
         </div>
         <button
-          className="btn bg-[#0075FF] text-white h-[40px] min-h-0"
+          className="btn bg-[#0075FF] text-white h-[40px] min-h-0 border-none"
           onClick={mint}
         >
           Create

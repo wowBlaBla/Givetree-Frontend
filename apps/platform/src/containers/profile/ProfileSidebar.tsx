@@ -60,22 +60,22 @@ const defaultNavs: NavItem[] = [
 
 const createNavs: NavItem[] = [
   {
-    category: "mint",
+    category: "new-nft",
     title: "Create NFT",
     icon: CreateIcon,
   },
   {
-    category: "newcollection",
+    category: "new-collection",
     title: "Create collection",
     icon: CreateIcon,
   },
   {
-    category: "newsale",
-    title: "Create sale/auction",
+    category: "new-listing",
+    title: "Create listing",
     icon: CreateIcon,
   },
   {
-    category: "newmintpage",
+    category: "new-mintpage",
     title: "Create mint page",
     icon: CreateIcon,
   },

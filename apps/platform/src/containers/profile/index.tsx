@@ -1,17 +1,17 @@
 import { FC, useState } from "react";
 import { Route } from "wouter";
+import { HomeIcon } from "@heroicons/react/solid";
 import { ProfileSideBar } from "./ProfileSidebar";
-import { Fundraisers } from "./Fundraisers";
-import { Mint } from "./Mint";
+import { Home } from "./Home";
 import { Settings } from "./Settings";
 import { MyWallets } from "./MyWallets";
-import { NewCollection } from "./NewCollection";
 import { MyNFTs } from "./MyNFTs";
 import { MyCollections } from "./MyCollections";
 import { MyListings } from "./MyListings";
 import { MyDonations } from "./MyDonations";
-import { Home } from "./Home";
-import { HomeIcon } from "@heroicons/react/solid";
+import { NewNFT } from "./NewNFT";
+import { NewCollection } from "./NewCollection";
+import { NewListing } from "./NewListing";
 
 const ProfilePortal: FC = () => {
   const [showSideBar, setShowSideBar] = useState(false);
@@ -21,7 +21,9 @@ const ProfilePortal: FC = () => {
       <ProfileSideBar visible={showSideBar} setVisible={setShowSideBar} />
       {/* <div className="absolute lg:hidden justify-end py-2 px-4 bg-[#2F3136]"> */}
       <HomeIcon
-        className={`w-7 h-7 cursor-pointer absolute lg:hidden z-10 top-[94px] right-[24px] ${showSideBar ? "fill-white" : ""}`}
+        className={`w-7 h-7 cursor-pointer absolute lg:hidden z-10 top-[94px] right-[24px] ${
+          showSideBar ? "fill-white" : ""
+        }`}
         onClick={() => setShowSideBar(!showSideBar)}
       />
       {/* </div> */}
@@ -50,17 +52,14 @@ const ProfilePortal: FC = () => {
         <Route path="/profile/donations">
           <MyDonations />
         </Route>
-        <Route path="/profile/mint">
-          <Mint />
+        <Route path="/profile/new-nft">
+          <NewNFT />
         </Route>
-        <Route path="/profile/fundraisers">
-          <Fundraisers />
-        </Route>
-        <Route path="/profile/newfundraise">
-          <Fundraisers />
-        </Route>
-        <Route path="/profile/newcollection">
+        <Route path="/profile/new-collection">
           <NewCollection />
+        </Route>
+        <Route path="/profile/new-listing">
+          <NewListing />
         </Route>
         <Route path="/profile/settings">
           <Settings />
