@@ -597,6 +597,7 @@ export const NewCollection:FC = () => {
                                     <WebsiteIcon />
                                 </div>
                                 <input
+                                    readOnly={isLoading}
                                     type="text"
                                     className="outline-none w-full"
                                     placeholder="yoursite.io"
@@ -809,7 +810,7 @@ export const NewCollection:FC = () => {
                         </select>
                     </div>
                     
-                    <div>
+                    {/* <div>
                         <MintItemTitle
                             title="Payment tokens"
                             subTitle="These tokens can be used to buy and sell your items. "
@@ -822,7 +823,7 @@ export const NewCollection:FC = () => {
                             <option>Add token</option>
                             <option value="ethereum">Ethereum</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div>
                         <MintItemTitle
@@ -886,7 +887,7 @@ export const NewCollection:FC = () => {
                             </div>
                             <div className="flex justify-end items-center">
                                 <input
-                                    // readOnly={isLoading}
+                                    readOnly={isLoading}
                                     type="checkbox"
                                     className="toggle toggle-primary"
                                     checked={revealEnabled}

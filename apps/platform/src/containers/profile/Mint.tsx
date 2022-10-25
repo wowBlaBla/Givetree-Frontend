@@ -40,7 +40,7 @@ interface Royalty {
   creatorPercent: string;
 }
 
-interface ErrorInterface {
+interface Errors {
   art?: boolean;
   previewArt?: boolean;
   name?: boolean;
@@ -67,6 +67,16 @@ const defaultRoyalty: Royalty = {
   charityPercent: "",
   creator: "",
   creatorPercent: "",
+};
+
+const defaultError:Errors = {
+  art: false,
+  previewArt: false,
+  name: false,
+  description: false,
+  supply: false,
+  charity: false,
+  royalty: false
 };
 
 export const Mint: FC = () => {
@@ -97,7 +107,7 @@ export const Mint: FC = () => {
   const [openStatModal, setOpenStatModal] = useState<boolean>(false);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  const [errors, setErrors] = useState<ErrorInterface>({});
+  const [errors, setErrors] = useState<Errors>(defaultError);
 
   useEffect(() => {
     async function fetchCharity() {
@@ -195,7 +205,8 @@ export const Mint: FC = () => {
 
   const mint = async() => {
     if (mvp.contracts.singleNFTContract) {
-      validateForm();
+      const valid = validateForm();
+      if (!valid) return;
       setLoading(true);
       try {
         const contract = mvp.contracts.singleNFTContract;
@@ -276,6 +287,7 @@ export const Mint: FC = () => {
     else _errors.royalty = false;
 
     setErrors(_errors);
+    return JSON.stringify(_errors) == JSON.stringify(defaultError);
   }
 
   return (
