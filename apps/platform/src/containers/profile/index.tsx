@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Route } from "wouter";
 import { ProfileSideBar } from "./ProfileSidebar";
 import { Fundraisers } from "./Fundraisers";
@@ -11,11 +11,20 @@ import { MyCollections } from "./MyCollections";
 import { MyListings } from "./MyListings";
 import { MyDonations } from "./MyDonations";
 import { Home } from "./Home";
+import { HomeIcon } from "@heroicons/react/solid";
 
 const ProfilePortal: FC = () => {
+  const [showSideBar, setShowSideBar] = useState(false);
+
   return (
-    <div className="profile-container flex">
-      <ProfileSideBar />
+    <div className="profile-container flex flex-col lg:flex-row">
+      <ProfileSideBar visible={showSideBar} setVisible={setShowSideBar} />
+      {/* <div className="absolute lg:hidden justify-end py-2 px-4 bg-[#2F3136]"> */}
+      <HomeIcon
+        className={`w-7 h-7 cursor-pointer absolute lg:hidden z-10 top-[94px] right-[24px] ${showSideBar ? "fill-white" : ""}`}
+        onClick={() => setShowSideBar(!showSideBar)}
+      />
+      {/* </div> */}
       <div className="content-wrapper w-full">
         <Route path="/profile/home">
           <Home />
