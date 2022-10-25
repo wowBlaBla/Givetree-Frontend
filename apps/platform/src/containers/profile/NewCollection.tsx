@@ -15,8 +15,11 @@ import ContainCard from "../../assets/images/card-display-contain.svg";
 import { Categories, Category } from "../../configs/constants";
 import { XIcon } from "@heroicons/react/solid";
 import { useSelector } from "react-redux";
+import Web3 from "web3";
 import { Contracts, IStore } from "../../store/reducers/mvp.reducer";
-import { IStore as IStoreAuth } from "../../store/reducers/auth.reducer";
+import { AUTH_USER, IStore as IStoreAuth } from "../../store/reducers/auth.reducer";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 enum theme {
     Padded = "padded",
@@ -54,6 +57,26 @@ interface Royalty {
     creatorPercent: string;
 }
 
+interface LinkData {
+    website?: string;
+    discord?: string;
+    medium?: string;
+    telegram?: string;
+}
+
+interface Errors {
+    logo?: boolean;
+    name?: boolean;
+    symbol?: boolean;
+    pattern?: boolean;
+    maxSupply?: boolean;
+    metadataURI?: boolean;
+    charity?: boolean;
+    royalty?: boolean;
+    prevealURI?: boolean;
+    mintPrice?: boolean;
+}
+
 const defaultCharity: Charity = {
     address: "",
     percent: ""
@@ -66,9 +89,26 @@ const defaultRoyalty: Royalty = {
     creatorPercent: "",
 };
 
+const defaultErrors: Errors = {
+    logo: false,
+    name: false,
+    symbol: false,
+    pattern: false,
+    maxSupply: false,
+    metadataURI: false,
+    charity: false,
+    royalty: false,
+    prevealURI: false,
+    mintPrice: false,
+};
+
 export const NewCollection:FC = () => {
 
+    const authedUser = useSelector<IStoreAuth, AUTH_USER | undefined>(
+        (state) => state.auth.authedUser
+    );
     const mvp = useSelector<IStore, Contracts>((state) => state.mvp.contracts);
+    const provider = useSelector<IStore, Web3 | undefined>((state) => state.mvp.provider);
     const waleltAddress = useSelector<IStoreAuth, string>((state) => state.auth.walletAddress);
 
     const [logo, setLogo] = useState<File>();
@@ -88,10 +128,12 @@ export const NewCollection:FC = () => {
 
     const [activeCategory, setActiveCategory] = useState<Category | undefined>();
     const [activeTheme, setActiveTheme] = useState<theme>(theme.Contained);
+    const [socials, setSocials] = useState<LinkData>({});
 
     const [openCategoryDropdown, setOpenCategoryDropdown] = useState<boolean>(false);
     const [charities, setCharities] = useState<string[]>([]);
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [errors, setErrors] = useState<Errors>(defaultErrors);
 
     useEffect(() => {
         async function fetchCharity() {
@@ -133,40 +175,144 @@ export const NewCollection:FC = () => {
     const createCollection = async() => {
         if (mvp) {
             if (mvp.factoryContract) {
-                const contract = mvp.factoryContract;
-                const deployData = {
-                    name,
-                    symbol,
-                    maxSupply,
-                    metadataURI,
-                    revealURI,
-                    revealEnabled,
-                    mintPrice,
-                    charity: charityDonation.address,
-                    donationPercentage: charityDonation.percent,
-                    royalty
-                };
+                try {
+                    const valid = validateForm();
+                    if (!valid) return;
+                    setLoading(true);
+                    const contract = mvp.factoryContract;
+                    const deployData = [
+                        name,
+                        symbol,
+                        maxSupply,
+                        metadataURI,
+                        revealURI,
+                        revealEnabled,
+                        provider?.utils.toWei(mintPrice.toString(), "ether"),
+                        charityDonation.address,
+                        charityDonation.percent,
+                        royalty
+                    ];
 
-                const deployRes = await contract.methods.createCollection(deployData).send({
-                    from: waleltAddress
-                });
+                    const deployRes = await contract.methods.createCollection(...deployData).send({
+                        from: waleltAddress
+                    });
+                    toast.success("Collection is deployed successfully!");
+                    const res = await axios.post(
+                        `${process.env.API_URL}/api/collections/`,
+                        {
+                            name,
+                            description,
+                            pattern,
+                            theme:activeTheme,
+                            address: deployRes?.events?.returnValues?.collection,
+                            category: activeCategory?.value
+                        },
+                        {
+                            headers: {
+                                Authorization: `Bearer ${authedUser?.accessToken}`,
+                            }
+                        }
+                    );
+                    toast.success("Collection is uploaded to platform successfully!")
+                    const formData = new FormData();
+                    if (logo) formData.append('logo', logo);
+                    if (featuredImage) formData.append('featured', featuredImage);
+                    if (bannerImage) formData.append('banner', bannerImage);
+                    await axios.put(
+                        `${process.env.API_URL}/api/collections/upload/${res.data.id}`,
+                        formData,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${authedUser?.accessToken}`,
+                                "Content-Type": "multipart/form-data"
+                            }
+                        }
+                    );
+                    let _socials = [];
+                    type social_index = "discord" | "website" | "telegram" | "medium";
+                    if (Object.keys(socials).length) {
+                        for (let key in socials) {
+                            if (socials[key as social_index]) {
+                                _socials.push({
+                                    social: key,
+                                    link: socials[key as social_index]
+                                });
+                            }
+                        }
+                        if (_socials.length) {
+                            await axios.put(
+                                `${process.env.API_URL}/api/collections/${res.data.id}`,
+                                {
+                                    socials: _socials
+                                },
+                                {
+                                    headers: {
+                                        Authorization: `Bearer ${authedUser?.accessToken}`,
+                                    }
+                                }
+                            );
+                        }
+                    }
+
+                } catch(err) {
+                    console.log(err);
+                }
+                setLoading(false);
             }
         }
     }
 
     const controlRoyaltyPercents = (val: string, key: string) => {
+        if (val == '') val = '0';
         let percent = Math.floor(parseInt(val));
-        
         switch(key) {
           case "charity":
             if (percent < 1) percent = 1;
+            else if (percent >= 10) percent = 10;
             setRoyalty({ ...royalty, charityPercent: percent.toString(), creatorPercent: (10 - percent).toString() });
             break;
           case "creator":
             if (percent >= 10) percent = 9;
+            else if (percent <= 0) percent = 0;
             setRoyalty({ ...royalty, creatorPercent: percent.toString(), charityPercent: (10 - percent).toString() });
             break;
         }
+    }
+
+    const controlCharityPercent = (val:string) => {
+        if (val == '') val = '1';
+        let percent = Math.floor(parseInt(val));
+        if (percent < 1) percent = 1;
+        else if (percent >= 10) percent = 10;
+        setCharityDonation({...charityDonation, percent: percent.toString() });
+    }
+
+    const validateForm = () => {
+        let _errors = { ...errors };
+
+        _errors.logo = !logo ? true : false;
+        _errors.name = !name.trim().length ? true : false;
+        _errors.symbol = !symbol.trim().length ? true : false;
+        _errors.pattern = !pattern.trim().length ? true : false;
+        _errors.maxSupply = Number(maxSupply) < 1 ? true : false;
+        _errors.metadataURI = !metadataURI.trim().length ? true : false;
+        
+        if (!charityDonation.address || (Number(charityDonation.percent) < 1 || Number(charityDonation.percent) > 100)) _errors.charity = true;
+        else _errors.charity = false;
+
+        if (!royalty.charity || !provider?.utils.isAddress(royalty.creator) || Number(royalty.charityPercent) + Number(royalty.creatorPercent) < 1) _errors.royalty = true;
+        else _errors.royalty = false;
+    
+        if (revealEnabled) {
+            if (!revealURI.length) _errors.prevealURI = true;
+            else _errors.prevealURI = false;
+        }
+        else _errors.prevealURI = false;
+
+        _errors.mintPrice = (Number(mintPrice) < 0 || !mintPrice) ? true : false;
+
+        setErrors(_errors);
+        return JSON.stringify(_errors) == JSON.stringify(defaultErrors);
     }
 
     return (
@@ -186,10 +332,10 @@ export const NewCollection:FC = () => {
                     />
                     <label
                         className={cx(
-                        "!border-dashed border-base-content border-4 w-[150px] h-[150px] flex justify-center items-center mt-4 rounded-full bg-white overflow-hidden",
-                        // {
-                        //     "border-red-500": errors?.art
-                        // }
+                            "!border-dashed border-base-content border-4 w-[150px] h-[150px] flex justify-center items-center mt-4 rounded-full bg-white overflow-hidden",
+                            {
+                                "border-red-500": errors?.logo
+                            }
                         )}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -217,10 +363,7 @@ export const NewCollection:FC = () => {
                     />
                     <label
                         className={cx(
-                        "!border-dashed border-base-content border-4 w-[300px] h-[200px] flex justify-center items-center mt-4 rounded-lg bg-white overflow-hidden",
-                        // {
-                        //     "border-red-500": errors?.art
-                        // }
+                            "!border-dashed border-base-content border-4 w-[300px] h-[200px] flex justify-center items-center mt-4 rounded-lg bg-white overflow-hidden"
                         )}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -248,10 +391,7 @@ export const NewCollection:FC = () => {
                     />
                     <label
                         className={cx(
-                        "!border-dashed border-base-content border-4 w-full max-w-[700px] h-[200px] flex justify-center items-center mt-4 rounded-lg bg-white overflow-hidden",
-                        // {
-                        //     "border-red-500": errors?.art
-                        // }
+                            "!border-dashed border-base-content border-4 w-full max-w-[700px] h-[200px] flex justify-center items-center mt-4 rounded-lg bg-white overflow-hidden"
                         )}
                     >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -283,11 +423,10 @@ export const NewCollection:FC = () => {
                             type="text"
                             className={cx(
                                 "input input-bordered border-base-content profile-item block w-full outline-none mt-3",
-                                // {
-                                //     "border-red-500": errors.name
-                                // }
-                                )
-                            }
+                                {
+                                    "border-red-500": errors.name
+                                }    
+                            )}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
@@ -304,11 +443,10 @@ export const NewCollection:FC = () => {
                             type="text"
                             className={cx(
                                 "input input-bordered border-base-content profile-item block w-full outline-none mt-3",
-                                // {
-                                //     "border-red-500": errors.name
-                                // }
-                                )
-                            }
+                                {
+                                    "border-red-500": errors.symbol
+                                }
+                            )}
                             value={symbol}
                             onChange={(e) => setSymbol(e.target.value)}
                         />
@@ -319,20 +457,24 @@ export const NewCollection:FC = () => {
                             title="URL"
                             subTitle="Customise your URL on GiveTree. Must only contain lowercase letters, numbers, and hyphens."
                         />
-                        <input
-                            readOnly={isLoading}
-                            type="text"
-                            placeholder="https://givetree.io/collection/treasures-of-the-tree"
+                        <div
                             className={cx(
-                                "input input-bordered border-base-content profile-item block w-full outline-none mt-3",
-                                // {
-                                //     "border-red-500": errors.name
-                                // }
-                                )
-                            }
-                            value={pattern}
-                            onChange={(e) => setPattern(e.target.value)}
-                        />
+                                "flex items-center input input-bordered bg-white border-base-content",
+                                {
+                                    "border-red-500": errors.pattern
+                                }
+                            )}
+                        >
+                            <span>https://givetree.xyz/collection/</span>
+                            <input
+                                readOnly={isLoading}
+                                type="text"
+                                placeholder="treasures-of-the-tree"
+                                className="w-full outline-none"
+                                value={pattern}
+                                onChange={(e) => setPattern(e.target.value)}
+                            />
+                        </div>
                     </div>
 
                     <div>
@@ -342,14 +484,9 @@ export const NewCollection:FC = () => {
                         />
                         <textarea
                             readOnly={isLoading}
-                            className={
-                            cx(
+                            className={cx(
                                 "textarea textarea-bordered border-base-content profile-item block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]",
-                                // {
-                                // "border-red-500": errors.description
-                                // }
-                            )
-                            }
+                            )}
                             rows={4}
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
@@ -419,11 +556,10 @@ export const NewCollection:FC = () => {
                             type="number"
                             className={cx(
                                 "input input-bordered border-base-content profile-item block w-full outline-none mt-3",
-                                // {
-                                //     "border-red-500": errors.name
-                                // }
-                                )
-                            }
+                                {
+                                    "border-red-500": errors.maxSupply
+                                }
+                            )}
                             value={maxSupply}
                             onChange={(e) => setMaxSupply(e.target.value)}
                         />
@@ -440,11 +576,10 @@ export const NewCollection:FC = () => {
                             type="text"
                             className={cx(
                                 "input input-bordered border-base-content profile-item block w-full outline-none mt-3",
-                                // {
-                                //     "border-red-500": errors.name
-                                // }
-                                )
-                            }
+                                {
+                                    "border-red-500": errors.metadataURI
+                                }
+                            )}
                             value={metadataURI}
                             onChange={(e) => setMetadataURI(e.target.value)}
                         />
@@ -454,41 +589,71 @@ export const NewCollection:FC = () => {
                         <MintItemTitle
                             title="Links"
                         />
-                        <div className="rounded-xl border-[1px] my-4 border-base-content">
+                        <div className="rounded-xl border-[1px] my-4 border-base-content bg-white">
                             <div
                                 className="flex items-center p-4 border-b-[1px] border-base-content last:border-b-0 justify-between"
                             >
-                                <div className="flex">
-                                    <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                                        <WebsiteIcon />
-                                    </div>
+                                <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                                    <WebsiteIcon />
+                                </div>
+                                <input
+                                    readOnly={isLoading}
+                                    type="text"
+                                    className="outline-none w-full"
+                                    placeholder="yoursite.io"
+                                    value={socials?.website}
+                                    onChange={(e) => setSocials({ ...socials, website: e.target.value })}
+                                />
+                            </div>
+                            <div
+                                className="flex items-center p-4 border-b-[1px] border-base-content last:border-b-0 justify-between"
+                            >
+                                <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                                    <DiscordSolidIcon/>
+                                </div>
+                                <div className="flex w-full">
+                                    <span>https://discord.gg/</span>
+                                    <input
+                                        type="text"
+                                        className="outline-none w-full bg-transparent"
+                                        placeholder="dxdidesNsmdUM"
+                                        value={socials?.discord}
+                                        onChange={(e) => setSocials({ ...socials, discord: e.target.value })}
+                                    />
                                 </div>
                             </div>
                             <div
                                 className="flex items-center p-4 border-b-[1px] border-base-content last:border-b-0 justify-between"
                             >
-                                <div className="flex">
-                                    <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                                        <DiscordSolidIcon/>
-                                    </div>
+                                <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                                    <MediumIcon/>
+                                </div>
+                                <div className="flex w-full">
+                                    <span>https://medium.com/@</span>
+                                    <input
+                                        type="text"
+                                        className="outline-none w-full bg-transparent"
+                                        placeholder="medium_username"
+                                        value={socials?.medium}
+                                        onChange={(e) => setSocials({ ...socials, medium: e.target.value })}
+                                    />
                                 </div>
                             </div>
                             <div
                                 className="flex items-center p-4 border-b-[1px] border-base-content last:border-b-0 justify-between"
                             >
-                                <div className="flex">
-                                    <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                                        <MediumIcon/>
-                                    </div>
+                                <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                                    <TelegramIcon/>
                                 </div>
-                            </div>
-                            <div
-                                className="flex items-center p-4 border-b-[1px] border-base-content last:border-b-0 justify-between"
-                            >
-                                <div className="flex">
-                                    <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                                        <TelegramIcon/>
-                                    </div>
+                                <div className="flex w-full">
+                                    <span>https://t.me/</span>
+                                    <input
+                                        type="text"
+                                        className="outline-none w-full bg-transparent"
+                                        placeholder="username"
+                                        value={socials?.telegram}
+                                        onChange={(e) => setSocials({ ...socials, telegram: e.target.value })}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -510,7 +675,7 @@ export const NewCollection:FC = () => {
                             </div>
                             <select
                                 className="select profile-item border-base-content outline-none block mt-1"
-                                // onChange={(e) => setCharityDonation({ ...charityDonation, charity: e.target.value})}
+                                onChange={(e) => setCharityDonation({ ...charityDonation, address: e.target.value})}
                             >
                                 <option value="">Select charity</option>
                                 {
@@ -522,31 +687,27 @@ export const NewCollection:FC = () => {
                             <div className="flex gap-2">
                                 <input
                                     type="text"
-                                    className={
-                                        cx(
+                                    className={cx(
                                         "input input-bordered border-base-content profile-item block outline-none !w-2/3",
                                         {
-                                            // "border-red-500": errors.charity
+                                            "border-red-500": errors.charity
                                         }
-                                        )
-                                    }
+                                    )}
                                     value={charityDonation.address}
                                     readOnly
                                 />
                                 <input
                                     readOnly={isLoading}
                                     type="number"
-                                    className={
-                                        cx(
+                                    className={cx(
                                         "input input-bordered border-base-content profile-item block outline-none !w-1/3",
                                         {
-                                            // "border-red-500": errors.charity
+                                            "border-red-500": errors.charity
                                         }
-                                        )
-                                    }
+                                    )}
                                     min={1}
                                     value={charityDonation.percent}
-                                    onChange={(e) => setCharityDonation({...charityDonation, percent: e.target.value})}
+                                    onChange={(e) => controlCharityPercent(e.target.value) }
                                 />
                             </div>
                         </div>
@@ -554,9 +715,9 @@ export const NewCollection:FC = () => {
                         <div>
                             <div className="flex flex-col mb-2">
                                 <MintItemTitle
-                                title="Royalty"
-                                subTitle="A maximum of 10 % of your secondary sale price for each NFT is a required."
-                                required
+                                    title="Royalty"
+                                    subTitle="A maximum of 10 % of your secondary sale price for each NFT is a required."
+                                    required
                                 />
                             </div>
                             <select
@@ -573,14 +734,12 @@ export const NewCollection:FC = () => {
                             <div className="flex gap-2">
                                 <input
                                     type="text"
-                                    className={
-                                        cx(
-                                            "input input-bordered border-base-content profile-item block outline-none !w-2/3",
-                                            {
-                                                // "border-red-500": errors.royalty
-                                            }
-                                        )
-                                    }
+                                    className={cx(
+                                        "input input-bordered border-base-content profile-item block outline-none !w-2/3",
+                                        {
+                                            "border-red-500": errors.royalty
+                                        }
+                                    )}
                                     placeholder="Charity"
                                     value={royalty.charity}
                                     readOnly
@@ -588,14 +747,12 @@ export const NewCollection:FC = () => {
                                 <input
                                     readOnly={isLoading}
                                     type="number"
-                                    className={
-                                        cx(
+                                    className={cx(
                                         "input input-bordered border-base-content profile-item block outline-none !w-1/3",
                                         {
-                                            // "border-red-500": errors.royalty
+                                            "border-red-500": errors.royalty
                                         }
-                                        )
-                                    }
+                                    )}
                                     min={1}
                                     value={royalty.charityPercent}
                                     onChange={(e) => controlRoyaltyPercents(e.target.value, "charity")}
@@ -605,14 +762,12 @@ export const NewCollection:FC = () => {
                                 <input
                                     readOnly={isLoading}
                                     type="text"
-                                    className={
-                                        cx(
+                                    className={cx(
                                         "input input-bordered border-base-content profile-item block outline-none !w-2/3",
                                         {
-                                            // "border-red-500": errors.royalty
+                                            "border-red-500": errors.royalty
                                         }
-                                        )
-                                    }
+                                    )}
                                     placeholder="Creator"
                                     value={royalty.creator}
                                     onChange={(e) => setRoyalty({ ...royalty, creator: e.target.value })}
@@ -620,14 +775,12 @@ export const NewCollection:FC = () => {
                                 <input
                                     readOnly={isLoading}
                                     type="number"
-                                    className={
-                                        cx(
+                                    className={cx(
                                         "input input-bordered border-base-content profile-item block outline-none !w-1/3",
                                         {
-                                            // "border-red-500": errors.royalty
+                                            "border-red-500": errors.royalty
                                         }
-                                        )
-                                    }
+                                    )}
                                     min={1}
                                     value={royalty.creatorPercent}
                                     onChange={(e) => controlRoyaltyPercents(e.target.value, "creator")}
@@ -657,7 +810,7 @@ export const NewCollection:FC = () => {
                         </select>
                     </div>
                     
-                    <div>
+                    {/* <div>
                         <MintItemTitle
                             title="Payment tokens"
                             subTitle="These tokens can be used to buy and sell your items. "
@@ -670,7 +823,7 @@ export const NewCollection:FC = () => {
                             <option>Add token</option>
                             <option value="ethereum">Ethereum</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div>
                         <MintItemTitle
@@ -734,7 +887,7 @@ export const NewCollection:FC = () => {
                             </div>
                             <div className="flex justify-end items-center">
                                 <input
-                                    // readOnly={isLoading}
+                                    readOnly={isLoading}
                                     type="checkbox"
                                     className="toggle toggle-primary"
                                     checked={revealEnabled}
@@ -748,12 +901,12 @@ export const NewCollection:FC = () => {
                                     <input
                                         readOnly={isLoading}
                                         type="text"
-                                        placeholder="Please input default URI"
+                                        placeholder="Please input pre reveal URI"
                                         className={cx(
                                             "input input-bordered border-base-content profile-item block w-full outline-none",
-                                            // {
-                                            //     "border-red-500": errors.name
-                                            // }
+                                            {
+                                                "border-red-500": errors.prevealURI && revealEnabled
+                                            }
                                             )
                                         }
                                         value={revealURI}
@@ -775,11 +928,10 @@ export const NewCollection:FC = () => {
                                 placeholder=""
                                 className={cx(
                                     "input input-bordered border-base-content profile-item block w-full outline-none",
-                                    // {
-                                    //     "border-red-500": errors.name
-                                    // }
-                                    )
-                                }
+                                    {
+                                        "border-red-500": errors.mintPrice
+                                    }
+                                )}
                                 value={mintPrice}
                                 onChange={(e) => setMintPrice(e.target.value)}
                             />
@@ -788,7 +940,10 @@ export const NewCollection:FC = () => {
                     </div>
                 </div>
                 <div className="action-button mt-4">
-                    <button className="btn btn-info text-white">Create</button>
+                    <button
+                        className="btn btn-info text-white"
+                        onClick={createCollection}
+                    >Create</button>
                 </div>
             </div>
         </div>
