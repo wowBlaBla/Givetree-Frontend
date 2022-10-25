@@ -1,28 +1,7 @@
 import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
-
-import { BitCoinIcon } from "../../components/icons/BitcoinIcon";
-import { EthereumIcon } from "../../components/icons/EthereumIcon";
-import { SolanaIcon } from "../../components/icons/SolanaIcon";
-import { PolygonIcon } from "../../components/icons/PolygonIcon";
-import { FlowIcon } from "../../components/icons/FlowIcon";
-import { AlgorandIcon } from "../../components/icons/AlgorandIcon";
-import { AvalancheIcon } from "../../components/icons/AvalancheIcon";
-import { CardanoIcon } from "../../components/icons/CardanoIcon";
-import { Doguecoin } from "../../components/icons/Doguecoin";
-
-export const Tokens = [
-  { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon },
-  { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon },
-  { crypto: "Solana", currency: "SOL", icon: SolanaIcon },
-  { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon },
-  { crypto: "Flow", currency: "FLOW", icon: FlowIcon },
-  { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon },
-  { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon },
-  { crypto: "Cardano", currency: "ADA", icon: CardanoIcon },
-  { crypto: "Doguecoin", currency: "Dogue", icon: Doguecoin },
-];
+import { Tokens } from "../../utils/constants";
 
 export const MyWallets: FC = () => {
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(

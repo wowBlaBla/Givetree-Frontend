@@ -4,10 +4,10 @@ import { RequiredIcon } from "../../components/icons/RequiredIcon";
 import { MintItemTitle } from "../../components/MintItemTitle";
 import { MintArtPreview } from "../../components/MintArt";
 import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
-import { WebsiteIcon } from "../../components/icons/WebsiteIcon";
-import { DiscordSolidIcon } from "../../components/icons/DiscordIcon";
-import { MediumIcon } from "../../components/icons/MediumIcon";
-import { TelegramIcon } from "../../components/icons/TelegramIcon";
+import { WebsiteIcon } from "../../components/icons/socials/WebsiteIcon";
+import { DiscordSolidIcon } from "../../components/icons/socials/DiscordIcon";
+import { MediumIcon } from "../../components/icons/socials/MediumIcon";
+import { TelegramIcon } from "../../components/icons/socials/TelegramIcon";
 
 import PaddedCard from "../../assets/images/card-display-padded.svg";
 import CoveredCard from "../../assets/images/card-display-cover.svg";
@@ -228,10 +228,10 @@ export const NewCollection:FC = () => {
                             }
                         }
                     );
-                    let _socials = [];
+                    const _socials = [];
                     type social_index = "discord" | "website" | "telegram" | "medium";
                     if (Object.keys(socials).length) {
-                        for (let key in socials) {
+                        for (const key in socials) {
                             if (socials[key as social_index]) {
                                 _socials.push({
                                     social: key,
@@ -288,7 +288,7 @@ export const NewCollection:FC = () => {
     }
 
     const validateForm = () => {
-        let _errors = { ...errors };
+        const _errors = { ...errors };
 
         _errors.logo = !logo ? true : false;
         _errors.name = !name.trim().length ? true : false;

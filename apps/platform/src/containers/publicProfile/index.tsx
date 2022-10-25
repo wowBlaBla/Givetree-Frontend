@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ChevronRight } from "../../components/icons/ChevronRight";
 import { DefaultParams, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
+import { DonationForm } from "../../components/DonationForm";
 
 const StandardTabs = ["About", "Donations", "NFTs", "Collections", "Mint pages"];
 const CharityTabs = [
@@ -27,7 +28,6 @@ const PublicProfileContainer: FC = () => {
   const [type, setType] = React.useState("charity");
   const [tabs, setTabs] = React.useState(StandardTabs);
   const [currentTab, setCurrentTab] = React.useState<string>();
-  const [currentDonateTab, setCurrentDonateTab] = React.useState("Donate");
   const [_, params] = useRoute<ParamProps, string>(PlatformRoute.PublicProfileDetails);
 
   React.useEffect(() => {
@@ -334,77 +334,8 @@ const PublicProfileContainer: FC = () => {
                 </div>
               </div>
             </div> */}
-            <div className="flex-2 donate-container md:ml-6">
-              <div className="donate-tab flex h-[60px] mb-6">
-                <div
-                  className={`${
-                    currentDonateTab === "Donate" ? "active-tab" : "border-b-[1px]"
-                  } flex-1 border-r-[1px] border-black`}
-                  onClick={() => setCurrentDonateTab("Donate")}
-                >
-                  <span className="text-[24px] text-black">Donate</span>
-                </div>
-                <div
-                  className={`${
-                    currentDonateTab === "Fundraise" ? "active-tab" : "border-b-[1px]"
-                  } flex-1 border-black`}
-                  onClick={() => setCurrentDonateTab("Fundraise")}
-                >
-                  <span className="text-[24px] text-black">Fundraise</span>
-                </div>
-              </div>
-              <div className="px-6 pb-6">
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">Charity</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-md">Foundation of nat...</span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">AUD</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-h">100</span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">BTC</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-h">0.000033</span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <div className="flex justify-center">
-                  <select className="donate-item w-[75%] text-md text-black mb-4 outline-none !h-[40px]">
-                    <option>One time purchase</option>
-                  </select>
-                </div>
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">Pay with</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-md">Ox028928</span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">Donor info</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-md">Name, Age, etc </span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <div className="flex donate-item text-black items-center mb-4">
-                  <span className="text-md w-[120px]">Tax info</span>
-                  <div className="flex flex-1 justify-between items-center">
-                    <span className="text-md">Tax receipt, Email</span>
-                    <ChevronRight className="cursor-pointer h-[10px]" color="black" />
-                  </div>
-                </div>
-                <button className="btn w-full bg-[#007A00] rounded-[20px] text-white h-[60px] capitalize">
-                  Preview Donation
-                </button>
-              </div>
+            <div className="flex-2 md:ml-6">
+              <DonationForm />
             </div>
           </div>
         </div>

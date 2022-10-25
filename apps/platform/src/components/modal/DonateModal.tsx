@@ -2,12 +2,12 @@ import { InformationCircleIcon, ArrowCircleRightIcon, DuplicateIcon, ArrowCircle
 import { FC, Fragment, ReactElement, useState } from "react";
 import cx from "classnames";
 import QRCode from "../../assets/images/qr-code-sample.png";
-import { EthereumIcon } from "../icons/EthereumIcon";
+import { EthereumIcon } from "../icons/cryptos/EthereumIcon";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import { PrimaryButton } from "../PrimaryCta";
-import { PolygonIcon } from "../icons/PolygonIcon";
-import { SolanaIcon } from "../icons/SolanaIcon";
+import { PolygonIcon } from "../icons/cryptos/PolygonIcon";
+import { SolanaIcon } from "../icons/cryptos/SolanaIcon";
 
 interface ModalProps {
     logo: string;

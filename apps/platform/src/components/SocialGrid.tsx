@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { ContractIcon } from "./icons/ContractIcon";
-import { DiscordOutlineIcon } from "./icons/DiscordIcon";
+import { DiscordOutlineIcon } from "./icons/socials/DiscordIcon";
 import { GlobeIcon } from "./icons/GlobeIcon";
 import { TwitterOutlineIcon } from "./icons/TwitterIcon";
 

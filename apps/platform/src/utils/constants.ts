@@ -1,7 +1,20 @@
-import { DiscordSolidIcon } from "../components/icons/DiscordIcon";
-import { TelegramIcon } from "../components/icons/TelegramIcon";
-import { MediumIcon } from "../components/icons/MediumIcon";
-import { WebsiteIcon } from "../components/icons/WebsiteIcon";
+import { DiscordSolidIcon } from "../components/icons/socials/DiscordIcon";
+import { TelegramIcon } from "../components/icons/socials/TelegramIcon";
+import { MediumIcon } from "../components/icons/socials/MediumIcon";
+import { WebsiteIcon } from "../components/icons/socials/WebsiteIcon";
+import { BitCoinIcon } from "../components/icons/cryptos/BitcoinIcon";
+import { EthereumIcon } from "../components/icons/cryptos/EthereumIcon";
+import { SolanaIcon } from "../components/icons/cryptos/SolanaIcon";
+import { PolygonIcon } from "../components/icons/cryptos/PolygonIcon";
+import { FlowIcon } from "../components/icons/cryptos/FlowIcon";
+import { AlgorandIcon } from "../components/icons/cryptos/AlgorandIcon";
+import { AvalancheIcon } from "../components/icons/cryptos/AvalancheIcon";
+import { CardanoIcon } from "../components/icons/cryptos/CardanoIcon";
+import { Doguecoin } from "../components/icons/cryptos/Doguecoin";
+import { AUDIcon } from "../components/icons/currencies/AUDIcon";
+import { USDIcon } from "../components/icons/currencies/USDIcon";
+import { GBPIcon } from "../components/icons/currencies/GBPIcon";
+import { JPYIcon } from "../components/icons/currencies/JPYIcon";
 
 export const Countries = [
   { name: "Afghanistan", code: "AF" },
@@ -254,4 +267,30 @@ export const SocialLinks = [
   { name: "discord", icon: DiscordSolidIcon },
   { name: "medium", icon: MediumIcon },
   { name: "telegram", icon: TelegramIcon },
+];
+
+export const Tokens = [
+  { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon },
+  { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon },
+  { crypto: "Solana", currency: "SOL", icon: SolanaIcon },
+  { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon },
+  { crypto: "Flow", currency: "FLOW", icon: FlowIcon },
+  { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon },
+  { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon },
+  { crypto: "Cardano", currency: "ADA", icon: CardanoIcon },
+  { crypto: "Doguecoin", currency: "Dogue", icon: Doguecoin },
+];
+
+export const Currencies = [
+  { name: "Australian Dollar", currency: "AUD", icon: AUDIcon },
+  { name: "United States Dollar", currency: "USD", icon: USDIcon },
+  { name: "Pounds Sterling", currency: "GBP", icon: GBPIcon },
+  { name: "Japanese Yen", currency: "JPY", icon: JPYIcon },
+];
+
+export const OneTimePurchase = [
+  { name: "Daily", description: "Every day starting today" },
+  { name: "Weekly", description: "Every Saturday starting today" },
+  { name: "1st & 15th of every month", description: "Twice a month including today" },
+  { name: "Monthly", description: "Every month on the 1st" },
 ];

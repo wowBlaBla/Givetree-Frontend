@@ -294,7 +294,7 @@
   background: white;
   border: 1px solid #000000;
   border-radius: 20px;
-  height: fit-content;
+  height: 800px;
 }
 
 .donate-container .donate-item {
@@ -303,6 +303,7 @@
   height: 80px;
   padding-left: 24px;
   padding-right: 24px;
+  cursor: pointer;
 }
 
 .donate-container .donate-tab>div {
@@ -322,6 +323,15 @@
 
 .donate-container .donate-tab .active-tab {
   background-color: transparent;
+}
+
+.donate-container .donation-radio-box {
+  border-radius: 0 !important;
+}
+
+.donate-container .donation-radio-box:checked {
+  background-color: #00F3E5 !important;
+  box-shadow: 0 0 0 2px white inset, 0 0 0 2px white inset !important;
 }
 
 .donation-item {
@@ -400,3 +410,4 @@
   background: #2FB4D1;
   color: white;
 }
+
