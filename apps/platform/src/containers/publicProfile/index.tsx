@@ -4,25 +4,19 @@ import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./charities.data";
 import Image from "next/image";
-import { YoutubeIcon } from "../../components/icons/YoutubeIcon";
-import { InstagramIcon } from "../../components/icons/InstagramIcon";
-import { FacebookIcon } from "../../components/icons/FacebookIcon";
-import { LinkedinIcon } from "../../components/icons/LinkedinIcon";
-import { MediumIcon } from "../../components/icons/MediumIcon";
-import { BitCoinIcon } from "../../components/icons/BitcoinIcon";
-import { EthereumIcon } from "../../components/icons/EthereumIcon";
-import { SolanaIcon } from "../../components/icons/SolanaIcon";
-import { PolygonIcon } from "../../components/icons/PolygonIcon";
-import { FlowIcon } from "../../components/icons/FlowIcon";
-import { AlgorandIcon } from "../../components/icons/AlgorandIcon";
-import { AvalancheIcon } from "../../components/icons/AvalancheIcon";
-import { CardanoIcon } from "../../components/icons/CardanoIcon";
-import { Doguecoin } from "../../components/icons/Doguecoin";
 import { ChevronRight } from "../../components/icons/ChevronRight";
 import { DefaultParams, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
 
-const Tabs = ["Donations", "NFTs", "Collections", "Mint pages"];
+const StandardTabs = ["About", "Donations", "NFTs", "Collections", "Mint pages"];
+const CharityTabs = [
+  "About",
+  "Donations",
+  "Fundraisers",
+  "NFTs",
+  "Collections",
+  "Mint pages",
+];
 
 interface ParamProps extends DefaultParams {
   category: string;
@@ -30,9 +24,21 @@ interface ParamProps extends DefaultParams {
 }
 
 const PublicProfileContainer: FC = () => {
-  const [currentTab, setCurrentTab] = React.useState(Tabs[0]);
+  const [type, setType] = React.useState("charity");
+  const [tabs, setTabs] = React.useState(StandardTabs);
+  const [currentTab, setCurrentTab] = React.useState<string>();
   const [currentDonateTab, setCurrentDonateTab] = React.useState("Donate");
   const [_, params] = useRoute<ParamProps, string>(PlatformRoute.PublicProfileDetails);
+
+  React.useEffect(() => {
+    if (type === "charity") {
+      setTabs(CharityTabs);
+      setCurrentTab(CharityTabs[0]);
+    } else {
+      setTabs(StandardTabs);
+      setCurrentTab(StandardTabs[0]);
+    }
+  }, [type]);
 
   const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
     GET_CHARITY_DETAILS_DATA,
@@ -89,7 +95,7 @@ const PublicProfileContainer: FC = () => {
           </div>
           <div className="profile-tab">
             <div className="tabs">
-              {Tabs.map((tab, index) => (
+              {tabs.map((tab, index) => (
                 <div
                   key={`public-profile-tab-${index}`}
                   className={`tab ${currentTab === tab ? "tab-active" : ""}`}
@@ -105,31 +111,51 @@ const PublicProfileContainer: FC = () => {
       <div className="w-full mb-[80px]">
         <div className="max-w-layout-xl mx-auto pt-8">
           <div className="flex flex-col md:flex-row">
-            <div className="flex-3 bg-white rounded-t-[20px] border border-[#717171] text-black">
-              <div className="donation-item flex items-center">
-                <span className="text-lg font-bold">Donations</span>
-              </div>
-              <div className="donation-item flex items-center justify-between">
-                <span className="text-sm">Search</span>
-                <span className="text-sm">Filter</span>
-              </div>
-              <div className="donation-item flex items-center">
-                <span className="text-sm mr-4">#</span>
-                <span className="text-sm mr-4">Crypto</span>
-                <span className="text-sm mr-4">Amount</span>
-                <span className="text-sm mr-4">Currency</span>
-                <span className="text-sm mr-4">Amount</span>
-                <span className="text-sm mr-4">Date</span>
-                <span className="text-sm">Wallet</span>
-              </div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
+            <div className="flex-3">
+              {currentTab === "About" ? (
+                <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black p-8">
+                  <span className="text-lg font-bold">Bio</span>
+                  <span>
+                    Lorum Imsum lorum ipsum lorum ipsum Lorum Imsum lorum ipsum lorum
+                    ipsum Lorum Imsum lorum ipsum lorum ipsum Lorum Imsum lorum ipsum
+                    lorum ipsumLorum Imsum lorum ipsum lorum ipsumLorum Imsum lorum ipsum
+                    lorum ipsum
+                  </span>
+                </div>
+              ) : currentTab === "Donations" ? (
+                <div className="bg-white rounded-t-[20px] border border-[#717171] text-black">
+                  <div className="donation-item flex items-center">
+                    <span className="text-lg font-bold">Donations</span>
+                  </div>
+                  <div className="donation-item flex items-center justify-between">
+                    <span className="text-sm">Search</span>
+                    <span className="text-sm">Filter</span>
+                  </div>
+                  <div className="donation-item flex items-center">
+                    <span className="text-sm mr-4">#</span>
+                    <span className="text-sm mr-4">Crypto</span>
+                    <span className="text-sm mr-4">Amount</span>
+                    <span className="text-sm mr-4">Currency</span>
+                    <span className="text-sm mr-4">Amount</span>
+                    <span className="text-sm mr-4">Date</span>
+                    <span className="text-sm">Wallet</span>
+                  </div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                  <div className="donation-item"></div>
+                </div>
+              ) : currentTab === "NFTs" ? (
+                <></>
+              ) : currentTab === "Collections" ? (
+                <></>
+              ) : (
+                <></>
+              )}
             </div>
             {/* <div className="flex-3 about-main text-white mb-6 md:mb-0">
               <div className="flex border-b-[1px] border-black px-6 py-2 h-[60px] items-center">

@@ -7,51 +7,57 @@ import { updateAddress } from "../../store/actions/auth.action";
 import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
 import avatar from "../../temp/images/campaigns/mulgakongz-collection.png";
 import { AuthWithWallet } from "../../components/AuthWithWallet";
+import { UserIcon } from "../../components/icons/profiles/UserIcon";
+import { WalletIcon } from "../../components/icons/profiles/WalletIcon";
+import { NFTIcon } from "../../components/icons/profiles/NFTIcon";
+import { CollectionIcon } from "../../components/icons/profiles/CollectionIcon";
+import { ListingIcon } from "../../components/icons/profiles/ListingIcon";
+import { DonationIcon } from "../../components/icons/profiles/DonationIcon";
+import { SettingIcon } from "../../components/icons/profiles/SettingIcon";
+import { CreateIcon } from "../../components/icons/profiles/CreateIcon";
 
 interface NavItem {
   category: string;
   title: string;
   children?: NavItem[];
+  icon?: React.FC;
 }
 
 const defaultNavs: NavItem[] = [
   {
     category: "home",
     title: "My profile",
-    children: [
-      {
-        category: "home-appearance",
-        title: "Appearance",
-      },
-      {
-        category: "home-settings",
-        title: "Settings",
-      },
-    ],
+    icon: UserIcon,
   },
   {
     category: "wallets",
     title: "My wallets",
+    icon: WalletIcon,
   },
   {
     category: "nfts",
     title: "My NFTs",
+    icon: NFTIcon,
   },
   {
     category: "collections",
     title: "My collections",
+    icon: CollectionIcon,
   },
   {
     category: "listings",
     title: "My listings",
+    icon: ListingIcon,
   },
   {
     category: "donations",
     title: "My donations",
+    icon: DonationIcon,
   },
   {
     category: "settings",
     title: "Settings",
+    icon: SettingIcon,
   },
 ];
 
@@ -59,18 +65,22 @@ const createNavs: NavItem[] = [
   {
     category: "mint",
     title: "Create NFT",
+    icon: CreateIcon,
   },
   {
     category: "newcollection",
     title: "Create collection",
+    icon: CreateIcon,
   },
   {
     category: "newsale",
     title: "Create sale/auction",
+    icon: CreateIcon,
   },
   {
     category: "newmintpage",
     title: "Create mint page",
+    icon: CreateIcon,
   },
 ];
 
@@ -150,10 +160,11 @@ export const ProfileSideBar: FC = () => {
                 key={`default-side-sub-${idx}`}
               >
                 <div
-                  className={`cursor-pointer px-2 py-2 border-b border-[#686868] ${
+                  className={`flex items-center cursor-pointer px-4 py-3 border-b border-[#686868] ${idx === 0 ? "border-t" : ""} ${
                     item.category == params?.category ? "bg-[#5A5A5A]" : ""
                   }`}
                 >
+                  {item.icon && <item.icon />}
                   <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
                 </div>
               </Link>
@@ -169,10 +180,11 @@ export const ProfileSideBar: FC = () => {
               key={idx}
             >
               <div
-                className={`cursor-pointer px-2 py-2 border-b border-[#686868] ${
+                className={`flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
                   item.category == params?.category ? "bg-[#5A5A5A]" : ""
                 } ${idx === 0 ? "border-t" : ""}`}
               >
+                {item.icon && <item.icon />}
                 <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
               </div>
             </Link>
