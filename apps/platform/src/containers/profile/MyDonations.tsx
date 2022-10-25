@@ -5,14 +5,14 @@ export const MyDonations: FC = () => {
     <div className="profile">
       <div className="p-8 max-w-layout-xl">
         <h1 className="font-bold text-black text-[24px] mb-2">My donations</h1>
-        <div className="flex mt-4 mb-8">
-          <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black w-[400px] h-[176px] px-8 py-6">
+        <div className="flex flex-col lg:flex-row mt-4 mb-8">
+          <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black w-[400px] h-[176px] px-8 py-6 mb-4 lg:mb-0">
             <span className="text-xl font-bold mb-4">
               Total donations value (cumulative)
             </span>
             <span className="text-[40px] font-bold">$1000000</span>
           </div>
-          <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black w-[400px] h-[176px] px-8 py-6 ml-4">
+          <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black w-[400px] h-[176px] px-8 py-6 lg:ml-4">
             <span className="text-xl font-bold mb-4">Total charities supported</span>
             <span className="text-[40px] font-bold">20</span>
           </div>

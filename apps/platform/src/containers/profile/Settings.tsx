@@ -56,24 +56,14 @@ export const Settings: FC = () => {
 
   return (
     <div className="profile">
-      <div className="profile-save-section px-8">
-        <div className="flex justify-between max-w-[632px] items-center justify-end h-[51px]">
-          <div className="flex-1" />
-          <button
-            className="btn bg-[#0075FF] text-white h-[30px] min-h-0"
-            onClick={updateProfile}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-      <div className="p-8 max-w-[700px]">
+      <div className="p-8 max-w-layout-xl">
+        <h1 className="font-bold text-black text-[24px] mb-2">Settings</h1>
         <div className="profile-section">
           <label className="mb-1 text-md text-white">Email</label>
           <input
             readOnly
             type="email"
-            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -81,7 +71,7 @@ export const Settings: FC = () => {
           <input
             type="text"
             readOnly
-            className="input input-bordered profile-item mt-1 block w-full outline-none"
+            className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />

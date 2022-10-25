@@ -248,7 +248,18 @@ export const Home: FC = () => {
     <div className="profile">
       <div className="profile-save-section px-8 pt-8">
         <h1 className="font-bold text-black text-[24px] mb-4">My Profile</h1>
-        <div className="flex justify-between max-w-[825px] items-center">
+        <div className="flex flex-col lg:flex-row justify-between max-w-[825px] items-start lg:items-center">
+          <div className="flex lg:hidden mb-2">
+            <button className="btn text-white h-[30px] min-h-0 mr-4 bg-transparent text-[#0075FF] border-[#0075FF]">
+              View Profile
+            </button>
+            <button
+              className="btn text-white h-[30px] min-h-0 bg-[#0075FF] border border-[#0075FF]"
+              onClick={updateProfile}
+            >
+              Publish
+            </button>
+          </div>
           <div className="tabs">
             <div
               className={`tab ${editType === "detail" ? "tab-active" : ""}`}
@@ -269,8 +280,8 @@ export const Home: FC = () => {
               Settings
             </div>
           </div>
-          <div className="flex">
-            <button className="btn text-white h-[30px] min-h-0 mr-4 bg-transparent text-[#0075FF] border-transparent">
+          <div className="hidden lg:flex">
+            <button className="btn text-white h-[30px] min-h-0 mr-4 bg-transparent text-[#0075FF] border-[#0075FF]">
               View Profile
             </button>
             <button
@@ -561,8 +572,8 @@ export const Home: FC = () => {
             <label className="text-sm text-black !font-normal">
               Your profile picture will appear where your profile is presented on GiveTree
             </label>
-            <div className="flex mb-[48px] mt-4">
-              <div className="profile-box w-[300px] h-[250px] flex justify-center items-center mr-8">
+            <div className="flex flex-col lg:flex-row mb-[48px] mt-4">
+              <div className="profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 {avatarUrl && (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -604,9 +615,9 @@ export const Home: FC = () => {
               Your banner image will cover background where your profile is presented on
               GiveTree
             </label>
-            <div className="flex mb-[48px] mt-4">
+            <div className="flex flex-col lg:flex-row mb-[48px] mt-4">
               <div
-                className={`profile-box w-[300px] h-[250px] flex justify-center items-center mr-8`}
+                className={`profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0`}
                 style={{
                   background: profileData.banner || "white",
                 }}
@@ -735,7 +746,9 @@ export const Home: FC = () => {
               </div>
               <div className="flex px-6 py-3 items-center justify-between">
                 <label className="text-md text-white">Profile verifiication status</label>
-                <label className="text-md !text-[#F10000] font-bold">Not verified </label>
+                <label className="text-md !text-[#F10000] font-bold text-left">
+                  Not verified
+                </label>
               </div>
             </div>
           </>

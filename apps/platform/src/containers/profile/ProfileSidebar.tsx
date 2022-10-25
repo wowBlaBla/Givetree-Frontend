@@ -1,12 +1,9 @@
-import { XCircleIcon } from "@heroicons/react/outline";
-import { FC, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FC, useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
-import { updateAddress } from "../../store/actions/auth.action";
 import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
 import avatar from "../../temp/images/campaigns/mulgakongz-collection.png";
-import { AuthWithWallet } from "../../components/AuthWithWallet";
 import { UserIcon } from "../../components/icons/profiles/UserIcon";
 import { WalletIcon } from "../../components/icons/profiles/WalletIcon";
 import { NFTIcon } from "../../components/icons/profiles/NFTIcon";
@@ -84,26 +81,24 @@ const createNavs: NavItem[] = [
   },
 ];
 
-export const ProfileSideBar: FC = () => {
+interface ProfileSideBarProps {
+  visible?: boolean;
+  setVisible?: (visible: boolean) => void;
+}
+
+export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible }) => {
   const [, params] = useRoute(PlatformRoute.ProfileDetails);
-  const dispatch = useDispatch();
-  const walletAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
-  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const authedUser = useSelector<IStore, AUTH_USER | undefined>(
     (state) => state.auth.authedUser
   );
 
-  const disconnect = () => {
-    dispatch(updateAddress(""));
-  };
-
-  useEffect(() => {
-    if (walletAddress) setOpenModal(false);
-  }, [walletAddress]);
-
   return (
-    <div className="side-bar hidden sm:flex flex-col min-w-[240px] max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark">
+    <div
+      className={`side-bar ${
+        visible ? "absolute" : "hidden lg:flex"
+      } lg:sticky top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark z-10`}
+    >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="flex flex-col items-center px-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -158,11 +153,12 @@ export const ProfileSideBar: FC = () => {
                 className={`flex items-center transition-colors duration-300 transform`}
                 href={"/profile/" + item.category}
                 key={`default-side-sub-${idx}`}
+                onClick={() => setVisible && setVisible(false)}
               >
                 <div
-                  className={`flex items-center cursor-pointer px-4 py-3 border-b border-[#686868] ${idx === 0 ? "border-t" : ""} ${
-                    item.category == params?.category ? "bg-[#5A5A5A]" : ""
-                  }`}
+                  className={`flex items-center cursor-pointer px-4 py-3 border-b border-[#686868] ${
+                    idx === 0 ? "border-t" : ""
+                  } ${item.category == params?.category ? "bg-[#5A5A5A]" : ""}`}
                 >
                   {item.icon && <item.icon />}
                   <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
@@ -178,6 +174,7 @@ export const ProfileSideBar: FC = () => {
               className={`flex items-center p-2 transition-colors duration-300 transform`}
               href={"/profile/" + item.category}
               key={idx}
+              onClick={() => setVisible && setVisible(false)}
             >
               <div
                 className={`flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
@@ -190,24 +187,6 @@ export const ProfileSideBar: FC = () => {
             </Link>
           ))}
         </nav>
-      </div>
-      <div className="modal-panel">
-        <input
-          type="checkbox"
-          id="my-modal-5"
-          className="modal-toggle"
-          checked={openModal}
-          readOnly
-        />
-        <label htmlFor="my-modal-5" className="modal">
-          <span
-            className="absolute top-0 right-0 mr-2 mt-2 text-white cursor-pointer"
-            onClick={() => (walletAddress ? disconnect() : setOpenModal(false))}
-          >
-            <XCircleIcon className="w-7 h-7" />
-          </span>
-          <AuthWithWallet type={1} hiddenTitle />
-        </label>
       </div>
     </div>
   );
