@@ -55,7 +55,7 @@ export const SigninWithEmail: FC = () => {
           localStorage.setItem("refresh_token", res.data.refreshToken);
           dispatch(openModal(false));
           dispatch(updateAuthed(res.data));
-          setLocation("/profile/home-appearance");
+          setLocation("/profile/home");
         })
         .catch((err) => {
           if (err?.response?.data?.message) {

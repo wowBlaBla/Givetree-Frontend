@@ -135,23 +135,31 @@
 .profile-save-section {
   position: sticky;
   top: 0;
-  background: #37393E;
-  border: 1px solid #696969;
+  background: #FFFFFF;
+  border: 1px solid #000000;
   border-left: 0;
   border-top: 0;
 }
 
 .profile-save-section .tabs .tab {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0.2rem;
   height: unset;
   font-size: 16px;
-  color: white;
+  color: #000000;
+  border-bottom: 3px solid white;
+  margin-right: 24px;
+}
+
+.profile-save-section .tabs .tab:last-child {
+  margin-right: 0;
 }
 
 .profile-save-section .tabs .tab.tab-active {
-  border-bottom: 3px solid #00EF8B;
-  color: #00EF8B;
+  border-bottom: 3px solid #0075FF;
+  color: #0075FF;
+  font-weight: 700;
 }
 
 .side-bar {
@@ -286,7 +294,7 @@
   background: white;
   border: 1px solid #000000;
   border-radius: 20px;
-  height: fit-content;
+  height: 800px;
 }
 
 .donate-container .donate-item {
@@ -295,6 +303,7 @@
   height: 80px;
   padding-left: 24px;
   padding-right: 24px;
+  cursor: pointer;
 }
 
 .donate-container .donate-tab>div {
@@ -314,6 +323,15 @@
 
 .donate-container .donate-tab .active-tab {
   background-color: transparent;
+}
+
+.donate-container .donation-radio-box {
+  border-radius: 0 !important;
+}
+
+.donate-container .donation-radio-box:checked {
+  background-color: #00F3E5 !important;
+  box-shadow: 0 0 0 2px white inset, 0 0 0 2px white inset !important;
 }
 
 .donation-item {
@@ -392,3 +410,4 @@
   background: #2FB4D1;
   color: white;
 }
+

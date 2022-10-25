@@ -1,7 +1,7 @@
 import { FC } from "react";
 import cx from "classnames";
 import { CollectionBadge } from "../../components/badges/CollectionBadge";
-import { PolygonIcon } from "../../components/icons/PolygonIcon";
+import { PolygonIcon } from "../../components/icons/cryptos/PolygonIcon";
 import MulgaKongz from "../../temp/images/campaigns/mulgakongz-collection.png";
 import { CampaignDescription, PriceDescription } from "../../configs/collectionText";
 
