@@ -33,9 +33,9 @@ export const SideNavigation: FC = () => {
     dispatch(openSidebar(!openSideMenu));
   };
 
-  const handleSelectMenuItem = (menuItem: AppHeaderNavLink | undefined) => () => {
-    setSelectedMenuItem(menuItem);
-  };
+  // const handleSelectMenuItem = (menuItem: AppHeaderNavLink | undefined) => () => {
+  //   setSelectedMenuItem(menuItem);
+  // };
 
   useEffect(() => {
     setMenu(MenuList);

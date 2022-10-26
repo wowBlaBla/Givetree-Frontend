@@ -7,6 +7,7 @@ import { IStore as IStoreMVP } from "../../store/reducers/mvp.reducer";
 import axios from "axios";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
+import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 
 export const MyCollections: FC = () => {
 
@@ -14,7 +15,7 @@ export const MyCollections: FC = () => {
   const factoryContract = useSelector<IStoreMVP, Contract | undefined>((state) => state.mvp.contracts.factoryContract)
   const [collections, setCollections] = useState<any[]>([]);
   const [connectedAddress, /*setConnectedAddress*/] = useState<string>(waleltAddress);
-  const [/*isLoading*/, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (connectedAddress) fetchCollections();
@@ -52,11 +53,24 @@ export const MyCollections: FC = () => {
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {collections.map((campaign, idx) => (
-              <CollectionCard key={idx} campaign={campaign} />
-            ))}
+            {
+              !isLoading ? (
+                <>
+                  {collections.map((campaign, idx) => (
+                    <CollectionCard key={idx} campaign={campaign} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                </>
+              )
+            }
           </div>
-          { !collections.length && <ItemEmptyBox/> }
+          { !isLoading && !collections.length && <ItemEmptyBox/> }
         </div>
       </div>
     </div>

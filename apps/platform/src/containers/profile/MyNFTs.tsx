@@ -5,13 +5,14 @@ import { ETH_ALCHEMY } from "../../configs/constants";
 import { IStore } from "../../store/reducers/auth.reducer";
 import { NFTCard } from "../../components/cards/NFTCard";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
+import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 
 export const MyNFTs: FC = () => {
 
   const waleltAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
   const [connectedAddress, /*setConnectedAddress*/] = useState<string>(waleltAddress);
   const [nfts, setNFTs] = useState<any[]>([]);
-  const [/*isLoading*/, setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (connectedAddress) fetchNFTs();
@@ -46,13 +47,24 @@ export const MyNFTs: FC = () => {
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {nfts.map((nft, idx) => (
-              <NFTCard key={idx} nft={nft}/>
-            ))}
+            {
+              !isLoading ? (
+                <>
+                  {nfts.map((nft, idx) => (
+                    <NFTCard key={idx} nft={nft} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                </>
+              )
+            }
           </div>
-          {
-            !nfts.length && <ItemEmptyBox/>
-          }
+          { !isLoading && !nfts.length && <ItemEmptyBox/> }
         </div>
       </div>
     </div>
