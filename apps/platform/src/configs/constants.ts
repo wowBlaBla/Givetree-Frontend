@@ -4,12 +4,12 @@ import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 export const pinata_api_key:string = "1b8dc5c608d42bdc8f63";
 export const pinata_secret_api_key:string = "49e7b1be1a1f57d8b6eb956470343cef3675c91bd482f9f889b814e07daf90c5";
-
+export const ETH_ALCHEMY:string = "LYuZuxHIZHqSqR5qCsT768jCORqGoXqn";
 export const SOLANA_NETWORK: WalletAdapterNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK as WalletAdapterNetwork;
 
 export const EthereumNetwork = {
     address: {
-        factory: "0x3a6f4e57d3B502A6Df294e3499E53Dd15db5fC5F",
+        factory: "0xA0705d543872DB371742474546408cea185Eed94",
         singleNFT: "0x55F11ff37b9667E561b0D911cbc93e4bA7fdBF27",
         marketplace: "0x02ae7cF4D0ddA6817e2524fABf5ACb9583AF636a",
     },
