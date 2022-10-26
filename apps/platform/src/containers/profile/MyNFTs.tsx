@@ -1,23 +1,32 @@
-import { useQuery } from "@apollo/client";
-import { FC } from "react";
-import { CollectionCard } from "../../components/cards/CollectionCard";
-import { ErrorContainer } from "../../components/ErrorContainer";
-import { LoadingContainer } from "../../components/LoadingContainer";
-import { GetHomeDataQuery, GET_HOME_DATA } from "../home/home.data";
+import { FC, useEffect, useState } from "react";
+import { Network, Alchemy } from 'alchemy-sdk';
+import { useSelector } from "react-redux";
+import { ETH_ALCHEMY } from "../../configs/constants";
+import { IStore } from "../../store/reducers/auth.reducer";
+import { NFTCard } from "../../components/cards/NFTCard";
+import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 
 export const MyNFTs: FC = () => {
-  const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
-  if (loading) {
-    return <LoadingContainer message="Loading collections..." />;
-  }
+  const waleltAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
+  const [connectedAddress, /*setConnectedAddress*/] = useState<string>(waleltAddress);
+  const [nfts, setNFTs] = useState<any[]>([]);
+  const [/*isLoading*/, setLoading] = useState<boolean>(false);
 
-  if (error) {
-    return <ErrorContainer message="Failed to load collections." />;
-  }
+  useEffect(() => {
+    if (connectedAddress) fetchNFTs();
+  }, [connectedAddress]);
 
-  if (!data) {
-    return <ErrorContainer message="Failed to load collections." />;
+  const fetchNFTs = async() => {
+    setLoading(true);
+    const settings = {
+      apiKey: ETH_ALCHEMY,
+      network: Network.ETH_GOERLI
+    };
+    const alchemy = new Alchemy(settings);
+    const res = await alchemy.nft.getNftsForOwner(connectedAddress);
+    setNFTs(res.ownedNfts);
+    setLoading(false);
   }
 
   return (
@@ -30,16 +39,20 @@ export const MyNFTs: FC = () => {
           <div className="flex my-6">
             <input
               readOnly
+              value={connectedAddress}
               type="text"
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
             />
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (
-              <CollectionCard key={idx} campaign={campaign} />
+            {nfts.map((nft, idx) => (
+              <NFTCard key={idx} nft={nft}/>
             ))}
           </div>
+          {
+            !nfts.length && <ItemEmptyBox/>
+          }
         </div>
       </div>
     </div>

@@ -32,3 +32,16 @@ export interface Campaign {
   whitelistMemo?: string;
   event: CampaignEvent;
 }
+
+export interface NFTMetaData {
+  title: string;
+  description: string;
+  media: {
+    gateway: string;
+    raw: string;
+  }[],
+  contract: {
+    address: string;
+  },
+  tokenId: string;
+}
