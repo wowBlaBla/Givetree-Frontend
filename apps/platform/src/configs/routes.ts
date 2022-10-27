@@ -37,12 +37,12 @@ export const MenuList: AppHeaderNavLink[] = [
   {
     id: "explore",
     title: "EXPLORE",
-    href: "/explore",
+    href: "/explore/creators",
   },
   {
     id: "create",
     title: "CREATE",
-    href: "/",
+    href: "/profile/new-nft",
   },
   {
     id: "donate",

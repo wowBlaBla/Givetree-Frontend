@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useCallback } from "react";
 import { toast } from "react-toastify";
 import { useLocation } from "wouter";
+import { LoadingContainer } from "../components/LoadingContainer";
 
 import { CharityProperties } from "../typed/charity";
 
@@ -52,7 +53,7 @@ interface IAuthProvider {
   isAuth: boolean;
   authUser?: AUTH_USER;
   updateUserData: (data: Partial<User>) => void;
-  register: (body: AuthRequestBody, authType: AuthType) => void;
+  register: (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => void;
   login: (body: AuthRequestBody, authType: AuthType) => void;
   logout: () => void;
   refreshAccount: (token: string) => void;
@@ -75,63 +76,67 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
   const [loading, setLoading] = React.useState(false);
   const [authUser, setAuthUser] = React.useState<AUTH_USER>();
 
-  React.useEffect(() => {
-    if (isAuth) {
-      setLocation("/profile/home");
-    }
-  }, [isAuth, setLocation]);
+  const register = React.useCallback(
+    (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => {
+      const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
+        authType === "email" ? "register-email" : "register-wallet"
+      }`;
 
-  const register = React.useCallback((body: AuthRequestBody, authType: AuthType) => {
-    const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
-      authType === "email" ? "register-email" : "register-wallet"
-    }`;
+      setLoading(true);
+      axios
+        .post(api, body)
+        .then((res: any) => {
+          toast.success("You have registered successfully!");
 
-    setLoading(true);
-    axios
-      .post(api, body)
-      .then((res: any) => {
-        toast.success("You have registered successfully!");
+          localStorage.setItem("access_token", res.data.accessToken);
+          localStorage.setItem("refresh_token", res.data.refreshToken);
+          setAuthUser(res.data);
+          setIsAuth(true);
+          if (redirect) {
+            setLocation("/profile/home");
+          }
+        })
+        .catch((err) => {
+          if (err?.response?.data?.message) {
+            toast.error(err?.response?.data?.message);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [setLocation]
+  );
 
-        localStorage.setItem("access_token", res.data.accessToken);
-        localStorage.setItem("refresh_token", res.data.refreshToken);
-        setAuthUser(res.data);
-        setIsAuth(true);
-      })
-      .catch((err) => {
-        if (err?.response?.data?.message) {
-          toast.error(err?.response?.data?.message);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const login = React.useCallback(
+    (body: AuthRequestBody, authType: AuthType) => {
+      const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
+        authType === "email" ? "login-email" : "login-wallet"
+      }`;
 
-  const login = React.useCallback((body: AuthRequestBody, authType: AuthType) => {
-    const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
-      authType === "email" ? "login-email" : "login-wallet"
-    }`;
+      setLoading(true);
+      axios
+        .post(api, body)
+        .then((res: any) => {
+          toast.success("You have logined successfully!");
 
-    setLoading(true);
-    axios
-      .post(api, body)
-      .then((res: any) => {
-        toast.success("You have logined successfully!");
-
-        localStorage.setItem("access_token", res.data.accessToken);
-        localStorage.setItem("refresh_token", res.data.refreshToken);
-        setAuthUser(res.data);
-        setIsAuth(true);
-      })
-      .catch((err) => {
-        if (err?.response?.data?.message) {
-          toast.error(err?.response?.data?.message);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+          localStorage.setItem("access_token", res.data.accessToken);
+          localStorage.setItem("refresh_token", res.data.refreshToken);
+          setAuthUser(res.data);
+          setIsAuth(true);
+          setLocation("/profile/home");
+        })
+        .catch((err) => {
+          if (err?.response?.data?.message) {
+            toast.error(err?.response?.data?.message);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    },
+    [setLocation]
+  );
 
   const logout = useCallback(() => {
     localStorage.clear();
@@ -142,6 +147,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
 
   const refreshAccount = React.useCallback(
     (refreshToken: string) => {
+      setLoading(true);
       axios
         .post(`${process.env.NEXT_PUBLIC_API}/api/auth/refresh`, { refreshToken })
         .then((res) => {
@@ -151,7 +157,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         })
         .catch((err) => {
           logout();
-        });
+        })
+        .finally(() => setLoading(false));
     },
     [logout]
   );
@@ -185,6 +192,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
       }}
     >
       {children}
+      {loading && <LoadingContainer message={"Welcome to GiveTree"} />}
     </AuthContext.Provider>
   );
 };
