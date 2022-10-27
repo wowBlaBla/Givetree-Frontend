@@ -27,14 +27,9 @@ import { SignUp } from "./containers/auth/SignUp";
 import { useAuth } from "./context/AuthContext";
 
 const Routes = () => {
-  const { isAuth, refreshAccount } = useAuth();
+  const { isAuth, initialized } = useAuth();
 
-  React.useEffect(() => {
-    const refreshToken = localStorage.getItem("refresh_token");
-    if (refreshToken) {
-      refreshAccount(refreshToken);
-    }
-  }, [refreshAccount]);
+  if (!initialized) return null;
 
   return (
     <Router>

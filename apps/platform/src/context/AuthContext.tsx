@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import axios from "axios";
-import React, { useCallback } from "react";
+import React from "react";
 import { toast } from "react-toastify";
 import { useLocation } from "wouter";
 import { LoadingContainer } from "../components/LoadingContainer";
@@ -51,27 +51,29 @@ export type AUTH_USER = {
 interface IAuthProvider {
   loading: boolean;
   isAuth: boolean;
+  initialized: boolean;
   authUser?: AUTH_USER;
   updateUserData: (data: Partial<User>) => void;
   register: (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => void;
   login: (body: AuthRequestBody, authType: AuthType) => void;
   logout: () => void;
-  refreshAccount: (token: string) => void;
 }
 
 const AuthContext = React.createContext<IAuthProvider>({
   loading: false,
   isAuth: false,
+  initialized: false,
   register: () => {},
   login: () => {},
   logout: () => {},
-  refreshAccount: () => {},
   updateUserData: () => {},
 });
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [, setLocation] = useLocation();
+
+  const [initialized, setInitialized] = React.useState(false);
   const [isAuth, setIsAuth] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [authUser, setAuthUser] = React.useState<AUTH_USER>();
@@ -138,12 +140,12 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
     [setLocation]
   );
 
-  const logout = useCallback(() => {
+  const logout = React.useCallback(() => {
     localStorage.clear();
     setAuthUser(undefined);
     setIsAuth(false);
     setLocation("/");
-  }, [setAuthUser, setIsAuth, setLocation]);
+  }, [setLocation]);
 
   const refreshAccount = React.useCallback(
     (refreshToken: string) => {
@@ -158,12 +160,15 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         .catch((err) => {
           logout();
         })
-        .finally(() => setLoading(false));
+        .finally(() => {
+          setLoading(false);
+          setInitialized(true);
+        });
     },
     [logout]
   );
 
-  const updateUserData = (data: Partial<User>) => {
+  const updateUserData = React.useCallback((data: Partial<User>) => {
     setAuthUser((prev) => {
       if (prev) {
         return {
@@ -176,7 +181,16 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
       }
       return undefined;
     });
-  };
+  }, []);
+
+  React.useEffect(() => {
+    const refreshToken = localStorage.getItem("refresh_token");
+    if (refreshToken) {
+      refreshAccount(refreshToken);
+    } else {
+      setInitialized(true);
+    }
+  }, [refreshAccount]);
 
   return (
     <AuthContext.Provider
@@ -184,10 +198,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         loading,
         isAuth,
         authUser,
+        initialized,
         register,
         login,
         logout,
-        refreshAccount,
         updateUserData,
       }}
     >
