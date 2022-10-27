@@ -1,39 +1,37 @@
-import { FC, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useCallback, useEffect, useState } from "react";
 import { CollectionCard } from "../../components/cards/CollectionCard";
-import {Contract} from 'web3-eth-contract';
-import { IStore } from "../../store/reducers/auth.reducer";
-import { IStore as IStoreMVP } from "../../store/reducers/mvp.reducer";
 import axios from "axios";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
+import { useWallet } from "../../context/WalletContext";
 
 export const MyCollections: FC = () => {
+  const { address, contracts } = useWallet();
 
-  const waleltAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
-  const factoryContract = useSelector<IStoreMVP, Contract | undefined>((state) => state.mvp.contracts.factoryContract)
   const [collections, setCollections] = useState<any[]>([]);
-  const [connectedAddress, /*setConnectedAddress*/] = useState<string>(waleltAddress);
-  const [/*isLoading*/, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (connectedAddress) fetchCollections();
-  }, [connectedAddress]);
+  const [, /*isLoading*/ setLoading] = useState<boolean>(false);
 
-  const fetchCollections = async() => {
-    if (!factoryContract) return;
+  const fetchCollections = useCallback(async () => {
+    if (!contracts || !contracts.factory || !address) return;
+
     setLoading(true);
-    const collectionList = await factoryContract.methods.getCollectionList().call();
-    const res = await axios.get(`https://eth-goerli.g.alchemy.com/nft/v2/${ETH_ALCHEMY}/getContractsForOwner?owner=${connectedAddress}
+    const collectionList = await contracts.factory.methods.getCollectionList().call();
+    const res =
+      await axios.get(`https://eth-goerli.g.alchemy.com/nft/v2/${ETH_ALCHEMY}/getContractsForOwner?owner=${address}
     `);
     let list = res.data.contracts;
-    list = list.filter((item:any) => {
-      const exist = collectionList.filter((_item:any) => item == _item.address);
+    list = list.filter((item: any) => {
+      const exist = collectionList.filter((_item: any) => item == _item.address);
       return exist.length ? true : false;
     });
     setCollections(list);
     setLoading(false);
-  }
+  }, [address, contracts]);
+
+  useEffect(() => {
+    fetchCollections();
+  }, [fetchCollections]);
 
   return (
     <div className="profile">
@@ -46,7 +44,7 @@ export const MyCollections: FC = () => {
             <input
               readOnly
               type="text"
-              value={connectedAddress}
+              value={address || ""}
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
             />
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
@@ -56,7 +54,7 @@ export const MyCollections: FC = () => {
               <CollectionCard key={idx} campaign={campaign} />
             ))}
           </div>
-          { !collections.length && <ItemEmptyBox/> }
+          {!collections.length && <ItemEmptyBox />}
         </div>
       </div>
     </div>
