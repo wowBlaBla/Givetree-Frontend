@@ -10,7 +10,10 @@ import { CoinbaseIcon } from "../../components/icons/CoinbaseIcon";
 import { PhantomIcon } from "../../components/icons/PhantomIcon";
 import { CheckBox } from "../../components/CheckBox";
 import { Network, useWallet } from "../../context/WalletContext";
-import { AuthType } from "../../context/AuthContext";
+import { AuthType, useAuth } from "../../context/AuthContext";
+import { LoadingContainer } from "../../components/LoadingContainer";
+import { useLocation } from "wouter";
+import { PlatformRoute } from "../../configs/routes";
 
 interface ErrorInterface {
   username?: string;
@@ -24,7 +27,10 @@ interface InnerType {
 }
 
 export const SignUp: FC = () => {
-  const { loading, connectWallet } = useWallet();
+  const [, setLocation] = useLocation();
+
+  const { loading, address, connectWallet } = useWallet();
+  const { loading: isRegistering, register, isAuth } = useAuth();
 
   const [step, setStep] = useState(0);
   const [authType, setAuthType] = useState<AuthType>();
@@ -48,12 +54,29 @@ export const SignUp: FC = () => {
     }
   }, [authType]);
 
-  const nextStep = async () => {
-    const ret = await invalidate();
-    if (!ret) {
-      return;
+  React.useEffect(() => {
+    if (isAuth && step === 6) {
+      setTimeout(() => setLocation("/profile/home"), 2000);
     }
-    setStep(step + 1);
+  }, [isAuth, step, setLocation]);
+
+  const nextStep = async () => {
+    if (step < 5) {
+      const ret = await invalidate();
+      if (!ret) {
+        return;
+      }
+      setStep(step + 1);
+    } else {
+      setStep(step + 1);
+      if (authType) {
+        if (authType === "wallet") {
+          register({ address }, authType, false);
+        } else {
+          register({ username, email, password }, authType, false);
+        }
+      }
+    }
   };
 
   const prevStep = () => {
@@ -63,6 +86,7 @@ export const SignUp: FC = () => {
   const invalidate = async () => {
     if (step === 1) {
       if (authType === "wallet") {
+        if (!address || !username) return false;
       } else {
         const schema = yup.object().shape({
           username: yup.string().required(),
@@ -234,6 +258,8 @@ export const SignUp: FC = () => {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                   <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
+                  <label className="font-bold mt-2 mb-2">Wallet address</label>
+                  <span>{address || ""}</span>
                 </div>
               </div>
               <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 text-black">
@@ -409,7 +435,7 @@ export const SignUp: FC = () => {
               />
             </div>
           </>
-        ) : (
+        ) : isAuth ? (
           <>
             <h1 className="text-black text-lg mb-8">
               Congratluations! you’re all signed up.
@@ -427,8 +453,15 @@ export const SignUp: FC = () => {
               />
             </svg>
           </>
+        ) : (
+          <button
+            className="btn rounded-2xl-1 h-[60px] bg-[#8C8D91] border-none text-[20px] font-bold text-white"
+            onClick={prevStep}
+          >
+            Back
+          </button>
         )}
-        {step > 0 && (
+        {step > 0 && step < 6 && (
           <div className="flex w-full justify-between mt-8">
             <button
               className="btn rounded-2xl-1 h-[60px] bg-[#8C8D91] border-none text-[20px] font-bold text-white mb-4"

@@ -3,6 +3,7 @@ import cx from "classnames";
 import { AppHeaderNavLink, MenuList, PlatformRoute } from "../configs/routes";
 import { Link } from "wouter";
 import { useAppContext } from "../context/AppContext";
+import { useAuth } from "../context/AuthContext";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -14,6 +15,7 @@ declare global {
 }
 
 export const SideNavigation: FC = () => {
+  const { isAuth } = useAuth();
   const { openSideBar, setOpenSideBar } = useAppContext();
 
   const [menu, setMenu] = React.useState<AppHeaderNavLink[]>([]);
@@ -111,22 +113,24 @@ export const SideNavigation: FC = () => {
             // )
           )}
         </ul>
-        <div className="px-[1rem] py-[0.75rem]">
-          <Link
-            className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
-            href={PlatformRoute.Register}
-            onClick={handleDropdown}
-          >
-            Sign up
-          </Link>
-          <Link
-            className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
-            href={PlatformRoute.Login}
-            onClick={handleDropdown}
-          >
-            Sign in
-          </Link>
-        </div>
+        {!isAuth && (
+          <div className="px-[1rem] py-[0.75rem]">
+            <Link
+              className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
+              href={PlatformRoute.Register}
+              onClick={handleDropdown}
+            >
+              Sign up
+            </Link>
+            <Link
+              className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
+              href={PlatformRoute.Login}
+              onClick={handleDropdown}
+            >
+              Sign in
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

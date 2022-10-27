@@ -19,7 +19,7 @@ export const DropdownMenu: FC = () => {
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content menu p-2 shadow bg-deep-dark rounded-box w-52 rounded-t-none"
       >
         <li>
           <Link href="/profile/home">Profile</Link>
