@@ -86,10 +86,10 @@ const PublicProfileContainer: FC = () => {
           </span>
           <span>Australia. #digitalart #painting</span>
           <div className="flex py-4">
-            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-[20px] mr-4">
+            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-2xl-1 mr-4">
               Donate
             </button>
-            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[white] border border-[#0075FF] text-[#0075FF] rounded-[20px]">
+            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[white] border border-[#0075FF] text-[#0075FF] rounded-2xl-1">
               Fundraise
             </button>
           </div>
@@ -113,7 +113,7 @@ const PublicProfileContainer: FC = () => {
           <div className="flex flex-col md:flex-row">
             <div className="flex-3">
               {currentTab === "About" ? (
-                <div className="flex flex-col bg-white rounded-[20px] border border-[#717171] text-black p-8">
+                <div className="flex flex-col bg-white rounded-2xl-1 border border-[#717171] text-black p-8">
                   <span className="text-lg font-bold">Bio</span>
                   <span>
                     Lorum Imsum lorum ipsum lorum ipsum Lorum Imsum lorum ipsum lorum
@@ -123,7 +123,7 @@ const PublicProfileContainer: FC = () => {
                   </span>
                 </div>
               ) : currentTab === "Donations" ? (
-                <div className="bg-white rounded-t-[20px] border border-[#717171] text-black">
+                <div className="bg-white rounded-t-2xl-1 border border-[#717171] text-black">
                   <div className="donation-item flex items-center">
                     <span className="text-lg font-bold">Donations</span>
                   </div>

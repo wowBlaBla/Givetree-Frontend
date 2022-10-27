@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import cx from "classnames";
 import { AddIcon } from "../../components/icons/AddIcon";
 import { ImageDefaultIcon } from "../../components/icons/ImageDefaultIcon";
@@ -9,12 +8,11 @@ import { MintArtPreview } from "../../components/MintArt";
 import { LevelModal } from "../../components/modal/metadata/LevelModal";
 import { PropertyModal } from "../../components/modal/metadata/PropertyModal";
 import { StatsModal } from "../../components/modal/metadata/StatsModal";
-import { IStore as IStoreMVP, MVP } from "../../store/reducers/mvp.reducer";
-import { IStore as IStoreAUTH } from "../../store/reducers/auth.reducer";
 import { uploadArtToIPFS, uploadMetadataToIPFS } from "../../utils/metadataManage";
 import { EthereumNetwork } from "../../configs/constants";
 import { MintItemTitle } from "../../components/MintItemTitle";
 import { toast } from "react-toastify";
+import { useWallet } from "../../context/WalletContext";
 
 interface propertyInterface {
   trait_type: string;
@@ -24,8 +22,8 @@ interface propertyInterface {
 interface metadataIns {
   name: string;
   description: string;
-  image:string;
-  attributes: propertyInterface[],
+  image: string;
+  attributes: propertyInterface[];
 }
 
 interface Charity {
@@ -50,17 +48,17 @@ interface Errors {
   royalty?: boolean;
 }
 
-const defaultMetadata:metadataIns = {
+const defaultMetadata: metadataIns = {
   name: "",
   description: "",
-  image:"",
+  image: "",
   attributes: [],
-}
+};
 
-const defaultTrait:propertyInterface = { trait_type: "", value: ""};
+const defaultTrait: propertyInterface = { trait_type: "", value: "" };
 const defaultCharity: Charity = {
   charity: "",
-  percent: ""
+  percent: "",
 };
 const defaultRoyalty: Royalty = {
   charity: "",
@@ -69,20 +67,19 @@ const defaultRoyalty: Royalty = {
   creatorPercent: "",
 };
 
-const defaultError:Errors = {
+const defaultError: Errors = {
   art: false,
   previewArt: false,
   name: false,
   description: false,
   supply: false,
   charity: false,
-  royalty: false
+  royalty: false,
 };
 
 export const NewNFT: FC = () => {
+  const { address, contracts, web3Instance } = useWallet();
 
-  const mvp = useSelector<IStoreMVP, MVP>((state) => state.mvp);
-  const walletAddress = useSelector<IStoreAUTH, string>((state) => state.auth.walletAddress);
   const [charities, setCharities] = useState<string[]>([]);
 
   const nftImageRef = useRef<HTMLInputElement>(null);
@@ -97,11 +94,11 @@ export const NewNFT: FC = () => {
   const [stats, setStats] = useState<propertyInterface[]>([defaultTrait]);
   const [unlockable, setUnlockable] = useState<boolean>(false);
   const [explicit, setExplicit] = useState<boolean>(false);
-  const [supply, setSupply] = useState<string>('');
+  const [supply, setSupply] = useState<string>("");
 
   const [charityDonation, setCharityDonation] = useState<Charity>(defaultCharity);
   const [royalty, setRoyalty] = useState<Royalty>(defaultRoyalty);
-  
+
   const [openProModal, setOpenProModal] = useState<boolean>(false);
   const [openLevelModal, setOpenLevelModal] = useState<boolean>(false);
   const [openStatModal, setOpenStatModal] = useState<boolean>(false);
@@ -111,15 +108,15 @@ export const NewNFT: FC = () => {
 
   useEffect(() => {
     async function fetchCharity() {
-      if (mvp.contracts.marketplaceContract) {
-        const contract = mvp.contracts.marketplaceContract;
+      if (contracts && contracts.marketplace) {
+        const contract = contracts.marketplace;
         const charities = await contract.methods.getCharityList().call();
         setCharities(charities);
       }
     }
 
-    if (mvp.contracts) fetchCharity();
-  }, [mvp]);
+    if (contracts) fetchCharity();
+  }, [contracts]);
 
   const handleAvatarFileSelect = (e: any) => {
     const file = e.target.files[0];
@@ -129,20 +126,18 @@ export const NewNFT: FC = () => {
         setArtType("image");
         setAnimationArt(undefined);
         setNftImage(file);
-      }
-      else if (type.indexOf("audio") > -1) {
+      } else if (type.indexOf("audio") > -1) {
         setArtType("audio");
         setNftImage(undefined);
         setAnimationArt(file);
-      }
-      else if (type.indexOf("video") > -1) {
+      } else if (type.indexOf("video") > -1) {
         setArtType("video");
         setNftImage(undefined);
         setAnimationArt(file);
       }
     }
-  }
-  
+  };
+
   const handlePreviewImage = (e: any) => {
     const file = e.target.files[0];
     if (file) {
@@ -151,38 +146,45 @@ export const NewNFT: FC = () => {
         setNftImage(file);
       }
     }
-  }
-
+  };
 
   const controlRoyaltyPercents = (val: string, key: string) => {
-    if (val == '') val = '0';
+    if (val == "") val = "0";
     let percent = Math.floor(parseInt(val));
-    switch(key) {
+    switch (key) {
       case "charity":
         if (percent < 1) percent = 1;
         else if (percent >= 10) percent = 10;
-        setRoyalty({ ...royalty, charityPercent: percent.toString(), creatorPercent: (10 - percent).toString() });
+        setRoyalty({
+          ...royalty,
+          charityPercent: percent.toString(),
+          creatorPercent: (10 - percent).toString(),
+        });
         break;
       case "creator":
         if (percent >= 10) percent = 9;
         else if (percent <= 0) percent = 0;
-        setRoyalty({ ...royalty, creatorPercent: percent.toString(), charityPercent: (10 - percent).toString() });
+        setRoyalty({
+          ...royalty,
+          creatorPercent: percent.toString(),
+          charityPercent: (10 - percent).toString(),
+        });
         break;
     }
-  }
+  };
 
-  const controlCharityPercent = (val:string) => {
-    if (val == '') val = '1';
+  const controlCharityPercent = (val: string) => {
+    if (val == "") val = "1";
     let percent = Math.floor(parseInt(val));
     if (percent < 1) percent = 1;
     else if (percent >= 10) percent = 10;
-    setCharityDonation({...charityDonation, percent: percent.toString() });
-  }
+    setCharityDonation({ ...charityDonation, percent: percent.toString() });
+  };
 
-  const uploadMetadata = async() => {
+  const uploadMetadata = async () => {
     try {
       if (!nftImage) return;
-      let animate_url = '';
+      let animate_url = "";
       const imageCid = await uploadArtToIPFS(nftImage);
       if (animationArt) {
         animate_url = await uploadArtToIPFS(animationArt);
@@ -198,75 +200,74 @@ export const NewNFT: FC = () => {
       };
       const metadataCid = await uploadMetadataToIPFS(_metadata);
       return metadataCid;
-    } catch(err) {
+    } catch (err) {}
+  };
 
-    }
-  }
-
-  const mint = async() => {
-    if (mvp.contracts.singleNFTContract) {
+  const mint = async () => {
+    if (contracts && contracts.singleNFT) {
       const valid = validateForm();
       if (!valid) return;
       setLoading(true);
       try {
-        const contract = mvp.contracts.singleNFTContract;
-        let cid = '';
+        const contract = contracts.singleNFT;
+        let cid = "";
         const params = {
           pending: `Uploading Metadata...`,
           success: `Uploaded Metadata succesfully!`,
-          error: `Uploading Metadata is Failed`
+          error: `Uploading Metadata is Failed`,
         };
 
-        await toast.promise(
-          async() => {
-            cid = await uploadMetadata();
-          }, params
-        );
-        
+        await toast.promise(async () => {
+          cid = await uploadMetadata();
+        }, params);
+
         if (cid) {
           const params = {
             pending: `Minting NFT...`,
             success: `NFT is minted succesfully!`,
-            error: `Minting is Failed`
+            error: `Minting is Failed`,
           };
-          
-          await toast.promise(
-            async() => {
-              const tokenID = await getTokenID();
-              if (tokenID == false) throw Error();
-              const mintPrice = await contract.methods.mintPrice().call();
 
-              await contract.methods.mint([tokenID, supply, "ipfs://" + cid], charityDonation, royalty).send({
-                from: walletAddress,
-                value: mintPrice
+          await toast.promise(async () => {
+            const tokenID = await getTokenID();
+            if (tokenID == false) throw Error();
+            const mintPrice = await contract.methods.mintPrice().call();
+
+            await contract.methods
+              .mint([tokenID, supply, "ipfs://" + cid], charityDonation, royalty)
+              .send({
+                from: address,
+                value: mintPrice,
               });
-            }, params
-          );
+          }, params);
         }
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
       setLoading(false);
     }
-  }
+  };
 
-  const getTokenID = async() => {
-    if (mvp.provider && mvp.contracts.singleNFTContract) {
+  const getTokenID = async () => {
+    if (web3Instance && address && contracts && contracts.singleNFT) {
       try {
-        const web3 = mvp.provider;
-        const contract = mvp.contracts.singleNFTContract;
-        const nonce = await contract.methods.nonces(walletAddress).call();
-        const hash = web3.utils.soliditySha3(EthereumNetwork.address.singleNFT, walletAddress, nonce);
+        const contract = contracts.singleNFT;
+        const nonce = await contract.methods.nonces(address).call();
+        const hash = web3Instance.utils.soliditySha3(
+          EthereumNetwork.address.singleNFT,
+          address,
+          nonce
+        );
         if (hash) {
-          return web3.utils.hexToNumberString(hash);
+          return web3Instance.utils.hexToNumberString(hash);
         } else return false;
-      } catch(err) {
+      } catch (err) {
         console.log(err);
         return false;
       }
     }
     return false;
-  }
+  };
 
   const validateForm = () => {
     const _errors = { ...errors };
@@ -281,14 +282,24 @@ export const NewNFT: FC = () => {
     else _errors.name = false;
     if (Number(supply) < 1) _errors.supply = true;
     else _errors.supply = false;
-    if (!charityDonation.charity || (Number(charityDonation.percent) < 1 || Number(charityDonation.percent) > 100)) _errors.charity = true;
+    if (
+      !charityDonation.charity ||
+      Number(charityDonation.percent) < 1 ||
+      Number(charityDonation.percent) > 100
+    )
+      _errors.charity = true;
     else _errors.charity = false;
-    if (!royalty.charity || !mvp?.provider?.utils.isAddress(royalty.creator) || Number(royalty.charityPercent) + Number(royalty.creatorPercent) < 1) _errors.royalty = true;
+    if (
+      !royalty.charity ||
+      !web3Instance?.utils.isAddress(royalty.creator) ||
+      Number(royalty.charityPercent) + Number(royalty.creatorPercent) < 1
+    )
+      _errors.royalty = true;
     else _errors.royalty = false;
 
     setErrors(_errors);
     return JSON.stringify(_errors) == JSON.stringify(defaultError);
-  }
+  };
 
   return (
     <div className="profile">
@@ -333,22 +344,19 @@ export const NewNFT: FC = () => {
             className={cx(
               "profile-box !border-dashed border-base-content border-2 w-[300px] h-[300px] flex justify-center items-center mt-4 ",
               {
-                "border-red-500": errors?.art
+                "border-red-500": errors?.art,
               }
             )}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            {
-              (artType != "image" && animationArt) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <MintArtPreview src={animationArt} type={artType}/>
-              ) : (
-                (artType == "image" && nftImage) ? (
-                  <MintArtPreview src={nftImage} type="image"/>
-                ) :
-                <ImageDefaultIcon className="text-base-content"/>
-              )
-            }
+            {artType != "image" && animationArt ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <MintArtPreview src={animationArt} type={artType} />
+            ) : artType == "image" && nftImage ? (
+              <MintArtPreview src={nftImage} type="image" />
+            ) : (
+              <ImageDefaultIcon className="text-base-content" />
+            )}
             <input
               readOnly={isLoading}
               ref={nftImageRef}
@@ -359,48 +367,45 @@ export const NewNFT: FC = () => {
             />
           </label>
         </div>
-        
-        {
-          artType && artType != "image" ? (
-            <div className="flex flex-col mb-[48px]">
-                <MintItemTitle
-                  title="Preview Image"
-                  subTitle="Because you’ve included multimedia, you’ll need to provide an image (PNG, JPG, or GIF) for the card display of your item."
-                  required
-                />
-                <label
-                  className={cx(
-                    "profile-box !border-dashed border-base-content border-2 w-[200px] h-[200px] flex justify-center items-center mt-4 ",
-                    {
-                      "border-red-500": errors?.art
-                    }
-                  )}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  {nftImage ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <MintArtPreview src={nftImage} type="image"/>
-                  ) : (
-                    <ImageDefaultIcon className="text-base-content"/>
-                  )}
-                  <input
-                    readOnly={isLoading}
-                    type="file"
-                    hidden
-                    onChange={handlePreviewImage}
-                    accept=".jpg, .png, .gif"
-                  />
-                </label>
-            </div>
-          ) : ""
-        }
+
+        {artType && artType != "image" ? (
+          <div className="flex flex-col mb-[48px]">
+            <MintItemTitle
+              title="Preview Image"
+              subTitle="Because you’ve included multimedia, you’ll need to provide an image (PNG, JPG, or GIF) for the card display of your item."
+              required
+            />
+            <label
+              className={cx(
+                "profile-box !border-dashed border-base-content border-2 w-[200px] h-[200px] flex justify-center items-center mt-4 ",
+                {
+                  "border-red-500": errors?.art,
+                }
+              )}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              {nftImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <MintArtPreview src={nftImage} type="image" />
+              ) : (
+                <ImageDefaultIcon className="text-base-content" />
+              )}
+              <input
+                readOnly={isLoading}
+                type="file"
+                hidden
+                onChange={handlePreviewImage}
+                accept=".jpg, .png, .gif"
+              />
+            </label>
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="mt-4">
           <div className="flex items-center mb-1 gap-x-1">
-            <MintItemTitle
-              title="Name"
-              required
-            />
+            <MintItemTitle title="Name" required />
           </div>
           <input
             readOnly={isLoading}
@@ -408,14 +413,14 @@ export const NewNFT: FC = () => {
             className={cx(
               "input input-bordered border-base-content profile-item block w-full outline-none",
               {
-                "border-red-500": errors.name
+                "border-red-500": errors.name,
               }
             )}
             value={metadata.name}
             onChange={(e) => setMetadata({ ...metadata, name: e.target.value })}
           />
         </div>
-        
+
         <div className="mt-4">
           <div className="flex flex-col mb-2">
             <MintItemTitle
@@ -425,20 +430,18 @@ export const NewNFT: FC = () => {
           </div>
           <textarea
             readOnly={isLoading}
-            className={
-              cx(
-                "textarea textarea-bordered border-base-content profile-item block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]",
-                {
-                  "border-red-500": errors.description
-                }
-              )
-            }
+            className={cx(
+              "textarea textarea-bordered border-base-content profile-item block w-full outline-none focus:border-indigo-500 sm:text-sm p-4 h-[160px]",
+              {
+                "border-red-500": errors.description,
+              }
+            )}
             rows={4}
             value={metadata.description}
             onChange={(e) => setMetadata({ ...metadata, description: e.target.value })}
           />
         </div>
-        
+
         <div className="mt-4">
           <div className="flex mb-2 items-center">
             <div className="flex flex-col mr-4">
@@ -520,7 +523,7 @@ export const NewNFT: FC = () => {
             <AddIcon />
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between mt-8 border-b-[#8C8C8C] border-b-2 pb-8">
           <div className="flex max-w-[75%]">
             <div className="w-[24px] h-[24px] mt-2 text-base-content">
@@ -551,7 +554,7 @@ export const NewNFT: FC = () => {
             <AddIcon />
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between mt-8 border-b-[#8C8C8C] border-b-2 pb-8">
           <div className="flex max-w-[75%]">
             <div className="w-[24px] h-[24px] mt-2 text-base-content">
@@ -578,7 +581,12 @@ export const NewNFT: FC = () => {
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
             <input
-              readOnly={isLoading} type="checkbox" className="toggle toggle-md" checked={unlockable} onClick={() => setUnlockable(!unlockable)} />
+              readOnly={isLoading}
+              type="checkbox"
+              className="toggle toggle-md"
+              checked={unlockable}
+              onClick={() => setUnlockable(!unlockable)}
+            />
           </div>
         </div>
 
@@ -607,7 +615,12 @@ export const NewNFT: FC = () => {
           </div>
           <div className="flex justify-end items-center w-[100px] h-[100px]">
             <input
-              readOnly={isLoading} type="checkbox" className="toggle toggle-md" checked={explicit} onClick={() => setExplicit(!explicit)} />
+              readOnly={isLoading}
+              type="checkbox"
+              className="toggle toggle-md"
+              checked={explicit}
+              onClick={() => setExplicit(!explicit)}
+            />
           </div>
         </div>
 
@@ -622,14 +635,12 @@ export const NewNFT: FC = () => {
           <input
             readOnly={isLoading}
             type="number"
-            className={
-              cx(
-                "input input-bordered border-base-content profile-item block w-full outline-none",
-                {
-                  "border-red-500": errors.supply
-                }
-              )
-            }
+            className={cx(
+              "input input-bordered border-base-content profile-item block w-full outline-none",
+              {
+                "border-red-500": errors.supply,
+              }
+            )}
             value={supply}
             onChange={(e) => setSupply(e.target.value)}
           />
@@ -637,9 +648,7 @@ export const NewNFT: FC = () => {
 
         <div>
           <div className="flex flex-col mb-2 mt-8">
-            <MintItemTitle
-              title="Blockchain"
-            />
+            <MintItemTitle title="Blockchain" />
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"
@@ -658,10 +667,10 @@ export const NewNFT: FC = () => {
               this item’s content in decentralised file storage."
             />
           </div>
-          <p
-            className="input input-bordered border-base-content profile-item block w-full outline-none flex items-center"
-          >
-            <span className="text-xs text-black/40">To freeze your metadata, you must create your item first</span>
+          <p className="input input-bordered border-base-content profile-item block w-full outline-none flex items-center">
+            <span className="text-xs text-black/40">
+              To freeze your metadata, you must create your item first
+            </span>
           </p>
         </div>
 
@@ -676,40 +685,38 @@ export const NewNFT: FC = () => {
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"
-            onChange={(e) => setCharityDonation({ ...charityDonation, charity: e.target.value})}
+            onChange={(e) =>
+              setCharityDonation({ ...charityDonation, charity: e.target.value })
+            }
           >
             <option value="">Select charity</option>
-            {
-              charities.map((item, idx) => (
-                <option value={item} key={idx}>{item}</option>
-              ))
-            }
+            {charities.map((item, idx) => (
+              <option value={item} key={idx}>
+                {item}
+              </option>
+            ))}
           </select>
           <div className="flex gap-2">
             <input
               type="text"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-2/3",
-                  {
-                    "border-red-500": errors.charity
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-2/3",
+                {
+                  "border-red-500": errors.charity,
+                }
+              )}
               value={charityDonation.charity}
               readOnly
             />
             <input
               readOnly={isLoading}
               type="number"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-1/3",
-                  {
-                    "border-red-500": errors.charity
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-1/3",
+                {
+                  "border-red-500": errors.charity,
+                }
+              )}
               min={1}
               value={charityDonation.percent}
               onChange={(e) => controlCharityPercent(e.target.value)}
@@ -727,26 +734,24 @@ export const NewNFT: FC = () => {
           </div>
           <select
             className="select profile-item border-base-content outline-none block mt-1"
-            onChange={(e) => setRoyalty({ ...royalty, charity: e.target.value})}
+            onChange={(e) => setRoyalty({ ...royalty, charity: e.target.value })}
           >
             <option value="">Select charity</option>
-            {
-              charities.map((item, idx) => (
-                <option value={item} key={idx}>{item}</option>
-              ))
-            }
+            {charities.map((item, idx) => (
+              <option value={item} key={idx}>
+                {item}
+              </option>
+            ))}
           </select>
           <div className="flex gap-2">
             <input
               type="text"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-2/3",
-                  {
-                    "border-red-500": errors.royalty
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-2/3",
+                {
+                  "border-red-500": errors.royalty,
+                }
+              )}
               placeholder="Charity"
               value={royalty.charity}
               readOnly
@@ -754,14 +759,12 @@ export const NewNFT: FC = () => {
             <input
               readOnly={isLoading}
               type="number"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-1/3",
-                  {
-                    "border-red-500": errors.royalty
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-1/3",
+                {
+                  "border-red-500": errors.royalty,
+                }
+              )}
               min={1}
               value={royalty.charityPercent}
               onChange={(e) => controlRoyaltyPercents(e.target.value, "charity")}
@@ -771,14 +774,12 @@ export const NewNFT: FC = () => {
             <input
               readOnly={isLoading}
               type="text"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-2/3",
-                  {
-                    "border-red-500": errors.royalty
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-2/3",
+                {
+                  "border-red-500": errors.royalty,
+                }
+              )}
               placeholder="Creator"
               value={royalty.creator}
               onChange={(e) => setRoyalty({ ...royalty, creator: e.target.value })}
@@ -786,14 +787,12 @@ export const NewNFT: FC = () => {
             <input
               readOnly={isLoading}
               type="number"
-              className={
-                cx(
-                  "input input-bordered border-base-content profile-item block outline-none !w-1/3",
-                  {
-                    "border-red-500": errors.royalty
-                  }
-                )
-              }
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-1/3",
+                {
+                  "border-red-500": errors.royalty,
+                }
+              )}
               min={1}
               value={royalty.creatorPercent}
               onChange={(e) => controlRoyaltyPercents(e.target.value, "creator")}
@@ -810,10 +809,33 @@ export const NewNFT: FC = () => {
           Create
         </button>
       </div>
-      { openProModal ? <PropertyModal _property={properties} updateAttrs={setProperties} closeModal={() => setOpenProModal(false)}/> : "" }
-      { openLevelModal ? <LevelModal _levels={levels} updateAttrs={setLevels} closeModal={() => setOpenLevelModal(false)}/> : "" }
-      { openStatModal ? <StatsModal _stats={stats} updateAttrs={setStats} closeModal={() => setOpenStatModal(false)}/> : "" }
-
+      {openProModal ? (
+        <PropertyModal
+          _property={properties}
+          updateAttrs={setProperties}
+          closeModal={() => setOpenProModal(false)}
+        />
+      ) : (
+        ""
+      )}
+      {openLevelModal ? (
+        <LevelModal
+          _levels={levels}
+          updateAttrs={setLevels}
+          closeModal={() => setOpenLevelModal(false)}
+        />
+      ) : (
+        ""
+      )}
+      {openStatModal ? (
+        <StatsModal
+          _stats={stats}
+          updateAttrs={setStats}
+          closeModal={() => setOpenStatModal(false)}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

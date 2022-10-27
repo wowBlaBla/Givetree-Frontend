@@ -1,34 +1,34 @@
-import { FC, useEffect, useState } from "react";
-import { Network, Alchemy } from 'alchemy-sdk';
-import { useSelector } from "react-redux";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Network, Alchemy } from "alchemy-sdk";
 import { ETH_ALCHEMY } from "../../configs/constants";
-import { IStore } from "../../store/reducers/auth.reducer";
 import { NFTCard } from "../../components/cards/NFTCard";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
+import { useWallet } from "../../context/WalletContext";
 
 export const MyNFTs: FC = () => {
+  const { address } = useWallet();
 
-  const waleltAddress = useSelector<IStore, string>((state) => state.auth.walletAddress);
-  const [connectedAddress, /*setConnectedAddress*/] = useState<string>(waleltAddress);
   const [nfts, setNFTs] = useState<any[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (connectedAddress) fetchNFTs();
-  }, [connectedAddress]);
+  const fetchNFTs = useCallback(async () => {
+    if (address) {
+      setLoading(true);
+      const settings = {
+        apiKey: ETH_ALCHEMY,
+        network: Network.ETH_GOERLI,
+      };
+      const alchemy = new Alchemy(settings);
+      const res = await alchemy.nft.getNftsForOwner(address);
+      setNFTs(res.ownedNfts);
+      setLoading(false);
+    }
+  }, [address]);
 
-  const fetchNFTs = async() => {
-    setLoading(true);
-    const settings = {
-      apiKey: ETH_ALCHEMY,
-      network: Network.ETH_GOERLI
-    };
-    const alchemy = new Alchemy(settings);
-    const res = await alchemy.nft.getNftsForOwner(connectedAddress);
-    setNFTs(res.ownedNfts);
-    setLoading(false);
-  }
+  useEffect(() => {
+    if (address) fetchNFTs();
+  }, [address, fetchNFTs]);
 
   return (
     <div className="profile">
@@ -40,7 +40,7 @@ export const MyNFTs: FC = () => {
           <div className="flex my-6">
             <input
               readOnly
-              value={connectedAddress}
+              value={address || ""}
               type="text"
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
             />
@@ -48,18 +48,18 @@ export const MyNFTs: FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {
-              !isLoading ? (
+              isLoading ? (
                 <>
-                  {nfts.map((nft, idx) => (
-                    <NFTCard key={idx} nft={nft} />
-                  ))}
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
                 </>
               ) : (
                 <>
-                  <NFTCardSkeleton/>
-                  <NFTCardSkeleton/>
-                  <NFTCardSkeleton/>
-                  <NFTCardSkeleton/>
+                {nfts.map((nft, idx) => (
+                  <NFTCard key={idx} nft={nft} />
+                ))}
                 </>
               )
             }

@@ -1,8 +1,6 @@
-import { FC, useCallback, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC } from "react";
 import { Link, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
-import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
 import avatar from "../../temp/images/campaigns/mulgakongz-collection.png";
 import { UserIcon } from "../../components/icons/profiles/UserIcon";
 import { WalletIcon } from "../../components/icons/profiles/WalletIcon";
@@ -12,6 +10,7 @@ import { ListingIcon } from "../../components/icons/profiles/ListingIcon";
 import { DonationIcon } from "../../components/icons/profiles/DonationIcon";
 import { SettingIcon } from "../../components/icons/profiles/SettingIcon";
 import { CreateIcon } from "../../components/icons/profiles/CreateIcon";
+import { useAuth } from "../../context/AuthContext";
 
 interface NavItem {
   category: string;
@@ -88,10 +87,7 @@ interface ProfileSideBarProps {
 
 export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible }) => {
   const [, params] = useRoute(PlatformRoute.ProfileDetails);
-
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
+  const { authUser } = useAuth();
 
   return (
     <div
@@ -104,7 +100,7 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           className="object-cover w-25 h-25 mx-2 rounded-full"
-          src={authedUser?.user.profileImage || avatar.src}
+          src={authUser?.user.profileImage || avatar.src}
           alt="avatar"
         />
         <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 text-xs hover:underline">

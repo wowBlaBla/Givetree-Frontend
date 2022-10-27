@@ -1,11 +1,8 @@
 import React, { FC, useEffect } from "react";
 import cx from "classnames";
-import { AppHeaderNavLink, MenuList } from "../configs/routes";
+import { AppHeaderNavLink, MenuList, PlatformRoute } from "../configs/routes";
 import { Link } from "wouter";
-import { useDispatch, useSelector } from "react-redux";
-import { IStore } from "../store/reducers/auth.reducer";
-import { openSidebar } from "../store/actions/auth.action";
-import { SignButton } from "./SignButton";
+import { useAppContext } from "../context/AppContext";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -17,30 +14,19 @@ declare global {
 }
 
 export const SideNavigation: FC = () => {
-  const dispatch = useDispatch();
+  const { openSideBar, setOpenSideBar } = useAppContext();
 
   const [menu, setMenu] = React.useState<AppHeaderNavLink[]>([]);
   const [selectedMenuItem, setSelectedMenuItem] = React.useState<AppHeaderNavLink>();
 
-  // const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-  //   (state) => state.auth.authedUser
-  // );
-  const openSideMenu = useSelector<IStore, boolean>(
-    (state) => state.auth.openSidebarMenu
-  );
-
   const handleDropdown = () => {
-    dispatch(openSidebar(!openSideMenu));
+    setOpenSideBar(false);
   };
-
-  // const handleSelectMenuItem = (menuItem: AppHeaderNavLink | undefined) => () => {
-  //   setSelectedMenuItem(menuItem);
-  // };
 
   useEffect(() => {
     setMenu(MenuList);
     setSelectedMenuItem(undefined);
-  }, [openSideMenu]);
+  }, [openSideBar]);
 
   useEffect(() => {
     if (selectedMenuItem) {
@@ -55,7 +41,7 @@ export const SideNavigation: FC = () => {
   return (
     <div
       className={cx("flex absolute z-50 top-20 bottom-0 xl:static w-full", {
-        hidden: !openSideMenu,
+        hidden: !openSideBar,
       })}
     >
       <div className="scroll-none w-full bg-light-gray">
@@ -85,8 +71,9 @@ export const SideNavigation: FC = () => {
               </span>
             </li>
           ) : null} */}
-          {menu.map((menu, mIndex) =>
-            /* menu.childrens ? (
+          {menu.map(
+            (menu, mIndex) => (
+              /* menu.childrens ? (
               <li
                 key={`top-menu-${mIndex}`}
                 className="indicator w-full side-menu-item"
@@ -120,11 +107,25 @@ export const SideNavigation: FC = () => {
                   {menu.title}
                 </Link>
               </li>
+            )
             // )
           )}
         </ul>
         <div className="px-[1rem] py-[0.75rem]">
-          <SignButton className="w-full h-[45px]" />
+          <Link
+            className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
+            href={PlatformRoute.Register}
+            onClick={handleDropdown}
+          >
+            Sign up
+          </Link>
+          <Link
+            className="btn w-24 h-8 min-h-0 bg-deep-dark border border-[#6B6B6B] text-white font-bold rounded-2xl-1 mr-2 p-0"
+            href={PlatformRoute.Login}
+            onClick={handleDropdown}
+          >
+            Sign in
+          </Link>
         </div>
       </div>
     </div>

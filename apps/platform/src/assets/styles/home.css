@@ -178,11 +178,11 @@
   color: white;
 }
 
-.check-box {
+.my-check-box {
   cursor: pointer;
 }
 
-.check-box .tick {
+.my-check-box .tick {
   position: relative;
   width: 20px;
   height: 20px;
@@ -192,7 +192,7 @@
   margin-right: 8px;
 }
 
-.check-box .tick.checked::after {
+.my-check-box .tick.checked::after {
   content: "";
   position: absolute;
   top: 2px;
@@ -440,4 +440,29 @@
 .profile button.btn-connect:hover {
   background: #2FB4D1;
   color: white;
+}
+
+.auth-steps.steps .step::before, .auth-steps.steps .step:after {
+  background-color: #9D9B9B;
+}
+
+.auth-steps.steps .step:after {
+  width: 20px;
+  height: 20px;  
+}
+
+.auth-steps.steps .step::before {
+  height: 2px;
+}
+
+.auth-steps.steps .step.step-complete:before, .auth-steps.steps .step.step-complete::after {
+  background-color: #00EF8B;
+}
+
+.auth-steps.steps .step.step-current:after {
+  background-color: #FB5022;
+}
+
+.auth-steps.steps .step.step-current::before {
+  background-color: #00EF8B;
 }

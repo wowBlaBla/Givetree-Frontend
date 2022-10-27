@@ -7,28 +7,30 @@ interface CheckBoxProps extends React.HTMLAttributes<HTMLElement> {
   onChanged?: (checked: boolean) => void;
 }
 
-export const CheckBox: FC<CheckBoxProps> = ({ className, title, checked, onChanged }) => {
-  const [status, setStatus] = React.useState<boolean | undefined>();
+export const CheckBox: FC<CheckBoxProps> = ({
+  className,
+  title,
+  checked = false,
+  onChanged,
+}) => {
+  const [status, setStatus] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setStatus(checked);
-  }, [setStatus, checked]);
-
-  React.useEffect(() => {
-    onChanged && onChanged(status === true);
-  }, [onChanged, status]);
+  }, [checked]);
 
   const handleToggleChecked = () => {
-    setStatus((prev) => !prev);
+    setStatus(!status);
+    onChanged && onChanged(!status);
   };
 
   return (
     <div
-      className={cx(className, "check-box flex items-center")}
+      className={cx(className, "my-check-box flex items-center")}
       onClick={handleToggleChecked}
     >
       <div className={`tick w-[20px] h-[20px] ${status ? "checked" : ""}`} />
-      <span className="text-white">{title}</span>
+      <span className="text-currentColor">{title}</span>
     </div>
   );
 };

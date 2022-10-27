@@ -163,7 +163,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               </div>
             </div>
             <button
-              className="btn w-full bg-[#007A00] rounded-[20px] text-white h-[60px] capitalize"
+              className="btn w-full bg-[#007A00] rounded-2xl-1 text-white h-[60px] capitalize"
               onClick={() => setPage("preview")}
             >
               Preview Donation
@@ -391,7 +391,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
                     <span className="flex-1">Total</span>
                     <span className="w-[250px] break-all">A$100</span>
                   </div>
-                  <button className="btn bg-[#2151F5] text-white w-full border-none rounded-[20px] mt-8">
+                  <button className="btn bg-[#2151F5] text-white w-full border-none rounded-2xl-1 mt-8">
                     Donate Now
                   </button>
                 </div>

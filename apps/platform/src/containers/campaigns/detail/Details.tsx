@@ -59,7 +59,7 @@ export const CampaignDetailsContainer: FC<CampaignDetailsContainerProps> = ({
         causes={data.campaign.nominatedCharity.causes}
       />
 
-      <div className="flex flex-col w-full max-w-xxl px-3 mx-auto my-6 space-y-12 bg-gray-100">
+      <div className="flex flex-col w-full max-w-layout-xl px-3 mx-auto my-6 space-y-12 bg-gray-100">
         <div className="grid grid-cols-1 space-y-6 lg:grid-cols-12 lg:gap-8 sm:space-y-8 lg:space-y-0">
           <div className="flex flex-col items-center w-full space-y-5 lg:col-span-7">
             <BaseTile className="bg-white">

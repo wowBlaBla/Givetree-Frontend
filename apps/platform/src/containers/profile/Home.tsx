@@ -3,17 +3,15 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { SwatchesPicker, ColorResult } from "react-color";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
-import { updateAuthed } from "../../store/actions/auth.action";
 import { Countries, SocialLinks } from "../../utils/constants";
 import { CharityProperties } from "../../typed/charity";
 import { SocialLinkPatterns } from "../../utils/socialLinkPatterns";
 import { XIcon } from "@heroicons/react/outline";
+import { useAuth } from "../../context/AuthContext";
 
 type AccountType = "standard" | "charity";
 
-interface LinkData {
+interface UserLinkData {
   id?: number;
   social: string;
   link: string;
@@ -26,7 +24,7 @@ interface ProfileData {
   title?: string;
   bio?: string;
   location?: string;
-  socials?: LinkData[];
+  socials?: UserLinkData[];
   banner?: string;
   visibility?: "private" | "public";
   donation?: boolean;
@@ -36,15 +34,15 @@ interface ProfileData {
 }
 
 export const Home: FC = () => {
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
-  const dispatch = useDispatch();
+  const { authUser, updateUserData } = useAuth();
 
   const [editType, setEditType] = useState<"detail" | "branding" | "settings">("detail");
   const [profileData, setProfileData] = useState<ProfileData>({});
 
-  const [link, setLink] = useState<LinkData>({ social: SocialLinks[0].name, link: "" });
+  const [link, setLink] = useState<UserLinkData>({
+    social: SocialLinks[0].name,
+    link: "",
+  });
 
   const [isLoading, setLoading] = useState<boolean>(false);
 
@@ -56,7 +54,7 @@ export const Home: FC = () => {
   const [bannerUrl, setBannerUrl] = useState<string>("");
   const bannerRef = useRef<HTMLInputElement>(null);
 
-  const getSocialIcon = useCallback((link: LinkData) => {
+  const getSocialIcon = useCallback((link: UserLinkData) => {
     const social = SocialLinks.find((s) => s.name === link.social);
     if (social) {
       const IconComponent = social.icon;
@@ -66,29 +64,29 @@ export const Home: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (authedUser && authedUser.user) {
-      // const url = new URL(authedUser.user.banner);
+    if (authUser && authUser.user) {
+      // const url = new URL(authUser.user.banner);
       setProfileData({
-        email: authedUser.user.email,
-        userName: authedUser.user.userName,
-        title: authedUser.user.title,
-        bio: authedUser.user.bio,
-        type: authedUser.user.type,
-        visibility: authedUser.user.visibility,
-        banner: authedUser.user.banner || "",
-        location: authedUser.user.location,
-        tax: authedUser.user.tax,
-        charityProperty: authedUser.user.charityProperty,
-        socials: authedUser.user.socials,
+        email: authUser.user.email,
+        userName: authUser.user.userName,
+        title: authUser.user.title,
+        bio: authUser.user.bio,
+        type: authUser.user.type,
+        visibility: authUser.user.visibility,
+        banner: authUser.user.banner || "",
+        location: authUser.user.location,
+        tax: authUser.user.tax,
+        charityProperty: authUser.user.charityProperty,
+        socials: authUser.user.socials,
         // bannerIsImage: (url.protocol == 'http:' || url.protocol == 'https:')
       });
-      setAvatarUrl(authedUser.user.profileImage || "");
+      setAvatarUrl(authUser.user.profileImage || "");
     }
-  }, [authedUser]);
+  }, [authUser]);
 
   const updateProfile = async () => {
     try {
-      if (authedUser) {
+      if (authUser) {
         const data = { ...profileData };
         setLoading(true);
         let res = await axios.put(
@@ -96,7 +94,7 @@ export const Home: FC = () => {
           data,
           {
             headers: {
-              Authorization: `Bearer ${authedUser.accessToken}`,
+              Authorization: `Bearer ${authUser.accessToken}`,
             },
           }
         );
@@ -116,19 +114,15 @@ export const Home: FC = () => {
             imageBody,
             {
               headers: {
-                Authorization: `Bearer ${authedUser.accessToken}`,
+                Authorization: `Bearer ${authUser.accessToken}`,
                 "Content-Type": "multipart/form-data",
               },
             }
           );
         }
 
-        dispatch(
-          updateAuthed({
-            ...authedUser,
-            user: res.data,
-          })
-        );
+        updateUserData(res.data);
+
         toast.success("Updated profile successfully!");
       }
     } catch (err) {
@@ -186,7 +180,7 @@ export const Home: FC = () => {
       if (!valid) {
         return;
       }
-      if (authedUser) {
+      if (authUser) {
         const params = {
           pending: `Adding ${link.social} link...`,
           success: `${link.social} link is added succesfully!`,
@@ -196,10 +190,10 @@ export const Home: FC = () => {
         toast.promise(async () => {
           const res = await axios.post(
             `${process.env.NEXT_PUBLIC_API}/api/socials`,
-            { ...link, userId: authedUser?.user.id },
+            { ...link, userId: authUser?.user.id },
             {
               headers: {
-                Authorization: `Bearer ${authedUser.accessToken}`,
+                Authorization: `Bearer ${authUser.accessToken}`,
               },
             }
           );
@@ -214,7 +208,7 @@ export const Home: FC = () => {
   };
 
   const handleRemoveLink = async (idx: number) => {
-    if (authedUser) {
+    if (authUser) {
       if (profileData?.socials?.length) {
         const _socials = profileData.socials.slice();
         try {
@@ -228,7 +222,7 @@ export const Home: FC = () => {
               `${process.env.NEXT_PUBLIC_API}/api/socials/${_socials[idx]?.id}`,
               {
                 headers: {
-                  Authorization: `Bearer ${authedUser.accessToken}`,
+                  Authorization: `Bearer ${authUser.accessToken}`,
                 },
               }
             );
@@ -301,12 +295,12 @@ export const Home: FC = () => {
               <span className="indicator-item indicator-middle w-[12px] h-[12px] right-[12px]">
                 <ChevronDownIcon fill="#0075FF" />
               </span>
-              <button className="btn text-white w-[180px] h-[30px] min-h-0 bg-white border-1 border-[#0075FF] text-[#0075FF] rounded-[20px]">
+              <button className="btn text-white w-[180px] h-[30px] min-h-0 bg-white border-1 border-[#0075FF] text-[#0075FF] rounded-2xl-1">
                 More Actions
               </button>
             </div>
             <button
-              className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-[20px]"
+              className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-2xl-1"
               onClick={updateProfile}
             >
               Save
