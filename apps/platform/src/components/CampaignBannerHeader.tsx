@@ -35,7 +35,7 @@ export const CampaignBannerHeader: FC<CampaignBannerHeaderProps> = ({
 
       <div className="absolute bottom-0 z-10 w-full h-full bg-black opacity-60"></div>
 
-      <div className="relative flex items-end max-w-xxl min-h-full px-3 py-8 mx-auto gap-x-5">
+      <div className="relative flex items-end max-w-layout-xl min-h-full px-3 py-8 mx-auto gap-x-5">
         <div className="z-20 flex flex-col flex-1 space-y-2 text-white sm:space-y-3">
           {isFeatured && (
             <div className="relative flex">

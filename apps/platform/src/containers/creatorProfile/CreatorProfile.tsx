@@ -18,13 +18,13 @@ export const CreatorProfile:FC<CreatorProfileProps> = () => {
     return (
         <div className="grid grid-cols-1 gap-3 mb-2">
             <ProfileBanner/>
-            <div className="max-w-layout mx-auto w-full">
+            <div className="max-w-layout-l mx-auto w-full">
                 <PersonalInfo
                     name={"Mulga The Artist"}
                 />
             </div>
             <div className="border-b border-black overflow-x-auto scroll-pb-5">
-                <div className="max-w-layout mx-auto w-full">
+                <div className="max-w-layout-l mx-auto w-full">
                     <ul
                         className="nav nav-tabs flex gap-2 list-none border-b-0 pl-0"
                         id="tabs-tab"

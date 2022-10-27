@@ -60,7 +60,7 @@ const HomeContainer = () => {
         />
       </div>
 
-      <SectionContainer className="max-w-layout">
+      <SectionContainer className="max-w-layout-l">
         <SectionHeader
           mainTitle="Trusted by charity"
           linkText="View more"
@@ -81,7 +81,7 @@ const HomeContainer = () => {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout">
+      <SectionContainer className="max-w-layout-l">
         <SectionHeader
           mainTitle="NFT Fundraisers"
           linkText="View more"
@@ -95,7 +95,7 @@ const HomeContainer = () => {
         </CardGrid>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout">
+      <SectionContainer className="max-w-layout-l">
         <SectionHeader
           mainTitle="Causes"
           linkText="View more"
@@ -116,7 +116,7 @@ const HomeContainer = () => {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout">
+      <SectionContainer className="max-w-layout-l">
         <SectionHeader
           mainTitle="Charities"
           linkText="View more"

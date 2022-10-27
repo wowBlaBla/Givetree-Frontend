@@ -1,24 +1,10 @@
 import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "wouter";
-import { updateAddress, updateAuthed } from "../store/actions/auth.action";
-import { AUTH_USER, IStore } from "../store/reducers/auth.reducer";
+import { Link } from "wouter";
+import { useAuth } from "../context/AuthContext";
 import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
 
 export const DropdownMenu: FC = () => {
-  const dispatch = useDispatch();
-  const [, setLocation] = useLocation();
-
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
-
-  const logout = () => {
-    dispatch(updateAddress(""));
-    dispatch(updateAuthed(undefined));
-    localStorage.clear();
-    setLocation("/");
-  };
+  const { authUser, logout } = useAuth();
 
   return (
     <div className="dropdown dropdown-hover dropdown-end w-12 h-12">
@@ -27,7 +13,7 @@ export const DropdownMenu: FC = () => {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <div className="w-12 rounded-full border-2 border-grey-500 cursor-pointer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={authedUser?.user.profileImage || avatar.src} alt="profile avatar" />
+            <img src={authUser?.user.profileImage || avatar.src} alt="profile avatar" />
           </div>
         </div>
       </label>
