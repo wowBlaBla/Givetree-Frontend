@@ -11,7 +11,7 @@ export enum PlatformRoute {
   ItemDetails = "/fundraiser/:campaignName",
   CreatorListing = "/creators",
   PublicProfileDetails = "/explore/:category/:name",
-  ProfileDetails = "/profile/:category",
+  ProfileDetails = "/profile/:category*",
   ExploreDetails = "/explore/:category",
   ExploreNFTFundraisers = "/explore/fundraisers",
   ExploreCreators = "/explore/creators",

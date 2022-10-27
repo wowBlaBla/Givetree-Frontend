@@ -68,11 +68,11 @@ const createNavs: NavItem[] = [
     title: "Create collection",
     icon: CreateIcon,
   },
-  {
-    category: "new-listing",
-    title: "Create listing",
-    icon: CreateIcon,
-  },
+  // {
+  //   category: "new-listing",
+  //   title: "Create listing",
+  //   icon: CreateIcon,
+  // },
   {
     category: "new-mintpage",
     title: "Create mint page",
