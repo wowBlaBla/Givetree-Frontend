@@ -1,13 +1,9 @@
 import { FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
+import { useAuth } from "../../context/AuthContext";
 import { Tokens } from "../../utils/constants";
 
 export const MyWallets: FC = () => {
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
-  const dispatch = useDispatch();
+  const { authUser } = useAuth();
 
   return (
     <div className="profile">
@@ -43,9 +39,7 @@ export const MyWallets: FC = () => {
                     </div>
                   </div>
                   <div className="flex lg:hidden items-center">
-                    <button className="btn btn-primary mr-2 btn-connect">
-                      Connect
-                    </button>
+                    <button className="btn btn-primary mr-2 btn-connect">Connect</button>
                     <div>
                       <svg
                         width="20"

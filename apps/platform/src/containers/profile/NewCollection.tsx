@@ -14,12 +14,10 @@ import CoveredCard from "../../assets/images/card-display-cover.svg";
 import ContainCard from "../../assets/images/card-display-contain.svg";
 import { Categories, Category } from "../../configs/constants";
 import { XIcon } from "@heroicons/react/solid";
-import { useSelector } from "react-redux";
-import Web3 from "web3";
-import { Contracts, IStore } from "../../store/reducers/mvp.reducer";
-import { AUTH_USER, IStore as IStoreAuth } from "../../store/reducers/auth.reducer";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
+import { useWallet } from "../../context/WalletContext";
 
 enum theme {
   Padded = "padded",
@@ -57,7 +55,7 @@ interface Royalty {
   creatorPercent: string;
 }
 
-interface LinkData {
+interface UserLinkData {
   website?: string;
   discord?: string;
   medium?: string;
@@ -103,14 +101,8 @@ const defaultErrors: Errors = {
 };
 
 export const NewCollection: FC = () => {
-  const authedUser = useSelector<IStoreAuth, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
-  const mvp = useSelector<IStore, Contracts>((state) => state.mvp.contracts);
-  const provider = useSelector<IStore, Web3 | undefined>((state) => state.mvp.provider);
-  const waleltAddress = useSelector<IStoreAuth, string>(
-    (state) => state.auth.walletAddress
-  );
+  const { authUser } = useAuth();
+  const { address, contracts, web3Instance } = useWallet();
 
   const [logo, setLogo] = useState<File>();
   const [featuredImage, setFeaturedImage] = useState<File>();
@@ -129,7 +121,7 @@ export const NewCollection: FC = () => {
 
   const [activeCategory, setActiveCategory] = useState<Category | undefined>();
   const [activeTheme, setActiveTheme] = useState<theme>(theme.Contained);
-  const [socials, setSocials] = useState<LinkData>({});
+  const [socials, setSocials] = useState<UserLinkData>({});
 
   const [openCategoryDropdown, setOpenCategoryDropdown] = useState<boolean>(false);
   const [charities, setCharities] = useState<string[]>([]);
@@ -138,15 +130,15 @@ export const NewCollection: FC = () => {
 
   useEffect(() => {
     async function fetchCharity() {
-      if (mvp.marketplaceContract) {
-        const contract = mvp.marketplaceContract;
+      if (contracts && contracts.marketplace) {
+        const contract = contracts.marketplace;
         const charities = await contract.methods.getCharityList().call();
         setCharities(charities);
       }
     }
 
-    if (mvp) fetchCharity();
-  }, [mvp]);
+    if (contracts) fetchCharity();
+  }, [contracts]);
 
   const handleFileSelect = (e: any, key: string) => {
     const file = e.target.files[0];
@@ -174,91 +166,89 @@ export const NewCollection: FC = () => {
   };
 
   const createCollection = async () => {
-    if (mvp) {
-      if (mvp.factoryContract) {
-        try {
-          const valid = validateForm();
-          if (!valid) return;
-          setLoading(true);
-          const contract = mvp.factoryContract;
-          const deployData = [
-            name,
-            symbol,
-            maxSupply,
-            metadataURI,
-            revealURI,
-            revealEnabled,
-            provider?.utils.toWei(mintPrice.toString(), "ether"),
-            charityDonation.address,
-            charityDonation.percent,
-            royalty,
-          ];
+    if (contracts && contracts.factory) {
+      try {
+        const valid = validateForm();
+        if (!valid) return;
+        setLoading(true);
+        const contract = contracts.factory;
+        const deployData = [
+          name,
+          symbol,
+          maxSupply,
+          metadataURI,
+          revealURI,
+          revealEnabled,
+          web3Instance?.utils.toWei(mintPrice.toString(), "ether"),
+          charityDonation.address,
+          charityDonation.percent,
+          royalty,
+        ];
 
-          const deployRes = await contract.methods.createCollection(...deployData).send({
-            from: waleltAddress,
-          });
-          toast.success("Collection is deployed successfully!");
-          const res = await axios.post(
-            `${process.env.API_URL}/api/collections/`,
-            {
-              name,
-              description,
-              pattern,
-              theme: activeTheme,
-              address: deployRes?.events?.returnValues?.collection,
-              category: activeCategory?.value,
+        const deployRes = await contract.methods.createCollection(...deployData).send({
+          from: address,
+        });
+        toast.success("Collection is deployed successfully!");
+        const res = await axios.post(
+          `${process.env.API_URL}/api/collections/`,
+          {
+            name,
+            description,
+            pattern,
+            theme: activeTheme,
+            address: deployRes?.events?.returnValues?.collection,
+            category: activeCategory?.value,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${authUser?.accessToken}`,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${authedUser?.accessToken}`,
-              },
-            }
-          );
-          toast.success("Collection is uploaded to platform successfully!");
-          const formData = new FormData();
-          if (logo) formData.append("logo", logo);
-          if (featuredImage) formData.append("featured", featuredImage);
-          if (bannerImage) formData.append("banner", bannerImage);
-          await axios.put(
-            `${process.env.API_URL}/api/collections/upload/${res.data.id}`,
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${authedUser?.accessToken}`,
-                "Content-Type": "multipart/form-data",
-              },
-            }
-          );
-          const _socials = [];
-          type social_index = "discord" | "website" | "telegram" | "medium";
-          if (Object.keys(socials).length) {
-            for (const key in socials) {
-              if (socials[key as social_index]) {
-                _socials.push({
-                  social: key,
-                  link: socials[key as social_index],
-                });
-              }
-            }
-            if (_socials.length) {
-              await axios.put(
-                `${process.env.API_URL}/api/collections/${res.data.id}`,
-                {
-                  socials: _socials,
-                },
-                {
-                  headers: {
-                    Authorization: `Bearer ${authedUser?.accessToken}`,
-                  },
-                }
-              );
+          }
+        );
+        toast.success("Collection is uploaded to platform successfully!");
+        const formData = new FormData();
+        if (logo) formData.append("logo", logo);
+        if (featuredImage) formData.append("featured", featuredImage);
+        if (bannerImage) formData.append("banner", bannerImage);
+        await axios.put(
+          `${process.env.API_URL}/api/collections/upload/${res.data.id}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${authUser?.accessToken}`,
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        const _socials = [];
+        type social_index = "discord" | "website" | "telegram" | "medium";
+        if (Object.keys(socials).length) {
+          for (const key in socials) {
+            if (socials[key as social_index]) {
+              _socials.push({
+                social: key,
+                link: socials[key as social_index],
+              });
             }
           }
-        } catch (err) {
-          console.log(err);
+          if (_socials.length) {
+            await axios.put(
+              `${process.env.API_URL}/api/collections/${res.data.id}`,
+              {
+                socials: _socials,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${authUser?.accessToken}`,
+                },
+              }
+            );
+          }
         }
-        setLoading(false);
+      } catch (err) {
+        console.log(err);
       }
+      setLoading(false);
     }
   };
 
@@ -315,7 +305,7 @@ export const NewCollection: FC = () => {
 
     if (
       !royalty.charity ||
-      !provider?.utils.isAddress(royalty.creator) ||
+      !web3Instance?.utils.isAddress(royalty.creator) ||
       Number(royalty.charityPercent) + Number(royalty.creatorPercent) < 1
     )
       _errors.royalty = true;
@@ -936,7 +926,10 @@ export const NewCollection: FC = () => {
           </div>
         </div>
         <div className="action-button mt-4">
-          <button className="btn bg-[#0075FF] text-white h-[40px] min-h-0 border-none" onClick={createCollection}>
+          <button
+            className="btn bg-[#0075FF] text-white h-[40px] min-h-0 border-none"
+            onClick={createCollection}
+          >
             Create
           </button>
         </div>

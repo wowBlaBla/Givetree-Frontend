@@ -68,8 +68,8 @@ module.exports = {
       maxWidth: {
         "96": "36rem",
         "229px": "229px",
-        "layout": "976px",
-        "xxl": "1093px",
+        "layout-s": "576px",
+        "layout-l": "976px",
         "layout-xl": "1100px",
         "screen-3xl": "1754px",
       },

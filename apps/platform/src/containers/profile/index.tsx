@@ -31,12 +31,6 @@ const ProfilePortal: FC = () => {
         <Route path="/profile/home">
           <Home />
         </Route>
-        {/* <Route path="/profile/home-appearance">
-          <Appearance />
-        </Route>
-        <Route path="/profile/home-settings">
-          <HomeSettings />
-        </Route> */}
         <Route path="/profile/wallets">
           <MyWallets />
         </Route>

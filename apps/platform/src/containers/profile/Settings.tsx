@@ -1,58 +1,18 @@
-import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { AUTH_USER, IStore } from "../../store/reducers/auth.reducer";
-import { updateAuthed } from "../../store/actions/auth.action";
+import { useAuth } from "../../context/AuthContext";
 
 export const Settings: FC = () => {
-  const authedUser = useSelector<IStore, AUTH_USER | undefined>(
-    (state) => state.auth.authedUser
-  );
-  const dispatch = useDispatch();
-
-  const [viewType, setViewType] = useState<"edit" | "preview">("edit");
+  const { authUser } = useAuth();
 
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
   useEffect(() => {
-    if (authedUser && authedUser.user) {
-      setUserName(authedUser.user.userName || "");
-      setEmail(authedUser.user.email || "");
+    if (authUser && authUser.user) {
+      setUserName(authUser.user.userName || "");
+      setEmail(authUser.user.email || "");
     }
-  }, [authedUser]);
-
-  const updateProfile = async () => {
-    try {
-      if (authedUser) {
-        const data = {
-          userName,
-          email,
-        };
-
-        const res = await axios.put(
-          `${process.env.NEXT_PUBLIC_API}/api/users/profile`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${authedUser.accessToken}`,
-            },
-          }
-        );
-
-        dispatch(
-          updateAuthed({
-            ...authedUser,
-            user: res.data,
-          })
-        );
-        toast.success("Updated profile successfully!");
-      }
-    } catch (err) {
-      toast.success("Faild updating profile");
-    }
-  };
+  }, [authUser]);
 
   return (
     <div className="profile">
