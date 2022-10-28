@@ -880,7 +880,7 @@ export const NewCollection: FC = () => {
                   type="checkbox"
                   className="toggle toggle-primary"
                   checked={revealEnabled}
-                  onClick={() => setRevealEnabled(!revealEnabled)}
+                  onChange={() => setRevealEnabled(!revealEnabled)}
                 />
               </div>
             </div>

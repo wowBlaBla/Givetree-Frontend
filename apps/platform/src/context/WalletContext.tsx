@@ -42,10 +42,12 @@ interface IWalletProvider {
   web3Instance?: Web3;
   contracts?: IContractSet;
   connectWallet: (wallet: Wallet) => void;
+  reset: () => void;
 }
 
 const WalletContext = React.createContext<IWalletProvider>({
   connectWallet: () => {},
+  reset: () => {},
 });
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -174,6 +176,14 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     });
   };
 
+  const reset = () => {
+    setAddress(undefined);
+    setWallet(undefined);
+    setProvider(undefined);
+    setWeb3Instance(undefined);
+    setContracts(undefined);
+  };
+
   return (
     <WalletContext.Provider
       value={{
@@ -184,6 +194,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         web3Instance,
         contracts,
         connectWallet,
+        reset,
       }}
     >
       {children}

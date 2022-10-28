@@ -1,9 +1,54 @@
-import { FC } from "react";
+import axios from "axios";
+import { FC, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { ConnectWalletModal } from "../../components/modal/ConnectWalletModal";
 import { useAuth } from "../../context/AuthContext";
+import { useWallet } from "../../context/WalletContext";
 import { Tokens } from "../../utils/constants";
 
 export const MyWallets: FC = () => {
   const { authUser } = useAuth();
+  const { address } = useWallet();
+
+  const [selected, setSelected] = useState(false);
+  const [walletAddress, setWalletAddress] = useState("");
+
+  useEffect(() => {
+    if (selected && address) {
+      setWalletAddress(address);
+    }
+  }, [address, selected]);
+
+  const handleWallet = () => {
+    setSelected(true);
+  };
+
+  const updateWallet = async () => {
+    if (authUser) {
+      try {
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_API}/api/users/profile`,
+          {
+            walletAddress: walletAddress,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        toast.success("Added wallet address");
+      } catch (err) {
+        toast.error("Failed to add wallet address");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (authUser && authUser.user.walletAddresses.length) {
+      setWalletAddress(authUser.user.walletAddresses[0].address);
+    }
+  }, [authUser]);
 
   return (
     <div className="profile">
@@ -39,7 +84,13 @@ export const MyWallets: FC = () => {
                     </div>
                   </div>
                   <div className="flex lg:hidden items-center">
-                    <button className="btn btn-primary mr-2 btn-connect">Connect</button>
+                    <label
+                      className="btn btn-primary mr-2 btn-connect"
+                      // disabled={token.disabled}
+                      htmlFor="connect-wallet-modal"
+                    >
+                      Connect
+                    </label>
                     <div>
                       <svg
                         width="20"
@@ -61,12 +112,22 @@ export const MyWallets: FC = () => {
                     readOnly
                     type="text"
                     className="input input-bordered block w-full outline-none"
+                    value={
+                      token.crypto === "Ethereum" || token.crypto === "Polygon"
+                        ? walletAddress
+                        : ""
+                    }
                   />
                 </div>
                 <div className="hidden lg:flex">
-                  <button className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto">
+                  <label
+                    className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto"
+                    htmlFor="connect-wallet-modal"
+                    // disabled={token.disabled}
+                    // onClick={handleConnect}
+                  >
                     Connect
-                  </button>
+                  </label>
                   <div>
                     <svg
                       width="20"
@@ -88,7 +149,10 @@ export const MyWallets: FC = () => {
               <div />
               <div />
               <div>
-                <button className="btn btn-primary mr-2 w-full !bg-[#0075FF] !text-white">
+                <button
+                  className="btn btn-primary mr-2 w-full !bg-[#0075FF] !text-white"
+                  onClick={updateWallet}
+                >
                   Add
                 </button>
               </div>
@@ -96,6 +160,7 @@ export const MyWallets: FC = () => {
           </div>
         </div>
       </div>
+      {<ConnectWalletModal callback={handleWallet} />}
     </div>
   );
 };

@@ -428,7 +428,7 @@
   border-radius: 10px;
 }
 
-.profile button.btn-connect {
+.profile label.btn-connect {
   background: white;
   color: black;
   border: 1px solid #5B626C;
@@ -437,7 +437,7 @@
   text-transform: capitalize;
 }
 
-.profile button.btn-connect:hover {
+.profile label.btn-connect:hover {
   background: #2FB4D1;
   color: white;
 }

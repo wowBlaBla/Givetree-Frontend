@@ -585,7 +585,7 @@ export const NewNFT: FC = () => {
               type="checkbox"
               className="toggle toggle-md"
               checked={unlockable}
-              onClick={() => setUnlockable(!unlockable)}
+              onChange={() => setUnlockable(!unlockable)}
             />
           </div>
         </div>
@@ -619,7 +619,7 @@ export const NewNFT: FC = () => {
               type="checkbox"
               className="toggle toggle-md"
               checked={explicit}
-              onClick={() => setExplicit(!explicit)}
+              onChange={() => setExplicit(!explicit)}
             />
           </div>
         </div>
