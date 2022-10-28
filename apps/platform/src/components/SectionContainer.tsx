@@ -9,7 +9,7 @@ export interface SectionContainerProps {
 export const SectionContainer: FC<SectionContainerProps> = ({ className, children }) => (
   <div
     className={cx(
-      "flex relative flex-col flex-1 w-full mx-auto sm:my-[3rem] px-4 md:px-8",
+      "flex relative flex-col flex-1 sm:my-[3rem] px-4 md:px-8",
       className
     )}
   >
