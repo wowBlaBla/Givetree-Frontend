@@ -7,7 +7,7 @@ import {
 } from "../containers/explore/Charities";
 import { Currencies, OneTimePurchase, Tokens } from "../utils/constants";
 import { ErrorContainer } from "./ErrorContainer";
-import { ChevronRight } from "./icons/ChevronRight";
+import { ChevronRight } from "./icons/ChevronRightIcon";
 import { LoadingContainer } from "./LoadingContainer";
 
 const Pages = [

@@ -5,7 +5,7 @@ interface Props {
   color?: string;
 }
 
-export const ChevronRight: FC<Props> = ({ className, color }) => (
+export const ChevronRightIcon: FC<Props> = ({ className, color }) => (
   <svg
     className={className}
     width="10"

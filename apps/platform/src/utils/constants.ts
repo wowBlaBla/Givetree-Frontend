@@ -270,15 +270,15 @@ export const SocialLinks = [
 ];
 
 export const Tokens = [
-  { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon },
+  { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon, disabled: true },
   { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon },
-  { crypto: "Solana", currency: "SOL", icon: SolanaIcon },
+  { crypto: "Solana", currency: "SOL", icon: SolanaIcon, disabled: true },
   { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon },
-  { crypto: "Flow", currency: "FLOW", icon: FlowIcon },
-  { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon },
-  { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon },
-  { crypto: "Cardano", currency: "ADA", icon: CardanoIcon },
-  { crypto: "Doguecoin", currency: "Dogue", icon: Doguecoin },
+  { crypto: "Flow", currency: "FLOW", icon: FlowIcon, disabled: true },
+  { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon, disabled: true },
+  { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon, disabled: true },
+  { crypto: "Cardano", currency: "ADA", icon: CardanoIcon, disabled: true },
+  { crypto: "Doguecoin", currency: "Dogue", icon: Doguecoin, disabled: true },
 ];
 
 export const Currencies = [

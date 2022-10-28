@@ -19,11 +19,15 @@ interface propertyInterface {
   value: string;
 }
 
+interface Meta {
+  [key: string]: any;
+}
+
 interface metadataIns {
   name: string;
   description: string;
   image: string;
-  attributes: propertyInterface[];
+  attributes?: propertyInterface[];
 }
 
 interface Charity {
@@ -52,7 +56,6 @@ const defaultMetadata: metadataIns = {
   name: "",
   description: "",
   image: "",
-  attributes: [],
 };
 
 const defaultTrait: propertyInterface = { trait_type: "", value: "" };
@@ -190,14 +193,23 @@ export const NewNFT: FC = () => {
         animate_url = await uploadArtToIPFS(animationArt);
       }
 
-      const _metadata = {
+      let _metadata: Meta = {
         ...metadata,
         image: "ipfs://" + imageCid,
-        animate_url: animate_url ? "ipfs://" + animate_url : null,
-        attributes: properties,
         levels: levels[0].trait_type.length > 0 ? levels : undefined,
         stats: stats[0].trait_type.length > 0 ? stats : undefined,
       };
+      if (properties.length) {
+        if (properties[0].trait_type) {
+          _metadata = {
+            ..._metadata, 
+            attributes: properties,
+          }
+        }
+      }
+      if (animate_url) {
+        _metadata = { ..._metadata, animate_url };
+      }
       const metadataCid = await uploadMetadataToIPFS(_metadata);
       return metadataCid;
     } catch (err) {}
@@ -585,7 +597,7 @@ export const NewNFT: FC = () => {
               type="checkbox"
               className="toggle toggle-md"
               checked={unlockable}
-              onClick={() => setUnlockable(!unlockable)}
+              onChange={() => setUnlockable(!unlockable)}
             />
           </div>
         </div>
@@ -619,7 +631,7 @@ export const NewNFT: FC = () => {
               type="checkbox"
               className="toggle toggle-md"
               checked={explicit}
-              onClick={() => setExplicit(!explicit)}
+              onChange={() => setExplicit(!explicit)}
             />
           </div>
         </div>

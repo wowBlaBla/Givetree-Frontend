@@ -174,8 +174,8 @@
 }
 
 .side-bar .collapse-plus .collapse-title:after {
-  top: 0.5rem;
   color: white;
+  right: 1.5rem;
 }
 
 .my-check-box {
@@ -184,12 +184,9 @@
 
 .my-check-box .tick {
   position: relative;
-  width: 20px;
-  height: 20px;
   background: transparent;
   border: 1px solid #696969;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin-right: 8px;
 }
 
 .my-check-box .tick.checked::after {
@@ -209,8 +206,8 @@
   padding: 0 10px;
   background: #2F3136;
   border: 1px solid #696969;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 60px;
+  border-radius: 5px;
+  height: 39px;
 }
 
 .explore-input-container input {
@@ -385,7 +382,7 @@
   width: 150px;
 }
 
-.wallets-header > div {
+.wallets-header>div {
   align-items: center;
   justify-content: center;
   /* padding-left: 24px; */
@@ -393,16 +390,16 @@
 
 }
 
-.wallets-header > div:nth-child(1) {
+.wallets-header>div:nth-child(1) {
   width: 150px;
   justify-content: start;
 }
 
-.wallets-header > div:nth-child(2) {
+.wallets-header>div:nth-child(2) {
   flex: 1;
 }
 
-.wallets-header > div:nth-child(3) {
+.wallets-header>div:nth-child(3) {
   width: 150px;
 }
 
@@ -428,7 +425,7 @@
   border-radius: 10px;
 }
 
-.profile button.btn-connect {
+.profile label.btn-connect {
   background: white;
   color: black;
   border: 1px solid #5B626C;
@@ -437,7 +434,7 @@
   text-transform: capitalize;
 }
 
-.profile button.btn-connect:hover {
+.profile label.btn-connect:hover {
   background: #2FB4D1;
   color: white;
 }
@@ -448,7 +445,7 @@
 
 .auth-steps.steps .step:after {
   width: 20px;
-  height: 20px;  
+  height: 20px;
 }
 
 .auth-steps.steps .step::before {
@@ -465,4 +462,12 @@
 
 .auth-steps.steps .step.step-current::before {
   background-color: #00EF8B;
+}
+
+.nft-item .btn-list {
+  @apply opacity-0 transition-all
+}
+
+.nft-item:hover .btn-list {
+  @apply opacity-100
 }

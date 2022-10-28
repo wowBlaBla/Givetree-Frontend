@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 interface ArtPreview {
-    src: File;
+    src: File | string;
     type: string;
 }
 
@@ -15,13 +15,13 @@ export const MintArtPreview:FC<ArtPreview> = ({ src, type }) => {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
                         className="object-cover w-full h-full"
-                        src={URL.createObjectURL(src)}
+                        src={typeof src == "string" ? src : URL.createObjectURL(src)}
                         alt="avatar"
                     />
                 ) : ( type == "audio" ? (
-                    <audio src={URL.createObjectURL(src)} controls/>
+                    <audio src={typeof src == "string" ? src : URL.createObjectURL(src)} controls/>
                 ) : (
-                    <video src={URL.createObjectURL(src)} controls/>
+                    <video src={typeof src == "string" ? src : URL.createObjectURL(src)} controls/>
                 ))
             }
         </>

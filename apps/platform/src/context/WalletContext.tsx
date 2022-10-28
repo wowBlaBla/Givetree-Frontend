@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React from "react";
+import React, { useContext, useState } from "react";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK, { CoinbaseWalletProvider } from "@coinbase/wallet-sdk";
 import Web3 from "web3";
@@ -14,7 +14,16 @@ import factoryABI from "../assets/jsons/abi/factory.json";
 import singleNFTABI from "../assets/jsons/abi/singleNFT.json";
 import marketplaceABI from "../assets/jsons/abi/marketplace.json";
 
-export const Network = ["Ethereum", "Polygon", "Solana"];
+export const Network = ['Ethereum', 'Polygon', 'Solana'];
+
+export const NetworkName = {
+  '5': "ethereum", // mainnet 1
+  '80001': 'polygon', //
+  '44787': 'celo', //
+  '420': 'optimism', //
+  '421613': 'arbitrum' //
+};
+export type NetworkID = '5' | '80001' | '44787' | '420' | '421613';
 export type Wallet = "metamask" | "walletconnect" | "coinbase" | "phantom";
 export type WalletProvider = WalletConnectWeb3Provider | CoinbaseWalletProvider;
 
@@ -36,27 +45,31 @@ interface IContractSet {
 
 interface IWalletProvider {
   address?: string;
+  networkName?: string;
   wallet?: Wallet;
   provider?: WalletProvider;
   loading?: boolean;
   web3Instance?: Web3;
   contracts?: IContractSet;
   connectWallet: (wallet: Wallet) => void;
+  reset: () => void;
 }
 
 const WalletContext = React.createContext<IWalletProvider>({
   connectWallet: () => {},
+  reset: () => {},
 });
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
-  const [address, setAddress] = React.useState<string>();
-  const [wallet, setWallet] = React.useState<Wallet>();
-  const [provider, setProvider] = React.useState<WalletProvider>();
-  const [web3Instance, setWeb3Instance] = React.useState<Web3>();
-  const [contracts, setContracts] = React.useState<IContractSet>();
+  const [address, setAddress] = useState<string>();
+  const [networkName, setNetworkName] = useState<string>();
+  const [wallet, setWallet] = useState<Wallet>();
+  const [provider, setProvider] = useState<WalletProvider>();
+  const [web3Instance, setWeb3Instance] = useState<Web3>();
+  const [contracts, setContracts] = useState<IContractSet>();
 
-  const [loading, setLoading] = React.useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const connectWallet = async (wallet: Wallet) => {
     switch (wallet) {
@@ -149,7 +162,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     // }
   };
 
-  const updateWeb3 = (provider: WalletProvider) => {
+  const updateWeb3 = async(provider: WalletProvider) => {
     const web3 = new Web3(provider);
 
     const factoryContract: Contract = new web3.eth.Contract(
@@ -164,7 +177,8 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
       marketplaceABI as AbiItem[] | AbiItem,
       EthereumNetwork.address.marketplace
     );
-
+    const networkID = await web3.eth.getChainId();
+    setNetworkName(NetworkName[networkID.toString() as NetworkID ]);
     setWeb3Instance(web3);
     setProvider(provider);
     setContracts({
@@ -172,6 +186,14 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
       singleNFT: singleNFTContract,
       marketplace: marketplaceContract,
     });
+  };
+
+  const reset = () => {
+    setAddress(undefined);
+    setWallet(undefined);
+    setProvider(undefined);
+    setWeb3Instance(undefined);
+    setContracts(undefined);
   };
 
   return (
@@ -183,7 +205,9 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         loading,
         web3Instance,
         contracts,
+        networkName,
         connectWallet,
+        reset,
       }}
     >
       {children}
@@ -192,7 +216,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
 };
 
 export const useWallet = () => {
-  const context = React.useContext(WalletContext);
+  const context = useContext(WalletContext);
 
   if (!context) {
     throw new Error("useWallet hook must be used inside WalletProvider");

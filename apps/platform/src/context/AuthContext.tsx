@@ -36,7 +36,7 @@ export type User = {
   profileImage: string;
   banner: string;
   posts: string[];
-  walletAddresses: string[];
+  walletAddresses: any[];
   refreshTokens: string[];
   charityProperty: CharityProperties | any;
   socials: UserLinkData[];

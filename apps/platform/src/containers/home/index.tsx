@@ -33,7 +33,7 @@ const HomeContainer = () => {
   }
 
   return (
-    <div className="w-full mx-auto">
+    <div className="w-full">
       <Head>
         <title>GiveTree</title>
         <meta name="description" content="This is the GiveTree NFT Marketplace" />
@@ -60,7 +60,7 @@ const HomeContainer = () => {
         />
       </div>
 
-      <SectionContainer className="max-w-layout-l">
+      <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader
           mainTitle="Trusted by charity"
           linkText="View more"
@@ -81,7 +81,7 @@ const HomeContainer = () => {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout-l">
+      <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader
           mainTitle="NFT Fundraisers"
           linkText="View more"
@@ -95,7 +95,7 @@ const HomeContainer = () => {
         </CardGrid>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout-l">
+      <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader
           mainTitle="Causes"
           linkText="View more"
@@ -116,7 +116,7 @@ const HomeContainer = () => {
         </div>
       </SectionContainer>
 
-      <SectionContainer className="max-w-layout-l">
+      <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader
           mainTitle="Charities"
           linkText="View more"
