@@ -12,7 +12,7 @@ import { SettingIcon } from "../../components/icons/profiles/SettingIcon";
 import { CreateIcon } from "../../components/icons/profiles/CreateIcon";
 import { useAuth } from "../../context/AuthContext";
 
-interface NavItem {
+export type NavItem = {
   category: string;
   title: string;
   children?: NavItem[];
@@ -93,7 +93,7 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
     <div
       className={`side-bar ${
         visible ? "absolute" : "hidden lg:flex"
-      } lg:sticky top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] py-8 bg-white border-r border-base-content border-opacity-25 dark:bg-mid-dark z-10`}
+      } lg:sticky top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] py-8 border-r border-base-content border-opacity-25 bg-mid-dark z-10`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="flex flex-col items-center px-8">
