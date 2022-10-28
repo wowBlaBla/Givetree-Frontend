@@ -4,7 +4,6 @@ import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./charities.data";
 import Image from "next/image";
-import { ChevronRight } from "../../components/icons/ChevronRightIcon";
 import { DefaultParams, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
 import { DonationForm } from "../../components/DonationForm";
