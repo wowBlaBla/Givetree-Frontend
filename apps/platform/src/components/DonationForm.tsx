@@ -7,7 +7,7 @@ import {
 } from "../containers/explore/Charities";
 import { Currencies, OneTimePurchase, Tokens } from "../utils/constants";
 import { ErrorContainer } from "./ErrorContainer";
-import { ChevronRight } from "./icons/ChevronRightIcon";
+import { ChevronRightIcon } from "./icons/ChevronRightIcon";
 import { LoadingContainer } from "./LoadingContainer";
 
 const Pages = [
@@ -104,7 +104,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">Charity</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-md">Foundation of nat...</span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <div
@@ -114,7 +114,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">AUD</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-h">100</span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <div
@@ -124,7 +124,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">BTC</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-h">0.000033</span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <div className="flex justify-center" onClick={() => setPage("purchase")}>
@@ -139,7 +139,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">Pay with</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-md">Ox028928</span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <div
@@ -149,7 +149,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">Donor info</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-md">Name, Age, etc </span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <div
@@ -159,7 +159,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-md w-[120px]">Tax info</span>
               <div className="flex flex-1 justify-between items-center">
                 <span className="text-md">Tax receipt, Email</span>
-                <ChevronRight className="cursor-pointer h-[10px]" color="black" />
+                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
             <button
