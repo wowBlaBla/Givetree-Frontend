@@ -466,3 +466,11 @@
 .auth-steps.steps .step.step-current::before {
   background-color: #00EF8B;
 }
+
+.nft-item .btn-list {
+  @apply opacity-0 transition-all
+}
+
+.nft-item:hover .btn-list {
+  @apply opacity-100
+}

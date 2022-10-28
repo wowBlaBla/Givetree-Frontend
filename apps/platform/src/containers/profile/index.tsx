@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Route } from "wouter";
+import { Route, Switch } from "wouter";
 import { HomeIcon } from "@heroicons/react/solid";
 import { ProfileSideBar } from "./ProfileSidebar";
 import { Home } from "./Home";
@@ -28,36 +28,42 @@ const ProfilePortal: FC = () => {
       />
       {/* </div> */}
       <div className="content-wrapper w-full">
-        <Route path="/profile/home">
-          <Home />
-        </Route>
-        <Route path="/profile/wallets">
-          <MyWallets />
-        </Route>
-        <Route path="/profile/nfts">
-          <MyNFTs />
-        </Route>
-        <Route path="/profile/collections">
-          <MyCollections />
-        </Route>
-        <Route path="/profile/listings">
-          <MyListings />
-        </Route>
-        <Route path="/profile/donations">
-          <MyDonations />
-        </Route>
-        <Route path="/profile/new-nft">
-          <NewNFT />
-        </Route>
-        <Route path="/profile/new-collection">
-          <NewCollection />
-        </Route>
-        <Route path="/profile/new-listing">
-          <NewListing />
-        </Route>
-        <Route path="/profile/settings">
-          <Settings />
-        </Route>
+        <Switch>
+          <Route path="/profile/home">
+            <Home />
+          </Route>
+          <Route path="/profile/wallets">
+            <MyWallets />
+          </Route>
+          <Route path="/profile/nfts">
+            <MyNFTs />
+          </Route>
+          <Route path="/profile/collections">
+            <MyCollections />
+          </Route>
+          <Route path="/profile/listings">
+            <MyListings />
+          </Route>
+          <Route path="/profile/donations">
+            <MyDonations />
+          </Route>
+          <Route path="/profile/new-nft">
+            <NewNFT />
+          </Route>
+          <Route path="/profile/new-collection">
+            <NewCollection />
+          </Route>
+          <Route path="/profile/new-listing/:networkName/:address/:tokenId">
+            {
+              (params) => (
+                <NewListing networkName={params.networkName} address={params.address} tokenId={params.tokenId}/>
+              )
+            }
+          </Route>
+          <Route path="/profile/settings">
+            <Settings />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

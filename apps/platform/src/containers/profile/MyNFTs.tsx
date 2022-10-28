@@ -3,13 +3,14 @@ import { Network, Alchemy } from "alchemy-sdk";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { NFTCard } from "../../components/cards/NFTCard";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
+import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
 
 export const MyNFTs: FC = () => {
   const { address } = useWallet();
 
   const [nfts, setNFTs] = useState<any[]>([]);
-  const [, /*isLoading*/ setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchNFTs = useCallback(async () => {
     if (address) {
@@ -46,11 +47,24 @@ export const MyNFTs: FC = () => {
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {nfts.map((nft, idx) => (
-              <NFTCard key={idx} nft={nft} />
-            ))}
+            {
+              isLoading ? (
+                <>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                </>
+              ) : (
+                <>
+                {nfts.map((nft, idx) => (
+                  <NFTCard key={idx} nft={nft} />
+                ))}
+                </>
+              )
+            }
           </div>
-          {!nfts.length && <ItemEmptyBox />}
+          { !isLoading && !nfts.length && <ItemEmptyBox/> }
         </div>
       </div>
     </div>

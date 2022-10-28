@@ -6,6 +6,8 @@ import { NFTMetaData } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 import { ImageDefaultIcon } from "../icons/ImageDefaultIcon";
+import { CloudUploadIcon } from "@heroicons/react/solid";
+import { useWallet } from "../../context/WalletContext";
 
 interface NFTCardProps {
   nft: NFTMetaData;
@@ -13,15 +15,16 @@ interface NFTCardProps {
 
 export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   const [_location, setLocation] = useLocation();
+  const { networkName } = useWallet();
   // const isLive = getEventStatus(nft.event.rounds).isLive;
-  const handleNextLocation = () => setLocation(`/asset/${nft.contract.address}/${nft.tokenId}`);
+  const handleNextLocation = () => setLocation(`/profile/new-listing/${networkName}/${nft.contract.address}/${nft.tokenId}`);
   return (
     <div className="fundraiser-card text-center h-full">
       <div
         className="bg-white relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl border border-[#3C3C3C]"
         onClick={handleNextLocation}
       >
-        <div className="flex flex-col w-full h-full relative text-center">
+        <div className="flex flex-col w-full h-full relative text-center nft-item">
           <div className="card-image relative">
             {
               nft.media[0]?.gateway ? (
@@ -50,6 +53,11 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
               </div>
             </div>
           </div>
+          <span
+            className="text-white absolute z-50 top-4 right-4 border rounded-full p-1 bg-black/50 btn-list"
+          >
+              <CloudUploadIcon className="w-6 h-6"/>
+          </span>
         </div>
       </div>
     </div>

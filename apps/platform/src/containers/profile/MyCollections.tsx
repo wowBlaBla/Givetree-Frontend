@@ -3,14 +3,14 @@ import { CollectionCard } from "../../components/cards/CollectionCard";
 import axios from "axios";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
+import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
 
 export const MyCollections: FC = () => {
   const { address, contracts } = useWallet();
 
   const [collections, setCollections] = useState<any[]>([]);
-
-  const [, /*isLoading*/ setLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   const fetchCollections = useCallback(async () => {
     if (!contracts || !contracts.factory || !address) return;
@@ -50,11 +50,24 @@ export const MyCollections: FC = () => {
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {collections.map((campaign, idx) => (
-              <CollectionCard key={idx} campaign={campaign} />
-            ))}
+            {
+              !isLoading ? (
+                <>
+                  {collections.map((campaign, idx) => (
+                    <CollectionCard key={idx} campaign={campaign} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                </>
+              )
+            }
           </div>
-          {!collections.length && <ItemEmptyBox />}
+          { !isLoading && !collections.length && <ItemEmptyBox/> }\
         </div>
       </div>
     </div>

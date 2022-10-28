@@ -9,7 +9,7 @@ import { BackgroundImage } from "../BackgroundImage";
 import { Campaign } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
-import { OwnerAvatar } from "../OwnerAvatar";
+// import { OwnerAvatar } from "../OwnerAvatar";
 // import { getEventStatus } from "../../utils/getEventStatus";
 
 interface CollectionCardProps {
