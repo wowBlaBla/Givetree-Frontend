@@ -67,7 +67,7 @@ export const MyCollections: FC = () => {
               )
             }
           </div>
-          { !isLoading && !collections.length && <ItemEmptyBox/> }\
+          { !isLoading && !collections.length && <ItemEmptyBox/> }
         </div>
       </div>
     </div>
