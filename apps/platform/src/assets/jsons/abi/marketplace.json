@@ -8,7 +8,7 @@
             },
             {
                 "internalType": "address",
-                "name": "_SingleNFT",
+                "name": "_SemiNFT",
                 "type": "address"
             }
         ],
@@ -105,25 +105,6 @@
             }
         ],
         "name": "BiddedForAuction",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "quantity",
-                "type": "uint256"
-            }
-        ],
-        "name": "GivetreeMinted",
         "type": "event"
     },
     {
@@ -327,7 +308,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "SingleBought",
+        "name": "SemiBought",
         "type": "event"
     },
     {
@@ -382,7 +363,7 @@
                 "type": "uint8"
             }
         ],
-        "name": "SingleListedForAuction",
+        "name": "SemiListedForAuction",
         "type": "event"
     },
     {
@@ -431,7 +412,7 @@
                 "type": "uint8"
             }
         ],
-        "name": "SingleListedForFixed",
+        "name": "SemiListedForFixed",
         "type": "event"
     },
     {
@@ -474,11 +455,16 @@
             },
             {
                 "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
                 "name": "bidPrice",
                 "type": "uint256"
             }
         ],
-        "name": "bidForAuction",
+        "name": "bidForAuctionSemi",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -486,13 +472,13 @@
     {
         "inputs": [
             {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
+                "internalType": "address",
+                "name": "_collection",
+                "type": "address"
             },
             {
                 "internalType": "uint256",
-                "name": "amount",
+                "name": "tokenId",
                 "type": "uint256"
             },
             {
@@ -519,7 +505,7 @@
                 "type": "uint256"
             }
         ],
-        "name": "buyItem",
+        "name": "buySemi",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
@@ -527,12 +513,17 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "_collection",
+                "type": "address"
+            },
+            {
                 "internalType": "uint256",
                 "name": "tokenId",
                 "type": "uint256"
             }
         ],
-        "name": "buySingleNFT",
+        "name": "buySingle",
         "outputs": [],
         "stateMutability": "payable",
         "type": "function"
@@ -769,6 +760,11 @@
             },
             {
                 "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
                 "name": "initialPrice",
                 "type": "uint256"
             },
@@ -788,7 +784,83 @@
                 "type": "uint8"
             }
         ],
-        "name": "listItemForAuction",
+        "name": "listForAuctionSemi",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_collection",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "initialPrice",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "endAuctionTimestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "charity",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "percent",
+                "type": "uint8"
+            }
+        ],
+        "name": "listForAuctionSingle",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_collection",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "tokenId",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "charity",
+                "type": "address"
+            },
+            {
+                "internalType": "uint8",
+                "name": "percent",
+                "type": "uint8"
+            }
+        ],
+        "name": "listForFixedSemi",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -821,78 +893,7 @@
                 "type": "uint8"
             }
         ],
-        "name": "listItemForFixed",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "initialPrice",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "endAuctionTimestamp",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "charity",
-                "type": "address"
-            },
-            {
-                "internalType": "uint8",
-                "name": "percent",
-                "type": "uint8"
-            }
-        ],
-        "name": "listSingleForAuction",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "price",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "charity",
-                "type": "address"
-            },
-            {
-                "internalType": "uint8",
-                "name": "percent",
-                "type": "uint8"
-            }
-        ],
-        "name": "listSingleForFixed",
+        "name": "listForFixedSingle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -996,6 +997,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "single",
+        "outputs": [
+            {
+                "internalType": "contract singleNFT",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -1004,19 +1018,6 @@
             }
         ],
         "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_factory",
-                "type": "address"
-            }
-        ],
-        "name": "updateFactory",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -1049,7 +1050,7 @@
                 "type": "uint8"
             }
         ],
-        "name": "updateListingForFixed",
+        "name": "updateListingForFixedSingle",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
