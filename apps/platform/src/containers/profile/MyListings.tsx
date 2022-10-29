@@ -1,23 +1,35 @@
-import { useQuery } from "@apollo/client";
-import { FC } from "react";
-import { CollectionCard } from "../../components/cards/CollectionCard";
-import { ErrorContainer } from "../../components/ErrorContainer";
-import { LoadingContainer } from "../../components/LoadingContainer";
-import { GetHomeDataQuery, GET_HOME_DATA } from "../home/home.data";
+import axios from "axios";
+import { FC, useEffect, useState } from "react";
+import { NFTCard } from "../../components/cards/NFTCard";
+import { SaleCard } from "../../components/cards/SaleCard";
+import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
+import { useWallet } from "../../context/WalletContext";
+
+interface NFT {
+  collection: string;
+  tokenId: string;
+  seller: string;
+  network?: string;
+}
 
 export const MyListings: FC = () => {
-  const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
-  if (loading) {
-    return <LoadingContainer message="Loading collections..." />;
-  }
+  const { address: account } = useWallet();
+  const [listings, setListings] = useState<NFT[]>([]);
 
-  if (error) {
-    return <ErrorContainer message="Failed to load collections." />;
-  }
+  const [isLoading, setLoading] = useState<boolean>(false);
+  useEffect(() => {
+    if (account) fetchListings();
+    else setListings([]);
+  }, [account]);
 
-  if (!data) {
-    return <ErrorContainer message="Failed to load collections." />;
+  const fetchListings = async() => {
+    setLoading(true);
+    const res = await axios.get(
+      `${process.env.NEXT_PUBLIC_API}/api/sales?seller=${account}`
+    );
+    setListings(res.data as NFT[]);
+    setLoading(false);
   }
 
   return (
@@ -32,13 +44,27 @@ export const MyListings: FC = () => {
               readOnly
               type="text"
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
+              value={account ? account : ""}
             />
             <button className="btn btn-primary btn-connect ml-2">Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (
-              <CollectionCard key={idx} campaign={campaign} />
-            ))}
+            {
+              isLoading ? (
+                <>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                  <NFTCardSkeleton/>
+                </>
+              ) : (
+                <>
+                  {listings.map((nft, idx) => (
+                    <SaleCard key={idx} item={nft}/>
+                  ))}
+                </>
+              )
+            }
           </div>
         </div>
       </div>
