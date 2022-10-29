@@ -223,7 +223,6 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       const marketplace = contracts?.marketplace;
       // const listed = await marketplace?.methods.
       const price = web3Instance?.utils.toWei(paymentTokenPrice, 'ether');
-      
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const approved = await contract.methods.isApprovedForAll(account, EthereumNetwork.address.marketplace).call();
       if (!approved) {
@@ -257,6 +256,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
           switch(saleType) {
             case SaleType.Fixed:
               await marketplace?.methods.listForFixedSemi(
+                address,
                 tokenId,
                 quality,
                 price,
@@ -266,6 +266,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
               break;
             case SaleType.Auction:
               await marketplace?.methods.listForAuctionSemi(
+                address,
                 tokenId,
                 quality,
                 price,
