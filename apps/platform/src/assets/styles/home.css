@@ -465,9 +465,9 @@
 }
 
 .nft-item .btn-list {
-  @apply opacity-0 transition-all
+  @apply opacity-0 transition-all right-0
 }
 
 .nft-item:hover .btn-list {
-  @apply opacity-100
+  @apply opacity-100 right-4
 }

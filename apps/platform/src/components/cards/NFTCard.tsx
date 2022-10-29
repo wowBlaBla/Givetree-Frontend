@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useLocation } from "wouter";
 
 import { BackgroundImage } from "../BackgroundImage";
@@ -6,8 +6,9 @@ import { NFTMetaData } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
 import { ImageDefaultIcon } from "../icons/ImageDefaultIcon";
-import { CloudUploadIcon } from "@heroicons/react/solid";
+import { CloudDownloadIcon, CloudUploadIcon } from "@heroicons/react/solid";
 import { useWallet } from "../../context/WalletContext";
+import { toast } from "react-toastify";
 
 interface NFTCardProps {
   nft: NFTMetaData;
@@ -15,19 +16,57 @@ interface NFTCardProps {
 
 export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   const [_location, setLocation] = useLocation();
-  const { networkName } = useWallet();
-  // const isLive = getEventStatus(nft.event.rounds).isLive;
+  const { networkName, contracts, address: account } = useWallet();
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const [isListed, setListed] = useState<boolean>(false);
+
+  useEffect(() => {
+    async function getSaleData() {
+      setLoading(true);
+      const marketplace = contracts?.marketplace;
+      const sale = await marketplace?.methods.getListing(nft.contract.address, nft.tokenId).call();
+      if (Number(sale.seller)) {
+        setListed(true);
+      }
+      setLoading(false);
+    }
+
+    if (nft && contracts?.marketplace) {
+      getSaleData();
+    }
+  }, [nft, contracts]);
+
+  const listDown = async() => {
+    if (!isListed || !contracts?.marketplace) return;
+    try {
+      setLoading(true);
+      const marketplace = contracts?.marketplace;
+      const params = {
+        pending: "Listing down NFT from sale.....",
+        success: "Listed Down successfully",
+        error: "Failed listing down"
+      }
+      toast.promise(async() => {
+        await marketplace.methods.cancelListing(nft.contract.address, nft.tokenId).send({ from: account });
+      }, params);
+      
+    } catch(err) {
+
+    }
+    setLoading(false);
+  }
+
   const handleNextLocation = () => setLocation(`/profile/new-listing/${networkName}/${nft.contract.address}/${nft.tokenId}`);
+
   return (
     <div className="fundraiser-card text-center h-full">
       <div
         className="bg-white relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl border border-[#3C3C3C]"
-        onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full relative text-center nft-item">
           <div className="card-image relative">
             {
-              nft.media[0]?.gateway ? (
+              nft?.media[0]?.gateway ? (
                 <BackgroundImage
                   imageAsset={nft.media[0].gateway}
                   className="rounded-t-xl"
@@ -53,11 +92,29 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
               </div>
             </div>
           </div>
-          <span
-            className="text-white absolute z-50 top-4 right-4 border rounded-full p-1 bg-black/50 btn-list"
-          >
-              <CloudUploadIcon className="w-6 h-6"/>
-          </span>
+          {
+            !isLoading && (
+              <>
+                {
+                  isListed ? (
+                    <span
+                      className="text-white absolute z-50 top-4 border rounded-full p-1 bg-black/50 btn-list"
+                      onClick={listDown}
+                    >
+                      <CloudDownloadIcon className="w-6 h-6"/>
+                    </span>
+                  ) : (
+                      <span
+                        className="text-white absolute z-50 top-4 border rounded-full p-1 bg-black/50 btn-list"
+                        onClick={handleNextLocation}
+                      >
+                        <CloudUploadIcon className="w-6 h-6"/>
+                      </span>
+                  )
+                }
+              </>
+            )
+          }
         </div>
       </div>
     </div>

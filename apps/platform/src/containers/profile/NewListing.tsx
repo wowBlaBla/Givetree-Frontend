@@ -12,6 +12,7 @@ import { MintArtPreview } from "../../components/MintArt";
 import { useWallet } from "../../context/WalletContext";
 import { EthereumNetwork, ETH_ALCHEMY } from "../../configs/constants";
 import erc721ABI from "../../assets/jsons/abi/erc721.json"
+import { toast } from "react-toastify";
 
 enum SaleType {
   Fixed = "fixed",
@@ -43,6 +44,18 @@ interface Props {
 interface Duration {
   title: string;
   value: string;
+}
+
+interface Errors {
+  quality: boolean;
+  price: boolean;
+  charity: boolean;
+}
+
+const defaultError:Errors = {
+  quality: false,
+  price: false,
+  charity: false
 }
 
 const defaultCharity:Charity = {
@@ -89,6 +102,8 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
   const [charity, setCharity] = useState<Charity>(defaultCharity);
   const [royalty, setRoyalty] = useState<Royalty>(defaultRoyalty);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [errors, setErrors] = useState<Errors>(defaultError);
+  const [balance, setBalance] = useState<string>();
 
   useEffect(() => {
     async function getMetadata () {
@@ -101,13 +116,23 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       const alchemy = new Alchemy(settings);
       const res = await alchemy.nft.getContractMetadata(address);
       const metadata = await alchemy.nft.getNftMetadata(address, tokenId, res.tokenType);
-      // console.log(metadata);
       setTokenType(res.tokenType as NftTokenType);
       setMetadata(metadata);
       setLoading(false);
     }
     if (networkName && address && tokenId) getMetadata();
   }, [networkName, address, tokenId]);
+
+  useEffect(() => {
+    async function getBalance() {
+      if (!web3Instance) return;
+      const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
+      const _balance = await contract.methods.balanceOf(account, tokenId).call();
+      setBalance(_balance);
+    }
+
+    if (web3Instance && tokenId && tokenType == NftTokenType.ERC1155) getBalance();
+  }, [web3Instance, tokenId, tokenType]);
 
   useEffect(() => {
     async function getRoyalty() {
@@ -174,12 +199,30 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
     setQuality(_quality.toString());
   }
 
+  const valiateForm = async() => {
+    if (!web3Instance) return;
+    let _errors = { ...errors };
+    _errors.price = +paymentTokenPrice <= 0 ? true : false; 
+    _errors.charity = (!charity.address || !+charity.percent || +charity.percent > 10) ? true : false;
+    if (tokenType == NftTokenType.ERC1155) {
+      const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
+      const _balance = await contract.methods.balanceOf(account, tokenId).call();
+      _errors.quality = _balance < quality ? true : false;
+      setBalance(_balance);
+    }
+    setErrors(_errors);
+    return JSON.stringify(defaultError) == JSON.stringify(_errors);
+  }
+
   const list = async() => {
     try {
       if (!web3Instance) return;
+      const isValid = await valiateForm();
+      if (!isValid) return;
+      setLoading(true);
       const marketplace = contracts?.marketplace;
+      // const listed = await marketplace?.methods.
       const price = web3Instance?.utils.toWei(paymentTokenPrice, 'ether');
-      
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const approved = await contract.methods.isApprovedForAll(account, EthereumNetwork.address.marketplace).call();
       if (!approved) {
@@ -189,7 +232,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
         case NftTokenType.ERC721:
           switch(saleType) {
             case SaleType.Fixed:
-              await marketplace?.methods.listItemForFixed(
+              await marketplace?.methods.listForFixedSingle(
                 address,
                 tokenId,
                 price,
@@ -198,7 +241,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
               ).send({ from: account });
               break;
             case SaleType.Auction:
-              await marketplace?.methods.listItemForAuction(
+              await marketplace?.methods.listForAuctionSingle(
                 address,
                 tokenId,
                 price,
@@ -206,35 +249,52 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
                 charity.address,
                 charity.percent
               ).send({ from: account });
+            break;
+          }
+        break;
+        case NftTokenType.ERC1155:
+          switch(saleType) {
+            case SaleType.Fixed:
+              await marketplace?.methods.listForFixedSemi(
+                address,
+                tokenId,
+                quality,
+                price,
+                charity.address,
+                charity.percent
+              ).send({ from: account });
               break;
-            }
-            break;
-          case NftTokenType.ERC1155:
-            switch(saleType) {
-              case SaleType.Fixed:
-                await marketplace?.methods.listSingleForFixed(
-                  tokenId,
-                  quality,
-                  price,
-                  charity.address,
-                  charity.percent
-                ).send({ from: account });
-                break;
-              case SaleType.Auction:
-                await marketplace?.methods.listSingleForAuction(
-                  tokenId,
-                  quality,
-                  price,
-                  duration,
-                  charity.address,
-                  charity.percent
-                ).send({ from: account });
-            };
-            break;
-      }
+            case SaleType.Auction:
+              await marketplace?.methods.listForAuctionSemi(
+                address,
+                tokenId,
+                quality,
+                price,
+                duration,
+                charity.address,
+                charity.percent
+              ).send({ from: account });
+          };
+        break;
+      };
+
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/sales`,
+        {
+          collection: address,
+          tokenId,
+          seller: account
+        }
+      ).then(res => {
+
+      }).catch(err => {
+
+      });
+      toast.success('You have listed NFT to sale successfully');
     } catch(err) {
       console.log(err);
     }
+    setLoading(false);
   }
 
   return (
@@ -332,12 +392,21 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
         {
           tokenType == NftTokenType.ERC1155 && (
             <div>
-              <MintItemTitle title="Quality" required />
+              <MintItemTitle
+                title="Quality"
+                subTitle={`Your curreunt balance is ${balance} .`}
+                required
+              />
               <div className="flex mt-4">
                 <input
                   readOnly={isLoading}
                   type="number"
-                  className="input input-bordered profile-item block border-base-content outline-none !w-2/3"
+                  className={cx(
+                    "input input-bordered profile-item block border-base-content outline-none !w-2/3",
+                    {
+                      "border-red-500": errors.quality
+                    }
+                  )}
                   placeholder="E.g. 9"
                   value={quality}
                   onChange={(e) => controlQuality(e.target.value)}
@@ -361,9 +430,16 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
             <input
               readOnly={isLoading}
               type="text"
-              className="input input-bordered border-base-content profile-item block outline-none !w-2/3 ml-2"
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-2/3 ml-2",
+                {
+                  "border-red-500": errors.price
+                }
+              )}
               value={paymentTokenPrice}
-              onChange={(e) => setPaymentTokenPrice(e.target.value)}
+              onChange={(e) => {
+                setPaymentTokenPrice(+e.target.value >= 0 ? e.target.value : paymentTokenPrice);
+              }}
             />
           </div>
           <div className="flex mb-8">
@@ -417,14 +493,24 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
           <div className="flex">
             <input
               type="text"
-              className="input input-bordered border-base-content profile-item block outline-none !w-2/3 mr-2"
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-2/3 mr-2",
+                {
+                  "border-red-500": errors.charity
+                }
+              )}
               value={charity.address}
               readOnly
             />
             <input
               readOnly={isLoading}
               type="text"
-              className="input input-bordered border-base-content profile-item block outline-none !w-1/3"
+              className={cx(
+                "input input-bordered border-base-content profile-item block outline-none !w-1/3",
+                {
+                  "border-red-500": errors.charity
+                }
+              )}
               value={charity.percent}
               onChange={(e) => controlCharityPercent(e.target.value)}
             />
