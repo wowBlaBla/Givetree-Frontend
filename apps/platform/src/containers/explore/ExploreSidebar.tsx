@@ -41,17 +41,103 @@ interface ExploreSideBarProps {
   setVisible?: (visible: boolean) => void;
 }
 
+interface CategoryItem {
+  title: string;
+  checked: boolean;
+  count: number;
+  isLegend?: boolean;
+}
+
+const _cateogries:CategoryItem[] = [
+  {
+    title: 'All',
+    checked: false,
+    count: 0,
+    isLegend: true
+  },
+  {
+    title: 'Top',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Art',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Collectibles',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Domain Names',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Music',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Photography',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Sports',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Trading Cards',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Utility',
+    checked: false,
+    count: 0,
+  },
+  {
+    title: 'Virtual Worlds',
+    checked: false,
+    count: 0,
+  },
+];
+
 export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible }) => {
   const [mainNav, setMainNav] = useState<NavItem>();
   const [_, params] = useRoute(PlatformRoute.ExploreDetails);
+  const [category, setCategory] = useState<CategoryItem[]>(_cateogries);
+
+  const toggleCategory = (index: number) => {
+    let _category = [...category];
+    _category[index].checked = !_category[index].checked;
+    
+    if (!index) {
+      _category.map(item => {
+        item.checked = _category[index].checked;
+      });
+    }
+
+    else {
+      let count = 0;
+      for (let i = 1; i < _category.length; i ++) if (_category[i].checked) count ++;
+      _category[0].checked = count == category.length - 1 ? true : false;
+    }
+
+    setCategory(_category);
+  }
 
   return (
     <div
       className={`side-bar ${
-        visible ? "absolute" : "hidden lg:flex"
+        visible ? "absolute" : "hidden lg:flex sticky"
       } top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] border-r border-base-content border-opacity-25 bg-mid-dark z-10`}
     >
-      <div className="text-[#BABABA] bg-[#1E2126] border-t border-b border-[#696969] px-6 py-4">
+      <div className="text-[#BABABA] bg-[#1E2126] border-t border-b border-[#696969] px-6 py-4 sticky">
         {!mainNav ? (
           <div className="flex flex-col">
             <span className="text-[16px] font-bold">EXPLORE</span>
@@ -78,7 +164,7 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
           </div>
         )}
       </div>
-      <div className="bg-mid-dark">
+      <div className="bg-mid-dark main-menu-bar">
         {!mainNav ? (
           mainNavs.map((item, idx) => (
             <Link
@@ -139,17 +225,18 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               </div>
               <div className="collapse-content">
                 <InputBox className="text-white mb-4" placeholder="Search" />
-                <CheckBox title="All" className="mb-2" count={100} />
-                <CheckBox title="Top" className="mb-2" count={2} />
-                <CheckBox title="Art" className="mb-2" count={2} />
-                <CheckBox title="Collectibles" className="mb-2" count={30} />
-                <CheckBox title="Domain names" className="mb-2" count={20} />
-                <CheckBox title="Music" className="mb-2" count={1} />
-                <CheckBox title="Photography" className="mb-2" count={0} />
-                <CheckBox title="Sports" className="mb-2" count={2} />
-                <CheckBox title="Trading cards" className="mb-2" count={3} />
-                <CheckBox title="Utility" className="mb-2" count={20} />
-                <CheckBox title="Virtual worlds" className="mb-4" count={10} />
+                {
+                  category.map((item, idx) => (
+                    <CheckBox
+                      key={idx}
+                      className="mb-2"
+                      title={item.title}
+                      count={item.count}
+                      checked={item.checked}
+                      onChanged={() => toggleCategory(idx)}
+                    />
+                  ))
+                }
               </div>
             </div>
             <div className="collapse collapse-plus border-t border-[#696969] px-6">

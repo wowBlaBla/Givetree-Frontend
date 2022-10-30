@@ -471,3 +471,18 @@
 .nft-item:hover .btn-list {
   @apply opacity-100 right-4
 }
+
+.main-menu-bar {
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.main-menu-bar::-webkit-scrollbar {
+  max-width: 5px;
+  background-color: transparent;
+
+}
+
+.main-menu-bar::-webkit-scrollbar-thumb {
+  @apply bg-base-200
+}
