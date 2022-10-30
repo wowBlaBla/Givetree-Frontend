@@ -484,6 +484,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
             className="select profile-item outline-none border-base-content block mt-4"
             onChange={(e) => setCharity({ ...charity, address: e.target.value })}
           >
+            <option value="">Select charity</option>
             {
               charities.map((item, idx) => (
                 <option value={item} key={idx}>{item}</option>

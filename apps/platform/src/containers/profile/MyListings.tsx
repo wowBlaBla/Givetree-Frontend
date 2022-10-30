@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FC, useEffect, useState } from "react";
-import { NFTCard } from "../../components/cards/NFTCard";
 import { SaleCard } from "../../components/cards/SaleCard";
+import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
 
@@ -66,6 +66,11 @@ export const MyListings: FC = () => {
               )
             }
           </div>
+          {
+            (!isLoading && !listings.length) && (
+              <ItemEmptyBox/>
+            )
+          }
         </div>
       </div>
     </div>
