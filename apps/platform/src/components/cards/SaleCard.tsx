@@ -9,7 +9,6 @@ interface NFT {
     item : {
         collection: string;
         tokenId: string;
-        seller: string;
         network?: string;
     }
 }
