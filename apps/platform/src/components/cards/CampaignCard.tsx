@@ -9,6 +9,8 @@ import { BackgroundImage } from "../BackgroundImage";
 import { Campaign } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import { SolanaIcon } from "../icons/cryptos/SolanaIcon";
+import { SolanaColorIcon } from "../icons/SolanaColorIcon";
 // import { getEventStatus } from "../../utils/getEventStatus";
 
 interface CampaignCardProps {
@@ -23,7 +25,7 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
   return (
     <div className="md:text-left text-center">
       <div
-        className="bg-base-100 relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl"
+        className="relative w-full h-full bg-white inline-block cursor-pointer hover:shadow-xl rounded-xl border border-black"
         onClick={handleNextLocation}
       >
         <div className="flex flex-col w-full h-full">
@@ -34,23 +36,24 @@ export const CampaignCard: FC<CampaignCardProps> = ({ campaign }) => {
             />
           </div>
 
-          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border">
+          <div className="flex flex-col justify-between w-full rounded-b-xl border-base-content border-opacity-25 border-t-0 border text-black">
             <div className="flex justify-between w-full p-5 text-xs sm:text-sm">
-              <div className="flex w-full space-x-1 flex-col text-left">
-                <span className="font-bold">{campaign.title}</span>
+              <div className="flex w-full flex-col text-left">
+                <span className="font-bold mb-3">{campaign.title}</span>
                 <span>
-                  by {campaign.creators[0].name.replace('-', ' ')}
-                  <VerifiedBadge
+                  {/* by {campaign.creators[0].name.replace('-', ' ')} */}
+                  {/* <VerifiedBadge
                     isVerified={campaign.isVerified || false}
                     type={VerifiedBadgeType.Collection}
                     className="ml-1 inline-block"
-                  />
+                  /> */}
                 </span>
-                <span className="hidden sm:block">Total items: {campaign.totalSupply}</span>
-                <span>Blockchain: <span className="capitalize">{campaign.currency}</span></span>
-                <span>Floor price: {campaign.floorPrice} SOL</span>
-                <span>01d 04h 05m</span>
-                <b className="text-black"></b>
+                <span>Price</span>
+                <div className="flex items-center mb-3">
+                  <SolanaColorIcon className="w-6 mr-2" />
+                  <span>SOL 2.9</span>
+                </div>
+                <span>Ends in 5 days</span>
               </div>
             </div>
           </div>
