@@ -160,7 +160,7 @@
   font-weight: 700;
 }
 
-.side-bar {
+.side-bar.stick-side-bar {
   height: calc(100vh - 80px);
 }
 
