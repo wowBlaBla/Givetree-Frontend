@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 
@@ -17,7 +17,10 @@ import { RoyaltyType } from "../../typed/royalty-details";
 import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import Image from "next/image";
 
-const HomeContainer = () => {
+type HomContainerProps = {
+  isHome?: boolean;
+};
+const HomeContainer: FC<HomContainerProps> = ({ isHome }) => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
   if (loading) {
@@ -40,25 +43,27 @@ const HomeContainer = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="relative flex items-center md:py-16 bg-[#F0926E] h-[800px]">
-        <CampaignBanner
-          backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
-          title={data.homepageCampaign.title}
-          subtitle={`${getRoyaltyPercentage(
-            data.homepageCampaign.royalties,
-            RoyaltyType.CharityDonation
-          )}% of ${data.homepageCampaign.title} mints go to ${
-            data.homepageCampaign.nominatedCharity.name
-          } charity.`}
-          ctaLink={`/mints/${data.homepageCampaign.slug}`}
-          ctaLinkText="View mint"
-          artistName={data.homepageCampaign.creators[0].name}
-          artistThumbnail={data.homepageCampaign.creators[0].media.previewUrl}
-          charityName={data.homepageCampaign.nominatedCharity.name}
-          charityThumbnail={data.homepageCampaign.nominatedCharity.media.previewUrl}
-          causes={data.homepageCampaign.nominatedCharity.causes}
-        />
-      </div>
+      {isHome && (
+        <div className="relative flex items-center md:py-16 bg-[#F0926E] h-[800px]">
+          <CampaignBanner
+            backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
+            title={data.homepageCampaign.title}
+            subtitle={`${getRoyaltyPercentage(
+              data.homepageCampaign.royalties,
+              RoyaltyType.CharityDonation
+            )}% of ${data.homepageCampaign.title} mints go to ${
+              data.homepageCampaign.nominatedCharity.name
+            } charity.`}
+            ctaLink={`/mints/${data.homepageCampaign.slug}`}
+            ctaLinkText="View mint"
+            artistName={data.homepageCampaign.creators[0].name}
+            artistThumbnail={data.homepageCampaign.creators[0].media.previewUrl}
+            charityName={data.homepageCampaign.nominatedCharity.name}
+            charityThumbnail={data.homepageCampaign.nominatedCharity.media.previewUrl}
+            causes={data.homepageCampaign.nominatedCharity.causes}
+          />
+        </div>
+      )}
 
       <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader
@@ -75,7 +80,11 @@ const HomeContainer = () => {
                 key={`trusted-charity-card-${idx}`}
                 className="flex w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
               >
-                <Image src={require(`../../temp/images/trusted/${idx + 1}.png`)} alt="" objectFit="contain"/>
+                <Image
+                  src={require(`../../temp/images/trusted/${idx + 1}.png`)}
+                  alt=""
+                  objectFit="contain"
+                />
               </div>
             ))}
         </div>
@@ -110,7 +119,11 @@ const HomeContainer = () => {
                 key={`cause-card-${idx}`}
                 className="flex w-[140px] h-[140px] cursor-pointer"
               >
-                <Image src={require(`../../temp/images/causes/${idx + 1}.png`)} alt="" objectFit="contain"/>
+                <Image
+                  src={require(`../../temp/images/causes/${idx + 1}.png`)}
+                  alt=""
+                  objectFit="contain"
+                />
               </div>
             ))}
         </div>

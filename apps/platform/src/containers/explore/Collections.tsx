@@ -5,10 +5,9 @@ import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { SectionContainer } from "../../components/SectionContainer";
-import { SectionHeader } from "../../components/SectionHeader";
 import { GetHomeDataQuery, GET_HOME_DATA } from "../home/home.data";
 
-export const Fundraisers: FC = () => {
+export const Collections: FC = () => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
   if (loading) {

@@ -144,8 +144,9 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
             <span className="text-[20px] font-bold">GIVETREE</span>
           </div>
         ) : (
-          <div
+          <Link
             className="flex items-center cursor-pointer"
+            href="/explore"
             onClick={() => setMainNav(undefined)}
           >
             <svg
@@ -161,7 +162,7 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               />
             </svg>
             <span className="text-[16px] font-bold ml-4">Main Menu</span>
-          </div>
+          </Link>
         )}
       </div>
       <div className="bg-mid-dark main-menu-bar">

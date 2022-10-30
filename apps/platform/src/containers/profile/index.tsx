@@ -17,7 +17,7 @@ const ProfilePortal: FC = () => {
   const [showSideBar, setShowSideBar] = useState(false);
 
   return (
-    <div className="profile-container flex flex-col lg:flex-row">
+    <div className="profile-container stick-side-bar flex flex-col lg:flex-row">
       <ProfileSideBar visible={showSideBar} setVisible={setShowSideBar} />
       {/* <div className="absolute lg:hidden justify-end py-2 px-4 bg-[#2F3136]"> */}
       <HomeIcon

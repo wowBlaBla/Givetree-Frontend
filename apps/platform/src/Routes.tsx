@@ -46,7 +46,7 @@ const Routes = () => {
           <div className="flex flex-col flex-1 overflow-y-auto bg-light-gray">
             <Switch>
               <Route path={PlatformRoute.Home}>
-                <HomeContainer />
+                <HomeContainer isHome />
                 <AppFooter />
               </Route>
               <Route path={"/login"}>
@@ -68,6 +68,9 @@ const Routes = () => {
               </Route>
               <Route path={PlatformRoute.MarketplaceListing}>
                 <MarketplaceListingContainer />
+              </Route>
+              <Route path={PlatformRoute.ExploreAll}>
+                <ExplorePortal />
               </Route>
               <Route path={PlatformRoute.ExploreDetails}>
                 <ExplorePortal />

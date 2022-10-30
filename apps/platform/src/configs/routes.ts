@@ -12,8 +12,9 @@ export enum PlatformRoute {
   CreatorListing = "/creators",
   PublicProfileDetails = "/explore/:category/:name",
   ProfileDetails = "/profile/:category*",
+  ExploreAll = "/explore",
   ExploreDetails = "/explore/:category",
-  ExploreNFTFundraisers = "/explore/fundraisers",
+  ExploreNFTFundraisers = "/explore/nfts",
   ExploreCreators = "/explore/creators",
   ExploreCharities = "/explore/charities",
   About = "/about/:category",
@@ -37,7 +38,7 @@ export const MenuList: AppHeaderNavLink[] = [
   {
     id: "explore",
     title: "EXPLORE",
-    href: "/explore/creators",
+    href: "/explore",
   },
   {
     id: "create",
