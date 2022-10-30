@@ -7,6 +7,7 @@ import { useWallet } from "../../context/WalletContext";
 import { AuthType, useAuth } from "../../context/AuthContext";
 import { useLocation } from "wouter";
 import { ConnectWallet } from "../../components/ConnectWallet";
+import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 
 interface ErrorInterface {
   username?: string;
@@ -71,7 +72,12 @@ export const SignUp: FC = () => {
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    if (step > 0) {
+      setStep(step - 1);
+      if (step === 1) {
+        setAuthType(undefined)
+      }
+    }
   };
 
   const invalidate = async () => {
@@ -120,10 +126,14 @@ export const SignUp: FC = () => {
   };
 
   return (
-    <div className="w-full h-full">
-      <div className="flex flex-col items-center h-full max-w-layout-s mx-auto pt-16">
-        <h1 className="text-[50px] font-bold text-black mb-4">Sign up</h1>
-        <ul className="auth-steps steps mb-8">
+    <div className="w-full auth-wallet">
+      <div className="flex flex-col items-center max-w-[400px] mx-auto my-24 border border-black bg-white rounded-2xl-1 px-6 py-6">
+        <div className="flex items-center mb-4">
+          <GiveTreeLogo className="w-[60px]" />
+          <span className="text-[50px] font-bold text-black ml-2">GiveTree</span>
+        </div>
+
+        {/* <ul className="auth-steps steps mb-8">
           {Array(7)
             .fill(0)
             .map((_, index) => (
@@ -135,41 +145,126 @@ export const SignUp: FC = () => {
                 }`}
               ></li>
             ))}
-        </ul>
+        </ul> */}
+
         {step === 0 ? (
           <>
-            <span className="text-black text-center mb-8">
-              Sign up with a cryptocurrency wallet or email address. You can add your
-              cryptiocurrency wallet later on if you want to sign up with an email address
-              now.
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Sign up with wallet or email
             </span>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8">
-              <button
-                className="btn rounded-2xl-1 h-[100px] bg-[#0057FF] text-[20px] font-bold text-white mb-4"
-                onClick={() => {
-                  setAuthType("wallet");
-                }}
-              >
-                Cryptocurrency Wallet
-              </button>
-              <button
-                className="btn rounded-2xl-1 h-[100px] bg-[#0057FF] text-[20px] text-white font-bold"
-                onClick={() => {
-                  setAuthType("email");
-                }}
-              >
-                Email address
-              </button>
-            </div>
+
+            <button
+              className="btn rounded-2xl-1 w-full h-[60px] font-bold text-[#646464] bg-transparent hover:bg-[#0057FF] hover:text-white capitalize mb-4 hover"
+              onClick={() => {
+                setAuthType("wallet");
+              }}
+            >
+              Cryptocurrency Wallet
+            </button>
+            <button
+              className="btn rounded-2xl-1 w-full h-[60px] font-bold text-[#646464] bg-transparent hover:bg-[#0057FF] hover:text-white capitalize"
+              onClick={() => {
+                setAuthType("email");
+              }}
+            >
+              Email address
+            </button>
           </>
         ) : step === 1 ? (
           authType === "email" ? (
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black">
-              <div className="input-form-group flex flex-col items-start mb-4">
+            <>
+              <span className="text-[#646464] font-bold text-md text-center mb-6">
+                Input account information
+              </span>
+              <div className="flex flex-col w-full text-black">
+                <div className="input-form-group flex flex-col items-start mb-4">
+                  <label className="font-bold mb-2">
+                    Username <b className="text-[#FF0000]">*</b>
+                  </label>
+                  <input
+                    type="text"
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
+                      errors?.username ? "border-red-500" : "border-black "
+                    }`}
+                    placeholder="Choose a unique @username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
+                </div>
+                <div className="input-form-group flex flex-col items-start mb-4">
+                  <label className="font-bold mb-2">
+                    Email <b className="text-[#FF0000]">*</b>
+                  </label>
+                  <input
+                    type="email"
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
+                      errors?.email ? "border-red-500" : "border-black "
+                    }`}
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <span className="text-red-500 text-xs mt-1">{errors?.email}</span>
+                </div>
+                <div className="input-form-group flex flex-col items-start mb-4">
+                  <label className="font-bold mb-2">
+                    Password <b className="text-[#FF0000]">*</b>
+                  </label>
+                  <input
+                    type="password"
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
+                      errors?.password || password != securePassword
+                        ? "border-red-500"
+                        : "border-black "
+                    }`}
+                    placeholder="Enter a secure password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.password
+                      ? errors.password
+                      : password != securePassword
+                      ? "Password is incorrect"
+                      : ""}
+                  </span>
+                </div>
+                <div className="input-form-group flex flex-col items-start">
+                  <label className="font-bold mb-2">
+                    Confirm Password <b className="text-[#FF0000]">*</b>
+                  </label>
+                  <input
+                    type="password"
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
+                      errors?.password || password != securePassword
+                        ? "border-red-500"
+                        : "border-black "
+                    }`}
+                    placeholder="Enter a secure password"
+                    value={securePassword}
+                    onChange={(e) => setSecurePassword(e.target.value)}
+                  />
+                  <span className="text-red-500 text-xs mt-1">
+                    {errors.password
+                      ? errors.password
+                      : password != securePassword
+                      ? "Password is incorrect"
+                      : ""}
+                  </span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <span className="text-[#646464] font-bold text-md text-center mb-6">
+                Select your wallet
+              </span>
+              <div className="input-form-group flex flex-col items-start mb-4 w-full text-black">
                 <label className="font-bold mb-2">Username</label>
                 <input
                   type="text"
-                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-md p-3 bg-transparent ${
+                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent ${
                     errors?.username ? "border-red-500" : "border-black "
                   }`}
                   placeholder="Enter username"
@@ -177,94 +272,28 @@ export const SignUp: FC = () => {
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
-              </div>
-              <div className="input-form-group flex flex-col items-start mb-4">
-                <label className="font-bold mb-2">Email</label>
-                <input
-                  type="email"
-                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-md p-3 bg-transparent ${
-                    errors?.email ? "border-red-500" : "border-black "
-                  }`}
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <span className="text-red-500 text-xs mt-1">{errors?.email}</span>
-              </div>
-              <div className="input-form-group flex flex-col items-start mb-4">
-                <label className="font-bold mb-2">Password</label>
-                <input
-                  type="password"
-                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-md p-3 bg-transparent ${
-                    errors?.password || password != securePassword
-                      ? "border-red-500"
-                      : "border-black "
-                  }`}
-                  placeholder="Enter a secure password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span className="text-red-500 text-xs mt-1">
-                  {errors.password
-                    ? errors.password
-                    : password != securePassword
-                    ? "Password is incorrect"
-                    : ""}
-                </span>
-              </div>
-              <div className="input-form-group flex flex-col items-start">
-                <label className="font-bold mb-2">Confirm Password</label>
-                <input
-                  type="password"
-                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-md p-3 bg-transparent ${
-                    errors?.password || password != securePassword
-                      ? "border-red-500"
-                      : "border-black "
-                  }`}
-                  placeholder="Enter a secure password"
-                  value={securePassword}
-                  onChange={(e) => setSecurePassword(e.target.value)}
-                />
-                <span className="text-red-500 text-xs mt-1">
-                  {errors.password
-                    ? errors.password
-                    : password != securePassword
-                    ? "Password is incorrect"
-                    : ""}
-                </span>
-              </div>
-            </div>
-          ) : (
-            <>
-              <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-4 text-black mb-4">
-                <div className="input-form-group flex flex-col items-start mb-4">
-                  <label className="font-bold mb-2">Username</label>
-                  <input
-                    type="text"
-                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-md p-3 bg-transparent ${
-                      errors?.username ? "border-red-500" : "border-black "
-                    }`}
-                    placeholder="Enter username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                  <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
-                  <label className="font-bold mt-2 mb-2">Wallet address</label>
-                  <span>{address || ""}</span>
-                </div>
+                <label className="font-bold mt-2 mb-2">Wallet address</label>
+                <span>{address || ""}</span>
               </div>
               <ConnectWallet />
             </>
           )
         ) : step === 2 ? (
-          <ReCAPTCHA
-            sitekey="6LdusrUiAAAAAPWO7DtcaAfEvOuDPpefEDExTpnz"
-            onChange={onReCAPTCHAChange}
-          />
+          <>
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Complete google recatcpha
+            </span>
+            <ReCAPTCHA
+              sitekey="6Lf8lcYiAAAAAGFPnO2gyrr1AtQd8OsIieLsBxE8"
+              onChange={onReCAPTCHAChange}
+            />
+          </>
         ) : step === 3 ? (
           <>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black max-h-[300px] overflow-auto">
-              <h1 className="text-xl font-bold mb-2">Terms of use</h1>
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Terms of use
+            </span>
+            <div className="w-full border border-black bg-white rounded-2xl-1 p-4 text-black max-h-[300px] overflow-auto">
               <p>
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
@@ -279,19 +308,20 @@ export const SignUp: FC = () => {
                 ipsum Lorum impsum lorum ipsum lorum ipsum
               </p>
             </div>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black mt-4">
-              <CheckBox
-                title={"I understand & agree"}
-                className="mb-2 text-black"
-                checked={termAccept}
-                onChanged={(st) => setTermAccept(st)}
-              />
-            </div>
+
+            <CheckBox
+              title={"I understand & agree"}
+              className="mt-2 text-black w-full"
+              checked={termAccept}
+              onChanged={(st) => setTermAccept(st)}
+            />
           </>
         ) : step === 4 ? (
           <>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black max-h-[300px] overflow-auto">
-              <h1 className="text-xl font-bold mb-2">Privacy policy</h1>
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Privacy policy
+            </span>
+            <div className="w-full border border-black bg-white rounded-2xl-1 p-4 text-black max-h-[300px] overflow-auto">
               <p>
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
@@ -306,19 +336,20 @@ export const SignUp: FC = () => {
                 ipsum Lorum impsum lorum ipsum lorum ipsum
               </p>
             </div>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black mt-4">
-              <CheckBox
-                title={"I understand & agree "}
-                className="mb-2 text-black"
-                checked={privacyAccept}
-                onChanged={(st) => setPrivacyAccept(st)}
-              />
-            </div>
+
+            <CheckBox
+              title={"I understand & agree"}
+              className="mt-2 text-black w-full"
+              checked={privacyAccept}
+              onChanged={(st) => setPrivacyAccept(st)}
+            />
           </>
         ) : step === 5 ? (
           <>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black max-h-[300px] overflow-auto">
-              <h1 className="text-xl font-bold mb-2">Cookies policy</h1>
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Cookies policy
+            </span>
+            <div className="w-full border border-black bg-white rounded-2xl-1 p-4 text-black max-h-[300px] overflow-auto">
               <p>
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
                 Lorum impsum lorum ipsum lorum ipsum Lorum impsum lorum ipsum lorum ipsum
@@ -333,14 +364,13 @@ export const SignUp: FC = () => {
                 ipsum Lorum impsum lorum ipsum lorum ipsum
               </p>
             </div>
-            <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 px-8 py-8 text-black mt-4">
-              <CheckBox
-                title={"I understand & agree "}
-                className="mb-2 text-black"
-                checked={cookieAccept}
-                onChanged={(st) => setCookieAccept(st)}
-              />
-            </div>
+
+            <CheckBox
+              title={"I understand & agree"}
+              className="mt-2 text-black w-full"
+              checked={cookieAccept}
+              onChanged={(st) => setCookieAccept(st)}
+            />
           </>
         ) : isAuth ? (
           <>
@@ -371,13 +401,13 @@ export const SignUp: FC = () => {
         {step > 0 && step < 6 && (
           <div className="flex w-full justify-between mt-8">
             <button
-              className="btn rounded-2xl-1 h-[60px] bg-[#8C8D91] border-none text-[20px] font-bold text-white mb-4"
+              className="btn rounded-2xl-1 h-[30px] min-h-0 bg-[#8C8D91] border-none capitalize font-bold text-white"
               onClick={prevStep}
             >
               Back
             </button>
             <button
-              className="btn rounded-2xl-1 h-[60px] bg-[#0057FF] border-none text-[20px] text-white font-bold"
+              className="btn rounded-2xl-1 h-[30px] min-h-0 bg-[#0057FF] border-none capitalize text-white font-bold"
               onClick={nextStep}
             >
               Next
