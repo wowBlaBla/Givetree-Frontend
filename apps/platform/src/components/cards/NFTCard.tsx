@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import { useLocation } from "wouter";
-
 import { BackgroundImage } from "../BackgroundImage";
 import { NFTMetaData } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
@@ -48,6 +47,9 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
       }
       toast.promise(async() => {
         await marketplace.methods.cancelListing(nft.contract.address, nft.tokenId).send({ from: account });
+        // await axios.delete(
+        //   `${process.env.NEXT_PUBLIC_API}/api/sales`
+        // );
       }, params);
       
     } catch(err) {
