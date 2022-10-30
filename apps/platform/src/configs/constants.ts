@@ -1,11 +1,31 @@
 // IMPORTANT: Must include environment variables in next.config.js for environment variables to work.
 
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+import { Network } from "alchemy-sdk";
 
 export const pinata_api_key:string = "1b8dc5c608d42bdc8f63";
 export const pinata_secret_api_key:string = "49e7b1be1a1f57d8b6eb956470343cef3675c91bd482f9f889b814e07daf90c5";
 export const ETH_ALCHEMY:string = "LYuZuxHIZHqSqR5qCsT768jCORqGoXqn";
 export const SOLANA_NETWORK: WalletAdapterNetwork = process.env.NEXT_PUBLIC_SOLANA_NETWORK as WalletAdapterNetwork;
+export type NETWORK_NAME = "ethereum" | "polygon" | "arbitrum" | "optimism";
+export const ALCHEMY_NETWORK = {
+    ethereum: {
+        apiKey: "LYuZuxHIZHqSqR5qCsT768jCORqGoXqn",
+        network: Network.ETH_GOERLI
+    },
+    polygon: {
+        apiKey: "",
+        network: Network.MATIC_MUMBAI
+    },
+    arbitrum: {
+        apiKey: "",
+        network: Network.ARB_GOERLI
+    },
+    optimism: {
+        apiKey: "",
+        network: Network.OPT_GOERLI
+    },
+};
 
 export const EthereumNetwork = {
     address: {
