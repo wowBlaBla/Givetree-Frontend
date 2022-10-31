@@ -14,7 +14,7 @@ const ExplorePortal: FC = () => {
   return (
     <div className="profile-container flex flex-1">
       <ExploreSideBar />
-      <div className="content-wrapper w-full">
+      <div className="content-wrapper w-full px-8 py-4">
         <Route path="/explore/nfts">
           <NFTs />
         </Route>
