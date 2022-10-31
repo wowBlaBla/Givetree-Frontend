@@ -20,7 +20,7 @@ import Image from "next/image";
 type HomContainerProps = {
   isHome?: boolean;
 };
-const HomeContainer: FC<HomContainerProps> = ({ isHome }) => {
+const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
   if (loading) {

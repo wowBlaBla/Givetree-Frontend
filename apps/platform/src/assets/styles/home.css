@@ -490,12 +490,22 @@
   overflow-y: auto;
 }
 
-.main-menu-bar::-webkit-scrollbar {
+.side-bar .nav-items::-webkit-scrollbar, .main-menu-bar::-webkit-scrollbar {
   max-width: 5px;
   background-color: transparent;
 
 }
 
-.main-menu-bar::-webkit-scrollbar-thumb {
-  @apply bg-base-200
+.side-bar .nav-items::-webkit-scrollbar-thumb, .main-menu-bar::-webkit-scrollbar-thumb {
+  @apply bg-base-content
+}
+
+.side-bar {
+  height: calc(100vh - 80px);
+}
+
+.side-bar .nav-items {
+  height: 100vh;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 }
