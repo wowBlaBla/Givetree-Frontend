@@ -707,7 +707,7 @@ export const Home: FC = () => {
                 </div>
               </div>
               <div className="flex px-6 py-3 border-b border-base-content items-center justify-between">
-                <label className="text-md text-white">Will you accept donations?</label>
+                <label className="text-md text-white">Which cryptocurrencies do you accept?</label>
                 <button className="btn profile-setting-button text-lg rounded-xl text-white">
                   Add
                 </button>

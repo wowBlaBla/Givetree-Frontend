@@ -91,7 +91,7 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
 
   return (
     <div
-      className={`side-bar ${
+      className={`side-bar stick-side-bar ${
         visible ? "absolute" : "hidden lg:flex"
       } lg:sticky top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] py-8 border-r border-base-content border-opacity-25 bg-mid-dark z-10`}
     >
