@@ -34,7 +34,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
       <span className="text-currentColor">{title}</span>
       <div className="flex items-center">
         {count !== undefined && <span className="text-[#BABABA] mr-2">({count})</span>}
-        <div className={`tick w-[20px] h-[20px] ${status ? "checked" : ""}`} />
+        <div className={`tick w-[20px] h-[20px] ${checked ? "checked" : ""}`} />
       </div>
     </div>
   );
