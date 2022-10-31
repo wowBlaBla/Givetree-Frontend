@@ -1,9 +1,10 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 import { Link, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
 import { CheckBox } from "../../components/CheckBox";
 import { InputBox } from "../../components/InputBox";
 import { NavItem } from "../profile/ProfileSidebar";
+import { useExplore } from "../../context/ExploreContext";
 
 const mainNavs: NavItem[] = [
   {
@@ -41,94 +42,11 @@ interface ExploreSideBarProps {
   setVisible?: (visible: boolean) => void;
 }
 
-interface CategoryItem {
-  title: string;
-  checked: boolean;
-  count: number;
-  isLegend?: boolean;
-}
-
-const _cateogries: CategoryItem[] = [
-  {
-    title: "All",
-    checked: false,
-    count: 0,
-    isLegend: true,
-  },
-  {
-    title: "Top",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Art",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Collectibles",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Domain Names",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Music",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Photography",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Sports",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Trading Cards",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Utility",
-    checked: false,
-    count: 0,
-  },
-  {
-    title: "Virtual Worlds",
-    checked: false,
-    count: 0,
-  },
-];
-
 export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible }) => {
   const [mainNav, setMainNav] = useState<NavItem>();
   const [_, params] = useRoute(PlatformRoute.ExploreDetails);
-  const [category, setCategory] = useState<CategoryItem[]>(_cateogries);
-
-  const toggleCategory = (index: number) => {
-    let _category = [...category];
-    _category[index].checked = !_category[index].checked;
-
-    if (!index) {
-      _category.map((item) => {
-        item.checked = _category[index].checked;
-      });
-    } else {
-      let count = 0;
-      for (let i = 1; i < _category.length; i++) if (_category[i].checked) count++;
-      _category[0].checked = count == category.length - 1 ? true : false;
-    }
-
-    setCategory(_category);
-  };
-
+  const { category, toggleCategory } = useExplore();
+  
   return (
     <div
       className={`side-bar ${
