@@ -115,7 +115,7 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
           {walletAddress ? "Disconnect Wallet" : "Connect Wallet"}
         </PrimaryButton>
       </div> */}
-      <div className="flex flex-col flex-1 mt-6">
+      <div className="flex flex-col flex-1 mt-6 nav-items">
         <div>
           {defaultNavs.map((item, idx) =>
             item.children ? (
