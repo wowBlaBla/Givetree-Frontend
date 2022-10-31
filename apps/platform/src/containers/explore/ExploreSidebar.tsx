@@ -142,18 +142,17 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               </div>
               <div className="collapse-content">
                 <InputBox className="text-white mb-4" placeholder="Search" />
-                {
-                  category.map((item, idx) => (
-                    <CheckBox
-                      key={idx}
-                      className="mb-2"
-                      title={item.title}
-                      count={item.count}
-                      checked={item.checked}
-                      onChanged={() => toggleCategory(idx)}
-                    />
-                  ))
-                }
+                {category.map((item, idx) => (
+                  <CheckBox
+                    key={idx}
+                    className="w-full mb-2 justify-between"
+                    title={item.title}
+                    count={item.count}
+                    checked={item.checked}
+                    onChanged={() => toggleCategory(idx)}
+                    direction={"right"}
+                  />
+                ))}
               </div>
             </div>
             <div className="collapse collapse-plus border-t border-[#696969] px-6">
@@ -235,12 +234,42 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               </div>
               <div className="collapse-content">
                 <InputBox className="text-white mb-4" placeholder="Search" />
-                <CheckBox title="All" className="mb-2" count={0} />
-                <CheckBox title="Australia" className="mb-2" count={2} />
-                <CheckBox title="Japan" className="mb-2" count={3} />
-                <CheckBox title="New Zealand" className="mb-2" count={10} />
-                <CheckBox title="USA" className="mb-4" count={10} />
-                <CheckBox title="England" className="mb-4" count={10} />
+                <CheckBox
+                  title="All"
+                  className="mb-2 justify-between"
+                  count={0}
+                  direction={"right"}
+                />
+                <CheckBox
+                  title="Australia"
+                  className="mb-2 justify-between"
+                  count={2}
+                  direction={"right"}
+                />
+                <CheckBox
+                  title="Japan"
+                  className="mb-2 justify-between"
+                  count={3}
+                  direction={"right"}
+                />
+                <CheckBox
+                  title="New Zealand"
+                  className="mb-2 justify-between"
+                  count={10}
+                  direction={"right"}
+                />
+                <CheckBox
+                  title="USA"
+                  className="mb-4 justify-between"
+                  count={10}
+                  direction={"right"}
+                />
+                <CheckBox
+                  title="England"
+                  className="mb-4 justify-between"
+                  count={10}
+                  direction={"right"}
+                />
               </div>
             </div>
           </div>

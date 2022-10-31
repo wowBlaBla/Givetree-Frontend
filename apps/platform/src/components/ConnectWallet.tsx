@@ -10,9 +10,10 @@ import { LoadingIcon } from "./icons/LoadingIcon";
 
 interface ConnectWalletProps {
   callback?: () => void;
+  className?: string;
 }
 
-export const ConnectWallet: FC<ConnectWalletProps> = ({ callback }) => {
+export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) => {
   const { loading, connectWallet } = useWallet();
 
   const [activeTabWallet, setActiveTabWallet] = useState<number>(0);
@@ -23,7 +24,12 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback }) => {
   };
 
   return (
-    <div className="flex flex-col w-full border border-black bg-white rounded-2xl-1 text-black">
+    <div
+      className={cx(
+        className,
+        "flex flex-col w-full rounded-2xl-1 text-black"
+      )}
+    >
       <div className="border-b overflow-x-auto scroll-pb-5 px-8 pt-2">
         <div className="w-full">
           <ul
@@ -34,14 +40,14 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback }) => {
             {Network.map((item, idx) => (
               <li
                 className={cx("border-b-4 nav-item", {
-                  "active-nav": idx == activeTabWallet,
+                  "border-[#8C8D91]": idx == activeTabWallet,
                   "border-transparent": idx != activeTabWallet,
                 })}
                 role="presentation"
                 key={idx}
                 onClick={() => setActiveTabWallet(idx)}
               >
-                <span className="nav-link block text-lg leading-tight capitalize px-6 py-3 font-bold cursor-pointer">
+                <span className="nav-link block leading-tight capitalize px-3 py-2 font-bold cursor-pointer">
                   {item}
                 </span>
               </li>
@@ -50,7 +56,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback }) => {
         </div>
       </div>
       <div
-        className={cx("ethereum-wallet w-full flex-col gap-3 px-8 py-4", {
+        className={cx("ethereum-wallet w-full flex-col gap-3 py-4", {
           flex: activeTabWallet < 2,
           hidden: activeTabWallet > 1,
         })}
@@ -90,7 +96,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback }) => {
         </button>
       </div>
       <div
-        className={cx("solana-wallet w-full flex-col gap-3 px-8 py-4", {
+        className={cx("solana-wallet w-full flex-col gap-3 py-4", {
           flex: activeTabWallet > 1,
           hidden: activeTabWallet < 2,
         })}
