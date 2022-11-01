@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 
-import { GetHomeDataQuery, GET_HOME_DATA } from "./home.data";
+import { GetHomeDataQuery, GET_HOME_DATA } from "../home/home.data";
 import { PlatformRoute } from "../../configs/routes";
 import { CharityCard } from "../../components/cards/CharityCard";
 import { SectionContainer } from "../../components/SectionContainer";
@@ -16,6 +16,7 @@ import { getRoyaltyPercentage } from "../../utils/getRoyaltyPercentage";
 import { RoyaltyType } from "../../typed/royalty-details";
 import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import Image from "next/image";
+import backgroundImage from "../../assets/images/background.png";
 
 type HomContainerProps = {
   isHome?: boolean;
@@ -43,8 +44,14 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {isHome && (
-        <div className="relative flex items-center md:py-16 bg-[#F0926E] h-[800px]">
+      <div
+        className="relative h-[800px]"
+        style={{
+          backgroundImage: `url(${backgroundImage.src})`,
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="flex items-center w-full h-full bg-[#012417]/70">
           <CampaignBanner
             backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
             title={data.homepageCampaign.title}
@@ -63,7 +70,7 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
             causes={data.homepageCampaign.nominatedCharity.causes}
           />
         </div>
-      )}
+      </div>
 
       <SectionContainer className="max-w-layout-l mx-auto">
         <SectionHeader

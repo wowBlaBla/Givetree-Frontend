@@ -29,6 +29,6 @@ export interface CharityProperties {
   foundedAt?: string;
   employee?: number;
   founders?: string;
-  phone?: string;
+  businessNumber?: string;
   causes?: string[];
 }

@@ -51,14 +51,14 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
                 >
                   Donate Crypto
                 </Link>
-                <Link
+                {/* <Link
                   className={
                     "outline-button h-[34px] text-xs !bg-primary w-[80%] mt-[0.5rem] hover:shadow-lg"
                   }
                   to=""
                 >
                   Create Fundraiser
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

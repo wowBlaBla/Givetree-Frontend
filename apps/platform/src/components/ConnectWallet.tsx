@@ -16,7 +16,7 @@ interface ConnectWalletProps {
 export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) => {
   const { loading, connectWallet } = useWallet();
 
-  const [activeTabWallet, setActiveTabWallet] = useState<number>(0);
+  // const [activeTabWallet, setActiveTabWallet] = useState<number>(0);
 
   const handleWallet = (wallet: Wallet) => () => {
     connectWallet(wallet);
@@ -24,13 +24,8 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
   };
 
   return (
-    <div
-      className={cx(
-        className,
-        "flex flex-col w-full rounded-2xl-1 text-black"
-      )}
-    >
-      <div className="border-b overflow-x-auto scroll-pb-5 px-8 pt-2">
+    <div className={cx(className, "flex flex-col w-full rounded-2xl-1 text-black")}>
+      {/* <div className="border-b overflow-x-auto scroll-pb-5 px-8 pt-2">
         <div className="w-full">
           <ul
             className="nav nav-tabs flex gap-2 list-none pl-0"
@@ -54,13 +49,8 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
             ))}
           </ul>
         </div>
-      </div>
-      <div
-        className={cx("ethereum-wallet w-full flex-col gap-3 py-4", {
-          flex: activeTabWallet < 2,
-          hidden: activeTabWallet > 1,
-        })}
-      >
+      </div> */}
+      <div className={cx("ethereum-wallet w-full flex-col flex")}>
         <button
           className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
           onClick={handleWallet("metamask")}
@@ -95,24 +85,24 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
           {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
         </button>
       </div>
-      <div
+      {/* <div
         className={cx("solana-wallet w-full flex-col gap-3 py-4", {
           flex: activeTabWallet > 1,
           hidden: activeTabWallet < 2,
         })}
+      > */}
+      <button
+        className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
+        onClick={handleWallet("walletconnect")}
+        disabled={loading}
       >
-        <button
-          className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
-          onClick={handleWallet("walletconnect")}
-          disabled={loading}
-        >
-          <div className="flex gap-3">
-            <PhantomIcon className="rounded-full" />
-            <span>Phantom</span>
-          </div>
-          {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
-        </button>
-      </div>
+        <div className="flex gap-3">
+          <PhantomIcon className="rounded-full" />
+          <span>Phantom</span>
+        </div>
+        {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
+      </button>
+      {/* </div> */}
     </div>
   );
 };

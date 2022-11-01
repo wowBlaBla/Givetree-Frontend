@@ -2,13 +2,11 @@ import React from "react";
 import { ToastContainer } from "react-toastify";
 import { Redirect, Route, Router, Switch } from "wouter";
 
-import HomeContainer from "./containers/home";
-import ProfilePortal from "./containers/profile";
 import ExplorePortal from "./containers/explore";
+import ProfilePortal from "./containers/profile";
 import PublicProfileContainer from "./containers/publicProfile";
 import AboutPortal from "./containers/about";
 
-import { AppFooter } from "./components/AppFooter";
 import { AppHeader } from "./components/AppHeader";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -43,12 +41,11 @@ const Routes = () => {
             autoClose={5000}
             closeOnClick
           />
-          <div className="flex flex-col flex-1 overflow-y-auto bg-light-gray" id="container">
+          <div
+            className="flex flex-col flex-1 overflow-y-auto bg-light-gray"
+            id="container"
+          >
             <Switch>
-              <Route path={PlatformRoute.Home}>
-                <HomeContainer isHome />
-                <AppFooter />
-              </Route>
               <Route path={"/login"}>
                 <SignIn />
               </Route>
@@ -69,9 +66,6 @@ const Routes = () => {
               <Route path={PlatformRoute.MarketplaceListing}>
                 <MarketplaceListingContainer />
               </Route>
-              <Route path={PlatformRoute.ExploreAll}>
-                <ExplorePortal />
-              </Route>
               <Route path={PlatformRoute.ExploreDetails}>
                 <ExplorePortal />
               </Route>
@@ -86,21 +80,18 @@ const Routes = () => {
               <Route path={PlatformRoute.ProfileDetails}>
                 {() => {
                   return (
-                    <>
-                      {!isAuth ? <Redirect to={PlatformRoute.Home} /> : <ProfilePortal />}
-                    </>
+                    <>{!isAuth ? <Redirect to={"/explore/home"} /> : <ProfilePortal />}</>
                   );
                 }}
               </Route>
               <Route path={PlatformRoute.About}>
                 <AboutPortal />
               </Route>
+              
               <Route path={PlatformRoute.AssetDetails}>
                 {(params) => <SalesContainer network={params.network} collection={params.collection} tokenId={params.tokenId} />}
               </Route>
-              <Route path="*">
-                <HomeContainer />
-              </Route>
+              <Redirect to={"/explore/home"} />
             </Switch>
           </div>
         </div>

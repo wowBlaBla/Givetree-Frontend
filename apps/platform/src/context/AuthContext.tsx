@@ -38,7 +38,7 @@ export type User = {
   posts: string[];
   walletAddresses: any[];
   refreshTokens: string[];
-  charityProperty: CharityProperties | any;
+  charityProperty: CharityProperties[];
   socials: UserLinkData[];
 };
 
@@ -144,7 +144,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
     localStorage.clear();
     setAuthUser(undefined);
     setIsAuth(false);
-    setLocation("/");
+    setLocation("/explore/home");
   }, [setLocation]);
 
   const refreshAccount = React.useCallback(
