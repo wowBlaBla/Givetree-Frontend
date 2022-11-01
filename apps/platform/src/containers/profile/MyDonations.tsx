@@ -2,16 +2,34 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useWallet } from "../../context/WalletContext";
-import { Tokens } from "../../utils/constants";
+import { Crypto, CryptoIcon, CurrencyIcon, Fiat, Tokens } from "../../utils/constants";
 import { toast } from "react-toastify";
+import moment from "moment";
+import Skeleton from "react-loading-skeleton";
+
+interface History {
+  crypto: Crypto;
+  cryptoAmount: string;
+  fiat: Fiat;
+  fiatAmount: string;
+  walletAddress: string;
+  created_at: Date;
+}
+
+interface Rate {
+  [key: string]: string;
+}
 
 export const MyDonations: FC = () => {
-  const { authUser } = useAuth();
-  const { address } = useWallet();
+  const { authUser, logout } = useAuth();
+  const { web3Instance } = useWallet();
 
   const [editType, setEditType] = useState<"wallet" | "received" | "made">("wallet");
 
   const [walletAddress, setWalletAddress] = useState("");
+  const [history, setHistory] = useState<History[]>([]);
+  const [totalDonationValue, setTotalDonationValue] = useState<string>('0');
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const updateWallet = async () => {
     if (authUser) {
@@ -33,6 +51,45 @@ export const MyDonations: FC = () => {
       }
     }
   };
+
+  useEffect(() => {
+    async function fetchDonations() {
+      setLoading(true);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/donations/${editType == "received" ? "to" : "from"}`, {},
+        {
+          headers: {
+            Authorization: `Bearer ${authUser?.accessToken}`
+          }
+        }
+      ).then(res => {
+        setHistory(res.data);
+      }).catch(err => {
+        if (err.response.status == 401) logout();
+      })
+      setLoading(false);
+    }
+
+    if (editType == "received" || editType == "made") fetchDonations();
+  }, [editType])
+
+  useEffect(() => {
+    async function calculateValue() {
+      await axios.get('https://api.coinbase.com/v2/exchange-rates?currency=USD').then(res => {
+        const rates = res.data.data.rates;
+        let _value = 0;
+        history.map(item => {
+          _value += +item.fiatAmount / +rates[item.fiat]
+        });
+        setTotalDonationValue(_value.toFixed(2).toString());
+      }).catch(err => {
+
+      });
+    }
+
+    if (history.length) calculateValue();
+    else setTotalDonationValue('0');
+  }, [history]);
 
   return (
     <div className="profile">
@@ -139,11 +196,11 @@ export const MyDonations: FC = () => {
                 <span className="text-xl font-bold mb-4">
                   Total donations value (cumulative)
                 </span>
-                <span className="text-[40px] font-bold">$1000000</span>
+                <span className="text-[40px] font-bold">${totalDonationValue}</span>
               </div>
               <div className="flex flex-col bg-white rounded-2xl-1 border border-[#717171] text-black w-[400px] h-[176px] px-8 py-6 lg:ml-4">
                 <span className="text-xl font-bold mb-4">Total charities supported</span>
-                <span className="text-[40px] font-bold">20</span>
+                <span className="text-[40px] font-bold">{history.length}</span>
               </div>
             </div>
 
@@ -155,7 +212,7 @@ export const MyDonations: FC = () => {
                 <span className="text-sm">Search</span>
                 <span className="text-sm">Filter</span>
               </div>
-              <div className="donation-item flex items-center">
+              {/* <div className="donation-item flex items-center">
                 <span className="text-sm mr-6">#</span>
                 <span className="text-sm mr-6">Crypto</span>
                 <span className="text-sm mr-6">Amount</span>
@@ -165,14 +222,71 @@ export const MyDonations: FC = () => {
                 <span className="text-sm mr-6">Wallet</span>
                 <span className="text-sm">Incoming/outgoing</span>
               </div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
-              <div className="donation-item"></div>
+              <div className="donation-item"></div> */}
+              <div className="overflow-x-auto w-full">
+                <table className="table w-full border-base-100">
+                  <thead className="border-b border-base-100/80 text-center">
+                    <th>#</th>
+                    <th>Crypto</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Wallet</th>
+                  </thead>
+                  <tbody className="text-center">
+                    {
+                      history.map((item, idx) => (
+                        <tr key={idx} className="border-b border-base-100/80">
+                          <td>{idx + 1}</td>
+                          <td>{CryptoIcon[item.crypto]({ className: "w-8 h-8 inline-block "})}</td>
+                          <td>{web3Instance?.utils.fromWei(`${item.cryptoAmount}`)}</td>
+                          <td>{CurrencyIcon[item.fiat]({ className: "w-8 h-8 inline-block "})}</td>
+                          <td>{item.fiatAmount}</td>
+                          <td>{moment(item.created_at).format("YYYY-MM-DD")}</td>
+                          <td>{item.walletAddress}</td>
+                        </tr>
+                      ))
+                    }
+                    {
+                      isLoading ? (
+                        <>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                          <tr>
+                            <td colSpan={8}><Skeleton className="h-6"/></td>
+                          </tr>
+                        </>
+                      ) : (
+                        !history.length && <tr><td colSpan={8} className="text-center text-sm border-b border-base-100/80 font-bold text-base-100/80">No items to display</td></tr>
+                      )
+                    }
+                  </tbody>
+                  <tfoot className="border-t border-base-100/80 text-center">
+                    <th>#</th>
+                    <th>Crypto</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Wallet</th>
+                  </tfoot>
+                  
+                </table>
+              </div>
             </div>
           </>
         )}
