@@ -1,36 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { SwatchesPicker, ColorResult } from "react-color";
 import moment from "moment";
 import { Countries, SocialLinks } from "../../utils/constants";
-import { CharityProperties } from "../../typed/charity";
 import { SocialLinkPatterns } from "../../utils/socialLinkPatterns";
 import { XIcon } from "@heroicons/react/outline";
-import { useAuth } from "../../context/AuthContext";
+import { AccountType, useAuth, User, UserLinkData } from "../../context/AuthContext";
+import { checkIsBannerImage } from "../../utils/utils";
 
-type AccountType = "standard" | "charity";
-
-interface UserLinkData {
-  social: string;
-  link: string;
-}
-
-interface ProfileData {
-  email?: string;
-  userName?: string;
-  type?: AccountType;
-  title?: string;
-  bio?: string;
-  location?: string;
-  socials?: UserLinkData[];
-  banner?: string;
-  visibility?: "private" | "public";
-  donation?: boolean;
-  tax?: boolean;
-  charityProperty?: CharityProperties;
-  bannerIsImage?: boolean;
-}
+type ProfileData = Partial<
+  Omit<
+    User,
+    | "id"
+    | "createdAt"
+    | "updatedAt"
+    | "email"
+    | "userName"
+    | "walletAddresses"
+    | "refreshTokens"
+  >
+>;
 
 export const Home: FC = () => {
   const { authUser, updateUserData } = useAuth();
@@ -51,6 +42,7 @@ export const Home: FC = () => {
   const [banner, setBanner] = useState<File>();
   const [bannerUrl, setBannerUrl] = useState<string>("");
   const bannerRef = useRef<HTMLInputElement>(null);
+  const [isBannerImage, setIsBannerImage] = useState<boolean>(false);
 
   const getSocialIcon = useCallback((link: UserLinkData) => {
     const social = SocialLinks.find((s) => s.name === link.social);
@@ -64,12 +56,13 @@ export const Home: FC = () => {
   useEffect(() => {
     if (authUser && authUser.user) {
       const pData: ProfileData = {
+        type: authUser.user.type,
         title: authUser.user.title,
         bio: authUser.user.bio,
-        type: authUser.user.type,
-        visibility: authUser.user.visibility,
-        banner: authUser.user.banner || "",
         location: authUser.user.location,
+        profileImage: authUser.user.profileImage,
+        banner: authUser.user.banner,
+        visibility: authUser.user.visibility,
         tax: authUser.user.tax,
       };
 
@@ -80,9 +73,9 @@ export const Home: FC = () => {
         }));
       }
 
-      if (authUser.user.charityProperty && authUser.user.charityProperty.length) {
+      if (authUser.user.charityProperty) {
         const { foundedAt, employee, founders, businessNumber, causes } =
-          authUser.user.charityProperty[0];
+          authUser.user.charityProperty;
         pData.charityProperty = {
           foundedAt,
           employee,
@@ -92,8 +85,8 @@ export const Home: FC = () => {
         };
       }
 
+      setIsBannerImage(checkIsBannerImage(authUser.user.banner));
       setProfileData(pData);
-      setAvatarUrl(authUser.user.profileImage || "");
     }
   }, [authUser]);
 
@@ -112,10 +105,12 @@ export const Home: FC = () => {
           const imageBody = new FormData();
           if (avatar) {
             imageBody.append("profile", avatar);
+            delete data.profileImage;
           }
 
           if (banner) {
             imageBody.append("banner", banner);
+            delete data.banner;
           }
 
           res = await axios.put(
@@ -163,20 +158,20 @@ export const Home: FC = () => {
       const file = e.target.files[0];
       setBanner(file);
       setBannerUrl(URL.createObjectURL(file));
-      setProfileData({
-        ...profileData,
+      setProfileData((prev) => ({
+        ...prev,
         banner: "",
-      });
+      }));
     }
   };
 
   const handleBannerSelect = (color: ColorResult) => {
     setBanner(undefined);
     setBannerUrl("");
-    setProfileData({
-      ...profileData,
+    setProfileData((prev) => ({
+      ...prev,
       banner: color.hex,
-    });
+    }));
   };
 
   const handleBannerRemove = () => {
@@ -211,7 +206,7 @@ export const Home: FC = () => {
       socials: (profileData.socials || []).filter((l) => l.social !== link.social),
     });
   };
-
+  
   return (
     <div className="profile">
       <div className="profile-save-section px-8 pt-8">
@@ -262,25 +257,6 @@ export const Home: FC = () => {
         </div>
       </div>
       <div className="p-8 max-w-[825px]">
-        {/* <div className="flex justify-between mb-8">
-          <h1 className="font-bold text-black text-[24px]">Profile Appearance</h1>
-          <div className="flex items-center">
-            <div className="indicator mr-4">
-              <span className="indicator-item indicator-middle w-[12px] h-[12px] right-[12px]">
-                <ChevronDownIcon fill="#0075FF" />
-              </span>
-              <button className="btn text-white w-[180px] h-[30px] min-h-0 bg-white border-1 border-[#0075FF] text-[#0075FF] rounded-2xl-1">
-                More Actions
-              </button>
-            </div>
-            <button
-              className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-2xl-1"
-              onClick={updateProfile}
-            >
-              Save
-            </button>
-          </div>
-        </div> */}
         {editType === "detail" ? (
           <>
             <h1 className="font-bold text-black text-xl mb-1">Profile type</h1>
@@ -539,12 +515,11 @@ export const Home: FC = () => {
             </label>
             <div className="flex flex-col lg:flex-row mb-[48px] mt-4">
               <div className="profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                {avatarUrl && (
+                {(avatarUrl || profileData.profileImage) && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     className="object-cover !border-base-content rounded-full w-[200px] h-[200px]"
-                    src={avatarUrl}
+                    src={avatarUrl || profileData.profileImage}
                     alt="avatar"
                   />
                 )}
@@ -584,16 +559,18 @@ export const Home: FC = () => {
               <div
                 className={`profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0`}
                 style={{
-                  background: profileData.banner || "white",
+                  background:
+                    !isBannerImage && profileData.banner
+                      ? profileData.banner
+                      : "white",
                 }}
               >
-                {bannerUrl && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className="object-cover" src={bannerUrl} alt="banner" />
-                )}
-                {!bannerUrl && profileData.bannerIsImage && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className="object-cover" src={profileData.banner} alt="banner" />
+                {(bannerUrl || (isBannerImage && profileData.banner)) && (
+                  <img
+                    className="object-cover"
+                    src={bannerUrl || profileData.banner}
+                    alt="banner"
+                  />
                 )}
                 <input
                   ref={bannerRef}
@@ -616,7 +593,7 @@ export const Home: FC = () => {
                   </label>
                   <div tabIndex={0} className="dropdown-content">
                     <SwatchesPicker
-                      color={profileData.banner}
+                      color={profileData.banner || ""}
                       onChangeComplete={handleBannerSelect}
                     />
                   </div>
@@ -666,13 +643,13 @@ export const Home: FC = () => {
                     <input
                       type="checkbox"
                       className="toggle"
-                      checked={profileData.donation}
-                      onClick={() =>
-                        setProfileData({
-                          ...profileData,
-                          donation: !profileData.donation,
-                        })
-                      }
+                      // checked={profileData.donation}
+                      // onClick={() =>
+                      //   setProfileData({
+                      //     ...profileData,
+                      //     donation: !profileData.donation,
+                      //   })
+                      // }
                     />
                   </label>
                 </div>

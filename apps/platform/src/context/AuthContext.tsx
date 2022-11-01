@@ -21,25 +21,26 @@ export type UserLinkData = {
   link: string;
 };
 
+export type AccountType = "standard" | "charity";
+
 export type User = {
   id: number;
   createdAt: string;
   updatedAt: string;
   email: string | undefined;
   userName: string | undefined;
+  type: AccountType;
   title: string | undefined;
-  type: "standard" | "charity";
-  visibility: "private" | "public";
   bio: string;
   location: string;
-  tax: boolean;
+  socials: UserLinkData[];
   profileImage: string;
   banner: string;
-  posts: string[];
+  visibility: "private" | "public";
+  tax: boolean;
   walletAddresses: any[];
   refreshTokens: string[];
-  charityProperty: CharityProperties[];
-  socials: UserLinkData[];
+  charityProperty: CharityProperties;
 };
 
 export type AUTH_USER = {

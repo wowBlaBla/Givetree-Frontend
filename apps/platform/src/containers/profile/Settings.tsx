@@ -36,7 +36,7 @@ export const Settings: FC = () => {
           />
           <label className="mt-4 mb-1 text-md text-white">Wallet Address</label>
           <div className="wallets-body">
-            {Tokens.filter((token) => !token.disabled).map((token, index) => (
+            {Tokens.map((token, index) => (
               <div key={`token-currency-${index}`} className="wallet-item text-black">
                 <div className="flex items-center !justify-between">
                   <div className="flex items-center cursor-pointer">
