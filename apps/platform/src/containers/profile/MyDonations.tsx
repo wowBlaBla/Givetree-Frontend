@@ -64,7 +64,7 @@ export const MyDonations: FC = () => {
       <div className="p-8 max-w-layout-xl">
         {editType === "wallet" ? (
           <div className="wallets-body bg-white rounded-2xl-1 border border-[#717171] mt-4 mb-8 px-4">
-            {Tokens.filter((token) => !token.disabled).map((token, index) => (
+            {Tokens.map((token, index) => (
               <div key={`token-currency-${index}`} className="wallet-item text-black">
                 <div className="flex items-center">
                   <div className="flex items-center cursor-pointer">
