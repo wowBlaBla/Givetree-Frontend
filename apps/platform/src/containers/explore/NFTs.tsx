@@ -3,6 +3,7 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react"
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { SaleCard } from "../../components/cards/SaleCard";
+import { SectionContainer } from "../../components/SectionContainer";
 import { NFTCardSkeletonBundle } from "../../components/skeleton/SkeletonBundle";
 import { ALCHEMY_NETWORK, NETWORK_NAME } from "../../configs/constants";
 
@@ -30,6 +31,7 @@ export const NFTs:FC = () => {
     const [isLoadedSales, setLoadedSales] = useState<boolean>(false);
     const [pageKey, setPageKey] = useState<string>('');
     const [isEnd, setEnd] = useState<boolean>(false);
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         loadCollections();
@@ -53,6 +55,7 @@ export const NFTs:FC = () => {
     }
 
     const loadListedNFT = async() => {
+        setLoading(true);
         await axios.get(
             `${process.env.NEXT_PUBLIC_API}/api/sales?from=${start}`
         ).then(async(res) => {
@@ -62,11 +65,11 @@ export const NFTs:FC = () => {
         }).catch(err => {
 
         });
-
     }
 
     const loadRestNFT = async() => {
         if (collections.length > activeCollection) {
+            setLoading(true);
             try {
                 const network = collections[activeCollection].network as NETWORK_NAME;
                 const settings = ALCHEMY_NETWORK[network];
@@ -97,23 +100,29 @@ export const NFTs:FC = () => {
         else {
             setEnd(true);
         }
+        setLoading(false);
     }
 
     return (
-        <InfiniteScroll
-            dataLength={saleList.length}
-            next={ isLoadedSales ? loadRestNFT : loadListedNFT }
-            hasMore={!isEnd}
-            loader={<NFTCardSkeletonBundle/>}
-            // height={height}
-            className="grid grid-cols-card-layout gap-8 items-center !overflow-hidden pb-2"
-            scrollableTarget={"container"}
-        >
-            {
-                saleList.map((item, idx) => (
-                    <SaleCard item={item} key={idx}/>
-                ))
-            }
-        </InfiniteScroll>
+        <SectionContainer>
+            <InfiniteScroll
+                dataLength={saleList.length}
+                next={ isLoadedSales ? loadRestNFT : loadListedNFT }
+                hasMore={!isEnd}
+                loader={<NFTCardSkeletonBundle/>}
+                // height={height}
+                className="grid grid-cols-card-layout gap-8 items-center !overflow-hidden pb-2"
+                scrollableTarget={"container"}
+            >
+                {
+                    saleList.map((item, idx) => (
+                        <SaleCard item={item} key={idx}/>
+                    ))
+                }
+                {
+                    isLoading ? <NFTCardSkeletonBundle/> : ""
+                }
+            </InfiniteScroll>
+        </SectionContainer>
     )
 }

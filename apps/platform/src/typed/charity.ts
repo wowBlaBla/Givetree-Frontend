@@ -22,6 +22,7 @@ export interface Charity {
   title?: string;
   location?: string;
   bio?: string;
+  banner?: string;
   walletAddresses?: WalletAddresses[]
 }
 
