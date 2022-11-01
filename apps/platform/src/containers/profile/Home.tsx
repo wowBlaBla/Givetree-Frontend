@@ -12,7 +12,6 @@ import { useAuth } from "../../context/AuthContext";
 type AccountType = "standard" | "charity";
 
 interface UserLinkData {
-  id?: number;
   social: string;
   link: string;
 }
@@ -75,11 +74,22 @@ export const Home: FC = () => {
       };
 
       if (authUser.user.socials) {
-        pData.socials = authUser.user.socials;
+        pData.socials = authUser.user.socials.map((s) => ({
+          social: s.social,
+          link: s.link,
+        }));
       }
 
-      if (authUser.user.charityProperty) {
-        pData.charityProperty = authUser.user.charityProperty;
+      if (authUser.user.charityProperty && authUser.user.charityProperty.length) {
+        const { foundedAt, employee, founders, businessNumber, causes } =
+          authUser.user.charityProperty[0];
+        pData.charityProperty = {
+          foundedAt,
+          employee,
+          founders,
+          businessNumber,
+          causes,
+        };
       }
 
       setProfileData(pData);
@@ -91,11 +101,13 @@ export const Home: FC = () => {
     try {
       if (authUser) {
         const data = { ...profileData };
-        console.log("============", data);
-        // return;
+        if (data.type === "standard") {
+          delete data.charityProperty;
+        }
+
         let res;
         setLoading(true);
-        /*
+
         if (avatar || banner) {
           const imageBody = new FormData();
           if (avatar) {
@@ -123,9 +135,8 @@ export const Home: FC = () => {
             Authorization: `Bearer ${authUser.accessToken}`,
           },
         });
-
         updateUserData(res.data);
-*/
+
         toast.success("Updated profile successfully!");
       }
     } catch (err) {
@@ -199,34 +210,6 @@ export const Home: FC = () => {
       ...profileData,
       socials: (profileData.socials || []).filter((l) => l.social !== link.social),
     });
-    // if (authUser) {
-    //   if (profileData?.socials?.length) {
-    //     const _socials = profileData.socials.slice();
-    //     try {
-    //       const params = {
-    //         pending: `Removing ${link.social} link...`,
-    //         success: `${link.social} link is removed succesfully!`,
-    //         error: `Failed`,
-    //       };
-    //       toast.promise(async () => {
-    //         await axios.delete(
-    //           `${process.env.NEXT_PUBLIC_API}/api/socials/${_socials[idx]?.id}`,
-    //           {
-    //             headers: {
-    //               Authorization: `Bearer ${authUser.accessToken}`,
-    //             },
-    //           }
-    //         );
-
-    //         _socials.splice(idx, 1);
-    //         setProfileData({
-    //           ...profileData,
-    //           socials: _socials,
-    //         });
-    //       }, params);
-    //     } catch (err) {}
-    //   }
-    // }
   };
 
   return (
@@ -310,9 +293,9 @@ export const Home: FC = () => {
               <select
                 className="select profile-item outline-none border-base-content block mt-1"
                 value={profileData.type || "standard"}
-                onChange={(e) =>
-                  setProfileData({ ...profileData, type: e.target.value as AccountType })
-                }
+                onChange={(e) => {
+                  setProfileData({ ...profileData, type: e.target.value as AccountType });
+                }}
               >
                 <option value="standard">Standard</option>
                 <option value="charity">Charity</option>
@@ -347,11 +330,7 @@ export const Home: FC = () => {
                 }}
               >
                 {Countries.map((c) => (
-                  <option
-                    key={`country-option-${c.code}`}
-                    value={c.name}
-                    //selected={profileData.location === c.name}
-                  >
+                  <option key={`country-option-${c.code}`} value={c.name}>
                     {c.name}
                   </option>
                 ))}
@@ -495,13 +474,13 @@ export const Home: FC = () => {
                   <input
                     type="text"
                     className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
-                    value={profileData.charityProperty?.phone || ""}
+                    value={profileData.charityProperty?.businessNumber || ""}
                     onChange={(e) =>
                       setProfileData({
                         ...profileData,
                         charityProperty: {
                           ...profileData.charityProperty,
-                          phone: e.target.value,
+                          businessNumber: e.target.value,
                         },
                       })
                     }
