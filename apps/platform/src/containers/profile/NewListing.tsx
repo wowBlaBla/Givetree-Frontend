@@ -13,6 +13,7 @@ import { useWallet } from "../../context/WalletContext";
 import { EthereumNetwork, ETH_ALCHEMY } from "../../configs/constants";
 import erc721ABI from "../../assets/jsons/abi/erc721.json"
 import { toast } from "react-toastify";
+import { LoadingContainer } from "../../components/LoadingContainer";
 
 enum SaleType {
   Fixed = "fixed",
@@ -228,6 +229,11 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       if (!approved) {
         await contract.methods.setApprovalForAll(EthereumNetwork.address.marketplace, true).send({ from: account });
       }
+      const isListed = await marketplace?.methods.getListing(address, tokenId).call();
+      if (Number(isListed.seller)) {
+        throw Error("Already listed");
+      }
+
       switch(tokenType) {
         case NftTokenType.ERC721:
           switch(saleType) {
@@ -291,8 +297,10 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
 
       });
       toast.success('You have listed NFT to sale successfully');
-    } catch(err) {
-      console.log(err);
+    } catch(err:any) {
+      if (err?.code != 4001) {
+        toast.error(err?.LoadingContainer);
+      }
     }
     setLoading(false);
   }
@@ -549,6 +557,9 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
         >
           COMPLETE LISTING
         </button>
+        {
+          isLoading ? <LoadingContainer message={"Listing NFT....."}/> : ""
+        }
       </div>
     </div>
   );

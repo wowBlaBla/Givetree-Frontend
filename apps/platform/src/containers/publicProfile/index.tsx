@@ -1,12 +1,17 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { LoadingContainer } from "../../components/LoadingContainer";
 import { ErrorContainer } from "../../components/ErrorContainer";
 import { GetCharityDetailsDataQuery, GET_CHARITY_DETAILS_DATA } from "./charities.data";
-import Image from "next/image";
-import { DefaultParams, useRoute } from "wouter";
+import { DefaultParams, useLocation, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
 import { DonationForm } from "../../components/DonationForm";
+import axios from "axios";
+import { Charity } from "../../typed/charity";
+import DefaultCharityIcon from "../../assets/images/default-charity-icon.jpg";
+import Skeleton from "react-loading-skeleton";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
+import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 
 const StandardTabs = ["About", "Donations", "NFTs", "Collections", "Mint pages"];
 const CharityTabs = [
@@ -24,10 +29,13 @@ interface ParamProps extends DefaultParams {
 }
 
 const PublicProfileContainer: FC = () => {
+  const [, setLocation] = useLocation();
   const [type, setType] = React.useState("charity");
   const [tabs, setTabs] = React.useState(StandardTabs);
   const [currentTab, setCurrentTab] = React.useState<string>();
   const [_, params] = useRoute<ParamProps, string>(PlatformRoute.PublicProfileDetails);
+  const [profile, setProfile] = useState<Charity>();
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   React.useEffect(() => {
     if (type === "charity") {
@@ -39,37 +47,46 @@ const PublicProfileContainer: FC = () => {
     }
   }, [type]);
 
-  const { data, loading, error } = useQuery<GetCharityDetailsDataQuery>(
-    GET_CHARITY_DETAILS_DATA,
-    {
-      variables: { slug: "doctors-without-borders" },
+  useEffect(() => {
+    // if (params?.category == 'charity' || params?.category == 'standard') {
+      fetchProfile();
+    // }
+  }, []);
+
+  const fetchProfile = async() => {
+    setLoading(true);
+    try {
+      await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/api/users?type=${params?.category}&username=${params?.name}&relations=walletAddresses`
+      ).then(res => {
+        if (res.data.length) setProfile(res.data[0]);
+        else setLocation('/');
+      }).catch(err => {
+        setLocation('/');
+      })
+    } catch(err) {
+      setLocation('/');
     }
-  );
-
-  if (loading) {
-    return <LoadingContainer message="Loading charity details..." />;
+    setLoading(false);
   }
 
-  if (error) {
-    return <ErrorContainer message="Could not load charity details." />;
-  }
-
-  if (!data) {
-    return <ErrorContainer message="Could not load charity details." />;
-  }
+  // if (isLoading) return <LoadingContainer message={"Welcome to charity"}/>
 
   return (
     <div className="public-profile">
       <div className="profile-banner">
         <div className="flex flex-col items-center max-w-layout-xl mx-auto md:flex-row">
           <div className="profile-avatar-container">
-            <div className="relative w-full h-full">
-              <Image
-                src={data.charity.media.previewUrl}
-                layout="fill"
-                objectFit="contain"
-                alt="charity"
-              />
+            <div className="relative w-full h-full z-50">
+              {
+                isLoading ? <Skeleton className="w-full aspect-square"/>
+                : (
+                  <img
+                    src={profile?.profileImage || DefaultCharityIcon.src}
+                    alt="charity"
+                  />
+                )
+              }
             </div>
           </div>
         </div>
@@ -77,20 +94,27 @@ const PublicProfileContainer: FC = () => {
       <div className="profile-info">
         <div className="max-w-layout-xl mx-auto flex flex-col">
           <span className="text-h text-black font-bold max-w-[680px] mb-2">
-            Foundation of National Parks & Wildlife
+            {
+              isLoading ? <Skeleton/> : profile?.title
+            }
           </span>
           <span className="text-black max-w-[680px] mb-1">
             The Mulga The Artist is a funky cool artist from Sydney Australia who has a
             unique style of art which is known all around the world and is very popular.
           </span>
-          <span>Australia. #digitalart #painting</span>
+          <span>
+            <LocationMarkerIcon className="w-4 h-4 inline-block"/>
+            {
+              isLoading ? <Skeleton/> : profile?.location ? profile.location : "World wide"
+            }
+          </span>
           <div className="flex py-4">
             <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-2xl-1 mr-4">
               Donate
             </button>
-            <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[white] border border-[#0075FF] text-[#0075FF] rounded-2xl-1">
+            {/* <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[white] border border-[#0075FF] text-[#0075FF] rounded-2xl-1">
               Fundraise
-            </button>
+            </button> */}
           </div>
           <div className="profile-tab">
             <div className="tabs">
@@ -112,13 +136,18 @@ const PublicProfileContainer: FC = () => {
           <div className="flex flex-col md:flex-row">
             <div className="flex-3">
               {currentTab === "About" ? (
-                <div className="flex flex-col bg-white rounded-2xl-1 border border-[#717171] text-black p-8">
+                <div className="flex flex-col bg-white rounded-2xl-1 border border-[#717171] text-black p-8 min-h-[20rem]">
                   <span className="text-lg font-bold">Bio</span>
                   <span>
-                    Lorum Imsum lorum ipsum lorum ipsum Lorum Imsum lorum ipsum lorum
-                    ipsum Lorum Imsum lorum ipsum lorum ipsum Lorum Imsum lorum ipsum
-                    lorum ipsumLorum Imsum lorum ipsum lorum ipsumLorum Imsum lorum ipsum
-                    lorum ipsum
+                    {
+                      isLoading ? (
+                        <>
+                          <Skeleton/>
+                          <Skeleton/>
+                          <Skeleton/>
+                        </>
+                      ) : profile?.bio
+                    }
                   </span>
                 </div>
               ) : currentTab === "Donations" ? (
@@ -334,7 +363,10 @@ const PublicProfileContainer: FC = () => {
               </div>
             </div> */}
             <div className="flex-2 md:ml-6">
-              <DonationForm />
+              <DonationForm
+                charityAddress={profile?.walletAddresses ? profile.walletAddresses[0].address : ""}
+                charityName={profile?.title ? profile.title : ""}
+              />
             </div>
           </div>
         </div>

@@ -7,9 +7,9 @@ import { BackgroundImage } from "../BackgroundImage";
 // import { FeaturedBadge } from "../badges/FeaturedBadge";
 // import { CurrencyIcon } from "../icons/CurrencyIcon";
 import { Campaign } from "../../typed/campaign";
-import { VerifiedBadge } from "../badges/VerifiedBadge";
-import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
-import { SolanaIcon } from "../icons/cryptos/SolanaIcon";
+// import { VerifiedBadge } from "../badges/VerifiedBadge";
+// import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+// import { SolanaIcon } from "../icons/cryptos/SolanaIcon";
 import { SolanaColorIcon } from "../icons/SolanaColorIcon";
 // import { getEventStatus } from "../../utils/getEventStatus";
 

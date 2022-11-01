@@ -31,7 +31,7 @@ export const EthereumNetwork = {
     address: {
         factory: "0xA0705d543872DB371742474546408cea185Eed94",
         singleNFT: "0x55F11ff37b9667E561b0D911cbc93e4bA7fdBF27",
-        marketplace: "0x4BeCa3d204908833Be01f4e9701Cc6Cd7d699bd9",
+        marketplace: "0x5CE49Beab6CAc659D32891190A94c277cd025404",
     },
     chainId: "5"
 }

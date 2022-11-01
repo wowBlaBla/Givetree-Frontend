@@ -17,7 +17,7 @@ export const OwnerAvatar:FC<Props> = ({ src, alt }) => {
                 src={src}
                 alt={alt}
                 className="w-16 h-16 rounded-full border-4 border-base-100 absolute -top-8 mb-1 left-1/2 -translate-x-1/2"
-                onError={(e:any) => onError(e) }
+                onError={onError}
             />
         </>
     )
