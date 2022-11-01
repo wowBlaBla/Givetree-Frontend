@@ -74,9 +74,9 @@ const Routes = () => {
                   <CollectionContainer collectionName={params.collectionName} />
                 )}
               </Route>
-              <Route path={PlatformRoute.ItemDetails}>
+              {/* <Route path={PlatformRoute.ItemDetails}>
                 {(params) => <SalesContainer campaignName={params.campaignName} />}
-              </Route>
+              </Route> */}
               <Route path={PlatformRoute.ProfileDetails}>
                 {() => {
                   return (
@@ -86,6 +86,10 @@ const Routes = () => {
               </Route>
               <Route path={PlatformRoute.About}>
                 <AboutPortal />
+              </Route>
+              
+              <Route path={PlatformRoute.AssetDetails}>
+                {(params) => <SalesContainer network={params.network} collection={params.collection} tokenId={params.tokenId} />}
               </Route>
               <Redirect to={"/explore/home"} />
             </Switch>

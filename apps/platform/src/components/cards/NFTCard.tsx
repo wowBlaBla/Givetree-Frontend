@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, useRoute } from "wouter";
 import { BackgroundImage } from "../BackgroundImage";
 import { NFTMetaData } from "../../typed/campaign";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
@@ -8,32 +8,52 @@ import { ImageDefaultIcon } from "../icons/ImageDefaultIcon";
 import { CloudDownloadIcon, CloudUploadIcon } from "@heroicons/react/solid";
 import { useWallet } from "../../context/WalletContext";
 import { toast } from "react-toastify";
+import { NetworkIcon } from "../icons/cryptos/NetworkIcon";
 
 interface NFTCardProps {
   nft: NFTMetaData;
 }
 
+interface Listed {
+  status: boolean;
+  type: "fixed" | "auction",
+  price: string;
+  seller: string;
+}
+
 export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   const [_location, setLocation] = useLocation();
-  const { networkName, contracts, address: account } = useWallet();
+  const [match, ] = useRoute('/explore/:category');
+  const { networkName, contracts, address: account, web3Instance } = useWallet();
   const [isLoading, setLoading] = useState<boolean>(true);
-  const [isListed, setListed] = useState<boolean>(false);
+  const [isListed, setListed] = useState<Listed>({
+    status: false,
+    type: "fixed",
+    price: "0",
+    seller: ""
+  });
 
   useEffect(() => {
     async function getSaleData() {
+      if (!web3Instance) return;
       setLoading(true);
       const marketplace = contracts?.marketplace;
       const sale = await marketplace?.methods.getListing(nft.contract.address, nft.tokenId).call();
       if (Number(sale.seller)) {
-        setListed(true);
+        setListed({
+          status: true,
+          type: sale.type == '0' ? "fixed" : "auction",
+          price: web3Instance.utils.fromWei(sale.price, 'ether'),
+          seller: sale.seller
+        });
       }
       setLoading(false);
     }
 
-    if (nft && contracts?.marketplace) {
+    if (nft && contracts?.marketplace && web3Instance) {
       getSaleData();
     }
-  }, [nft, contracts]);
+  }, [nft, contracts, web3Instance]);
 
   const listDown = async() => {
     if (!isListed || !contracts?.marketplace) return;
@@ -60,13 +80,20 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
 
   const handleNextLocation = () => setLocation(`/profile/new-listing/${networkName}/${nft.contract.address}/${nft.tokenId}`);
 
+  const handleToSale = () => setLocation(`/asset/${networkName}/${nft.contract.address}/${nft.tokenId}`);
   return (
     <div className="fundraiser-card text-center h-full">
       <div
         className="bg-white relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl border border-[#3C3C3C]"
+        onClick={ () => match ? handleToSale() : null}
       >
         <div className="flex flex-col w-full h-full relative text-center nft-item">
           <div className="card-image relative">
+            {
+              <span className="rounded-full bg-base-content/80 absolute top-4 left-4">
+                <NetworkIcon network={networkName}/>
+              </span>
+            }
             {
               nft?.media[0]?.gateway ? (
                 <BackgroundImage
@@ -83,14 +110,15 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
           <div className="card-body flex-col justify-between w-full rounded-b-xl border-t-0 border h-28 relative !justify-start">
             <div className="flex justify-between w-full text-xs sm:text-sm">
               <div className="flex w-full flex-col text-black items-start">
-                <span className="font-bold text-base-100">
+                <span className="font-bold text-base">
                   {nft.title ? nft.title : "Unamed"}
                   <VerifiedBadge
                     isVerified={nft.title ? true : false}
                     type={VerifiedBadgeType.Collection}
                     className="ml-1 inline-block"
                   />
-                  </span>
+                </span>
+                { isListed.status ? <span className="font-bold text-sm">{isListed.price} ETH</span> : "" }
               </div>
             </div>
           </div>
@@ -98,7 +126,7 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
             !isLoading && (
               <>
                 {
-                  isListed ? (
+                  isListed.status ? (
                     <span
                       className="text-white absolute z-50 top-4 border rounded-full p-1 bg-black/50 btn-list"
                       onClick={listDown}
@@ -122,3 +150,4 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
     </div>
   );
 };
+

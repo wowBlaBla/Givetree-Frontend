@@ -1,5 +1,9 @@
 import { Cause } from "./enum/cause";
 
+interface WalletAddresses {
+  address: string;
+}
+
 export interface Charity {
   id: string;
   name: string;
@@ -13,6 +17,12 @@ export interface Charity {
   };
   causes: Cause[];
   isVerified: boolean;
+  userName?: string;
+  profileImage?: string;
+  title?: string;
+  location?: string;
+  bio?: string;
+  walletAddresses?: WalletAddresses[]
 }
 
 export interface CharityProperties {

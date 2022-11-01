@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import CoinbaseWalletSDK, { CoinbaseWalletProvider } from "@coinbase/wallet-sdk";
 import Web3 from "web3";
@@ -25,7 +25,7 @@ export const NetworkName = {
 };
 export type NetworkID = '5' | '80001' | '44787' | '420' | '421613';
 export type Wallet = "metamask" | "walletconnect" | "coinbase" | "phantom";
-export type WalletProvider = WalletConnectWeb3Provider | CoinbaseWalletProvider;
+export type WalletProvider = WalletConnectWeb3Provider | CoinbaseWalletProvider | string;
 
 export declare class WalletConnectWeb3Provider
   extends WalletConnectProvider
@@ -70,6 +70,11 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   const [contracts, setContracts] = useState<IContractSet>();
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const provider = "https://eth-goerli.g.alchemy.com/v2/LYuZuxHIZHqSqR5qCsT768jCORqGoXqn";
+    updateWeb3(provider);
+  }, []);
 
   const connectWallet = async (wallet: Wallet) => {
     switch (wallet) {
