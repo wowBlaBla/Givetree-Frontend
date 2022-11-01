@@ -35,7 +35,6 @@ interface ProfileData {
 
 export const Home: FC = () => {
   const { authUser, updateUserData } = useAuth();
-
   const [editType, setEditType] = useState<"detail" | "branding" | "settings">("detail");
   const [profileData, setProfileData] = useState<ProfileData>({});
 
@@ -65,10 +64,7 @@ export const Home: FC = () => {
 
   useEffect(() => {
     if (authUser && authUser.user) {
-      // const url = new URL(authUser.user.banner);
-      setProfileData({
-        email: authUser.user.email,
-        userName: authUser.user.userName,
+      const pData: ProfileData = {
         title: authUser.user.title,
         bio: authUser.user.bio,
         type: authUser.user.type,
@@ -76,10 +72,17 @@ export const Home: FC = () => {
         banner: authUser.user.banner || "",
         location: authUser.user.location,
         tax: authUser.user.tax,
-        charityProperty: authUser.user.charityProperty,
-        socials: authUser.user.socials,
-        // bannerIsImage: (url.protocol == 'http:' || url.protocol == 'https:')
-      });
+      };
+
+      if (authUser.user.socials) {
+        pData.socials = authUser.user.socials;
+      }
+
+      if (authUser.user.charityProperty) {
+        pData.charityProperty = authUser.user.charityProperty;
+      }
+
+      setProfileData(pData);
       setAvatarUrl(authUser.user.profileImage || "");
     }
   }, [authUser]);
@@ -88,17 +91,11 @@ export const Home: FC = () => {
     try {
       if (authUser) {
         const data = { ...profileData };
+        console.log("============", data);
+        // return;
+        let res;
         setLoading(true);
-        let res = await axios.put(
-          `${process.env.NEXT_PUBLIC_API}/api/users/profile`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${authUser.accessToken}`,
-            },
-          }
-        );
-
+        /*
         if (avatar || banner) {
           const imageBody = new FormData();
           if (avatar) {
@@ -121,8 +118,14 @@ export const Home: FC = () => {
           );
         }
 
-        updateUserData(res.data);
+        res = await axios.put(`${process.env.NEXT_PUBLIC_API}/api/users/profile`, data, {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        });
 
+        updateUserData(res.data);
+*/
         toast.success("Updated profile successfully!");
       }
     } catch (err) {
@@ -174,68 +177,56 @@ export const Home: FC = () => {
     });
   };
 
-  const handleAddLink = async () => {
+  const handleAddLink = () => {
     if (link.social && link.link) {
       const valid = SocialLinkPatterns(link.social, link.link);
       if (!valid) {
         return;
       }
-      if (authUser) {
-        const params = {
-          pending: `Adding ${link.social} link...`,
-          success: `${link.social} link is added succesfully!`,
-          error: `Failed`,
-        };
-
-        toast.promise(async () => {
-          const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_API}/api/socials`,
-            { ...link, userId: authUser?.user.id },
-            {
-              headers: {
-                Authorization: `Bearer ${authUser.accessToken}`,
-              },
-            }
-          );
-          setProfileData({
-            ...profileData,
-            socials: [...(profileData.socials || []), { ...link, id: res.data.id }],
-          });
-        }, params);
-      }
+      setProfileData({
+        ...profileData,
+        socials: [
+          ...(profileData.socials || []).filter((l) => l.social !== link.social),
+          link,
+        ],
+      });
       setLink({ social: SocialLinks[0].name, link: "" });
     }
   };
 
-  const handleRemoveLink = async (idx: number) => {
-    if (authUser) {
-      if (profileData?.socials?.length) {
-        const _socials = profileData.socials.slice();
-        try {
-          const params = {
-            pending: `Removing ${link.social} link...`,
-            success: `${link.social} link is removed succesfully!`,
-            error: `Failed`,
-          };
-          toast.promise(async () => {
-            await axios.delete(
-              `${process.env.NEXT_PUBLIC_API}/api/socials/${_socials[idx]?.id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${authUser.accessToken}`,
-                },
-              }
-            );
+  const handleRemoveLink = (link: UserLinkData) => {
+    setProfileData({
+      ...profileData,
+      socials: (profileData.socials || []).filter((l) => l.social !== link.social),
+    });
+    // if (authUser) {
+    //   if (profileData?.socials?.length) {
+    //     const _socials = profileData.socials.slice();
+    //     try {
+    //       const params = {
+    //         pending: `Removing ${link.social} link...`,
+    //         success: `${link.social} link is removed succesfully!`,
+    //         error: `Failed`,
+    //       };
+    //       toast.promise(async () => {
+    //         await axios.delete(
+    //           `${process.env.NEXT_PUBLIC_API}/api/socials/${_socials[idx]?.id}`,
+    //           {
+    //             headers: {
+    //               Authorization: `Bearer ${authUser.accessToken}`,
+    //             },
+    //           }
+    //         );
 
-            _socials.splice(idx, 1);
-            setProfileData({
-              ...profileData,
-              socials: _socials,
-            });
-          }, params);
-        } catch (err) {}
-      }
-    }
+    //         _socials.splice(idx, 1);
+    //         setProfileData({
+    //           ...profileData,
+    //           socials: _socials,
+    //         });
+    //       }, params);
+    //     } catch (err) {}
+    //   }
+    // }
   };
 
   return (
@@ -365,8 +356,81 @@ export const Home: FC = () => {
                   </option>
                 ))}
               </select>
-              {profileData.type === "charity" && (
-                <>
+              <label className="mb-2 text-md text-white">Links</label>
+              {profileData.socials?.length ? (
+                <div className="rounded-xl border-[1px] mb-4">
+                  {profileData.socials.map((link, index) => (
+                    <div
+                      key={`social-media-${index}`}
+                      className="flex items-center p-4 border-b-[1px] last:border-b-0 justify-between text-black"
+                    >
+                      <div className="flex">
+                        <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
+                          {getSocialIcon(link)}
+                        </div>
+                        <span className="text-md">{link.link}</span>
+                      </div>
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => handleRemoveLink(link)}
+                      >
+                        <XIcon className="w-5 h-5" />
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              <label
+                htmlFor="modal-add-link"
+                className="btn btn-outline border-base-content w-[140px] mb-3"
+              >
+                ADD LINK
+              </label>
+              <input type="checkbox" id="modal-add-link" className="modal-toggle" />
+              <label htmlFor="modal-add-link" className="modal cursor-pointer">
+                <label className="modal-box bg-white relative">
+                  <h1 className="text-lg">Select Link</h1>
+                  <div className="flex mt-2">
+                    <select
+                      className="select profile-item capitalize outline-none block mr-2 !w-auto border-base-content"
+                      value={link.social}
+                      onChange={(e) => setLink({ ...link, social: e.target.value })}
+                    >
+                      {SocialLinks.map((l) => (
+                        <option
+                          className="capitalize"
+                          key={`country-option-${l.name}`}
+                          value={l.name}
+                          //selected={link.social === l.name}
+                        >
+                          {l.name}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      className="input input-bordered border-base-content profile-item block w-full outline-none !w-auto flex-1"
+                      value={link.link}
+                      onChange={(e) => setLink({ ...link, link: e.target.value })}
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <label
+                      className="btn btn-outline"
+                      htmlFor="modal-add-link"
+                      onClick={handleAddLink}
+                    >
+                      Add
+                    </label>
+                  </div>
+                </label>
+              </label>
+            </div>
+            {profileData.type === "charity" && (
+              <>
+                <h1 className="font-bold text-black text-xl mb-1">Charity Properties</h1>
+                <div className="mt-4 profile-section border-base-content">
                   <label className="mb-1 text-md text-white">
                     When was the charity founded?
                   </label>
@@ -443,12 +507,12 @@ export const Home: FC = () => {
                     }
                     disabled={isLoading}
                   />
-                  <label className="mb-2 text-md text-white">
+                  {/* <label className="mb-2 text-md text-white">
                     What causes does your charity help with?
                   </label>
                   <label
                     htmlFor="modal-add-cause"
-                    className="btn btn-outline w-[140px] text-white mb-3"
+                    className="btn btn-outline border-base-content w-[140px] text-white"
                   >
                     ADD Cause
                   </label>
@@ -471,8 +535,6 @@ export const Home: FC = () => {
                         <input
                           type="text"
                           className="input input-bordered border-base-content profile-item block w-full outline-none !w-auto flex-1"
-                          // value={email}
-                          // onChange={(e) => setEmail(e.target.value)}
                           disabled={isLoading}
                         />
                       </div>
@@ -485,80 +547,10 @@ export const Home: FC = () => {
                         </label>
                       </div>
                     </label>
-                  </label>
-                </>
-              )}
-              <label className="mb-2 text-md text-white">Links</label>
-              {profileData.socials?.length ? (
-                <div className="rounded-xl border-[1px] mb-4">
-                  {profileData.socials.map((link, index) => (
-                    <div
-                      key={`social-media-${index}`}
-                      className="flex items-center p-4 border-b-[1px] last:border-b-0 justify-between"
-                    >
-                      <div className="flex">
-                        <div className="w-[30px] h-[30px] flex items-center justify-center mr-4">
-                          {getSocialIcon(link)}
-                        </div>
-                        <span className="text-md text-white">{link.link}</span>
-                      </div>
-                      <span
-                        className="cursor-pointer hover:text-white"
-                        onClick={() => handleRemoveLink(index)}
-                      >
-                        <XIcon className="w-5 h-5" />
-                      </span>
-                    </div>
-                  ))}
+                  </label> */}
                 </div>
-              ) : null}
-              <label
-                htmlFor="modal-add-link"
-                className="btn btn-outline border-base-content w-[140px]"
-              >
-                ADD LINK
-              </label>
-              <input type="checkbox" id="modal-add-link" className="modal-toggle" />
-              <label htmlFor="modal-add-link" className="modal cursor-pointer">
-                <label className="modal-box bg-white relative">
-                  <h1 className="text-lg">Select Link</h1>
-                  <div className="flex mt-2">
-                    <select
-                      className="select profile-item capitalize outline-none block mr-2 !w-auto border-base-content"
-                      value={link.social}
-                      onChange={(e) => setLink({ ...link, social: e.target.value })}
-                    >
-                      {SocialLinks.map((l) => (
-                        <option
-                          className="capitalize"
-                          key={`country-option-${l.name}`}
-                          value={l.name}
-                          //selected={link.social === l.name}
-                        >
-                          {l.name}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      type="text"
-                      className="input input-bordered border-base-content profile-item block w-full outline-none !w-auto flex-1"
-                      value={link.link}
-                      onChange={(e) => setLink({ ...link, link: e.target.value })}
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="flex justify-end">
-                    <label
-                      className="btn btn-outline"
-                      htmlFor="modal-add-link"
-                      onClick={handleAddLink}
-                    >
-                      Add
-                    </label>
-                  </div>
-                </label>
-              </label>
-            </div>
+              </>
+            )}
           </>
         ) : editType === "branding" ? (
           <>
@@ -707,7 +699,9 @@ export const Home: FC = () => {
                 </div>
               </div>
               <div className="flex px-6 py-3 border-b border-base-content items-center justify-between">
-                <label className="text-md text-white">Which cryptocurrencies do you accept?</label>
+                <label className="text-md text-white">
+                  Which cryptocurrencies do you accept?
+                </label>
                 <button className="btn profile-setting-button text-lg rounded-xl text-white">
                   Add
                 </button>

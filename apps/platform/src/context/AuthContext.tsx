@@ -38,7 +38,7 @@ export type User = {
   posts: string[];
   walletAddresses: any[];
   refreshTokens: string[];
-  charityProperty: CharityProperties | any;
+  charityProperty: CharityProperties;
   socials: UserLinkData[];
 };
 

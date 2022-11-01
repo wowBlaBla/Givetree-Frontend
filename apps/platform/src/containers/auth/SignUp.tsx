@@ -34,11 +34,10 @@ export const SignUp: FC = () => {
   const [password, setPassword] = useState<string>("");
   const [securePassword, setSecurePassword] = useState<string>("");
 
+  const [recaptcha, setRecaptcha] = useState<boolean>(false);
   const [termAccept, setTermAccept] = useState(false);
   const [privacyAccept, setPrivacyAccept] = useState(false);
   const [cookieAccept, setCookieAccept] = useState(false);
-
-  const [errors, setErrors] = useState<ErrorInterface>({});
 
   React.useEffect(() => {
     if (authType) {
@@ -75,7 +74,7 @@ export const SignUp: FC = () => {
     if (step > 0) {
       setStep(step - 1);
       if (step === 1) {
-        setAuthType(undefined)
+        setAuthType(undefined);
       }
     }
   };
@@ -103,13 +102,12 @@ export const SignUp: FC = () => {
           inner.map((item: InnerType) => {
             _errors[item.path as keyof ErrorInterface] = item.message;
           });
-
-          setErrors(_errors);
         });
 
         if (Object.keys(_errors).length) return false;
       }
     } else if (step === 2) {
+      if (!recaptcha) return false;
     } else if (step === 3) {
       return termAccept;
     } else if (step === 4) {
@@ -122,7 +120,11 @@ export const SignUp: FC = () => {
   };
 
   const onReCAPTCHAChange = (token: string | null) => {
-    console.log("Captcha value:", token);
+    if (token) {
+      setRecaptcha(true);
+    } else {
+      setRecaptcha(false);
+    }
   };
 
   return (
@@ -183,14 +185,11 @@ export const SignUp: FC = () => {
                   </label>
                   <input
                     type="text"
-                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
-                      errors?.username ? "border-red-500" : "border-black "
-                    }`}
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
                     placeholder="Choose a unique @username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
                 </div>
                 <div className="input-form-group flex flex-col items-start mb-4">
                   <label className="font-bold mb-2">
@@ -198,14 +197,11 @@ export const SignUp: FC = () => {
                   </label>
                   <input
                     type="email"
-                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
-                      errors?.email ? "border-red-500" : "border-black "
-                    }`}
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
                     placeholder="Enter email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
-                  <span className="text-red-500 text-xs mt-1">{errors?.email}</span>
                 </div>
                 <div className="input-form-group flex flex-col items-start mb-4">
                   <label className="font-bold mb-2">
@@ -213,22 +209,11 @@ export const SignUp: FC = () => {
                   </label>
                   <input
                     type="password"
-                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
-                      errors?.password || password != securePassword
-                        ? "border-red-500"
-                        : "border-black "
-                    }`}
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
                     placeholder="Enter a secure password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <span className="text-red-500 text-xs mt-1">
-                    {errors.password
-                      ? errors.password
-                      : password != securePassword
-                      ? "Password is incorrect"
-                      : ""}
-                  </span>
                 </div>
                 <div className="input-form-group flex flex-col items-start">
                   <label className="font-bold mb-2">
@@ -236,22 +221,12 @@ export const SignUp: FC = () => {
                   </label>
                   <input
                     type="password"
-                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] ${
-                      errors?.password || password != securePassword
-                        ? "border-red-500"
-                        : "border-black "
-                    }`}
+                    className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
                     placeholder="Enter a secure password"
                     value={securePassword}
                     onChange={(e) => setSecurePassword(e.target.value)}
                   />
-                  <span className="text-red-500 text-xs mt-1">
-                    {errors.password
-                      ? errors.password
-                      : password != securePassword
-                      ? "Password is incorrect"
-                      : ""}
-                  </span>
+                  <span className="text-red-500 text-xs mt-1"></span>
                 </div>
               </div>
             </>
@@ -264,16 +239,11 @@ export const SignUp: FC = () => {
                 <label className="font-bold mb-2">Username</label>
                 <input
                   type="text"
-                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent ${
-                    errors?.username ? "border-red-500" : "border-black "
-                  }`}
+                  className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent border-black`}
                   placeholder="Enter username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-                <span className="text-red-500 text-xs mt-1">{errors?.username}</span>
-                <label className="font-bold mt-2 mb-2">Wallet address</label>
-                <span>{address || ""}</span>
               </div>
               <ConnectWallet />
             </>

@@ -25,11 +25,11 @@ const defaultNavs: NavItem[] = [
     title: "My profile",
     icon: UserIcon,
   },
-  {
-    category: "wallets",
-    title: "My wallets",
-    icon: WalletIcon,
-  },
+  // {
+  //   category: "wallets",
+  //   title: "My wallets",
+  //   icon: WalletIcon,
+  // },
   {
     category: "nfts",
     title: "My NFTs",
@@ -104,17 +104,9 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
           alt="avatar"
         />
         <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 text-xs hover:underline">
-          Mulga The Artist
+          {authUser?.user.userName || ""}
         </h4>
       </div>
-      {/* <div>
-        <PrimaryButton
-          className="ml-10 py-2 px-4 mt-4"
-          onClick={() => (walletAddress ? disconnect() : setOpenModal(true))}
-        >
-          {walletAddress ? "Disconnect Wallet" : "Connect Wallet"}
-        </PrimaryButton>
-      </div> */}
       <div className="flex flex-col flex-1 mt-6 nav-items">
         <div>
           {defaultNavs.map((item, idx) =>

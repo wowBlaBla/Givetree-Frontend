@@ -21,10 +21,7 @@ export const AppHeader: FC = () => {
     <div className="flex sticky top-0 z-50 w-full h-[5rem] bg-white dark:bg-deep-dark border-b border-base-content border-opacity-25 shadow-sm z-[100]">
       <div className="grid w-full grid-cols-2 px-4">
         <div className="flex items-center space-x-1 lg:space-x-0">
-          <Link
-            className="flex items-center cursor-pointer p-2"
-            href={PlatformRoute.Home}
-          >
+          <Link className="flex items-center cursor-pointer p-2" href={"/explore/home"}>
             <a>
               <GiveTreeLogo
                 className="w-35 text-brand-black dark:text-white cursor-pointer"
@@ -33,17 +30,14 @@ export const AppHeader: FC = () => {
             </a>
           </Link>
 
-          <MenuBar horizontal />
+          {/* <MenuBar horizontal /> */}
         </div>
 
         {/* Wallet */}
 
         <div className="flex justify-end items-center w-full">
           <div className="header-right flex items-center gap-2">
-            <div
-              className="relative cursor-pointer menu-icon"
-              onClick={handleDropdown}
-            >
+            <div className="relative cursor-pointer menu-icon" onClick={handleDropdown}>
               <MenuIcon className="w-7 h-7" />
             </div>
 
