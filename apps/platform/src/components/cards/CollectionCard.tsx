@@ -45,7 +45,7 @@ export const CollectionCard: FC<CollectionCardProps> = ({ campaign }) => {
                 <span className="font-bold">
                   {campaign.name}
                   <VerifiedBadge
-                    isVerified={true}
+                    isVerified
                     type={VerifiedBadgeType.Collection}
                     className="ml-1 inline-block"
                   />

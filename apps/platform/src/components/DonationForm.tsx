@@ -1,20 +1,19 @@
 import { useQuery } from "@apollo/client";
 import { ArrowLeftIcon, CheckIcon } from "@heroicons/react/solid";
-import React, { FC } from "react";
+import axios from "axios";
+import React, { FC, useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 import {
   GetCharityListingDataQuery,
   GET_CHARITY_LISTING_DATA,
 } from "../containers/explore/Charities";
+import { useWallet } from "../context/WalletContext";
 import { Currencies, OneTimePurchase, Tokens } from "../utils/constants";
 import { ErrorContainer } from "./ErrorContainer";
 import { ChevronRightIcon } from "./icons/ChevronRightIcon";
 import { LoadingContainer } from "./LoadingContainer";
 
 const Pages = [
-  {
-    name: "Select Charity",
-    value: "charity",
-  },
   {
     name: "Select Currency",
     value: "currency",
@@ -45,17 +44,117 @@ const Pages = [
   },
 ];
 
+interface Currency {
+  active: number;
+  value: string;
+}
+
+interface Donor {
+  firstName: string;
+  lastName: string;
+  email: string;
+  country: string;
+  location: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  zipcode: string;
+}
+
+interface Rate {
+  [key: string]:string;
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-types
-type DonationFormProps = {};
+type DonationFormProps = {
+  charityAddress: string;
+  charityName: string;
+};
 
-export const DonationForm: FC<DonationFormProps> = ({}) => {
-  const [currentDonateTab, setCurrentDonateTab] = React.useState("Donate");
-  const [page, setPage] = React.useState<string>();
+export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName }) => {
 
-  const selectedPageName = React.useMemo(
+  const { address: account, web3Instance } = useWallet();
+  const [page, setPage] = useState<string>();
+  const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: ""});
+  const [crypto, setCrypto] = useState<Currency>({ active: 0, value: ""});
+  const [taxEmail, setTaxEmail] = useState<string>();
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const [donor, setDonor] = useState<Donor>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    country: "",
+    location: "",
+    address1: "",
+    address2: "",
+    city: "",
+    zipcode: "",
+  });
+
+  const [ rates, setRates ] = useState<Rate>({});
+
+  const selectedPageName = useMemo(
     () => Pages.find((p) => p.value === page)?.name,
     [page]
   );
+
+  useEffect(() => {
+    async function fetchRates() {
+      const paymentToken = Tokens[crypto.active].currency;
+      const res = await axios.get(`https://api.coinbase.com/v2/exchange-rates?currency=${paymentToken}`);
+      const rates = res.data.data.rates;
+      setRates(rates);
+    }
+
+    fetchRates();
+  }, [crypto.active])
+
+  useEffect(() => {
+    if (rates) {
+      const rate = rates[Currencies[fiatCur.active].currency];
+      const price = !fiatCur.value ? "" :( +fiatCur.value / +rate).toFixed(6);
+      setCrypto({ ...crypto, value: (price).toString() })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+  }, [fiatCur, rates]);
+
+  const donate = async() => {
+    if (!account) {
+      toast.warn("Please connect your wallet");
+      return;
+    }
+    if (!charityAddress) {
+      toast.warn("This charity has no donation wallet");
+      return;
+    }
+    try {
+      setLoading(true);
+      const value = web3Instance?.utils.toWei(crypto.value, 'ether');
+      await web3Instance?.eth.sendTransaction({
+        from: account,
+        to: charityAddress,
+        value: value
+      });
+    } catch(err) {
+      
+    }
+    setLoading(false);
+  }
+
+  const goToPreview = () => {
+    if (!account) {
+      toast.warn("Please connect your wallet");
+      return;
+    }
+    if (!charityAddress) {
+      toast.warn("This charity has no donation wallet");
+      return;
+    }
+    if (+fiatCur.value <= 0) {
+      toast.warn("Please correct donation amount");
+    }
+    setPage('preview');
+  }
 
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
     GET_CHARITY_LISTING_DATA
@@ -77,20 +176,9 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
     <div className="donate-container flex flex-col">
       <div className="donate-tab flex h-[60px] mb-6">
         <div
-          className={`${
-            currentDonateTab === "Donate" ? "active-tab" : "border-b-[1px]"
-          } flex-1 border-r-[1px] border-black`}
-          onClick={() => setCurrentDonateTab("Donate")}
+          className={`flex-1`}
         >
           <span className="text-[24px] text-black">Donate</span>
-        </div>
-        <div
-          className={`${
-            currentDonateTab === "Fundraise" ? "active-tab" : "border-b-[1px]"
-          } flex-1 border-black`}
-          onClick={() => setCurrentDonateTab("Fundraise")}
-        >
-          <span className="text-[24px] text-black">Fundraise</span>
         </div>
       </div>
       <div className="flex flex-col px-6 pb-6 overflow-hidden flex-1">
@@ -99,31 +187,37 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
             {" "}
             <div
               className="flex donate-item text-black items-center mb-4"
-              onClick={() => setPage("charity")}
             >
-              <span className="text-md w-[120px]">Charity</span>
+              <span className="text-md w-[80px] flex items-center gap-1">
+                {Currencies[fiatCur.active].icon({ className: "w-8 h-8 inline-block" })}
+                {Currencies[fiatCur.active].currency}
+              </span>
               <div className="flex flex-1 justify-between items-center">
-                <span className="text-md">Foundation of nat...</span>
-                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
-              </div>
-            </div>
-            <div
-              className="flex donate-item text-black items-center mb-4"
-              onClick={() => setPage("currency")}
-            >
-              <span className="text-md w-[120px]">AUD</span>
-              <div className="flex flex-1 justify-between items-center">
-                <span className="text-h">100</span>
-                <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
+                <span className="text-h">
+                  <input
+                    type="number"
+                    className="w-full outline-none text-center"
+                    value={fiatCur.value}
+                    onChange={(e) => +e.target.value > 0 ? setFiatCur({ ...fiatCur, value: e.target.value }) : null}
+                  />
+                </span>
+                <span
+                  onClick={() => setPage("currency")}
+                >
+                  <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
+                </span>
               </div>
             </div>
             <div
               className="flex donate-item text-black items-center mb-4"
               onClick={() => setPage("crypto")}
             >
-              <span className="text-md w-[120px]">BTC</span>
+              <span className="text-md w-[80px] flex items-center gap-1">
+                {Tokens[crypto.active].icon({ className: "w-8 h-8"})}
+                {Tokens[crypto.active].currency}
+              </span>
               <div className="flex flex-1 justify-between items-center">
-                <span className="text-h">0.000033</span>
+                <span className="text-h text-center w-full">{crypto.value}</span>
                 <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
@@ -138,7 +232,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
             >
               <span className="text-md w-[120px]">Pay with</span>
               <div className="flex flex-1 justify-between items-center">
-                <span className="text-md">Ox028928</span>
+                <span className="text-md">{account ? account?.slice(0,4) + '...' + account?.slice(-4) : "" }</span>
                 <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
@@ -164,7 +258,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
             </div>
             <button
               className="btn w-full bg-[#007A00] rounded-2xl-1 text-white h-[60px] capitalize"
-              onClick={() => setPage("preview")}
+              onClick={goToPreview}
             >
               Preview Donation
             </button>
@@ -181,32 +275,16 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               <span className="text-[24px] font-bold">{selectedPageName || ""}</span>
             </div>
             <div className="flex-1 mt-4 overflow-y-auto">
-              {page === "charity" ? (
-                <>
-                  {data.charities.map((charity, index) => (
-                    <div
-                      className="flex items-center px-2 py-4 cursor-pointer rounded-md hover:bg-[#F0F0F0]"
-                      key={`donation-charity-${index}`}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        className="w-[40px]"
-                        src={charity.media.previewUrl}
-                        alt={charity.slug}
-                      />
-                      <div className="ml-2 flex flex-col text-black">
-                        <span className="text-sm">{charity.name}</span>
-                        <span className="text-sm">Australia</span>
-                      </div>
-                    </div>
-                  ))}
-                </>
-              ) : page === "currency" ? (
+              {page === "currency" ? (
                 <>
                   {Currencies.map((currency, index) => (
                     <div
                       className="flex items-center px-2 py-4 cursor-pointer rounded-md hover:bg-[#F0F0F0]"
                       key={`donation-crypto-${index}`}
+                      onClick={() => {
+                        setFiatCur({ active: index, value: ""});
+                        setPage(undefined);
+                      }}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <currency.icon />
@@ -223,6 +301,10 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
                     <div
                       className="flex items-center px-2 py-4 cursor-pointer rounded-md hover:bg-[#F0F0F0]"
                       key={`donation-crypto-${index}`}
+                      onClick={() => {
+                        setPage(undefined);
+                        setCrypto({ active: index, value: "" });
+                      }}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <token.icon />
@@ -251,17 +333,22 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
               ) : page === "paywith" ? (
                 <div className="flex flex-col h-full pt-2">
                   <div className="flex-1 pb-2 mb-2 border-b border-[#686868] cursor-pointer">
-                    <div className="bg-[#EEEBEB] rounded-[5px] p-2">
-                      <span className="font-bold text-black">
-                        Wallet 1: <span className="text-[#00B412]">Connected</span>
-                      </span>
-                      <div className="flex justify-between mt-2">
-                        <span className="w-[200px] break-all text-black">
-                          0xE418f0844E42F2D652B218d9c0052a9Cb39146c8
-                        </span>
-                        <CheckIcon width={20} color={"#0021F5"} />
-                      </div>
-                    </div>
+                    
+                    {
+                      account ? (
+                        <div className="bg-[#EEEBEB] rounded-[5px] p-2">
+                          <span className="font-bold text-black">
+                            Wallet 1: <span className="text-[#00B412]">Connected</span>
+                          </span>
+                          <div className="flex justify-between mt-2">
+                            <span className="w-[200px] break-all text-black">
+                              {account}
+                            </span>
+                            <CheckIcon width={20} color={"#0021F5"} />
+                          </div>
+                        </div>
+                      ) : <span>Please connect your wallet</span>
+                    }
                   </div>
                   <button className="btn bg-[#EEEBEB] border border-[#D9D9D9] text-black capitalize font-bold text-md">
                     Add payment method
@@ -292,54 +379,70 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
                       name="firstName"
                       placeholder="First Name*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.firstName}
+                      onChange={(e) => setDonor({ ...donor, firstName: e.target.value })}
                     />
                     <input
                       type="text"
                       name="lastName"
                       placeholder="Last Name*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
-                    />
+                      value={donor?.lastName}
+                      onChange={(e) => setDonor({ ...donor, lastName: e.target.value })}/>
                     <input
                       type="email"
                       name="email"
                       placeholder="Email*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
-                    />
+                      value={donor?.email}
+                      onChange={(e) => setDonor({ ...donor, email: e.target.value })}/>
                     <input
                       type="text"
                       name="country"
                       placeholder="Country*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.country}
+                      onChange={(e) => setDonor({ ...donor, country: e.target.value })}
                     />
                     <input
                       type="text"
                       name="location"
                       placeholder="State / Province / Region"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.location}
+                      onChange={(e) => setDonor({ ...donor, location: e.target.value })}
                     />
                     <input
                       type="text"
                       name="address1"
                       placeholder="Address 1*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.address1}
+                      onChange={(e) => setDonor({ ...donor, address1: e.target.value })}
                     />
                     <input
                       type="text"
                       name="address2"
                       placeholder="Address 2*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.address2}
+                      onChange={(e) => setDonor({ ...donor, address2: e.target.value })}
                     />
                     <input
                       type="text"
                       name="city"
                       placeholder="City*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.city}
+                      onChange={(e) => setDonor({ ...donor, city: e.target.value })}
                     />
                     <input
                       type="text"
                       name="zipCode"
                       placeholder="Zip/Postal Code*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
+                      value={donor?.zipcode}
+                      onChange={(e) => setDonor({ ...donor, zipcode: e.target.value })}
                     />
                   </div>
                 </>
@@ -358,17 +461,19 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
                     name="email"
                     placeholder="Enter email for tax receipt"
                     className="input outline-none bg-transparent border border-black rounded-none text-black mt-4 w-full"
+                    value={taxEmail}
+                    onChange={(e) => setTaxEmail(e.target.value)}
                   />
                 </div>
               ) : (
                 <div className="flex flex-col items-center text-black">
                   <span className="text-[30px] text-[#2151F5] text-center mb-4">
-                    0.000033 BTC
+                    {crypto.value} {Tokens[crypto.active].currency}
                   </span>
                   <div className="flex w-full">
                     <span className="flex-1">Pay with</span>
                     <span className="w-[250px] break-all">
-                      0xE418f0844E42F2D652B218d9c0052a9Cb39146c8
+                      {account}
                     </span>
                   </div>
                   <div className="flex w-full mt-6">
@@ -377,21 +482,24 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Price</span>
-                    <span className="w-[250px] break-all">A$29,999 / BTC</span>
+                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${Number(rates[Currencies[fiatCur.active].currency]).toFixed(3)} / {Tokens[crypto.active].currency}</span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Purchase</span>
-                    <span className="w-[250px] break-all">A$100</span>
+                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${fiatCur.value}</span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">GiveTree fee</span>
-                    <span className="w-[250px] break-all">A$0.00</span>
+                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} $0.00</span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Total</span>
-                    <span className="w-[250px] break-all">A$100</span>
+                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${fiatCur.value}</span>
                   </div>
-                  <button className="btn bg-[#2151F5] text-white w-full border-none rounded-2xl-1 mt-8">
+                  <button
+                    className="btn bg-[#2151F5] text-white w-full border-none rounded-2xl-1 mt-8"
+                    onClick={donate}
+                  >
                     Donate Now
                   </button>
                 </div>
@@ -400,6 +508,7 @@ export const DonationForm: FC<DonationFormProps> = ({}) => {
           </>
         )}
       </div>
+      { isLoading ? <LoadingContainer message={"Donating.... " + charityName}/> : ""}
     </div>
   );
 };

@@ -13,7 +13,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
   const [_location, setLocation] = useLocation();
 
   const handleNextLocation = () =>
-    setLocation(`charities/${charity.slug}`);
+    setLocation(`charity/${charity.userName}`);
 
   return (
     <div className="charity-card hover:shadow-xl">
@@ -25,8 +25,8 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={charity.media.previewUrl}
-              alt={charity.slug}
+              src={charity.profileImage}
+              alt={charity.title}
             />
           </div>
         </div>
@@ -35,7 +35,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           <div className="flex justify-between w-full p-5 flex-1">
             <div className="flex w-full flex-col items-center justify-between">
               <span className="font-bold text-md sm:text-sm text-black text-center">
-                {charity.name}
+                {charity.title ? charity.title : "Untitled"}
                 <VerifiedBadge
                   isVerified={charity.isVerified}
                   type={VerifiedBadgeType.Charity}
