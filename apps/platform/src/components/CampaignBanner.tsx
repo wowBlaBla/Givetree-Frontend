@@ -48,7 +48,7 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
           <div className="flex flex-col sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
             <OutlineLink
               href={"/explore/nfts"}
-              className="w-[240px] h-[65px] !bg-transparent border-4 border-white rounded-none !text-white"
+              className="w-[240px] h-[65px] !bg-transparent border-4 border-white rounded-none !text-white hover:!bg-brand-orange-hover"
             >
               Explore NFTs
             </OutlineLink>
