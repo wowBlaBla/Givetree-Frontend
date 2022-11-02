@@ -18,6 +18,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import { useWallet } from "../../context/WalletContext";
+import { LoadingContainer } from "../../components/LoadingContainer";
 
 enum theme {
   Padded = "padded",
@@ -196,8 +197,11 @@ export const NewCollection: FC = () => {
             description,
             pattern,
             theme: activeTheme,
-            address: deployRes?.events?.returnValues?.collection,
+            address: deployRes?.events?.UploadedCollection?.returnValues?.collection,
             category: activeCategory?.value,
+            logo: "",
+            featured: "",
+            banner: ""
           },
           {
             headers: {
@@ -934,6 +938,7 @@ export const NewCollection: FC = () => {
           </button>
         </div>
       </div>
+      { isLoading ? <LoadingContainer message={"Creating Collection . . ."}/> : ""}
     </div>
   );
 };

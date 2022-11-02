@@ -134,7 +134,6 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
       setLoading(true);
       const value = web3Instance?.utils.toWei(crypto.value, 'ether');
       const balance = await web3Instance?.eth.getBalance(account);
-      console.log(value, balance);
       if (Number(value) > Number(balance)) throw Error("Insufficient funds");
       
       await web3Instance?.eth.sendTransaction({
@@ -534,7 +533,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
           </>
         )}
       </div>
-      { isLoading ? <LoadingContainer message={"Donating.... " + charityName}/> : ""}
+      { isLoading ? <LoadingContainer message={"Donating to " + charityName + ". . ."}/> : ""}
     </div>
   );
 };
