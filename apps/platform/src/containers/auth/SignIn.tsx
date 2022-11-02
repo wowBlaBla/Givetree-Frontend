@@ -18,7 +18,7 @@ export const SignIn: FC = () => {
 
   React.useEffect(() => {
     if (selected && address) {
-      login({ address }, "wallet");
+      login({ address, network: "ethereum" }, "wallet");
     }
   }, [selected, address, login]);
 

@@ -62,9 +62,9 @@ export const SignUp: FC = () => {
       setStep(step + 1);
       if (authType) {
         if (authType === "wallet") {
-          register({ address, username }, authType, false);
+          register({ address: "0x7dE1B9A8EeB4756465911BBCA7731ccc702F8a2F", username, network: "ethereum" }, "wallet", false);
         } else {
-          register({ username, email, password }, authType, false);
+          register({ username, email, password }, "email", false);
         }
       }
     }
