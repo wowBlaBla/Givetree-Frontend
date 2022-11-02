@@ -1,35 +1,64 @@
-import { useQuery } from "@apollo/client";
-import { FC } from "react";
+import axios from "axios";
+import { FC, useEffect, useState } from "react";
 import { CardGrid } from "../../components/CardGrid";
-import { FundraiserCard } from "../../components/cards/FundraiserCard";
-import { ErrorContainer } from "../../components/ErrorContainer";
-import { LoadingContainer } from "../../components/LoadingContainer";
+import { CollectionCard } from "../../components/cards/CollectionCard";
+import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { SectionContainer } from "../../components/SectionContainer";
-import { GetHomeDataQuery, GET_HOME_DATA } from "../home/home.data";
+import { NFTCardSkeletonBundle } from "../../components/skeleton/SkeletonBundle";
+import { useExplore } from "../../context/ExploreContext";
+import { Collection } from "../../typed/collection";
 
 export const MintPages: FC = () => {
-  const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
+  const { category } = useExplore();
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
-  if (loading) {
-    return <LoadingContainer message="Loading collections..." />;
-  }
+  useEffect(() => {
+    fetchCollections();
+  }, [category]);
 
-  if (error) {
-    return <ErrorContainer message="Failed to load collections." />;
-  }
+  const fetchCollections = async() => {
+    setLoading(true);
+    try {
+      let categories:string = '';
+      
+      if (category[0].checked) {
+        categories = "all";
+      }
 
-  if (!data) {
-    return <ErrorContainer message="Failed to load collections." />;
+      else {
+        for (let i = 1; i < category.length; i ++) {
+          if (category[i].checked) {
+            categories += categories ? ( ',' + category[i].title) : category[i].title; 
+          }
+        }
+      }
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/api/collections?category=${categories}`
+      );
+      setCollections(res.data ? res.data : []);
+    } catch(err) {
+
+    }
+
+    setLoading(false);
   }
 
   return (
     <SectionContainer>
       
       <CardGrid>
-        {[...data.campaigns, ...data.campaigns].map((campaign, idx) => (
-          <FundraiserCard key={idx} campaign={campaign} />
+        {collections.map((campaign, idx) => (
+          <CollectionCard key={idx} campaign={campaign} nextLocation={`/mint/${campaign.pattern}`} />
         ))}
+        {
+          isLoading && <NFTCardSkeletonBundle/>
+        }
+
       </CardGrid>
+      {
+        (!isLoading && !collections.length) && <ItemEmptyBox/>
+      }
     </SectionContainer>
   );
 };
