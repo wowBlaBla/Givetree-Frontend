@@ -23,6 +23,12 @@ export type UserLinkData = {
 
 export type AccountType = "standard" | "charity";
 
+export type WalletAddressData = {
+  address: string;
+  type: string;
+  network: string;
+}
+
 export type User = {
   id: number;
   createdAt: string;

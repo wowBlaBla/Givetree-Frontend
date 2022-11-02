@@ -29,16 +29,17 @@ const mainNavs: NavItem[] = [
   },
   {
     category: "mint-pages",
-    title: "Mint pages",
+    title: "Mint events",
   },
-  {
-    category: "causes",
-    title: "Causes",
-  },
-  {
-    category: "leader-borders",
-    title: "Leaderboards",
-  },
+  // {
+  //   category: "causes",
+  //   title: "Causes",
+  // },
+  // {
+  //   category: "leader-borders",
+  //   title: "Leaderboards",
+  // },
+  { category: "about", title: "About GiveTree" },
 ];
 
 interface ExploreSideBarProps {
@@ -50,19 +51,25 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
   const [mainNav, setMainNav] = useState<NavItem>();
   const [_, params] = useRoute(PlatformRoute.ExploreDetails);
   const { category, toggleCategory } = useExplore();
-  
+
   return (
     <div
       className={`side-bar ${
         visible ? "absolute" : "hidden lg:flex sticky"
       } top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] border-r border-base-content border-opacity-25 bg-mid-dark z-10`}
     >
-      <div className="text-[#BABABA] bg-[#1E2126] border-t border-b border-[#696969] px-6 py-4 sticky">
+      <div className="text-[#BABABA] border-t border-b border-[#696969] px-6 py-4 sticky">
         {!mainNav ? (
-          <div className="flex flex-col">
-            <span className="text-[16px] font-bold">EXPLORE</span>
-            <span className="text-[20px] font-bold">GIVETREE</span>
-          </div>
+          <Link
+            className="flex items-center cursor-pointer"
+            href="/explore"
+            onClick={(e) => {
+              e.preventDefault();
+              setMainNav(undefined);
+            }}
+          >
+            <span className="text-[16px] font-bold text-[#00EF8B]">Home</span>
+          </Link>
         ) : (
           <Link
             className="flex items-center cursor-pointer"
