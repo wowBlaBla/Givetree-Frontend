@@ -12,6 +12,8 @@ export type AuthRequestBody = {
   email?: string;
   password?: string;
   address?: string;
+  network?: string;
+  type?: string;
 };
 
 export type AuthType = "email" | "wallet";
@@ -27,7 +29,7 @@ export type WalletAddressData = {
   address: string;
   type: string;
   network: string;
-}
+};
 
 export type User = {
   id: number;
@@ -44,7 +46,7 @@ export type User = {
   banner: string;
   visibility: "private" | "public";
   tax: boolean;
-  walletAddresses: any[];
+  walletAddresses: WalletAddressData[];
   refreshTokens: string[];
   charityProperty: CharityProperties;
 };
@@ -91,6 +93,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         authType === "email" ? "register-email" : "register-wallet"
       }`;
 
+      if (authType === "wallet") {
+        body.type = "auth";
+      }
+
       setLoading(true);
       axios
         .post(api, body)
@@ -123,6 +129,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         authType === "email" ? "login-email" : "login-wallet"
       }`;
 
+      if (authType === "wallet") {
+        body.type = "auth";
+      }
+      
       setLoading(true);
       axios
         .post(api, body)

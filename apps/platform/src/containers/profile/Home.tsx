@@ -123,16 +123,15 @@ export const Home: FC = () => {
               },
             }
           );
-          updateUserData(res.data);
         }
         toast.success("Updated profile successfully!");
-        
-        // res = await axios.put(`${process.env.NEXT_PUBLIC_API}/api/users/profile`, data, {
-        //   headers: {
-        //     Authorization: `Bearer ${authUser.accessToken}`,
-        //   },
-        // });
 
+        res = await axios.put(`${process.env.NEXT_PUBLIC_API}/api/users/profile`, data, {
+          headers: {
+            Authorization: `Bearer ${authUser.accessToken}`,
+          },
+        });
+        updateUserData(res.data);
       }
     } catch (err) {
       toast.success("Faild updating profile");
@@ -206,7 +205,7 @@ export const Home: FC = () => {
       socials: (profileData.socials || []).filter((l) => l.social !== link.social),
     });
   };
-  
+
   return (
     <div className="profile">
       <div className="profile-save-section px-8 pt-8">
@@ -259,24 +258,6 @@ export const Home: FC = () => {
       <div className="p-8 max-w-[825px]">
         {editType === "detail" ? (
           <>
-            <h1 className="font-bold text-black text-xl mb-1">Profile type</h1>
-            <label className="text-sm text-black !font-normal">
-              Please select what type of profile you would like to create. The two options
-              are standard and charity.
-            </label>
-            <div className="mt-4 profile-section border-base-content">
-              <label className="mb-1 text-sm">Account Type</label>
-              <select
-                className="select profile-item outline-none border-base-content block mt-1"
-                value={profileData.type || "standard"}
-                onChange={(e) => {
-                  setProfileData({ ...profileData, type: e.target.value as AccountType });
-                }}
-              >
-                <option value="standard">Standard</option>
-                <option value="charity">Charity</option>
-              </select>
-            </div>
             <h1 className="font-bold text-black text-xl mb-4">Basic details</h1>
             <div className="profile-section border-base-content">
               <label className="mb-1 text-md text-white">Profile title</label>
@@ -381,6 +362,24 @@ export const Home: FC = () => {
                   </div>
                 </label>
               </label>
+            </div>
+            <h1 className="font-bold text-black text-xl mb-1">Profile type</h1>
+            <label className="text-sm text-black !font-normal">
+              Please select what type of profile you would like to create. The two options
+              are standard and charity.
+            </label>
+            <div className="mt-4 profile-section border-base-content">
+              <label className="mb-1 text-sm">Account Type</label>
+              <select
+                className="select profile-item outline-none border-base-content block mt-1"
+                value={profileData.type || "standard"}
+                onChange={(e) => {
+                  setProfileData({ ...profileData, type: e.target.value as AccountType });
+                }}
+              >
+                <option value="standard">Standard</option>
+                <option value="charity">Charity</option>
+              </select>
             </div>
             {profileData.type === "charity" && (
               <>
@@ -560,9 +559,7 @@ export const Home: FC = () => {
                 className={`profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0`}
                 style={{
                   background:
-                    !isBannerImage && profileData.banner
-                      ? profileData.banner
-                      : "white",
+                    !isBannerImage && profileData.banner ? profileData.banner : "white",
                 }}
               >
                 {(bannerUrl || (isBannerImage && profileData.banner)) && (
