@@ -93,7 +93,7 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
                   objectFit="contain"
                 />
                 {
-                  idx < 8 ? "" : <span className="leading-3">Coming soon</span>
+                  idx < 10 ? "" : <span className="leading-3">Coming soon</span>
                 }
               </div>
             ))}
