@@ -1,6 +1,6 @@
 import axios from "axios";
-import { FC, useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { useAuth, WalletAddressData } from "../../context/AuthContext";
 import { useWallet } from "../../context/WalletContext";
 import { Crypto, CryptoIcon, CurrencyIcon, Fiat, Tokens } from "../../utils/constants";
 import { toast } from "react-toastify";
@@ -21,75 +21,122 @@ interface Rate {
 }
 
 export const MyDonations: FC = () => {
-  const { authUser, logout } = useAuth();
+  const { authUser, updateUserData, logout } = useAuth();
   const { web3Instance } = useWallet();
 
   const [editType, setEditType] = useState<"wallet" | "received" | "made">("wallet");
 
-  const [walletAddress, setWalletAddress] = useState("");
+  const [walletAddresses, setWalletAddresses] = useState<WalletAddressData[]>(
+    Tokens.map((t) => ({
+      address: "",
+      network: t.crypto.toLowerCase(),
+      type: "donation",
+    }))
+  );
+
   const [history, setHistory] = useState<History[]>([]);
-  const [totalDonationValue, setTotalDonationValue] = useState<string>('0');
+  const [totalDonationValue, setTotalDonationValue] = useState<string>("0");
   const [isLoading, setLoading] = useState<boolean>(true);
 
-  const updateWallet = async () => {
-    if (authUser) {
+  useEffect(() => {
+    if (authUser && authUser.user) {
+      setWalletAddresses((prev) =>
+        prev.map((w) => {
+          const address =
+            authUser.user.walletAddresses?.find(
+              (a) => a.network === w.network && a.type === w.type
+            )?.address || "";
+
+          return {
+            address: address,
+            network: w.network,
+            type: w.type,
+          };
+        })
+      );
+    }
+  }, [authUser]);
+
+  useEffect(() => {
+    async function fetchDonations() {
+      setLoading(true);
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API}/api/donations/${
+            editType == "received" ? "to" : "from"
+          }`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${authUser?.accessToken}`,
+            },
+          }
+        )
+        .then((res) => {
+          setHistory(res.data);
+        })
+        .catch((err) => {
+          if (err.response.status == 401) logout();
+        });
+      setLoading(false);
+    }
+
+    if (editType == "received" || editType == "made") fetchDonations();
+  }, [editType]);
+
+  useEffect(() => {
+    async function calculateValue() {
+      await axios
+        .get("https://api.coinbase.com/v2/exchange-rates?currency=USD")
+        .then((res) => {
+          const rates = res.data.data.rates;
+          let _value = 0;
+          history.map((item) => {
+            _value += +item.fiatAmount / +rates[item.fiat];
+          });
+          setTotalDonationValue(_value.toFixed(2).toString());
+        })
+        .catch((err) => {});
+    }
+
+    if (history.length) calculateValue();
+    else setTotalDonationValue("0");
+  }, [history]);
+
+  const getWalletAddress = (network: string) =>
+    walletAddresses?.find((a) => a.network === network.toLowerCase())?.address || "";
+
+  const updateWalletAddress = (network: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    const temp = [...walletAddresses];
+    const index = temp.findIndex((a) => a.network === network.toLowerCase());
+    if (index > -1) {
+      temp[index].address = e.target.value;
+    }
+    setWalletAddresses(temp);
+  };
+
+  const handleSaveWallet = (network: string) => async () => {
+    const selectedAddress = walletAddresses.find(
+      (w) => w.network === network.toLowerCase()
+    );
+    if (authUser && selectedAddress) {
       try {
         const res = await axios.put(
-          `${process.env.NEXT_PUBLIC_API}/api/users/profile`,
-          {
-            walletAddress: walletAddress,
-          },
+          `${process.env.NEXT_PUBLIC_API}/api/users/profileAccount`,
+          { walletAddress: selectedAddress },
           {
             headers: {
               Authorization: `Bearer ${authUser.accessToken}`,
             },
           }
         );
-        toast.success("Added wallet address");
+        updateUserData(res.data);
+        toast.success("Wallet address updated successfully");
       } catch (err) {
-        toast.error("Failed to add wallet address");
+        toast.error("User already exists");
       }
     }
   };
-
-  useEffect(() => {
-    async function fetchDonations() {
-      setLoading(true);
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/donations/${editType == "received" ? "to" : "from"}`, {},
-        {
-          headers: {
-            Authorization: `Bearer ${authUser?.accessToken}`
-          }
-        }
-      ).then(res => {
-        setHistory(res.data);
-      }).catch(err => {
-        if (err.response.status == 401) logout();
-      })
-      setLoading(false);
-    }
-
-    if (editType == "received" || editType == "made") fetchDonations();
-  }, [editType])
-
-  useEffect(() => {
-    async function calculateValue() {
-      await axios.get('https://api.coinbase.com/v2/exchange-rates?currency=USD').then(res => {
-        const rates = res.data.data.rates;
-        let _value = 0;
-        history.map(item => {
-          _value += +item.fiatAmount / +rates[item.fiat]
-        });
-        setTotalDonationValue(_value.toFixed(2).toString());
-      }).catch(err => {
-
-      });
-    }
-
-    if (history.length) calculateValue();
-    else setTotalDonationValue('0');
-  }, [history]);
 
   return (
     <div className="profile">
@@ -134,7 +181,12 @@ export const MyDonations: FC = () => {
                     </div>
                   </div>
                   <div className="flex lg:hidden items-center">
-                    <button className="btn btn-primary mr-2 btn-connect">Save</button>
+                    <button
+                      className="btn btn-primary mr-2 btn-connect"
+                      onClick={handleSaveWallet(token.crypto)}
+                    >
+                      Save
+                    </button>
                     <div>
                       <svg
                         width="20"
@@ -155,10 +207,15 @@ export const MyDonations: FC = () => {
                   <input
                     type="text"
                     className="input input-bordered block w-full outline-none"
+                    value={getWalletAddress(token.crypto)}
+                    onChange={updateWalletAddress(token.crypto)}
                   />
                 </div>
                 <div className="hidden lg:flex">
-                  <button className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto">
+                  <button
+                    className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto"
+                    onClick={handleSaveWallet(token.crypto)}
+                  >
                     Save
                   </button>
                   <div>
@@ -235,45 +292,70 @@ export const MyDonations: FC = () => {
                     <th>Wallet</th>
                   </thead>
                   <tbody className="text-center">
-                    {
-                      history.map((item, idx) => (
-                        <tr key={idx} className="border-b border-base-100/80">
-                          <td>{idx + 1}</td>
-                          <td>{CryptoIcon[item.crypto]({ className: "w-8 h-8 inline-block "})}</td>
-                          <td>{web3Instance?.utils.fromWei(`${item.cryptoAmount}`)}</td>
-                          <td>{CurrencyIcon[item.fiat]({ className: "w-8 h-8 inline-block "})}</td>
-                          <td>{item.fiatAmount}</td>
-                          <td>{moment(item.created_at).format("YYYY-MM-DD")}</td>
-                          <td>{item.walletAddress}</td>
+                    {history.map((item, idx) => (
+                      <tr key={idx} className="border-b border-base-100/80">
+                        <td>{idx + 1}</td>
+                        <td>
+                          {CryptoIcon[item.crypto]({
+                            className: "w-8 h-8 inline-block ",
+                          })}
+                        </td>
+                        <td>{web3Instance?.utils.fromWei(`${item.cryptoAmount}`)}</td>
+                        <td>
+                          {CurrencyIcon[item.fiat]({
+                            className: "w-8 h-8 inline-block ",
+                          })}
+                        </td>
+                        <td>{item.fiatAmount}</td>
+                        <td>{moment(item.created_at).format("YYYY-MM-DD")}</td>
+                        <td>{item.walletAddress}</td>
+                      </tr>
+                    ))}
+                    {isLoading ? (
+                      <>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
                         </tr>
-                      ))
-                    }
-                    {
-                      isLoading ? (
-                        <>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                          <tr>
-                            <td colSpan={8}><Skeleton className="h-6"/></td>
-                          </tr>
-                        </>
-                      ) : (
-                        !history.length && <tr><td colSpan={8} className="text-center text-sm border-b border-base-100/80 font-bold text-base-100/80">No items to display</td></tr>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colSpan={8}>
+                            <Skeleton className="h-6" />
+                          </td>
+                        </tr>
+                      </>
+                    ) : (
+                      !history.length && (
+                        <tr>
+                          <td
+                            colSpan={8}
+                            className="text-center text-sm border-b border-base-100/80 font-bold text-base-100/80"
+                          >
+                            No items to display
+                          </td>
+                        </tr>
                       )
-                    }
+                    )}
                   </tbody>
                   <tfoot className="border-t border-base-100/80 text-center">
                     <th>#</th>
@@ -284,7 +366,6 @@ export const MyDonations: FC = () => {
                     <th>Date</th>
                     <th>Wallet</th>
                   </tfoot>
-                  
                 </table>
               </div>
             </div>

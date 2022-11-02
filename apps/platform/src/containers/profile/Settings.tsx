@@ -1,25 +1,101 @@
-import { FC, useEffect, useState } from "react";
-import { useAuth, User } from "../../context/AuthContext";
+import axios from "axios";
+import { ChangeEvent, FC, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useAuth, User, WalletAddressData } from "../../context/AuthContext";
 import { Tokens } from "../../utils/constants";
 
-type SettingData = Partial<Pick<User, "email" | "userName" | "walletAddresses">>;
+type SettingData = Partial<Pick<User, "email" | "userName">>;
 
 export const Settings: FC = () => {
-  const { authUser } = useAuth();
+  const { authUser, updateUserData } = useAuth();
 
   const [settingData, setSettingData] = useState<SettingData>({});
+  const [walletAddresses, setWalletAddresses] = useState<WalletAddressData[]>(
+    Tokens.map((t) => ({
+      address: "",
+      network: t.crypto.toLowerCase(),
+      type: "auth",
+    }))
+  );
 
   useEffect(() => {
     if (authUser && authUser.user) {
       setSettingData({
         email: authUser.user.email,
         userName: authUser.user.userName,
-        // walletAddresses: (authUser.user.walletAddresses || []).map(
-        //   ({ address, network, type }) => ({ address, network, type })
-        // ),
       });
+
+      setWalletAddresses((prev) =>
+        prev.map((w) => {
+          const address =
+            authUser.user.walletAddresses?.find(
+              (a) => a.network === w.network && a.type === w.type
+            )?.address || "";
+
+          return {
+            address: address,
+            network: w.network,
+            type: w.type,
+          };
+        })
+      );
     }
   }, [authUser]);
+
+  const getWalletAddress = (network: string) =>
+    walletAddresses?.find((a) => a.network === network.toLowerCase())?.address || "";
+
+  const updateWalletAddress = (network: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    const temp = [...walletAddresses];
+    const index = temp.findIndex((a) => a.network === network.toLowerCase());
+    if (index > -1) {
+      temp[index].address = e.target.value;
+    }
+    setWalletAddresses(temp);
+  };
+
+  const handleSaveEmail = async () => {
+    if (authUser) {
+      try {
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_API}/api/users/profileAccount`,
+          settingData,
+          {
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        updateUserData(res.data);
+        toast.success("Email and useranme updated successfully");
+      } catch (err) {
+        toast.error("User already exists");
+      }
+    }
+  };
+
+  const handleSaveWallet = (network: string) => async () => {
+    const selectedAddress = walletAddresses.find(
+      (w) => w.network === network.toLowerCase()
+    );
+    if (authUser && selectedAddress) {
+      try {
+        const res = await axios.put(
+          `${process.env.NEXT_PUBLIC_API}/api/users/profileAccount`,
+          { walletAddress: selectedAddress },
+          {
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        updateUserData(res.data);
+        toast.success("Wallet address updated successfully");
+      } catch (err) {
+        toast.error("User already exists");
+      }
+    }
+  };
 
   return (
     <div className="profile">
@@ -40,6 +116,14 @@ export const Settings: FC = () => {
             value={settingData.userName || ""}
             onChange={(e) => setSettingData({ ...settingData, userName: e.target.value })}
           />
+          <div className="flex justify-end">
+            <button
+              className="btn btn-primary btn-connect w-[200px] lg:w-auto"
+              onClick={handleSaveEmail}
+            >
+              Save
+            </button>
+          </div>
           <label className="mt-4 mb-1 text-md text-white">Wallet Address</label>
           <div className="wallets-body">
             {Tokens.map((token, index) => (
@@ -55,7 +139,12 @@ export const Settings: FC = () => {
                     </div>
                   </div>
                   <div className="flex lg:hidden items-center">
-                    <button className="btn btn-primary mr-2 btn-connect">Save</button>
+                    <button
+                      className="btn btn-primary mr-2 btn-connect"
+                      onClick={handleSaveWallet(token.crypto)}
+                    >
+                      Save
+                    </button>
                     <div>
                       <svg
                         width="20"
@@ -76,10 +165,15 @@ export const Settings: FC = () => {
                   <input
                     type="text"
                     className="input input-bordered block w-full outline-none"
+                    value={getWalletAddress(token.crypto)}
+                    onChange={updateWalletAddress(token.crypto)}
                   />
                 </div>
                 <div className="hidden lg:flex">
-                  <button className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto">
+                  <button
+                    className="btn btn-primary mr-2 btn-connect w-[200px] lg:w-auto"
+                    onClick={handleSaveWallet(token.crypto)}
+                  >
                     Save
                   </button>
                   <div>
