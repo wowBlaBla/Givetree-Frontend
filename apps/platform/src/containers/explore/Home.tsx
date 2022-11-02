@@ -51,7 +51,7 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
           backgroundSize: "cover",
         }}
       >
-        <div className="flex items-center w-full h-full bg-[#012417]/70">
+        <div className="flex items-center w-full h-full">
           <CampaignBanner
             backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
             title={data.homepageCampaign.title}
