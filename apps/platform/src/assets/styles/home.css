@@ -505,3 +505,12 @@
   max-height: calc(100vh - 80px);
   overflow-y: auto;
 }
+
+.brand-group {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+.brand-group .brand-title {
+  text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.74);
+}

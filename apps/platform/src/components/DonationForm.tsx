@@ -7,6 +7,7 @@ import {
   GetCharityListingDataQuery,
   GET_CHARITY_LISTING_DATA,
 } from "../containers/explore/Charities";
+import { useAuth } from "../context/AuthContext";
 import { useWallet } from "../context/WalletContext";
 import { Currencies, OneTimePurchase, Tokens } from "../utils/constants";
 import { ErrorContainer } from "./ErrorContainer";
@@ -69,10 +70,12 @@ interface Rate {
 type DonationFormProps = {
   charityAddress: string;
   charityName: string;
+  to: string | number;
 };
 
-export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName }) => {
+export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName, to }) => {
 
+  const { authUser } = useAuth();
   const { address: account, web3Instance } = useWallet();
   const [page, setPage] = useState<string>();
   const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: ""});
@@ -130,11 +133,34 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
     try {
       setLoading(true);
       const value = web3Instance?.utils.toWei(crypto.value, 'ether');
+      const balance = await web3Instance?.eth.getBalance(account);
+      console.log(value, balance);
+      if (Number(value) > Number(balance)) throw Error("Insufficient funds");
+      
       await web3Instance?.eth.sendTransaction({
         from: account,
         to: charityAddress,
         value: value
       });
+
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/donations`,
+        {
+          to,
+          fiat: Currencies[fiatCur.active].currency,
+          fiatAmount: fiatCur.value,
+          crypto: Tokens[crypto.active].currency,
+          cryptoAmount: value,
+          walletAddress: charityAddress
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authUser?.accessToken}`
+          }
+        }
+      ).then().catch();
+
+      toast.success("Donated successfully!");
     } catch(err) {
       
     }

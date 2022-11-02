@@ -123,16 +123,16 @@ export const Home: FC = () => {
               },
             }
           );
+          updateUserData(res.data);
         }
-
-        res = await axios.put(`${process.env.NEXT_PUBLIC_API}/api/users/profile`, data, {
-          headers: {
-            Authorization: `Bearer ${authUser.accessToken}`,
-          },
-        });
-        updateUserData(res.data);
-
         toast.success("Updated profile successfully!");
+        
+        // res = await axios.put(`${process.env.NEXT_PUBLIC_API}/api/users/profile`, data, {
+        //   headers: {
+        //     Authorization: `Bearer ${authUser.accessToken}`,
+        //   },
+        // });
+
       }
     } catch (err) {
       toast.success("Faild updating profile");

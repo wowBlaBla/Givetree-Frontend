@@ -271,9 +271,9 @@ export const SocialLinks = [
 
 export const Tokens = [
   // { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon, disabled: true },
-  { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon },
+  { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon, disabled: false },
   // { crypto: "Solana", currency: "SOL", icon: SolanaIcon, disabled: true },
-  { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon },
+  { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon, disabled: false },
   // { crypto: "Flow", currency: "FLOW", icon: FlowIcon, disabled: true },
   // { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon, disabled: true },
   // { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon, disabled: true },
@@ -294,3 +294,19 @@ export const OneTimePurchase = [
   { name: "1st & 15th of every month", description: "Twice a month including today" },
   { name: "Monthly", description: "Every month on the 1st" },
 ];
+
+export type Crypto = "ETH" | "MATIC" | "BTC";
+export type Fiat = "AUD" | "USD" | "GBP" | "JPY";
+
+export const CryptoIcon = {
+  ETH: EthereumIcon,
+  MATIC: PolygonIcon,
+  BTC: BitCoinIcon,
+}
+
+export const CurrencyIcon = {
+  AUD: AUDIcon,
+  USD: USDIcon,
+  GBP: GBPIcon,
+  JPY: JPYIcon
+}

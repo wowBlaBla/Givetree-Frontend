@@ -51,7 +51,7 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
           backgroundSize: "cover",
         }}
       >
-        <div className="flex items-center w-full h-full bg-[#012417]/70">
+        <div className="flex items-center w-full h-full">
           <CampaignBanner
             backgroundAsset={data.homepageCampaign.media.campaignBannerUrl}
             title={data.homepageCampaign.title}
@@ -85,13 +85,16 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
             .map((_, idx) => (
               <div
                 key={`trusted-charity-card-${idx}`}
-                className="flex w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
+                className="flex flex-col justify-center text-center w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
               >
                 <Image
-                  src={require(`../../temp/images/trusted/${idx + 1}.png`)}
+                  src={require(`../../temp/images/trusted/${idx < 10 ? (idx + 1) : "grey-heart"}.png`)}
                   alt=""
                   objectFit="contain"
                 />
+                {
+                  idx < 10 ? "" : <span className="leading-3">Coming soon</span>
+                }
               </div>
             ))}
         </div>

@@ -87,3 +87,7 @@ img {
   /* border-color: hsl(var(--bc) / 0.2); */
   /* color: hsl(var(--bc) / 0.5); */
 }
+
+.table :where(tbody th, tbody td), .table :where(thead, tfoot) :where(th, td) {
+  @apply bg-white
+}

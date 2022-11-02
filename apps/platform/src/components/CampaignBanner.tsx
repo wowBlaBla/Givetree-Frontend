@@ -37,18 +37,20 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
     <div className="relative w-full max-w-layout-l mx-auto px-2 lg:px-0">
       <div className="relative pb-3 px-2 md:px-0 md:rounded-xl">
         <div className="w-full h-full z-10 flex flex-col items-center justify-center max-w-layout-l">
-          <h4 className="text-center text-3xl sm:text-5xl font-bold w-full dark:text-white mb-4">
-            Create NFTs which change the world
-          </h4>
+          <div className="brand-group my-5 p-5 rounded-lg text-center">
+            <h4 className="text-center text-3xl sm:text-5xl font-bold w-full dark:text-white mb-4 brand-title">
+              Create NFTs which change the world
+            </h4>
 
-          <div className="short-description md:text-2xl text-white font-semibold mb-4">
-            Donate, mint, buy, sell, & trade NFTs
+            <div className="short-description md:text-2xl text-white font-semibold mb-4">
+              Donate, mint, buy, sell, & trade NFTs
+            </div>
           </div>
 
           <div className="flex flex-col sm:justify-start justify-center flex-wrap pt-3 gap-[18px]">
             <OutlineLink
               href={"/explore/nfts"}
-              className="w-[240px] h-[65px] !bg-transparent border-4 border-white rounded-none !text-white hover:!bg-brand-orange-hover"
+              className="w-[240px] h-[66px] !bg-[#00EF8B]/50 border-4 border-white rounded-lg !text-white hover:!border-[#00EF8B]/10 hover:!bg-[#00EF8B]/80"
             >
               Explore NFTs
             </OutlineLink>

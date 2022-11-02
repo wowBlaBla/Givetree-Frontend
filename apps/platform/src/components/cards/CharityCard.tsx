@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { Charity } from "../../typed/charity";
 import { VerifiedBadge } from "../badges/VerifiedBadge";
 import { VerifiedBadgeType } from "../../typed/enum/verifiedBadgeType";
+import DefaultCharityIcon from "../../assets/images/default-charity-icon.jpg";
 
 interface CharityCardProps {
   charity: Charity;
@@ -25,7 +26,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={charity.profileImage}
+              src={charity.profileImage ? charity.profileImage : charity.media.tileUrl ? charity.media.tileUrl : DefaultCharityIcon.src}
               alt={charity.title}
             />
           </div>
@@ -35,7 +36,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           <div className="flex justify-between w-full p-5 flex-1">
             <div className="flex w-full flex-col items-center justify-between">
               <span className="font-bold text-md sm:text-sm text-black text-center">
-                {charity.title ? charity.title : "Untitled"}
+                {charity.title ? charity.title : charity.name ? charity.name : "Untitled"}
                 <VerifiedBadge
                   isVerified={charity.isVerified}
                   type={VerifiedBadgeType.Charity}
