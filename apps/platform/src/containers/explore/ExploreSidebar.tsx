@@ -9,7 +9,7 @@ import { useExplore } from "../../context/ExploreContext";
 const mainNavs: NavItem[] = [
   {
     category: "home",
-    title: "Home"
+    title: "Home",
   },
   {
     category: "nfts",
@@ -58,19 +58,8 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
         visible ? "absolute" : "hidden lg:flex sticky"
       } top-[80px] lg:top-0 left-0 flex-col w-full lg:min-w-[240px] lg:max-w-[240px] border-r border-base-content border-opacity-25 bg-mid-dark z-10`}
     >
-      <div className="text-[#BABABA] border-t border-b border-[#696969] px-6 py-4 sticky">
-        {!mainNav ? (
-          <Link
-            className="flex items-center cursor-pointer"
-            href="/explore"
-            onClick={(e) => {
-              e.preventDefault();
-              setMainNav(undefined);
-            }}
-          >
-            <span className="text-[16px] font-bold text-[#00EF8B]">Home</span>
-          </Link>
-        ) : (
+      {!mainNav ? null : (
+        <div className="text-[#BABABA] border-t border-b border-[#696969] px-6 py-4 sticky">
           <Link
             className="flex items-center cursor-pointer"
             href="/explore"
@@ -90,8 +79,9 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
             </svg>
             <span className="text-[16px] font-bold ml-4">Main Menu</span>
           </Link>
-        )}
-      </div>
+        </div>
+      )}
+
       <div className="bg-mid-dark main-menu-bar">
         {!mainNav ? (
           mainNavs.map((item, idx) => (
@@ -99,31 +89,33 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               className={`flex transition-colors duration-300 transform`}
               href={"/explore/" + item.category}
               key={`main-side-item-${idx}`}
-              onClick={() => !idx ? null : setMainNav(item)}
+              onClick={() => (!idx ? null : setMainNav(item))}
             >
               <div
                 className={`flex justify-between items-center cursor-pointer px-6 py-3 border-b border-[#686868] ${
-                  item.category == params?.category ? "bg-[#5A5A5A] text-[#00EF8B]" : "text-[#C4C4C4]"
+                  item.category == params?.category
+                    ? "text-[#00EF8B]"
+                    : "text-[#C4C4C4]"
                 }`}
               >
                 {item.icon && <item.icon />}
                 <span className={`font-medium text-inherit`}>{item.title}</span>
-                {
-                  idx ? (
-                    <svg
-                      width="10"
-                      height="19"
-                      viewBox="0 0 10 19"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M0.793103 18.4484L9.62051 9.62066L9.99981 9.2241L9.62049 8.82756L0.79273 0.000152806L-0.000357427 0.793272L8.43085 9.22414L-1.60207e-05 17.6553L0.793103 18.4484Z"
-                        fill="#F3F3F3"
-                      />
-                    </svg>
-                  ) : ""
-                }
+                {idx ? (
+                  <svg
+                    width="10"
+                    height="19"
+                    viewBox="0 0 10 19"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.793103 18.4484L9.62051 9.62066L9.99981 9.2241L9.62049 8.82756L0.79273 0.000152806L-0.000357427 0.793272L8.43085 9.22414L-1.60207e-05 17.6553L0.793103 18.4484Z"
+                      fill="#F3F3F3"
+                    />
+                  </svg>
+                ) : (
+                  ""
+                )}
               </div>
             </Link>
           ))
