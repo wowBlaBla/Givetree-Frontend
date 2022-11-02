@@ -8,6 +8,10 @@ import { useExplore } from "../../context/ExploreContext";
 
 const mainNavs: NavItem[] = [
   {
+    category: "home",
+    title: "Home"
+  },
+  {
     category: "nfts",
     title: "NFTs",
   },
@@ -88,27 +92,31 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               className={`flex transition-colors duration-300 transform`}
               href={"/explore/" + item.category}
               key={`main-side-item-${idx}`}
-              onClick={() => setMainNav(item)}
+              onClick={() => !idx ? null : setMainNav(item)}
             >
               <div
                 className={`flex justify-between items-center cursor-pointer px-6 py-3 border-b border-[#686868] ${
-                  item.category == params?.category ? "bg-[#5A5A5A]" : ""
+                  item.category == params?.category ? "bg-[#5A5A5A] text-[#00EF8B]" : "text-[#C4C4C4]"
                 }`}
               >
                 {item.icon && <item.icon />}
-                <span className={`font-medium text-[#C4C4C4]`}>{item.title}</span>
-                <svg
-                  width="10"
-                  height="19"
-                  viewBox="0 0 10 19"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M0.793103 18.4484L9.62051 9.62066L9.99981 9.2241L9.62049 8.82756L0.79273 0.000152806L-0.000357427 0.793272L8.43085 9.22414L-1.60207e-05 17.6553L0.793103 18.4484Z"
-                    fill="#F3F3F3"
-                  />
-                </svg>
+                <span className={`font-medium text-inherit`}>{item.title}</span>
+                {
+                  idx ? (
+                    <svg
+                      width="10"
+                      height="19"
+                      viewBox="0 0 10 19"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0.793103 18.4484L9.62051 9.62066L9.99981 9.2241L9.62049 8.82756L0.79273 0.000152806L-0.000357427 0.793272L8.43085 9.22414L-1.60207e-05 17.6553L0.793103 18.4484Z"
+                        fill="#F3F3F3"
+                      />
+                    </svg>
+                  ) : ""
+                }
               </div>
             </Link>
           ))
