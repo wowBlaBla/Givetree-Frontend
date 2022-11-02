@@ -1,17 +1,23 @@
 import { FC, useEffect, useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth, User } from "../../context/AuthContext";
 import { Tokens } from "../../utils/constants";
+
+type SettingData = Partial<Pick<User, "email" | "userName" | "walletAddresses">>;
 
 export const Settings: FC = () => {
   const { authUser } = useAuth();
 
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
+  const [settingData, setSettingData] = useState<SettingData>({});
 
   useEffect(() => {
     if (authUser && authUser.user) {
-      setUserName(authUser.user.userName || "");
-      setEmail(authUser.user.email || "");
+      setSettingData({
+        email: authUser.user.email,
+        userName: authUser.user.userName,
+        // walletAddresses: (authUser.user.walletAddresses || []).map(
+        //   ({ address, network, type }) => ({ address, network, type })
+        // ),
+      });
     }
   }, [authUser]);
 
@@ -24,15 +30,15 @@ export const Settings: FC = () => {
           <input
             type="email"
             className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={settingData.email || ""}
+            onChange={(e) => setSettingData({ ...settingData, email: e.target.value })}
           />
           <label className="mb-1 text-md text-white">Username</label>
           <input
             type="text"
             className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={settingData.userName || ""}
+            onChange={(e) => setSettingData({ ...settingData, userName: e.target.value })}
           />
           <label className="mt-4 mb-1 text-md text-white">Wallet Address</label>
           <div className="wallets-body">
