@@ -29,9 +29,9 @@ export const ALCHEMY_NETWORK = {
 
 export const EthereumNetwork = {
     address: {
-        factory: "0xA0705d543872DB371742474546408cea185Eed94",
-        singleNFT: "0x55F11ff37b9667E561b0D911cbc93e4bA7fdBF27",
-        marketplace: "0x5CE49Beab6CAc659D32891190A94c277cd025404",
+        factory: "0x8C4182b0440F8C613040EB3Fbad213eDFd391abf",
+        singleNFT: "0xf348E5A0baB72C3C07d50103cB414375C7fecd2b",
+        marketplace: "0x095D2c977dB8b22b0e3BBF9e29FDdaBF0a236e36",
     },
     chainId: "5"
 }

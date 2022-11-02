@@ -469,6 +469,19 @@
     },
     {
         "inputs": [],
+        "name": "maxMint",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "maxSupply",
         "outputs": [
             {
@@ -768,6 +781,19 @@
     {
         "inputs": [],
         "name": "unlockMint",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateMaxMint",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
