@@ -15,12 +15,13 @@ import DefaultCollection from "../../temp/images/campaigns/default-collection.pn
 
 interface CollectionCardProps {
   campaign: Collection//Campaign;
+  nextLocation?: string
 }
 
-export const CollectionCard: FC<CollectionCardProps> = ({ campaign }) => {
+export const CollectionCard: FC<CollectionCardProps> = ({ campaign, nextLocation }) => {
   const [_location, setLocation] = useLocation();
   // const isLive = getEventStatus(campaign.event.rounds).isLive;
-  const handleNextLocation = () => setLocation(`/collection/${campaign.pattern}`);
+  const handleNextLocation = () => setLocation(nextLocation ? nextLocation : `/collection/${campaign.pattern}`);
   return (
     <div className="fundraiser-card text-center h-full">
       <div

@@ -7,4 +7,5 @@ export interface Collection {
     banner: string;
     category: string;
     network: string;
+    description: string
 }

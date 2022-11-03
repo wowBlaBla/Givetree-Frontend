@@ -18,7 +18,8 @@ export enum PlatformRoute {
   ExploreCreators = "/explore/creators",
   ExploreCharities = "/explore/charities",
   About = "/about/:category",
-  AssetDetails = "/asset/:network/:collection/:tokenId"
+  AssetDetails = "/asset/:network/:collection/:tokenId",
+  Mint = "/mint/:collectionName"
 }
 
 export interface AppHeaderNavLink {

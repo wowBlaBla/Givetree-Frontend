@@ -3,6 +3,7 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react"
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { SaleCard } from "../../components/cards/SaleCard";
+import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { SectionContainer } from "../../components/SectionContainer";
 import { NFTCardSkeletonBundle } from "../../components/skeleton/SkeletonBundle";
 import { ALCHEMY_NETWORK, NETWORK_NAME } from "../../configs/constants";
@@ -123,6 +124,9 @@ export const NFTs:FC = () => {
                     isLoading ? <NFTCardSkeletonBundle/> : ""
                 }
             </InfiniteScroll>
+            {
+                (isEnd && !saleList.length) ? <ItemEmptyBox/> : ""
+            }
         </SectionContainer>
     )
 }
