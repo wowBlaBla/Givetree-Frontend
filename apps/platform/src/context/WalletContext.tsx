@@ -17,7 +17,9 @@ import marketplaceABI from "../assets/jsons/abi/marketplace.json";
 export const Network = ['Ethereum', 'Polygon', 'Solana'];
 
 export const NetworkName = {
+  '1': "ethereum", // mainnet 1
   '5': "ethereum", // mainnet 1
+  '137': 'polygon',
   '80001': 'polygon', //
   '44787': 'celo', //
   '420': 'optimism', //

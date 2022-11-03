@@ -23,7 +23,7 @@ interface InnerType {
 export const SignUp: FC = () => {
   const [, setLocation] = useLocation();
 
-  const { address } = useWallet();
+  const { address, networkName: network } = useWallet();
   const { register, isAuth } = useAuth();
 
   const [step, setStep] = useState(0);
@@ -62,7 +62,7 @@ export const SignUp: FC = () => {
       setStep(step + 1);
       if (authType) {
         if (authType === "wallet") {
-          register({ address, username, network: "ethereum" }, "wallet", false);
+          register({ address, username, network }, "wallet", false);
         } else {
           register({ username, email, password }, "email", false);
         }

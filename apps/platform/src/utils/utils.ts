@@ -1,6 +1,6 @@
 export const checkIsBannerImage = (image?: string) => {
   if (image) {
-    if (image.slice(0, 7) === "https://") {
+    if (image.slice(0, 8) === "https://") {
       return true;
     }
   }
