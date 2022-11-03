@@ -29,6 +29,7 @@ export const PublicMintContainer:FC = () => {
     const [totalSupply, setTotalSupply] = useState<string>('');
     const [count, setCount] = useState<number>(1);
     const [mintPrice, setMintPrice] = useState<string>('0');
+    const [mintLimit, setMintLimit] = useState<number>(5);
     const [contract, setContract] = useState<Contract>();
 
     useEffect(() => {
@@ -63,11 +64,13 @@ export const PublicMintContainer:FC = () => {
         const _maxSupply = await _contract.methods.maxSupply().call();
         const _totalSupply = await _contract.methods.totalSupply().call();
         const _mintPrice = await _contract.methods.mintPrice().call();
+        const _mintLimit = await contract?.methods.maxMint().call();
 
         setContract(_contract);
         setMaxSupply(_maxSupply);
         setTotalSupply(_totalSupply);
         setMintPrice(web3Instance.utils.fromWei(_mintPrice, "ether"));
+        setMintLimit(+_mintLimit);
     }
 
     const mint = async() => {
@@ -87,6 +90,11 @@ export const PublicMintContainer:FC = () => {
             const payPrice = web3Instance?.utils.toWei((+mintPrice * count).toString(), "ether");
             if (Number(balance) <= Number(payPrice)) throw Error("Insufficcient funds");
             const _totalSupply = await contract?.methods.totalSupply().call();
+            const _mintLimit = await contract?.methods.maxMint().call();
+            if (count > +mintLimit) {
+                setMintLimit(+_mintLimit);
+                throw Error("Exceed mint limit");
+            }
 
             if (+_totalSupply + count > +maxSupply) throw Error("Exceed max supply");
 
@@ -101,7 +109,8 @@ export const PublicMintContainer:FC = () => {
                 toast.error(err.response.message);
             }
         }
-
+        
+        setCount(1);
         setProcessing(false);
     }
 
@@ -171,7 +180,7 @@ export const PublicMintContainer:FC = () => {
                                                 <span className="text-2xl">{count}</span>
                                                 <div
                                                     className="w-8 h-8 border border-base-content rounded-full flex items-center justify-center cursor-pointer"
-                                                    onClick={() => setCount(count + 1)}
+                                                    onClick={() => count + 1 <= mintLimit ? setCount(count + 1) : null}
                                                 >
                                                     <span className=" text-xl font-bold pb-1">+</span>
                                                 </div>
