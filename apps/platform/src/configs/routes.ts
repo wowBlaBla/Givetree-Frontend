@@ -19,7 +19,8 @@ export enum PlatformRoute {
   ExploreCharities = "/explore/charities",
   About = "/about/:category",
   AssetDetails = "/asset/:network/:collection/:tokenId",
-  Mint = "/mint/:collectionName"
+  Mint = "/mint/:collectionName",
+  AuctionDetails = "/auction/:collectionName",
 }
 
 export interface AppHeaderNavLink {
