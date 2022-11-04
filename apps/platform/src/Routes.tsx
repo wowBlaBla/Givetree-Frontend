@@ -24,7 +24,6 @@ import { SignIn } from "./containers/auth/SignIn";
 import { SignUp } from "./containers/auth/SignUp";
 import { useAuth } from "./context/AuthContext";
 import { PublicMintContainer } from "./containers/publicMint";
-import { AuctionContainer } from "./containers/auction";
 
 const Routes = () => {
   const { isAuth, initialized } = useAuth();
@@ -91,16 +90,7 @@ const Routes = () => {
               </Route>
 
               <Route path={PlatformRoute.AssetDetails}>
-                {(params) => (
-                  <SalesContainer
-                    network={params.network}
-                    collection={params.collection}
-                    tokenId={params.tokenId}
-                  />
-                )}
-              </Route>
-              <Route path={PlatformRoute.AuctionDetails}>
-                <AuctionContainer />
+                <SalesContainer/>
               </Route>
               <Route path={PlatformRoute.Mint}>
                 <PublicMintContainer />

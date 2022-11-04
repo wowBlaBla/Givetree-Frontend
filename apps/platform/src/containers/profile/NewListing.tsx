@@ -74,11 +74,11 @@ const defaultRoyalty: Royalty = {
 const durations: Duration[] = [
   {
     title: "1 day",
-    value: ""
+    value: "86400"
   },
   {
     title: "1 week",
-    value: ""
+    value: "604800"
   },
 ]
 
@@ -90,7 +90,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
   const [saleType, setSaleType] = useState<SaleType>(SaleType.Fixed);
   const [metadata, setMetadata] = useState<Nft>();
   const [tokenType, setTokenType] = useState<NftTokenType>(NftTokenType.UNKNOWN);
-  const [duration, setDuration] = useState<string>('');
+  const [duration, setDuration] = useState<string>(durations[0].value);
   const [quality, setQuality] = useState<string>('');
 
   const [paymentToken, setPaymentToken] = useState<string>('ETH');
@@ -187,11 +187,9 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
   }
 
   const controlCharityPercent = (val: string) => {
-    if (val == "") val = "1";
     let percent = Math.floor(parseInt(val));
-    if (percent < 1) percent = 1;
-    else if (percent >= 10) percent = 10;
-    setCharity({ ...charity, percent: percent.toString() });
+    if (percent >= 10) percent = 10;
+    setCharity({ ...charity, percent: !percent ? "" : percent.toString() });
   };
 
   const controlQuality = (val: string) => {
@@ -208,7 +206,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
     if (tokenType == NftTokenType.ERC1155) {
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const _balance = await contract.methods.balanceOf(account, tokenId).call();
-      _errors.quality = _balance < quality ? true : false;
+      _errors.quality = +_balance < +quality ? true : false;
       setBalance(_balance);
     }
     setErrors(_errors);
@@ -222,18 +220,19 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       if (!isValid) return;
       setLoading(true);
       const marketplace = contracts?.marketplace;
-      // const listed = await marketplace?.methods.
+      const isListed = await marketplace?.methods.getListing(address, tokenId).call();
+      if (Number(isListed.seller)) {
+        throw Error("Already listed");
+      }
       const price = web3Instance?.utils.toWei(paymentTokenPrice, 'ether');
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const approved = await contract.methods.isApprovedForAll(account, EthereumNetwork.address.marketplace).call();
       if (!approved) {
         await contract.methods.setApprovalForAll(EthereumNetwork.address.marketplace, true).send({ from: account });
       }
-      const isListed = await marketplace?.methods.getListing(address, tokenId).call();
-      if (Number(isListed.seller)) {
-        throw Error("Already listed");
-      }
 
+      const now = Date.now();
+      const _duration = +duration + Math.floor(now / 1000);
       switch(tokenType) {
         case NftTokenType.ERC721:
           switch(saleType) {
@@ -251,7 +250,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
                 address,
                 tokenId,
                 price,
-                duration,
+                _duration,
                 charity.address,
                 charity.percent
               ).send({ from: account });
@@ -276,7 +275,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
                 tokenId,
                 quality,
                 price,
-                duration,
+                _duration,
                 charity.address,
                 charity.percent
               ).send({ from: account });
@@ -296,7 +295,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       }).catch(err => {
 
       });
-      toast.success('You have listed NFT to sale successfully');
+      toast.success('You have listed NFT to auction successfully');
     } catch(err:any) {
       if (err?.code != 4001) {
         toast.error(err?.LoadingContainer);

@@ -325,7 +325,7 @@ export const DonateModal:FC<ModalProps> = ({ logo, title }) => {
             </label>
 
             <>
-                <input type="checkbox" id="my-modal-6" className="modal-toggle" checked={openTaxModal} />
+                <input type="checkbox" id="my-modal-6" className="modal-toggle" checked={openTaxModal} readOnly/>
                 <div className="modal">
                     <div className="modal-box w-[19.3rem] rounded-sm pb-0 px-0">
                         <h3 className="font-bold text-2xl capitalize text-center">want a tax receipt?</h3>

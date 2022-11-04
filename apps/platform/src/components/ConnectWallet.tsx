@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import cx from "classnames";
-import { Network, useWallet, Wallet } from "../context/WalletContext";
+import { useWallet, Wallet } from "../context/WalletContext";
 
 import { MetaMaskIcon } from "../components/icons/MetaMaskIcon";
 import { WalletConnectIcon } from "../components/icons/WalletConnectIcon";

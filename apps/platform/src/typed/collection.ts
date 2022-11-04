@@ -9,3 +9,14 @@ export interface Collection {
     network: string;
     description: string
 }
+
+export interface IOfferError {
+    price: boolean;
+    quality: boolean;
+}
+  
+export interface IOffer {
+    bider: string;
+    bidPrice: string;
+    amount: string;
+}

@@ -4,7 +4,6 @@ import { GiveTreeLogo } from "./GiveTreeLogo";
 import { PlatformRoute } from "../configs/routes";
 import { MenuIcon } from "./icons/MenuIcon";
 import { DropdownMenu } from "./DropdownMenu";
-import { MenuBar } from "./MenuBar";
 import { useAuth } from "../context/AuthContext";
 import { useAppContext } from "../context/AppContext";
 
