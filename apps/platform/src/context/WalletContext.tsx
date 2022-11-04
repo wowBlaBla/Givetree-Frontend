@@ -13,6 +13,7 @@ import { EthereumNetwork } from "../configs/constants";
 import factoryABI from "../assets/jsons/abi/factory.json";
 import singleNFTABI from "../assets/jsons/abi/singleNFT.json";
 import marketplaceABI from "../assets/jsons/abi/marketplace.json";
+import paymentTokenABI from "../assets/jsons/abi/erc20.json";
 
 export const Network = ['Ethereum', 'Polygon', 'Solana'];
 
@@ -41,6 +42,7 @@ interface IContractSet {
   factory?: Contract;
   singleNFT: Contract;
   marketplace?: Contract;
+  paymentToken?: Contract;
 }
 
 interface IWalletProvider {
@@ -182,6 +184,11 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
       marketplaceABI as AbiItem[] | AbiItem,
       EthereumNetwork.address.marketplace
     );
+    const paymentTokenContract: Contract = new web3.eth.Contract(
+      paymentTokenABI as AbiItem[] | AbiItem,
+      EthereumNetwork.address.paymentToken
+    );
+
     const networkID = await web3.eth.getChainId();
     setNetworkName(NetworkName[networkID.toString() as NetworkID ]);
     setWeb3Instance(web3);
@@ -190,6 +197,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
       factory: factoryContract,
       singleNFT: singleNFTContract,
       marketplace: marketplaceContract,
+      paymentToken: paymentTokenContract
     });
   };
 

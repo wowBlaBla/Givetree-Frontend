@@ -206,7 +206,7 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
     if (tokenType == NftTokenType.ERC1155) {
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const _balance = await contract.methods.balanceOf(account, tokenId).call();
-      _errors.quality = _balance < quality ? true : false;
+      _errors.quality = +_balance < +quality ? true : false;
       setBalance(_balance);
     }
     setErrors(_errors);
@@ -220,22 +220,19 @@ export const NewListing: FC<Props> = ({ networkName, address, tokenId }) => {
       if (!isValid) return;
       setLoading(true);
       const marketplace = contracts?.marketplace;
-      // const listed = await marketplace?.methods.
+      const isListed = await marketplace?.methods.getListing(address, tokenId).call();
+      if (Number(isListed.seller)) {
+        throw Error("Already listed");
+      }
       const price = web3Instance?.utils.toWei(paymentTokenPrice, 'ether');
       const contract = new web3Instance.eth.Contract(erc721ABI as AbiItem[], address);
       const approved = await contract.methods.isApprovedForAll(account, EthereumNetwork.address.marketplace).call();
       if (!approved) {
         await contract.methods.setApprovalForAll(EthereumNetwork.address.marketplace, true).send({ from: account });
       }
-      const isListed = await marketplace?.methods.getListing(address, tokenId).call();
-      if (Number(isListed.seller)) {
-        throw Error("Already listed");
-      }
 
       const now = Date.now();
-      console.log(now);
       const _duration = +duration + Math.floor(now / 1000);
-      console.log(_duration);
       switch(tokenType) {
         case NftTokenType.ERC721:
           switch(saleType) {
