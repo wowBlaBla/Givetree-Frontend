@@ -14,6 +14,7 @@ import Image from "next/image";
 import { ArrowLeftIcon, CheckCircleIcon } from "@heroicons/react/solid";
 import { AddIcon } from "../../components/icons/AddIcon";
 import PublicProfileContainer from "../publicProfile";
+import { LoadingContainer } from "../../components/LoadingContainer";
 
 type ProfileData = Partial<
   Omit<
@@ -756,6 +757,7 @@ export const Home: FC = () => {
           </div>
         </>
       )}
+      {isLoading && <LoadingContainer message="Updating Profile"/>}
     </div>
   );
 };
