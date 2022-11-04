@@ -87,13 +87,11 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
   const handleToSale = () =>
     setLocation(`/asset/${networkName}/${nft.contract.address}/${nft.tokenId}`);
 
-  const handleAcution = () => setLocation(`/auction/111111111`);
-
   return (
     <div className="fundraiser-card text-center h-full">
       <div
         className="bg-white relative w-full h-full inline-block cursor-pointer shadow-normal hover:shadow-xl rounded-xl border border-[#3C3C3C]"
-        onClick={() => (match ? handleToSale() : handleAcution())}
+        onClick={() => (match ? handleToSale() : null)}
       >
         <div className="flex flex-col w-full h-full relative text-center nft-item">
           <div className="card-image relative">
@@ -132,7 +130,7 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
               </div>
             </div>
           </div>
-          {!isLoading && (
+          {(!isLoading && !match) && (
             <>
               {isListed.status ? (
                 <span

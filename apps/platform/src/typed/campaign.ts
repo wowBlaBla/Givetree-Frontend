@@ -42,6 +42,8 @@ export interface NFTMetaData {
   }[],
   contract: {
     address: string;
+    name: string;
+    symbol: string;
   },
   tokenId: string;
 }
