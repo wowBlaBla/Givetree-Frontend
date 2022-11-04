@@ -17,6 +17,7 @@ import { RoyaltyType } from "../../typed/royalty-details";
 import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import Image from "next/image";
 import backgroundImage from "../../assets/images/background.png";
+import { Causes } from "../../configs/constants";
 
 type HomContainerProps = {
   isHome?: boolean;
@@ -88,13 +89,13 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
                 className="flex flex-col justify-center text-center w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
               >
                 <Image
-                  src={require(`../../temp/images/trusted/${idx < 10 ? (idx + 1) : "grey-heart"}.png`)}
+                  src={require(`../../temp/images/trusted/${
+                    idx < 10 ? idx + 1 : "grey-heart"
+                  }.png`)}
                   alt=""
                   objectFit="contain"
                 />
-                {
-                  idx < 10 ? "" : <span className="leading-3">Coming soon</span>
-                }
+                {idx < 10 ? "" : <span className="leading-3">Coming soon</span>}
               </div>
             ))}
         </div>
@@ -122,20 +123,18 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
         />
 
         <div className="inline-grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
-          {Array(18)
-            .fill(0)
-            .map((_, idx) => (
-              <div
-                key={`cause-card-${idx}`}
-                className="flex w-[140px] h-[140px] cursor-pointer"
-              >
-                <Image
-                  src={require(`../../temp/images/causes/${idx + 1}.png`)}
-                  alt=""
-                  objectFit="contain"
-                />
-              </div>
-            ))}
+          {Causes.map((cause) => (
+            <div
+              key={`cause-card-${cause.index}`}
+              className="flex w-[140px] h-[140px] cursor-pointer"
+            >
+              <Image
+                src={require(`../../temp/images/causes/${cause.index}.png`)}
+                alt=""
+                objectFit="contain"
+              />
+            </div>
+          ))}
         </div>
       </SectionContainer>
 

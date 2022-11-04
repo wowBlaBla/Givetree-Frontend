@@ -31,5 +31,5 @@ export interface CharityProperties {
   employee?: number;
   founders?: string;
   businessNumber?: string;
-  causes?: string[];
+  causes?: string;
 }
