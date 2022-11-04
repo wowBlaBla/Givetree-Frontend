@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { FC } from "react";
-import { AssetType, getAssetType } from "../utils/getAssetType";
+// import { AssetType, getAssetType } from "../utils/getAssetType";
 import { OutlineLink } from "./OutlineCta";
-import { useLocation } from "wouter";
-import { PlatformRoute } from "../configs/routes";
+// import { useLocation } from "wouter";
+// import { PlatformRoute } from "../configs/routes";
 
 interface CampaignBannerProps {
   backgroundAsset: string;
@@ -19,7 +19,7 @@ interface CampaignBannerProps {
 }
 
 export const CampaignBanner: FC<CampaignBannerProps> = ({
-  backgroundAsset,
+  // backgroundAsset,
   // title,
   // subtitle,
   // ctaLink,
@@ -30,8 +30,8 @@ export const CampaignBanner: FC<CampaignBannerProps> = ({
   // charityThumbnail,
   // causes,
 }) => {
-  const assetType = getAssetType(backgroundAsset);
-  const [, setLocation] = useLocation();
+  // const assetType = getAssetType(backgroundAsset);
+  // const [, setLocation] = useLocation();
 
   return (
     <div className="relative w-full max-w-layout-l mx-auto px-2 lg:px-0">
