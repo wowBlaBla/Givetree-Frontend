@@ -279,13 +279,14 @@
 .public-profile .profile-tab {}
 
 .public-profile .tabs .tab {
-  font-size: 20px;
+  font-size: 16px;
   color: black;
-  height: 40px;
+  height: 49px;
 }
 
 .public-profile .tabs .tab.tab-active {
-  border-bottom: 3px solid #606060;
+  color: #008F53;
+  border-bottom: 3px solid #008F53;
   font-weight: 700;
 }
 
