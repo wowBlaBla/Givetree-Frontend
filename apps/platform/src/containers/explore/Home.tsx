@@ -24,7 +24,7 @@ type HomContainerProps = {
   isHome?: boolean;
 };
 
-const trusted: Array<number> = [2, 6, 7, 8, 9, 11];
+const trusted: Array<number> = [2, 5, 6, 7, 8, 9, 11, 13];
 
 const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
@@ -99,7 +99,7 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
               </div>
             ))
           }
-          {Array(12)
+          {Array(10)
             .fill(0)
             .map((_, idx) => (
               <div
