@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Route } from "wouter";
+import { Redirect, Route } from "wouter";
 import { ExploreSideBar } from "./ExploreSidebar";
 import HomeContainer from "./Home";
 import { Charities } from "./Charities";
@@ -40,6 +40,9 @@ const ExplorePortal: FC = () => {
         </Route>
         <Route path="/explore/mint-pages">
           <MintPages />
+        </Route>
+        <Route path="/explore/about">
+          <Redirect to="/about/welcome"/>
         </Route>
       </div>
     </div>

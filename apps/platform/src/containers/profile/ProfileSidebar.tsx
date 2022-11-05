@@ -17,6 +17,7 @@ export type NavItem = {
   title: string;
   children?: NavItem[];
   icon?: React.FC;
+  hasChild?: boolean;
 }
 
 const defaultNavs: NavItem[] = [
