@@ -18,10 +18,14 @@ import { FundraiserCard } from "../../components/cards/FundraiserCard";
 import Image from "next/image";
 import backgroundImage from "../../assets/images/background.png";
 import { Causes } from "../../configs/constants";
+import { HeartIcon } from "../../components/icons/Heart";
 
 type HomContainerProps = {
   isHome?: boolean;
 };
+
+const trusted: Array<number> = [2, 5, 6, 7, 8, 9, 11, 13];
+
 const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
   const { data, error, loading } = useQuery<GetHomeDataQuery>(GET_HOME_DATA);
 
@@ -81,21 +85,29 @@ const HomeContainer: FC<HomContainerProps> = ({ isHome = false }) => {
         />
 
         <div className="inline-grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
-          {Array(18)
+          {
+            trusted.map((item, idx) => (
+              <div
+                key={`trusted-charity-card-${item}-${idx}`}
+                className="flex flex-col justify-center text-center w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
+              >
+                <Image
+                  src={require(`../../temp/images/trusted/${item}.png`)}
+                  alt=""
+                  objectFit="contain"
+                />
+              </div>
+            ))
+          }
+          {Array(10)
             .fill(0)
             .map((_, idx) => (
               <div
                 key={`trusted-charity-card-${idx}`}
                 className="flex flex-col justify-center text-center w-[140px] h-[140px] rounded-xl bg-white px-8 cursor-pointer shadow-normal"
               >
-                <Image
-                  src={require(`../../temp/images/trusted/${
-                    idx < 10 ? idx + 1 : "grey-heart"
-                  }.png`)}
-                  alt=""
-                  objectFit="contain"
-                />
-                {idx < 10 ? "" : <span className="leading-3">Coming soon</span>}
+                <HeartIcon className="w-18 h-18"/>
+                <span className="leading-3">Coming soon</span>
               </div>
             ))}
         </div>
