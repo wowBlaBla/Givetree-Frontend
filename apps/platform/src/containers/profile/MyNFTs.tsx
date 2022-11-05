@@ -3,32 +3,44 @@ import { Network, Alchemy } from "alchemy-sdk";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { NFTCard } from "../../components/cards/NFTCard";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
-import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { NFTCardSkeletonBundle } from "../../components/skeleton/SkeletonBundle";
 
 export const MyNFTs: FC = () => {
-  const { address, connectWallet } = useWallet();
+  const { address, connectWallet, networkName } = useWallet();
 
   const [nfts, setNFTs] = useState<any[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [isEnd, setEnd] = useState<boolean>(false);
+  const [pageKey, setPageKey] = useState<string>('');
 
-  const fetchNFTs = useCallback(async () => {
+  const fetchNFTs = async () => {
     if (address) {
-      setLoading(true);
       const settings = {
         apiKey: ETH_ALCHEMY,
         network: Network.ETH_GOERLI,
       };
       const alchemy = new Alchemy(settings);
-      const res = await alchemy.nft.getNftsForOwner(address);
-      setNFTs(res.ownedNfts);
-      setLoading(false);
+      const res = await alchemy.nft.getNftsForOwner(
+        address,
+        {
+          pageSize: 12,
+          pageKey
+        }
+      );
+      if (res.ownedNfts.length < 12) setEnd(true);
+      if (res.pageKey) setPageKey(res.pageKey);
+      setNFTs([ ...nfts, ...res.ownedNfts]);
     }
-  }, [address]);
-
+  }
   useEffect(() => {
-    if (address) fetchNFTs();
-  }, [address, fetchNFTs]);
+    if (address) {
+      setNFTs([]);
+      setEnd(false);
+      fetchNFTs();
+    }
+    else setEnd(true);
+  }, [address]);
 
   return (
     <div className="profile">
@@ -49,7 +61,7 @@ export const MyNFTs: FC = () => {
               onClick={() => connectWallet("metamask")}
             >Connect</button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {
               isLoading ? (
                 <>
@@ -66,8 +78,20 @@ export const MyNFTs: FC = () => {
                 </>
               )
             }
-          </div>
-          { !isLoading && !nfts.length && <ItemEmptyBox/> }
+          </div> */}
+          <InfiniteScroll
+            dataLength={nfts.length}
+            next={fetchNFTs}
+            hasMore={!isEnd}
+            loader={<NFTCardSkeletonBundle/>}
+            className="grid grid-cols-card-layout gap-8 items-center !overflow-hidden pb-2"
+            scrollableTarget={"container"}
+          >
+            {nfts.map((nft, idx) => (
+              <NFTCard key={idx} nft={nft} />
+            ))}
+          </InfiniteScroll>
+          { isEnd && !nfts.length && <ItemEmptyBox/> }
         </div>
       </div>
     </div>
