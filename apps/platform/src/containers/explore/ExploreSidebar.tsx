@@ -14,32 +14,42 @@ const mainNavs: NavItem[] = [
   {
     category: "nfts",
     title: "NFTs",
+    hasChild: true
   },
   {
     category: "collections",
     title: "Collections",
+    hasChild: true
   },
   {
     category: "charities",
     title: "Charities",
+    hasChild: true
   },
   {
     category: "creators",
     title: "Creators",
+    hasChild: true
   },
   {
     category: "mint-pages",
     title: "Mint events",
+    hasChild: true
   },
   // {
   //   category: "causes",
   //   title: "Causes",
+  //   hasChild: true
   // },
   // {
   //   category: "leader-borders",
   //   title: "Leaderboards",
+  //   hasChild: true
   // },
-  { category: "about", title: "About GiveTree" },
+  {
+    category: "about",
+    title: "About GiveTree",
+  },
 ];
 
 interface ExploreSideBarProps {
@@ -100,7 +110,7 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               >
                 {item.icon && <item.icon />}
                 <span className={`font-medium text-inherit`}>{item.title}</span>
-                {idx ? (
+                {item.hasChild ? (
                   <svg
                     width="10"
                     height="19"
