@@ -222,12 +222,16 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
                   >
                     <CloudDownloadIcon className="w-6 h-6" />
                   </span>
-                  <span
-                    className="text-white absolute z-50 top-14 border rounded-full p-1 bg-black/50 btn-list"
-                    onClick={fetchOffers}
-                  >
-                    <EyeIcon className="w-6 h-6" />
-                  </span>
+                  {
+                    isListed.type == "auction" ? (
+                      <span
+                        className="text-white absolute z-50 top-14 border rounded-full p-1 bg-black/50 btn-list"
+                        onClick={fetchOffers}
+                      >
+                        <EyeIcon className="w-6 h-6" />
+                      </span>
+                    ) : ""
+                  }
                 </>
               ) : (
                 <span
