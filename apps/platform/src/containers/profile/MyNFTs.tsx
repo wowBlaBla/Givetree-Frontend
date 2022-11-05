@@ -7,7 +7,7 @@ import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
 
 export const MyNFTs: FC = () => {
-  const { address } = useWallet();
+  const { address, connectWallet } = useWallet();
 
   const [nfts, setNFTs] = useState<any[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -44,7 +44,10 @@ export const MyNFTs: FC = () => {
               type="text"
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
             />
-            <button className="btn btn-primary btn-connect ml-2">Connect</button>
+            <button
+              className="btn btn-primary btn-connect ml-2"
+              onClick={() => connectWallet("metamask")}
+            >Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {

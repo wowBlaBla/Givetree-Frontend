@@ -14,7 +14,7 @@ interface NFT {
 
 export const MyListings: FC = () => {
 
-  const { address: account } = useWallet();
+  const { address: account, connectWallet } = useWallet();
   const [listings, setListings] = useState<NFT[]>([]);
 
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -46,7 +46,10 @@ export const MyListings: FC = () => {
               className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
               value={account ? account : ""}
             />
-            <button className="btn btn-primary btn-connect ml-2">Connect</button>
+            <button
+              className="btn btn-primary btn-connect ml-2"
+              onClick={() => connectWallet("metamask")}
+            >Connect</button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {
