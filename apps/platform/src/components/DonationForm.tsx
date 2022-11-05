@@ -76,7 +76,7 @@ type DonationFormProps = {
 export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName, to }) => {
 
   const { authUser } = useAuth();
-  const { address: account, web3Instance } = useWallet();
+  const { address: account, web3Instance, connectWallet } = useWallet();
   const [page, setPage] = useState<string>();
   const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: ""});
   const [crypto, setCrypto] = useState<Currency>({ active: 0, value: ""});
@@ -372,7 +372,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                             <CheckIcon width={20} color={"#0021F5"} />
                           </div>
                         </div>
-                      ) : <span>Please connect your wallet</span>
+                      ) : <span className="btn btn-info" onClick={() => connectWallet("metamask")}>Please connect your wallet</span>
                     }
                   </div>
                   <button className="btn bg-[#EEEBEB] border border-[#D9D9D9] text-black capitalize font-bold text-md">
