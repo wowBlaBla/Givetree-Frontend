@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Network, Alchemy } from "alchemy-sdk";
 import { ETH_ALCHEMY } from "../../configs/constants";
 import { NFTCard } from "../../components/cards/NFTCard";
@@ -18,7 +18,7 @@ export const MyNFTs: FC = () => {
     if (address) {
       const settings = {
         apiKey: ETH_ALCHEMY,
-        network: Network.ETH_GOERLI,
+        network: networkName == 'ethereum' ? Network.ETH_GOERLI : Network.MATIC_MUMBAI,
       };
       const alchemy = new Alchemy(settings);
       const res = await alchemy.nft.getNftsForOwner(
