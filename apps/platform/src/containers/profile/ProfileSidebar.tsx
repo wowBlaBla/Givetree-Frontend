@@ -1,9 +1,8 @@
 import { FC } from "react";
 import { Link, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
-import avatar from "../../temp/images/campaigns/mulgakongz-collection.png";
+import avatar from "../../assets/images/default-avatar.png";
 import { UserIcon } from "../../components/icons/profiles/UserIcon";
-import { WalletIcon } from "../../components/icons/profiles/WalletIcon";
 import { NFTIcon } from "../../components/icons/profiles/NFTIcon";
 import { CollectionIcon } from "../../components/icons/profiles/CollectionIcon";
 import { ListingIcon } from "../../components/icons/profiles/ListingIcon";
@@ -140,42 +139,44 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
             ) : (
               <Link
                 className={`flex items-center transition-colors duration-300 transform`}
-                href={"/profile/" + item.category}
+                href={item.category != "collections" ? "/profile/" + item.category : "#"}
                 key={`default-side-sub-${idx}`}
                 onClick={() => setVisible && setVisible(false)}
               >
                 <div
-                  className={`flex items-center cursor-pointer px-4 py-3 border-b border-[#686868] ${
+                  className={`relative flex items-center cursor-pointer px-4 py-3 border-b border-[#686868] ${
                     idx === 0 ? "border-t" : ""
                   } ${item.category == params?.category ? "bg-[#5A5A5A]" : ""}`}
                 >
                   {item.icon && <item.icon />}
                   <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
+                  { item.category =="collections" ? <div className="badge badge-primary absolute py-3 text-[10px] right-2">Coming Soon</div> : "" }
                 </div>
               </Link>
             )
           )}
         </div>
-        <span className="pl-[1.5rem] text-[20px] font-bold mt-8 mb-4">CREATE</span>
+        {/* <span className="pl-[1.5rem] text-[20px] font-bold mt-8 mb-4">CREATE</span>
         <nav>
           {createNavs.map((item, idx) => (
             <Link
               className={`flex items-center p-2 transition-colors duration-300 transform`}
-              href={"/profile/" + item.category}
               key={idx}
+              href="#"
               onClick={() => setVisible && setVisible(false)}
             >
               <div
-                className={`flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
+                className={`relative flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
                   item.category == params?.category ? "bg-[#5A5A5A]" : ""
                 } ${idx === 0 ? "border-t" : ""}`}
               >
                 {item.icon && <item.icon />}
                 <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
+                <div className="badge badge-primary absolute py-3 text-[10px] right-2">Coming</div>
               </div>
             </Link>
           ))}
-        </nav>
+        </nav> */}
       </div>
     </div>
   );

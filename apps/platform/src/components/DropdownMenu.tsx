@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "wouter";
 import { useAuth } from "../context/AuthContext";
-import avatar from "../temp/images/campaigns/mulgakongz-collection.png";
+import avatar from "../assets/images/default-avatar.png";
 
 export const DropdownMenu: FC = () => {
   const { authUser, logout } = useAuth();

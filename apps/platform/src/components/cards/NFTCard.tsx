@@ -55,10 +55,22 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
       if (Number(sale.seller)) {
         setListed({
           status: true,
-          type: sale.type == "0" ? "fixed" : "auction",
+          type: sale.listingType == "0" ? "fixed" : "auction",
           price: web3Instance.utils.fromWei(sale.price, "ether"),
           seller: sale.seller,
         });
+      }
+      else {
+        await axios.delete(
+          `${process.env.NEXT_PUBLIC_API}/api/sales`,
+          {
+            data: {
+              network: networkName,
+              collection: nft.contract.address,
+              tokenId: nft.tokenId,
+            }
+          }
+        );
       }
       setLoading(false);
     }
@@ -72,6 +84,7 @@ export const NFTCard: FC<NFTCardProps> = ({ nft }) => {
     if (!isListed || !contracts?.marketplace) return;
     try {
       setProcessing(true);
+      setMessage("Listing down");
       const marketplace = contracts?.marketplace;
       const _isListed = await marketplace.methods.getListing(nft.contract.address, nft.tokenId).call();
       if (!Number(_isListed.seller)) {

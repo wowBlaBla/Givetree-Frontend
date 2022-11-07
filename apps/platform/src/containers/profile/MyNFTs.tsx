@@ -6,9 +6,10 @@ import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { useWallet } from "../../context/WalletContext";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { NFTCardSkeletonBundle } from "../../components/skeleton/SkeletonBundle";
+import { SwitchWallet } from "../../components/SwitchWallet";
 
 export const MyNFTs: FC = () => {
-  const { address, connectWallet, networkName } = useWallet();
+  const { address, networkName } = useWallet();
 
   const [nfts, setNFTs] = useState<any[]>([]);
   const [isEnd, setEnd] = useState<boolean>(false);
@@ -48,19 +49,7 @@ export const MyNFTs: FC = () => {
         <h1 className="font-bold text-black text-[24px] mb-2">My NFTs</h1>
         <div className="profile-section relative !mt-6 text-black">
           <span className="text-[20px] font-bold">NFTs</span>
-          <span>Connect your wallet to view your NFTs</span>
-          <div className="flex my-6">
-            <input
-              readOnly
-              value={address || ""}
-              type="text"
-              className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
-            />
-            <button
-              className="btn btn-primary btn-connect ml-2"
-              onClick={() => connectWallet("metamask")}
-            >Connect</button>
-          </div>
+          <SwitchWallet title="Connect your wallet to view your NFTs"/>
           {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {
               isLoading ? (
