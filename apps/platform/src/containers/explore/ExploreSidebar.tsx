@@ -16,11 +16,11 @@ const mainNavs: NavItem[] = [
     title: "NFTs",
     hasChild: true
   },
-  {
-    category: "collections",
-    title: "Collections",
-    hasChild: true
-  },
+  // {
+  //   category: "collections",
+  //   title: "Collections",
+  //   hasChild: true
+  // },
   {
     category: "charities",
     title: "Charities",
@@ -31,11 +31,11 @@ const mainNavs: NavItem[] = [
     title: "Creators",
     hasChild: true
   },
-  {
-    category: "mint-pages",
-    title: "Mint events",
-    hasChild: true
-  },
+  // {
+  //   category: "mint-pages",
+  //   title: "Mint events",
+  //   hasChild: true
+  // },
   // {
   //   category: "causes",
   //   title: "Causes",

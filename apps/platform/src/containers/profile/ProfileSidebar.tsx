@@ -161,17 +161,18 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
           {createNavs.map((item, idx) => (
             <Link
               className={`flex items-center p-2 transition-colors duration-300 transform`}
-              href={"/profile/" + item.category}
               key={idx}
+              href="#"
               onClick={() => setVisible && setVisible(false)}
             >
               <div
-                className={`flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
+                className={`relative flex items-center cursor-pointer px-4 py-2 border-b border-[#686868] ${
                   item.category == params?.category ? "bg-[#5A5A5A]" : ""
                 } ${idx === 0 ? "border-t" : ""}`}
               >
                 {item.icon && <item.icon />}
                 <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
+                <div className="badge badge-primary absolute py-3 text-[10px] right-2">Coming</div>
               </div>
             </Link>
           ))}
