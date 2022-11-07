@@ -150,7 +150,7 @@ export const MyDonations: FC = () => {
             >
               My wallets
             </div>
-            <div
+            {/* <div
               className={`tab ${editType === "received" ? "tab-active" : ""}`}
               onClick={() => setEditType("received")}
             >
@@ -161,7 +161,7 @@ export const MyDonations: FC = () => {
               onClick={() => setEditType("made")}
             >
               Donations made
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

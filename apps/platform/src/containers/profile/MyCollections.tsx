@@ -5,9 +5,10 @@ import { ETH_ALCHEMY } from "../../configs/constants";
 import { ItemEmptyBox } from "../../components/ItemEmptyBox";
 import { NFTCardSkeleton } from "../../components/skeleton/NFTCardSkeleton";
 import { useWallet } from "../../context/WalletContext";
+import { SwitchWallet } from "../../components/SwitchWallet";
 
 export const MyCollections: FC = () => {
-  const { address, contracts, connectWallet } = useWallet();
+  const { address, contracts } = useWallet();
 
   const [collections, setCollections] = useState<any[]>([]);
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -39,19 +40,7 @@ export const MyCollections: FC = () => {
         <h1 className="font-bold text-black text-[24px] mb-2">My collections</h1>
         <div className="profile-section relative !mt-6 text-black">
           <span className="text-[20px] font-bold">Collections</span>
-          <span>Connect your wallet to view your NFT collections</span>
-          <div className="flex my-6">
-            <input
-              readOnly
-              type="text"
-              value={address || ""}
-              className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
-            />
-            <button
-              className="btn btn-primary btn-connect ml-2"
-              onClick={() => connectWallet("metamask")}
-            >Connect</button>
-          </div>
+          <SwitchWallet title="Connect your wallet to view your NFT collections"/>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {
               !isLoading ? (
