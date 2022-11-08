@@ -17,7 +17,8 @@ export type NavItem = {
   children?: NavItem[];
   icon?: React.FC;
   hasChild?: boolean;
-}
+  coming?: boolean;
+};
 
 const defaultNavs: NavItem[] = [
   {
@@ -39,11 +40,13 @@ const defaultNavs: NavItem[] = [
     category: "collections",
     title: "My collections",
     icon: CollectionIcon,
+    coming: true,
   },
   {
     category: "listings",
     title: "My listings",
     icon: ListingIcon,
+    coming: true,
   },
   {
     category: "donations",
@@ -139,7 +142,7 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
             ) : (
               <Link
                 className={`flex items-center transition-colors duration-300 transform`}
-                href={item.category != "collections" ? "/profile/" + item.category : "#"}
+                href={item.coming ? "#" : "/profile/" + item.category}
                 key={`default-side-sub-${idx}`}
                 onClick={() => setVisible && setVisible(false)}
               >
@@ -150,7 +153,11 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
                 >
                   {item.icon && <item.icon />}
                   <span className={`mx-4 font-medium text-[#C4C4C4]`}>{item.title}</span>
-                  { item.category =="collections" ? <div className="badge badge-primary absolute py-3 text-[10px] right-2">Coming Soon</div> : "" }
+                  {item.coming ? (
+                    <div className="badge bg-[#BD00FF] border-0 text-white absolute py-3 text-[10px] right-2">
+                      Coming Soon
+                    </div>
+                  ) : null}
                 </div>
               </Link>
             )

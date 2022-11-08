@@ -259,12 +259,12 @@ export const Home: FC = () => {
                 >
                   Branding
                 </div>
-                <div
+                {/* <div
                   className={`tab ${editType === "settings" ? "tab-active" : ""}`}
                   onClick={() => setEditType("settings")}
                 >
                   Settings
-                </div>
+                </div> */}
               </div>
               <div className="hidden lg:flex">
                 <button
@@ -417,7 +417,7 @@ export const Home: FC = () => {
                       Charity Properties
                     </h1>
                     <div className="mt-4 profile-section border-base-content">
-                      <label className="mb-1 text-md text-white">
+                      {/* <label className="mb-1 text-md text-white">
                         When was the charity founded?
                       </label>
                       <input
@@ -471,7 +471,7 @@ export const Home: FC = () => {
                             },
                           })
                         }
-                      />
+                      /> */}
                       <label className="mb-1 text-md text-white">
                         What is your organisations business number?
                       </label>
