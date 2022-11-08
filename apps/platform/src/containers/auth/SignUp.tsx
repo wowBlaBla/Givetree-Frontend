@@ -8,11 +8,13 @@ import { AuthType, useAuth } from "../../context/AuthContext";
 import { useLocation } from "wouter";
 import { ConnectWallet } from "../../components/ConnectWallet";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
+import { toast } from "react-toastify";
 
 interface ErrorInterface {
   username?: string;
   email?: string;
   password?: string;
+  passwordConfirmation?: string;
 }
 
 interface InnerType {
@@ -32,7 +34,7 @@ export const SignUp: FC = () => {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [securePassword, setSecurePassword] = useState<string>("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
 
   const [recaptcha, setRecaptcha] = useState<boolean>(false);
   const [termAccept, setTermAccept] = useState(false);
@@ -46,20 +48,21 @@ export const SignUp: FC = () => {
   }, [authType]);
 
   React.useEffect(() => {
-    if (isAuth && step === 6) {
+    if (isAuth && step === 7) {
       setTimeout(() => setLocation("/profile/home"), 2000);
     }
   }, [isAuth, step, setLocation]);
 
   const nextStep = async () => {
-    if (step < 5) {
+    const nextStep = step + (authType === "email" && step === 1 ? 2 : 1)
+    if (nextStep < 7) {
       const ret = await invalidate();
       if (!ret) {
         return;
       }
-      setStep(step + 1);
+      setStep(nextStep);
     } else {
-      setStep(step + 1);
+      setStep(nextStep);
       if (authType) {
         if (authType === "wallet") {
           register({ address, username, network }, "wallet", false);
@@ -72,7 +75,7 @@ export const SignUp: FC = () => {
 
   const prevStep = () => {
     if (step > 0) {
-      setStep(step - 1);
+      setStep(step - (authType === "email" && step === 3 ? 2 : 1));
       if (step === 1) {
         setAuthType(undefined);
       }
@@ -82,18 +85,25 @@ export const SignUp: FC = () => {
   const invalidate = async () => {
     if (step === 1) {
       if (authType === "wallet") {
-        if (!address || !username) return false;
+        if (!address) return false;
       } else {
         const schema = yup.object().shape({
-          username: yup.string().required(),
-          email: yup.string().email().required(),
-          password: yup.string().min(8).required(),
+          username: yup.string().required("Username is required"),
+          email: yup.string().email("Email is invalid").required("Email is required"),
+          password: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .required("Password is required"),
+          passwordConfirmation: yup
+            .string()
+            .oneOf([password, null], "Passwords must match"),
         });
 
         const payload = {
           email,
           password,
           username,
+          passwordConfirmation,
         };
 
         const _errors: ErrorInterface = {};
@@ -104,15 +114,28 @@ export const SignUp: FC = () => {
           });
         });
 
-        if (Object.keys(_errors).length) return false;
+        if (Object.keys(_errors).length) {
+          if (_errors.username) {
+            toast.error(_errors.username);
+          } else if (_errors.email) {
+            toast.error(_errors.email);
+          } else if (_errors.password) {
+            toast.error(_errors.passwordConfirmation);
+          } else if (_errors.passwordConfirmation) {
+            toast.error(_errors.passwordConfirmation);
+          }
+          return false;
+        }
       }
     } else if (step === 2) {
-      if (!recaptcha) return false;
+      if (!username) return false;
     } else if (step === 3) {
-      return termAccept;
+      if (!recaptcha) return false;
     } else if (step === 4) {
-      return privacyAccept;
+      return termAccept;
     } else if (step === 5) {
+      return privacyAccept;
+    } else if (step === 6) {
       return cookieAccept;
     }
 
@@ -223,8 +246,8 @@ export const SignUp: FC = () => {
                     type="password"
                     className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
                     placeholder="Enter a secure password"
-                    value={securePassword}
-                    onChange={(e) => setSecurePassword(e.target.value)}
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
                   />
                   <span className="text-red-500 text-xs mt-1"></span>
                 </div>
@@ -235,7 +258,7 @@ export const SignUp: FC = () => {
               <span className="text-[#646464] font-bold text-md text-center mb-6">
                 Select your wallet
               </span>
-              <div className="input-form-group flex flex-col items-start mb-4 w-full text-black">
+              {/* <div className="input-form-group flex flex-col items-start mb-4 w-full text-black">
                 <label className="font-bold mb-2">Username</label>
                 <input
                   type="text"
@@ -244,11 +267,26 @@ export const SignUp: FC = () => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-              </div>
+              </div> */}
               <ConnectWallet />
             </>
           )
         ) : step === 2 ? (
+          <>
+            <span className="text-[#646464] font-bold text-md text-center mb-6">
+              Select username
+            </span>
+            <div className="input-form-group flex flex-col items-start mb-4 w-full text-black">
+              <input
+                type="text"
+                className={`outline-none focus:border-sky-400 mt-1 block w-full sm:text-sm border rounded-2xl-1 p-3 bg-transparent h-[60px] border-black`}
+                placeholder="Enter username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </>
+        ) : step === 3 ? (
           <>
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Complete google recatcpha
@@ -258,7 +296,7 @@ export const SignUp: FC = () => {
               onChange={onReCAPTCHAChange}
             />
           </>
-        ) : step === 3 ? (
+        ) : step === 4 ? (
           <>
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Terms of use
@@ -286,7 +324,7 @@ export const SignUp: FC = () => {
               onChanged={(st) => setTermAccept(st)}
             />
           </>
-        ) : step === 4 ? (
+        ) : step === 5 ? (
           <>
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Privacy policy
@@ -314,7 +352,7 @@ export const SignUp: FC = () => {
               onChanged={(st) => setPrivacyAccept(st)}
             />
           </>
-        ) : step === 5 ? (
+        ) : step === 6 ? (
           <>
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Cookies policy
@@ -368,7 +406,7 @@ export const SignUp: FC = () => {
             Back
           </button>
         )}
-        {step > 0 && step < 6 && (
+        {step > 0 && step < 7 && (
           <div className="flex w-full justify-between mt-8">
             <button
               className="btn rounded-2xl-1 h-[30px] min-h-0 bg-[#8C8D91] border-none capitalize font-bold text-white"

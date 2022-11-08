@@ -8,6 +8,8 @@ type SettingData = Partial<Pick<User, "email" | "userName">>;
 
 export const Settings: FC = () => {
   const { authUser, updateUserData } = useAuth();
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   const [settingData, setSettingData] = useState<SettingData>({});
   const [walletAddresses, setWalletAddresses] = useState<WalletAddressData[]>(
@@ -74,6 +76,30 @@ export const Settings: FC = () => {
     }
   };
 
+  const handleResetPassword = async () => {
+    if (!currentPassword || !newPassword) {
+      toast.error("Please input passwords");
+      return;
+    }
+
+    if (authUser) {
+      try {
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/api/users/reset-password`,
+          { currentPassword, newPassword },
+          {
+            headers: {
+              Authorization: `Bearer ${authUser.accessToken}`,
+            },
+          }
+        );
+        toast.success("Password updated successfully");
+      } catch (err: any) {
+        toast.error(err?.response?.data?.message || "Unknown error");
+      }
+    }
+  };
+
   const handleSaveWallet = (network: string) => async () => {
     const selectedAddress = walletAddresses.find(
       (w) => w.network === network.toLowerCase()
@@ -122,6 +148,28 @@ export const Settings: FC = () => {
               onClick={handleSaveEmail}
             >
               Save
+            </button>
+          </div>
+          <label className="mb-1 text-md text-white">Current Password</label>
+          <input
+            type="password"
+            className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
+            value={currentPassword || ""}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+          />
+          <label className="mb-1 text-md text-white">New Password</label>
+          <input
+            type="password"
+            className="input input-bordered border-base-content profile-item mt-1 block w-full outline-none"
+            value={newPassword || ""}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <div className="flex justify-end">
+            <button
+              className="btn btn-primary btn-connect w-[200px] lg:w-auto"
+              onClick={handleResetPassword}
+            >
+              Change Password
             </button>
           </div>
           <label className="mt-4 mb-1 text-md text-white">Wallet Address</label>

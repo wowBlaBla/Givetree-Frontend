@@ -106,7 +106,7 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
       >
         <div className="flex flex-col items-center max-w-layout-xl mx-auto md:flex-row">
           <div className="profile-avatar-container z-50 shadow-md">
-            <div className="relative w-full h-full">
+            <div className="flex items-center justify-center relative w-full h-full rounded-2xl-1 overflow-hidden">
               {isLoading ? (
                 <Skeleton className="w-full aspect-square" />
               ) : (
@@ -122,22 +122,23 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
       <div className="profile-info">
         <div className="max-w-layout-xl mx-auto flex flex-col">
           <span className="text-h text-black font-bold max-w-[680px] mb-2">
-            {isLoading ? <Skeleton /> : profile?.title ? profile?.title : "Untitled"}
+            {isLoading ? <Skeleton /> : profile?.title || "Untitled"}
           </span>
-          {/* <span className="text-black max-w-[680px] mb-1">
-            The Mulga The Artist is a funky cool artist from Sydney Australia who has a
-            unique style of art which is known all around the world and is very popular.
-          </span> */}
-          <span>
+          <span className="text-black max-w-[680px] mb-1">
+            {isLoading ? <Skeleton /> : profile?.bio || ""}
+          </span>
+          <div className="flex items-center text-[#3897F0]">
             <LocationMarkerIcon className="w-4 h-4 inline-block" />
-            {isLoading ? (
-              <Skeleton />
-            ) : profile?.location ? (
-              profile.location
-            ) : (
-              "World wide"
-            )}
-          </span>
+            <span>
+              {isLoading ? (
+                <Skeleton />
+              ) : profile?.location ? (
+                profile.location
+              ) : (
+                "World wide"
+              )}
+            </span>
+          </div>
           <div className="flex py-4">
             <button className="btn text-white w-[120px] h-[30px] min-h-0 bg-[#0075FF] border-0 rounded-2xl-1 mr-4">
               Donate
