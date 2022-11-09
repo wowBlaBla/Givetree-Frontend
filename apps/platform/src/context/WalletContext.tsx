@@ -22,7 +22,7 @@ import { useLocation } from "wouter";
 export const Network = ['Ethereum', 'Polygon', 'Solana'];
 
 export const NetworkName = {
-  '1': "ethereum", // mainnet 1
+  // '1': "ethereum", // mainnet 1
   '5': "ethereum", // mainnet 1
   '137': 'polygon',
   '80001': 'polygon', //
@@ -63,12 +63,14 @@ interface IWalletProvider {
   connectWallet: (wallet: Wallet, signType: SignType) => void;
   reset: () => void;
   signSwitchWallet: (provider:WalletProvider, walletAddress: string, signType:SignType) => void;
+  updateNetworkName: (networkName: string) => void;
 }
 
 const WalletContext = React.createContext<IWalletProvider>({
   connectWallet: () => {},
   reset: () => {},
   signSwitchWallet: () => {},
+  updateNetworkName: () => {},
 });
 const httpProvider = "https://eth-goerli.g.alchemy.com/v2/LYuZuxHIZHqSqR5qCsT768jCORqGoXqn";
 
@@ -183,7 +185,9 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   };
 
   const updateWeb3 = async(provider: WalletProvider) => {
+    const web3 = new Web3(provider);
     if (typeof provider != "string" && wallet) {
+      
       provider
       .on("accountsChanged", (accounts: Array<string>) => {
         connectWallet(wallet, "switch");
@@ -192,7 +196,6 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         if (+chainID == 5 || +chainID == 80001) connectWallet(wallet, "switch");
       })
     }
-    const web3 = new Web3(provider);
 
     const factoryContract: Contract = new web3.eth.Contract(
       factoryABI as AbiItem[] | AbiItem,
@@ -236,6 +239,39 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     // if (signType != "switch") return true;
     const web3 = new Web3(provider);
     
+    if (typeof provider != 'string') {
+      let networkID!:string;
+      if (NetworkName[provider.networkVersion as NetworkID] != networkName) {
+        try {
+          for (let key in NetworkName) {
+            if (NetworkName[key as NetworkID] == networkName) {
+              networkID = key as NetworkID;
+              // return;
+            }
+          }
+
+          await provider.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: web3.utils.toHex(networkID)}]
+          });
+        } catch(err: any) {
+          if (err?.code === 4902) {
+            await provider.request({
+              method: "wallet_addEthereumChain",
+              params: [
+                {
+                  chainName: "Polygon Mainnet",
+                  chainId: web3.utils.toHex(networkID),
+                  nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC"},
+                  rpcUrls: ["https://rpc-mumbai.maticvigil.com/"]
+                }
+              ]
+            })
+          }
+        }
+      }
+    }
+
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API}/api/nonces/${authUser?.user.id ? authUser.user.id : 0}`,
       {
@@ -317,6 +353,10 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     }
   }
 
+  const updateNetworkName = (_networkName: string) => {
+    setNetworkName(_networkName);
+  }
+
   return (
     <WalletContext.Provider
       value={{
@@ -329,7 +369,8 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         networkName,
         connectWallet,
         reset,
-        signSwitchWallet
+        signSwitchWallet,
+        updateNetworkName,
       }}
     >
       {children}

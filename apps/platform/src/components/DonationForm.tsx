@@ -68,15 +68,17 @@ interface Rate {
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 type DonationFormProps = {
-  charityAddress: string;
+  charityAddress: {
+    [key: string]: string;
+  };
   charityName: string;
   to: string | number;
 };
 
 export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName, to }) => {
 
-  const { authUser } = useAuth();
-  const { address: account, web3Instance, connectWallet } = useWallet();
+  const { authUser, isAuth } = useAuth();
+  const { address: account, web3Instance, connectWallet, updateNetworkName } = useWallet();
   const [page, setPage] = useState<string>();
   const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: ""});
   const [crypto, setCrypto] = useState<Currency>({ active: 0, value: ""});
@@ -126,8 +128,8 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
       toast.warn("Please connect your wallet");
       return;
     }
-    if (!charityAddress) {
-      toast.warn("This charity has no donation wallet");
+    if (!charityAddress[Tokens[crypto.active].crypto]) {
+      toast.warn(`This charity has no ${Tokens[crypto.active].crypto} donation wallet`);
       return;
     }
     try {
@@ -138,7 +140,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
       
       await web3Instance?.eth.sendTransaction({
         from: account,
-        to: charityAddress,
+        to: charityAddress[Tokens[crypto.active].crypto],
         value: value
       });
 
@@ -329,12 +331,13 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                       onClick={() => {
                         setPage(undefined);
                         setCrypto({ active: index, value: "" });
+                        updateNetworkName(token.crypto);
                       }}
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <token.icon />
                       <div className="ml-2 flex flex-col text-black">
-                        <span className="text-sm">{token.crypto}</span>
+                        <span className="text-sm capitalize">{token.crypto}</span>
                         <span className="text-sm">{token.currency}</span>
                       </div>
                     </div>
@@ -363,7 +366,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                       account ? (
                         <div className="bg-[#EEEBEB] rounded-[5px] p-2">
                           <span className="font-bold text-black">
-                            Wallet 1: <span className="text-[#00B412]">Connected</span>
+                            Wallet : <span className="text-[#00B412]">Connected</span>
                           </span>
                           <div className="flex justify-between mt-2">
                             <span className="w-[200px] break-all text-black">
@@ -372,7 +375,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                             <CheckIcon width={20} color={"#0021F5"} />
                           </div>
                         </div>
-                      ) : <span className="btn btn-info" onClick={() => connectWallet("metamask", "switch")}>Please connect your wallet</span>
+                      ) : <span className="btn btn-info" onClick={() => isAuth ? connectWallet("metamask", "switch") : null}>Please connect your wallet</span>
                     }
                   </div>
                   <button className="btn bg-[#EEEBEB] border border-[#D9D9D9] text-black capitalize font-bold text-md">

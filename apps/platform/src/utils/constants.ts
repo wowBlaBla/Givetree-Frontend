@@ -271,9 +271,9 @@ export const SocialLinks = [
 
 export const Tokens = [
   // { crypto: "Bitcoin", currency: "BTC", icon: BitCoinIcon, disabled: true },
-  { crypto: "Ethereum", currency: "ETH", icon: EthereumIcon, disabled: false },
+  { crypto: "ethereum", currency: "ETH", icon: EthereumIcon, disabled: false },
   // { crypto: "Solana", currency: "SOL", icon: SolanaIcon, disabled: true },
-  { crypto: "Polygon", currency: "MATIC", icon: PolygonIcon, disabled: false },
+  { crypto: "polygon", currency: "MATIC", icon: PolygonIcon, disabled: false },
   // { crypto: "Flow", currency: "FLOW", icon: FlowIcon, disabled: true },
   // { crypto: "Algorand", currency: "ALGO", icon: AlgorandIcon, disabled: true },
   // { crypto: "Avalanche", currency: "AVAX", icon: AvalancheIcon, disabled: true },
