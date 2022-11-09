@@ -51,12 +51,6 @@ export const SignUp: FC = () => {
     }
   }, [authType]);
 
-  // React.useEffect(() => {
-  //   if (selected && address && network) {
-  //     register({ address, network }, "wallet", false);
-  //   }
-  // }, [selected, address, network, register]);
-
   React.useEffect(() => {
     if (prevAuthLoading === true && authLoading === false) {
       setSelected(false);
@@ -69,17 +63,19 @@ export const SignUp: FC = () => {
     }
   }, [isAuth, step, authType, setLocation]);
 
+  React.useEffect(() => {
+    if (step === 6) {
+      register({ username, email, password }, "email", false);
+    }
+  }, [step, username, email, password]);
+
   const nextStep = async () => {
-    const nextStep = step + 1;
-    if (nextStep < 6) {
+    if (step < 6) {
       const ret = await invalidate();
       if (!ret) {
         return;
       }
-      setStep(nextStep);
-    } else {
-      setStep(nextStep);
-      register({ username, email, password }, "email", false);
+      setStep(step + 1);
     }
   };
 
@@ -138,14 +134,12 @@ export const SignUp: FC = () => {
         }
       }
     } else if (step === 2) {
-      if (!username) return false;
-    } else if (step === 3) {
       if (!recaptcha) return false;
-    } else if (step === 4) {
+    } else if (step === 3) {
       return termAccept;
-    } else if (step === 5) {
+    } else if (step === 4) {
       return privacyAccept;
-    } else if (step === 6) {
+    } else if (step === 5) {
       return cookieAccept;
     }
 
@@ -154,15 +148,16 @@ export const SignUp: FC = () => {
 
   const onReCAPTCHAChange = async (token: string | null) => {
     if (token) {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`
-      );
-      if (res.data.success) {
+      // const res = await axios.post(
+      //   `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`
+      // );
+      // if (res.data.success) {
         setRecaptcha(true);
-        return;
-      }
+        // return;
+      // }
+    } else {
+      setRecaptcha(false);
     }
-    setRecaptcha(false);
   };
 
   return (
