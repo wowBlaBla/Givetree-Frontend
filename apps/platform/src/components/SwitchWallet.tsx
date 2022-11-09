@@ -6,7 +6,8 @@ interface Props {
 }
 
 export const SwitchWallet:FC<Props> = ({ title }) => {
-    const { address, connectWallet } = useWallet();
+    const { address, connectWallet, reset } = useWallet();
+
     return (
         <>
             <span>{title}</span>
@@ -19,13 +20,13 @@ export const SwitchWallet:FC<Props> = ({ title }) => {
                 />
                 <button
                     className="btn btn-primary btn-connect ml-2"
-                    onClick={() => connectWallet("metamask")}
+                    onClick={() => connectWallet("metamask", "switch")}
                 >Connect</button>
                 {
                     address ? (
                         <button
                             className="btn btn-error btn-connect ml-2"
-                            onClick={() => connectWallet("metamask")}
+                            onClick={reset}
                         >Disconnect</button>
                     ) : ""
                 }

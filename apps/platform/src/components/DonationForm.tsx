@@ -372,7 +372,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                             <CheckIcon width={20} color={"#0021F5"} />
                           </div>
                         </div>
-                      ) : <span className="btn btn-info" onClick={() => connectWallet("metamask")}>Please connect your wallet</span>
+                      ) : <span className="btn btn-info" onClick={() => connectWallet("metamask", "switch")}>Please connect your wallet</span>
                     }
                   </div>
                   <button className="btn bg-[#EEEBEB] border border-[#D9D9D9] text-black capitalize font-bold text-md">

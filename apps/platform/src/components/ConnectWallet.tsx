@@ -7,6 +7,7 @@ import { WalletConnectIcon } from "../components/icons/WalletConnectIcon";
 import { CoinbaseIcon } from "../components/icons/CoinbaseIcon";
 import { PhantomIcon } from "../components/icons/PhantomIcon";
 import { LoadingIcon } from "./icons/LoadingIcon";
+import { useRoute } from "wouter";
 
 interface ConnectWalletProps {
   callback?: () => void;
@@ -15,11 +16,11 @@ interface ConnectWalletProps {
 
 export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) => {
   const { loading, connectWallet } = useWallet();
-
+  const matchLogin = useRoute('/login');
+  const matchRegister = useRoute('/register');
   // const [activeTabWallet, setActiveTabWallet] = useState<number>(0);
-
   const handleWallet = (wallet: Wallet) => () => {
-    connectWallet(wallet);
+    connectWallet(wallet, matchLogin ? "signin" : matchRegister ? "register" : "switch");
     callback && callback();
   };
 

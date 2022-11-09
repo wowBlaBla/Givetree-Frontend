@@ -40,7 +40,10 @@ export const MyNFTs: FC = () => {
       setEnd(false);
       fetchNFTs();
     }
-    else setEnd(true);
+    else {
+      setNFTs([]);
+      setEnd(true);
+    }
   }, [address]);
 
   return (

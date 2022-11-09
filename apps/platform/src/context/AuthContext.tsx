@@ -6,6 +6,7 @@ import { useLocation } from "wouter";
 import { LoadingContainer } from "../components/LoadingContainer";
 
 import { CharityProperties } from "../typed/charity";
+import { useWallet } from "./WalletContext";
 
 export type AuthRequestBody = {
   username?: string;
@@ -81,6 +82,7 @@ const AuthContext = React.createContext<IAuthProvider>({
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   const [, setLocation] = useLocation();
+  const { reset } = useWallet();
 
   const [initialized, setInitialized] = React.useState(false);
   const [isAuth, setIsAuth] = React.useState(false);
@@ -105,6 +107,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
 
           localStorage.setItem("access_token", res.data.accessToken);
           localStorage.setItem("refresh_token", res.data.refreshToken);
+          reset();
           setAuthUser(res.data);
           setIsAuth(true);
           if (redirect) {
@@ -144,6 +147,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           setAuthUser(res.data);
           setIsAuth(true);
           setLocation("/profile/home");
+          reset();
         })
         .catch((err) => {
           if (err?.response?.data?.message) {
