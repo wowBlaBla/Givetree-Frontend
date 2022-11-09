@@ -14,7 +14,7 @@ const mainNavs: NavItem[] = [
   {
     category: "nfts",
     title: "NFTs",
-    hasChild: true
+    hasChild: true,
   },
   // {
   //   category: "collections",
@@ -24,12 +24,12 @@ const mainNavs: NavItem[] = [
   {
     category: "charities",
     title: "Charities",
-    hasChild: true
+    hasChild: true,
   },
   {
     category: "creators",
     title: "Creators",
-    hasChild: true
+    hasChild: true,
   },
   // {
   //   category: "mint-pages",
@@ -47,8 +47,35 @@ const mainNavs: NavItem[] = [
   //   hasChild: true
   // },
   {
-    category: "about",
+    category: "about-welcome",
     title: "About GiveTree",
+    hasChild: true,
+    children: [
+      {
+        category: "about-welcome",
+        title: "Welcome",
+      },
+      {
+        category: "about-faqs",
+        title: "FAQs",
+      },
+      {
+        category: "about-socials",
+        title: "Socials",
+      },
+      {
+        category: "about-contact-us",
+        title: "Contact us",
+      },
+      {
+        category: "about-terms-of-us",
+        title: "Terms of use",
+      },
+      {
+        category: "about-privacy-policy",
+        title: "Privacy policy",
+      },
+    ],
   },
 ];
 
@@ -99,18 +126,49 @@ export const ExploreSideBar: FC<ExploreSideBarProps> = ({ visible, setVisible })
               className={`flex transition-colors duration-300 transform`}
               href={"/explore/" + item.category}
               key={`main-side-item-${idx}`}
-              onClick={() => (!idx ? null : setMainNav(item))}
+              onClick={() => (idx && setMainNav(item))}
             >
               <div
                 className={`flex justify-between items-center cursor-pointer px-6 py-3 border-b border-[#686868] ${
-                  item.category == params?.category
-                    ? "text-[#00EF8B]"
-                    : "text-[#C4C4C4]"
+                  item.category == params?.category ? "text-[#00EF8B]" : "text-[#C4C4C4]"
                 }`}
               >
                 {item.icon && <item.icon />}
                 <span className={`font-medium text-inherit`}>{item.title}</span>
                 {item.hasChild ? (
+                  <svg
+                    width="10"
+                    height="19"
+                    viewBox="0 0 10 19"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M0.793103 18.4484L9.62051 9.62066L9.99981 9.2241L9.62049 8.82756L0.79273 0.000152806L-0.000357427 0.793272L8.43085 9.22414L-1.60207e-05 17.6553L0.793103 18.4484Z"
+                      fill="#F3F3F3"
+                    />
+                  </svg>
+                ) : (
+                  ""
+                )}
+              </div>
+            </Link>
+          ))
+        ) : mainNav.children?.length ? (
+          mainNav.children.map((subItem, idx) => (
+            <Link
+              className={`flex transition-colors duration-300 transform`}
+              href={"/explore/" + subItem.category}
+              key={`sub-side-item-${idx}`}
+            >
+              <div
+                className={`flex justify-between items-center cursor-pointer px-6 py-3 border-b border-[#686868] ${
+                  subItem.category == params?.category ? "text-[#00EF8B]" : "text-[#C4C4C4]"
+                }`}
+              >
+                {subItem.icon && <subItem.icon />}
+                <span className={`font-medium text-inherit`}>{subItem.title}</span>
+                {subItem.hasChild ? (
                   <svg
                     width="10"
                     height="19"
