@@ -10,6 +10,7 @@ import { ConnectWallet } from "../../components/ConnectWallet";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 import { toast } from "react-toastify";
 import { usePrevious } from "../../hooks/usePrevious";
+import axios from "axios";
 
 interface ErrorInterface {
   username?: string;
@@ -151,12 +152,17 @@ export const SignUp: FC = () => {
     return true;
   };
 
-  const onReCAPTCHAChange = (token: string | null) => {
+  const onReCAPTCHAChange = async (token: string | null) => {
     if (token) {
-      setRecaptcha(true);
-    } else {
-      setRecaptcha(false);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`
+      );
+      if (res.data.success) {
+        setRecaptcha(true);
+        return;
+      }
     }
+    setRecaptcha(false);
   };
 
   return (
@@ -255,7 +261,7 @@ export const SignUp: FC = () => {
                   Complete google recatcpha
                 </span>
                 <ReCAPTCHA
-                  sitekey="6Lf8lcYiAAAAAGFPnO2gyrr1AtQd8OsIieLsBxE8"
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCAH_ID || ""}
                   onChange={onReCAPTCHAChange}
                 />
               </>
