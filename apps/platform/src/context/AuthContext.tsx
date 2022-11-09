@@ -67,8 +67,8 @@ interface IAuthProvider {
   initialized: boolean;
   authUser?: AUTH_USER;
   updateUserData: (data: Partial<User>) => void;
-  register: (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => void;
-  login: (body: AuthRequestBody, authType: AuthType) => void;
+  register: (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => Promise<boolean>;
+  login: (body: AuthRequestBody, authType: AuthType) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -76,8 +76,8 @@ const AuthContext = React.createContext<IAuthProvider>({
   loading: false,
   isAuth: false,
   initialized: false,
-  register: () => {},
-  login: () => {},
+  register: () => { return new Promise((resolve) => resolve(false)); },
+  login: () => { return new Promise((resolve) => resolve(false)); },
   logout: () => {},
   updateUserData: () => {},
 });
@@ -92,8 +92,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
   const [loading, setLoading] = React.useState(false);
   const [authUser, setAuthUser] = React.useState<AUTH_USER>();
 
-  const register = React.useCallback(
-    (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => {
+  const register = 
+    async(body: AuthRequestBody, authType: AuthType, redirect?: boolean):Promise<boolean> => {
       const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
         authType === "email" ? "register-email" : "register-wallet"
       }`;
@@ -103,34 +103,32 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
       }
 
       setLoading(true);
-      axios
-        .post(api, body)
-        .then((res: any) => {
-          toast.success("You have registered successfully!");
+      const status = await axios
+      .post(api, body)
+      .then((res: any) => {
+        toast.success("You have registered successfully!");
 
-          localStorage.setItem("access_token", res.data.accessToken);
-          localStorage.setItem("refresh_token", res.data.refreshToken);
-          reset();
-          setAuthUser(res.data);
-          setIsAuth(true);
-          if (redirect) {
-            setLocation("/profile/home");
-          }
-        })
-        .catch((err) => {
-          if (err?.response?.data?.message) {
-            toast.error(err?.response?.data?.message);
-          }
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    },
-    [setLocation]
-  );
+        localStorage.setItem("access_token", res.data.accessToken);
+        localStorage.setItem("refresh_token", res.data.refreshToken);
+        reset();
+        setAuthUser(res.data);
+        setIsAuth(true);
+        setLoading(false);
+        return true;
+      })
+      .catch((err) => {
+        console.log("cache-errr", err);
+        if (err?.response?.data?.message) {
+          toast.error(err?.response?.data?.message);
+        }
+        setLoading(false);
+        return false;
+      });
+      return status;
+    };
 
-  const login = React.useCallback(
-    (body: AuthRequestBody, authType: AuthType) => {
+  const login =
+    async(body: AuthRequestBody, authType: AuthType):Promise<boolean> => {
       const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
         authType === "email" ? "login-email" : "login-wallet"
       }`;
@@ -140,7 +138,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
       }
       
       setLoading(true);
-      axios
+      return await axios
         .post(api, body)
         .then((res: any) => {
           toast.success("You have logined successfully!");
@@ -149,20 +147,17 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           localStorage.setItem("refresh_token", res.data.refreshToken);
           setAuthUser(res.data);
           setIsAuth(true);
-          setLocation("/profile/home");
-          reset();
+          setLoading(false);
+          return true;
         })
         .catch((err) => {
           if (err?.response?.data?.message) {
             toast.error(err?.response?.data?.message);
           }
-        })
-        .finally(() => {
           setLoading(false);
+          return false;
         });
-    },
-    [setLocation]
-  );
+  }
 
   const logout = React.useCallback(() => {
     localStorage.clear();
