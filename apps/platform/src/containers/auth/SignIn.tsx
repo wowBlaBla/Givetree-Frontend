@@ -6,7 +6,7 @@ import { ConnectWallet } from "../../components/ConnectWallet";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
 
 export const SignIn: FC = () => {
-  const { address, networkName: network } = useWallet();
+  // const { address, networkName: network } = useWallet();
   const { loading: authLoading, login } = useAuth();
   const prevAuthLoading = usePrevious(authLoading);
 
@@ -16,11 +16,11 @@ export const SignIn: FC = () => {
   const [emailorUserName, setEmailOrUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  React.useEffect(() => {
-    if (selected && address && network) {
-      login({ address, network }, "wallet");
-    }
-  }, [selected, address, network, login]);
+  // React.useEffect(() => {
+  //   if (selected && address && network) {
+  //     login({ address, network }, "wallet");
+  //   }
+  // }, [selected, address, network, login]);
 
   React.useEffect(() => {
     if (prevAuthLoading === true && authLoading === false) {

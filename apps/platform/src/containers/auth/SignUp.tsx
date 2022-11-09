@@ -51,11 +51,11 @@ export const SignUp: FC = () => {
     }
   }, [authType]);
 
-  React.useEffect(() => {
-    if (selected && address && network) {
-      register({ address, network }, "wallet", false);
-    }
-  }, [selected, address, network, register]);
+  // React.useEffect(() => {
+  //   if (selected && address && network) {
+  //     register({ address, network }, "wallet", false);
+  //   }
+  // }, [selected, address, network, register]);
 
   React.useEffect(() => {
     if (prevAuthLoading === true && authLoading === false) {
