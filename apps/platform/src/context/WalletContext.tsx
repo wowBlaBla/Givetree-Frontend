@@ -17,6 +17,7 @@ import paymentTokenABI from "../assets/jsons/abi/erc20.json";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "./AuthContext";
+import { useLocation } from "wouter";
 
 export const Network = ['Ethereum', 'Polygon', 'Solana'];
 
@@ -82,6 +83,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   const [contracts, setContracts] = useState<IContractSet>();
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     updateWeb3(httpProvider);
@@ -121,7 +123,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
             method: "eth_requestAccounts",
           });
           const verified = await signSwitchWallet(ethereum, accounts[0], signType);
-          if (verified) {
+          if (verified && signType == "switch") {
             setAddress(accounts[0]);
             setWallet("metamask");
             updateWeb3(provider);
@@ -268,6 +270,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
           else if (result?.error) resolve(false);
           else {
             const networkID = await web3.eth.getChainId();
+            let completed:boolean;
             switch(signType) {
               case "switch":
                 await axios.post(
@@ -280,22 +283,26 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
                 ).then(verified => resolve(verified.data)).catch(error => reject(error));
                 break;
               case "register":
-                register({
+                completed = await register({
                   address: walletAddress,
                   network: NetworkName[networkID.toString() as NetworkID ],
                   signType,
                   nonce: res.data.nonce,
                   signature: result?.result
                 }, "wallet", false);
+                resolve(completed);
+                if (completed) setLocation("/profile/home");
                 break;
               case "signin":
-                login({
+                completed = await login({
                   address: walletAddress,
                   network: NetworkName[networkID.toString() as NetworkID ],
                   signType,
                   nonce: res.data.nonce,
                   signature: result?.result
                 }, "wallet");
+                resolve(completed);
+                if (completed) setLocation("/profile/home");
                 break;
             }
           }
