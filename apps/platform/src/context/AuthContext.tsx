@@ -15,6 +15,9 @@ export type AuthRequestBody = {
   address?: string;
   network?: string;
   type?: string;
+  nonce?: string;
+  signature?: string;
+  signType?: string;
 };
 
 export type AuthType = "email" | "wallet";

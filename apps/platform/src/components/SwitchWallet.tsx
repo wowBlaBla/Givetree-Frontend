@@ -18,17 +18,19 @@ export const SwitchWallet:FC<Props> = ({ title }) => {
                     type="text"
                     className="input input-bordered block w-full outline-none bg-white border-[#5B626C] max-w-[400px]"
                 />
-                <button
-                    className="btn btn-primary btn-connect ml-2"
-                    onClick={() => connectWallet("metamask", "switch")}
-                >Connect</button>
+                
                 {
                     address ? (
                         <button
                             className="btn btn-error btn-connect ml-2"
                             onClick={reset}
                         >Disconnect</button>
-                    ) : ""
+                    ) : (
+                        <button
+                            className="btn btn-primary btn-connect ml-2"
+                            onClick={() => connectWallet("metamask", "switch")}
+                        >Connect</button>
+                    )
                 }
             </div>
         </>

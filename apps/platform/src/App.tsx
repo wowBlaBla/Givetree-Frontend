@@ -9,13 +9,13 @@ import { ExploreProvider } from "./context/ExploreContext";
 const App = () => {
   return (
     <AppContextProvider>
-      <WalletProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <WalletProvider>
           <ExploreProvider>
             <AppContainer />
           </ExploreProvider>
-        </AuthProvider>
-      </WalletProvider>
+          </WalletProvider>
+      </AuthProvider>
     </AppContextProvider>
   );
 };

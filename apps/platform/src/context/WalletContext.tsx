@@ -16,6 +16,7 @@ import marketplaceABI from "../assets/jsons/abi/marketplace.json";
 import paymentTokenABI from "../assets/jsons/abi/erc20.json";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useAuth } from "./AuthContext";
 
 export const Network = ['Ethereum', 'Polygon', 'Solana'];
 
@@ -72,6 +73,7 @@ const httpProvider = "https://eth-goerli.g.alchemy.com/v2/LYuZuxHIZHqSqR5qCsT768
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
+  const { authUser, register, login } = useAuth();
   const [address, setAddress] = useState<string>();
   const [networkName, setNetworkName] = useState<string>();
   const [wallet, setWallet] = useState<Wallet>();
@@ -179,6 +181,15 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   };
 
   const updateWeb3 = async(provider: WalletProvider) => {
+    if (typeof provider != "string" && wallet) {
+      provider
+      .on("accountsChanged", (accounts: Array<string>) => {
+        connectWallet(wallet, "switch");
+      })
+      .on("chainChanged", (chainID: string) => {
+        if (+chainID == 5 || +chainID == 80001) connectWallet(wallet, "switch");
+      })
+    }
     const web3 = new Web3(provider);
 
     const factoryContract: Contract = new web3.eth.Contract(
@@ -220,21 +231,14 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   };
 
   const signSwitchWallet = async(provider: WalletProvider, walletAddress: string, signType: SignType) => {
-    if (signType != "switch") return true;
+    // if (signType != "switch") return true;
     const web3 = new Web3(provider);
     
-    const access_token = localStorage.getItem("access_token");
-
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API}/api/nonces`,
+      `${process.env.NEXT_PUBLIC_API}/api/nonces/${authUser?.user.id ? authUser.user.id : 0}`,
       {
         walletAddress: walletAddress,
         signType,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${access_token}`
-        }
       }
     );
 
@@ -263,20 +267,37 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
           if (err) resolve(false);
           else if (result?.error) resolve(false);
           else {
-            const verified = await axios.post(
-              `${process.env.NEXT_PUBLIC_API}/api/nonces/validate-signature`,
-              {
-                signature: result?.result,
-                walletAddress,
-                signType: "switch"
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${access_token}`
-                }
-              }
-            );
-            resolve(verified.data);
+            const networkID = await web3.eth.getChainId();
+            switch(signType) {
+              case "switch":
+                await axios.post(
+                  `${process.env.NEXT_PUBLIC_API}/api/nonces/validate-signature/${authUser?.user.id ? authUser.user.id : 0}`,
+                  {
+                    signature: result?.result,
+                    walletAddress,
+                    signType: signType
+                  }
+                ).then(verified => resolve(verified.data)).catch(error => reject(error));
+                break;
+              case "register":
+                register({
+                  address: walletAddress,
+                  network: NetworkName[networkID.toString() as NetworkID ],
+                  signType,
+                  nonce: res.data.nonce,
+                  signature: result?.result
+                }, "wallet", false);
+                break;
+              case "signin":
+                login({
+                  address: walletAddress,
+                  network: NetworkName[networkID.toString() as NetworkID ],
+                  signType,
+                  nonce: res.data.nonce,
+                  signature: result?.result
+                }, "wallet");
+                break;
+            }
           }
         });
       });
