@@ -310,7 +310,9 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
       });
     }
     else {
-      toast.warn("Please try with other wallet");
+      if (signType == 'register') toast.error("Wallet address already exist.");
+      else if (signType == 'signin') toast.error("User doesn't exist.");
+      else if (signType == 'switch') toast.warn("This is not donation wallet.");
       return false;
     }
   }
