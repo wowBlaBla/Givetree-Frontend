@@ -10,6 +10,12 @@ import { Causes } from "./Causes";
 import { Leaderboards } from "./Leaderboards";
 import { MintPages } from "./MintPages";
 import { AppFooter } from "../../components/AppFooter";
+import { WelcomePage } from "./about/Welcome";
+import { FAQsPage } from "./about/FAQs";
+import { SocialsPage } from "./about/Socials";
+import { ContactUsPage } from "./about/ContactUs";
+import { TermsOfUsePage } from "./about/TermsOfUse";
+import { PrivacyPolicyPage } from "./about/PrivacyPolicy";
 
 const ExplorePortal: FC = () => {
   return (
@@ -41,8 +47,23 @@ const ExplorePortal: FC = () => {
         <Route path="/explore/mint-pages">
           <MintPages />
         </Route>
-        <Route path="/explore/about">
-          <Redirect to="/about/welcome"/>
+        <Route path="/explore/about-welcome">
+          <WelcomePage />
+        </Route>
+        <Route path="/explore/about-faqs">
+          <FAQsPage />
+        </Route>
+        <Route path="/explore/about-socials">
+          <SocialsPage />
+        </Route>
+        <Route path="/explore/about-contact-us">
+          <ContactUsPage />
+        </Route>
+        <Route path="/explore/about-terms-of-us">
+          <TermsOfUsePage />
+        </Route>
+        <Route path="/explore/about-privacy-policy">
+          <PrivacyPolicyPage />
         </Route>
       </div>
     </div>

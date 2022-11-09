@@ -63,7 +63,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
           </div>
           {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
         </button>
-        <button
+        {/* <button
           className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
           onClick={handleWallet("walletconnect")}
           disabled={loading}
@@ -84,7 +84,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
             <span>Coinbase Wallet</span>
           </div>
           {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
-        </button>
+        </button> */}
       </div>
       {/* <div
         className={cx("solana-wallet w-full flex-col gap-3 py-4", {
@@ -92,7 +92,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
           hidden: activeTabWallet < 2,
         })}
       > */}
-      <button
+      {/* <button
         className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
         onClick={handleWallet("walletconnect")}
         disabled={loading}
@@ -102,7 +102,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
           <span>Phantom</span>
         </div>
         {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
-      </button>
+      </button> */}
       {/* </div> */}
     </div>
   );

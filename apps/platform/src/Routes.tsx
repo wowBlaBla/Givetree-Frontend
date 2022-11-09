@@ -85,9 +85,9 @@ const Routes = () => {
                   );
                 }}
               </Route>
-              <Route path={PlatformRoute.About}>
+              {/* <Route path={PlatformRoute.About}>
                 <AboutPortal />
-              </Route>
+              </Route> */}
 
               <Route path={PlatformRoute.AssetDetails}>
                 <SalesContainer/>
