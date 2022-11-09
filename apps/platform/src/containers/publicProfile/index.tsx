@@ -27,6 +27,10 @@ interface ParamProps extends DefaultParams {
   name: string;
 }
 
+interface Donations {
+  [key: string]: string;
+}
+
 const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
   previewProfile,
 }) => {
@@ -38,6 +42,7 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
   const [_, params] = useRoute<ParamProps, string>(PlatformRoute.PublicProfileDetails);
   const [profile, setProfile] = useState<Partial<User>>();
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [donations, setDonations] = useState<Donations>({});
 
   React.useEffect(() => {
     if (type === "charity") {
@@ -66,7 +71,19 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
             `${process.env.NEXT_PUBLIC_API}/api/users?type=${params?.category}&username=${params?.name}&relations=walletAddresses`
           )
           .then((res) => {
-            if (res.data.length) setProfile(res.data[0]);
+            if (res.data.length) {
+              setProfile(res.data[0]);
+              let _donations:Donations = {};
+              res.data[0].walletAddresses.map((item:any) => {
+                if (item.type == 'donation') {
+                  _donations = {
+                    ..._donations,
+                    [item.network]: item.address
+                  }
+                }
+              });
+              setDonations(_donations);
+            }
             else setLocation("/");
           })
           .catch((err) => {
@@ -74,7 +91,7 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
           });
       }
     } catch (err) {
-      setLocation("/");
+      if (err) setLocation("/");
     }
     setLoading(false);
   };
@@ -463,7 +480,7 @@ const PublicProfileContainer: FC<{ previewProfile?: Partial<User> }> = ({
               {authUser?.user.id != profile?.id && !previewProfile && (
                 <DonationForm
                   charityAddress={
-                    profile?.walletAddresses ? profile.walletAddresses[0].address : ""
+                    donations
                   }
                   charityName={profile?.title ? profile.title : ""}
                   to={profile?.id ? profile.id : ""}

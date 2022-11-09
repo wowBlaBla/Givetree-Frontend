@@ -114,6 +114,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         setAuthUser(res.data);
         setIsAuth(true);
         setLoading(false);
+        if (authType === "email") setLocation("/profile/home");
         return true;
       })
       .catch((err) => {
@@ -148,6 +149,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           setAuthUser(res.data);
           setIsAuth(true);
           setLoading(false);
+          if (authType === "email") setLocation("/profile/home");
           return true;
         })
         .catch((err) => {
