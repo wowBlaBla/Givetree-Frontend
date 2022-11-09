@@ -8,6 +8,7 @@ import { CoinbaseIcon } from "../components/icons/CoinbaseIcon";
 import { PhantomIcon } from "../components/icons/PhantomIcon";
 import { LoadingIcon } from "./icons/LoadingIcon";
 import { useRoute } from "wouter";
+import { LoadingContainer } from "./LoadingContainer";
 
 interface ConnectWalletProps {
   callback?: () => void;
@@ -53,11 +54,7 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
       </div> */}
       <div className={cx("ethereum-wallet w-full flex-col flex")}>
         <button
-          className={cx("cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center",
-            {
-              "bg-slate-400": loading
-            }
-          )}
+          className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
           onClick={handleWallet("metamask")}
           disabled={loading}
         >
@@ -108,6 +105,9 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
         {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
       </button> */}
       {/* </div> */}
+      {
+        loading ? <LoadingContainer message={matchLogin ? "Signing in . . ." : matchRegister ? "Sign up . . ." : "Switching wallet . . ."}/> : ""
+      }
     </div>
   );
 };
