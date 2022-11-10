@@ -236,9 +236,7 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   };
 
   const signSwitchWallet = async(provider: WalletProvider, walletAddress: string, signType: SignType) => {
-    // if (signType != "switch") return true;
     const web3 = new Web3(provider);
-    
     // if (typeof provider != 'string') {
     //   let networkID!:string;
     //   if (NetworkName[provider.networkVersion as NetworkID] != networkName) {
@@ -271,83 +269,70 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     //     }
     //   }
     // }
+    let nonce;
+    const networkID = await web3.eth.getChainId();
+    const type = (signType == 'signin' || signType == "register") ? "auth" : "donation";
+    const network = NetworkName[networkID.toString() as NetworkID ];
 
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API}/api/nonces/${authUser?.user.id ? authUser.user.id : 0}`,
+      `${process.env.NEXT_PUBLIC_API}/api/auth/check-wallet`,
       {
-        walletAddress: walletAddress,
-        signType,
+        address: walletAddress,
+        network,
+        type
       }
     );
+    
+    nonce = res.data.nonce;
+    if (signType == "register") {
+      if (nonce) nonce = undefined;
+      else nonce = Math.floor(Math.random() * 1000000);
+    }
 
-    if (res.data.nonce) {
-      const message = `Welcome to GiveTree!\n`+
-      `Click to sign in and accept the GiveTree Terms of Service:\n`+
-      `This request will not trigger a blockchain transaction or cost any gas fees.\n`+
-      `Wallet address:\n`+
-      `${walletAddress}\n`+
-      `Nonce:\n`+
-      `${res.data.nonce}`;
-      const msgParams = [
-        {
-          type: "string",
-          name: "Message",
-          value: message
-        }
-      ];
-      const _provider = web3?.currentProvider as AbstractProvider;
-      return new Promise((resolve, reject) => {
-        _provider.sendAsync({
-          method: "eth_signTypedData",
-          params: [msgParams, walletAddress],
-          jsonrpc: "2.0",
-        }, async(err, result) => {
-          if (err) resolve(false);
-          else if (result?.error) resolve(false);
-          else {
-            const networkID = await web3.eth.getChainId();
-            let completed:boolean;
-            switch(signType) {
-              case "switch":
-                await axios.post(
-                  `${process.env.NEXT_PUBLIC_API}/api/nonces/validate-signature/${authUser?.user.id ? authUser.user.id : 0}`,
-                  {
-                    signature: result?.result,
-                    walletAddress,
-                    signType: signType
-                  }
-                ).then(verified => resolve(verified.data)).catch(error => reject(error));
-                break;
-              case "register":
-                completed = await register({
-                  address: walletAddress,
-                  network: NetworkName[networkID.toString() as NetworkID ],
-                  signType,
-                  nonce: res.data.nonce,
-                  signature: result?.result
-                }, "wallet", false);
-                resolve(completed);
-                if (completed) setLocation("/profile/home");
-                break;
-              case "signin":
-                completed = await login({
-                  address: walletAddress,
-                  network: NetworkName[networkID.toString() as NetworkID ],
-                  signType,
-                  nonce: res.data.nonce,
-                  signature: result?.result
-                }, "wallet");
-                resolve(completed);
-                if (completed) setLocation("/profile/home");
-                break;
+    if (nonce) {
+      const message = `I am signing my one-time nonce: ${nonce}`;
+      const signature = await web3.eth.personal.sign(message, walletAddress, "givetree-signs");
+      let completed:boolean;
+      switch(signType) {
+        case "switch":
+          await axios.post(
+            `${process.env.NEXT_PUBLIC_API}/api/auth/validate-donation-wallet/${authUser?.user.id ? authUser.user.id : 0}`,
+            {
+              address: walletAddress,
+              network,
+              signature
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${authUser?.accessToken}`
+              }
             }
-          }
-        });
-      });
+          );
+          break;
+        case "register":
+          completed = await register({
+            address: walletAddress,
+            network: NetworkName[networkID.toString() as NetworkID ],
+            signType,
+            nonce: nonce,
+            signature: signature
+          }, "wallet", false);
+          if (completed) setLocation("/profile/home");
+          break;
+        case "signin":
+          completed = await login({
+            address: walletAddress,
+            network: NetworkName[networkID.toString() as NetworkID ],
+            signType,
+            signature: signature
+          }, "wallet");
+          if (completed) setLocation("/profile/home");
+          break;
+      }
     }
     else {
       if (signType == 'register') toast.error("Wallet address already exist.");
-      else if (signType == 'signin') toast.error("User doesn't exist.");
+      if (signType == 'signin') toast.error("User doesn't exist.");
       else if (signType == 'switch') toast.warn("This is not donation wallet.");
       return false;
     }
