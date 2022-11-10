@@ -292,11 +292,11 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     if (nonce) {
       const message = `I am signing my one-time nonce: ${nonce}`;
       const signature = await web3.eth.personal.sign(message, walletAddress, "givetree-signs");
-      let completed:boolean;
+      let completed!:boolean;
       switch(signType) {
         case "switch":
           await axios.post(
-            `${process.env.NEXT_PUBLIC_API}/api/auth/validate-donation-wallet/${authUser?.user.id ? authUser.user.id : 0}`,
+            `${process.env.NEXT_PUBLIC_API}/api/auth/validate-donation-wallet`,
             {
               address: walletAddress,
               network,
@@ -307,7 +307,13 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
                 Authorization: `Bearer ${authUser?.accessToken}`
               }
             }
-          );
+          ).then(res => {
+            if (res.data) {
+              completed = true;
+            }
+          }).catch(() => {
+            completed = false;
+          });
           break;
         case "register":
           completed = await register({
@@ -317,7 +323,6 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
             nonce: nonce,
             signature: signature
           }, "wallet", false);
-          if (completed) setLocation("/profile/home");
           break;
         case "signin":
           completed = await login({
@@ -326,8 +331,12 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
             signType,
             signature: signature
           }, "wallet");
-          if (completed) setLocation("/profile/home");
           break;
+      }
+      if (signType == "switch") return completed;
+      else {
+        if (completed) setLocation("/profile/home");
+        return completed;
       }
     }
     else {
