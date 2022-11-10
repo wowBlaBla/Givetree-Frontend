@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "wouter";
 import { useAuth } from "../context/AuthContext";
-import avatar from "../assets/images/default-avatar.png";
+import avatar from "../assets/images/upload-avatar.svg";
 
 export const DropdownMenu: FC = () => {
   const { authUser, logout } = useAuth();
@@ -11,9 +11,20 @@ export const DropdownMenu: FC = () => {
       <label tabIndex={0}>
         <div className="avatar online">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <div className="w-12 rounded-full border-2 border-grey-500 cursor-pointer">
+          <div className="w-12 rounded-full border-2 border-grey-500 cursor-pointer bg-white">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={authUser?.user.profileImage || avatar.src} alt="profile avatar" />
+            {
+              authUser?.user.profileImage ? 
+              <img
+                src={authUser?.user.profileImage || avatar.src}
+                alt="avatar"
+              />
+              :
+              <div
+                className="w-12 h-12 rounded-full bg-white bg-no-repeat bg-center bg-50% "
+                style={{ backgroundImage: `url(${avatar.src})`}}
+              />
+            }
           </div>
         </div>
       </label>

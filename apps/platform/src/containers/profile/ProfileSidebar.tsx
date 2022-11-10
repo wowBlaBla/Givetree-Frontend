@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link, useRoute } from "wouter";
 import { PlatformRoute } from "../../configs/routes";
-import avatar from "../../assets/images/default-avatar.png";
+import avatar from "../../assets/images/upload-avatar.svg";
 import { UserIcon } from "../../components/icons/profiles/UserIcon";
 import { NFTIcon } from "../../components/icons/profiles/NFTIcon";
 import { CollectionIcon } from "../../components/icons/profiles/CollectionIcon";
@@ -101,11 +101,20 @@ export const ProfileSideBar: FC<ProfileSideBarProps> = ({ visible, setVisible })
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="flex flex-col items-center px-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className="object-cover w-25 h-25 mx-2 rounded-full"
-          src={authUser?.user.profileImage || avatar.src}
-          alt="avatar"
-        />
+        {
+          authUser?.user.profileImage ? 
+          <img
+            className="object-cover w-28 h-28 mx-2 rounded-full"
+            src={authUser?.user.profileImage || avatar.src}
+            alt="avatar"
+          />
+          :
+          <div
+            className="w-32 h-32 rounded-full bg-white bg-no-repeat bg-center"
+            style={{ backgroundImage: `url(${avatar.src})`}}
+          />
+        }
+
         <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 text-xs hover:underline">
           {authUser?.user.userName || ""}
         </h4>
