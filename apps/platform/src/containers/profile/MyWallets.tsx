@@ -160,7 +160,7 @@ export const MyWallets: FC = () => {
           </div>
         </div>
       </div>
-      {<ConnectWalletModal callback={handleWallet} />}
+      {<ConnectWalletModal />}
     </div>
   );
 };

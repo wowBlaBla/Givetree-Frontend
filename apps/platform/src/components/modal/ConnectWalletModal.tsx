@@ -11,7 +11,7 @@ export const ConnectWalletModal: FC<ConnectWalletModalProps> = ({ callback }) =>
       <input type="checkbox" id="connect-wallet-modal" className="modal-toggle" />
       <label htmlFor="connect-wallet-modal" className="modal cursor-pointer">
         <label className="modal-box relative bg-deep-dark" htmlFor="">
-          <ConnectWallet callback={callback} />
+          <ConnectWallet />
         </label>
       </label>
     </>
