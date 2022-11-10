@@ -151,7 +151,7 @@ export const Home: FC = () => {
       setProfileData((prev) => ({
         ...prev,
         profileImage: URL.createObjectURL(file),
-      }))
+      }));
     }
   };
 
@@ -571,22 +571,20 @@ export const Home: FC = () => {
                 </label>
                 <div className="flex flex-col lg:flex-row mb-[48px] mt-4">
                   <div className="profile-box w-full lg:w-[300px] h-[250px] flex justify-center items-center mr-0 lg:mr-8 mb-8 lg:mb-0">
-                    {
-                      profileData.profileImage ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          className="object-cover !border-base-content rounded-full w-[200px] h-[200px]"
-                          src={profileData.profileImage}
-                          alt="avatar"
-                        />
-                      ) : (
-                        <img
-                          className="object-cover !border-base-content"
-                          src={UploadAvatar.src}
-                          alt="avatar"
-                        />
-                      )
-                    }
+                    {profileData.profileImage ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        className="object-cover !border-base-content rounded-full w-[200px] h-[200px]"
+                        src={profileData.profileImage}
+                        alt="avatar"
+                      />
+                    ) : (
+                      <img
+                        className="object-cover !border-base-content"
+                        src={UploadAvatar.src}
+                        alt="avatar"
+                      />
+                    )}
                     <input
                       ref={avatarRef}
                       type="file"
@@ -766,7 +764,7 @@ export const Home: FC = () => {
           </div>
         </>
       )}
-      {isLoading && <LoadingContainer message="Updating Profile"/>}
+      {isLoading && <LoadingContainer message="Updating Profile" />}
     </div>
   );
 };
