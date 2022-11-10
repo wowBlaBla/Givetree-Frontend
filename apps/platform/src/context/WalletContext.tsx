@@ -239,38 +239,38 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
     // if (signType != "switch") return true;
     const web3 = new Web3(provider);
     
-    if (typeof provider != 'string') {
-      let networkID!:string;
-      if (NetworkName[provider.networkVersion as NetworkID] != networkName) {
-        try {
-          for (let key in NetworkName) {
-            if (NetworkName[key as NetworkID] == networkName) {
-              networkID = key as NetworkID;
-              // return;
-            }
-          }
+    // if (typeof provider != 'string') {
+    //   let networkID!:string;
+    //   if (NetworkName[provider.networkVersion as NetworkID] != networkName) {
+    //     try {
+    //       for (let key in NetworkName) {
+    //         if (NetworkName[key as NetworkID] == networkName) {
+    //           networkID = key as NetworkID;
+    //           // return;
+    //         }
+    //       }
 
-          await provider.request({
-            method: "wallet_switchEthereumChain",
-            params: [{ chainId: web3.utils.toHex(networkID)}]
-          });
-        } catch(err: any) {
-          if (err?.code === 4902) {
-            await provider.request({
-              method: "wallet_addEthereumChain",
-              params: [
-                {
-                  chainName: "Polygon Mainnet",
-                  chainId: web3.utils.toHex(networkID),
-                  nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC"},
-                  rpcUrls: ["https://rpc-mumbai.maticvigil.com/"]
-                }
-              ]
-            })
-          }
-        }
-      }
-    }
+    //       await provider.request({
+    //         method: "wallet_switchEthereumChain",
+    //         params: [{ chainId: web3.utils.toHex(networkID)}]
+    //       });
+    //     } catch(err: any) {
+    //       if (err?.code === 4902) {
+    //         await provider.request({
+    //           method: "wallet_addEthereumChain",
+    //           params: [
+    //             {
+    //               chainName: "Polygon Mainnet",
+    //               chainId: web3.utils.toHex(networkID),
+    //               nativeCurrency: { name: "MATIC", decimals: 18, symbol: "MATIC"},
+    //               rpcUrls: ["https://rpc-mumbai.maticvigil.com/"]
+    //             }
+    //           ]
+    //         })
+    //       }
+    //     }
+    //   }
+    // }
 
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API}/api/nonces/${authUser?.user.id ? authUser.user.id : 0}`,
