@@ -26,7 +26,7 @@ export const CharityCard: FC<CharityCardProps> = ({ charity }) => {
           <div className="avatar-box flex shadow-xl rounded-lg w-[93px] h-[102px] justify-center items-center p-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={charity.profileImage ? charity.profileImage : charity.media.tileUrl ? charity.media.tileUrl : DefaultCharityIcon.src}
+              src={charity.profileImage || charity.media.tileUrl || DefaultCharityIcon.src}
               alt={charity.title}
             />
           </div>
