@@ -148,15 +148,14 @@ export const SignUp: FC = () => {
 
   const onReCAPTCHAChange = async (token: string | null) => {
     if (token) {
-      // const res = await axios.post(
-      //   `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`
-      // );
-      // if (res.data.success) {
-      setRecaptcha(true);
-      // return;
-      // }
-    } else {
-      setRecaptcha(false);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`,
+        { token }
+      );
+      if (res.data.success) {
+        setRecaptcha(true);
+        return;
+      }
     }
   };
 
