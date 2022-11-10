@@ -63,7 +63,7 @@ interface Donor {
 }
 
 interface Rate {
-  [key: string]:string;
+  [key: string]: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -75,13 +75,21 @@ type DonationFormProps = {
   to: string | number;
 };
 
-export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityName, to }) => {
-
+export const DonationForm: FC<DonationFormProps> = ({
+  charityAddress,
+  charityName,
+  to,
+}) => {
   const { authUser, isAuth } = useAuth();
-  const { address: account, web3Instance, connectWallet, updateNetworkName } = useWallet();
+  const {
+    address: account,
+    web3Instance,
+    connectWallet,
+    updateNetworkName,
+  } = useWallet();
   const [page, setPage] = useState<string>();
-  const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: ""});
-  const [crypto, setCrypto] = useState<Currency>({ active: 0, value: ""});
+  const [fiatCur, setFiatCur] = useState<Currency>({ active: 0, value: "" });
+  const [crypto, setCrypto] = useState<Currency>({ active: 0, value: "" });
   const [taxEmail, setTaxEmail] = useState<string>();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [donor, setDonor] = useState<Donor>({
@@ -96,7 +104,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
     zipcode: "",
   });
 
-  const [ rates, setRates ] = useState<Rate>({});
+  const [rates, setRates] = useState<Rate>({});
 
   const selectedPageName = useMemo(
     () => Pages.find((p) => p.value === page)?.name,
@@ -106,24 +114,26 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
   useEffect(() => {
     async function fetchRates() {
       const paymentToken = Tokens[crypto.active].currency;
-      const res = await axios.get(`https://api.coinbase.com/v2/exchange-rates?currency=${paymentToken}`);
+      const res = await axios.get(
+        `https://api.coinbase.com/v2/exchange-rates?currency=${paymentToken}`
+      );
       const rates = res.data.data.rates;
       setRates(rates);
     }
 
     fetchRates();
-  }, [crypto.active])
+  }, [crypto.active]);
 
   useEffect(() => {
     if (rates) {
       const rate = rates[Currencies[fiatCur.active].currency];
-      const price = !fiatCur.value ? "" :( +fiatCur.value / +rate).toFixed(6);
-      setCrypto({ ...crypto, value: (price).toString() })
+      const price = !fiatCur.value ? "" : (+fiatCur.value / +rate).toFixed(6);
+      setCrypto({ ...crypto, value: price.toString() });
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }
   }, [fiatCur, rates]);
 
-  const donate = async() => {
+  const donate = async () => {
     if (!account) {
       toast.warn("Please connect your wallet");
       return;
@@ -134,39 +144,40 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
     }
     try {
       setLoading(true);
-      const value = web3Instance?.utils.toWei(crypto.value, 'ether');
+      const value = web3Instance?.utils.toWei(crypto.value, "ether");
       const balance = await web3Instance?.eth.getBalance(account);
       if (Number(value) > Number(balance)) throw Error("Insufficient funds");
-      
+
       await web3Instance?.eth.sendTransaction({
         from: account,
         to: charityAddress[Tokens[crypto.active].crypto],
-        value: value
+        value: value,
       });
 
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/donations`,
-        {
-          to,
-          fiat: Currencies[fiatCur.active].currency,
-          fiatAmount: fiatCur.value,
-          crypto: Tokens[crypto.active].currency,
-          cryptoAmount: value,
-          walletAddress: charityAddress
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authUser?.accessToken}`
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API}/api/donations`,
+          {
+            to,
+            fiat: Currencies[fiatCur.active].currency,
+            fiatAmount: fiatCur.value,
+            crypto: Tokens[crypto.active].currency,
+            cryptoAmount: value,
+            walletAddress: charityAddress,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${authUser?.accessToken}`,
+            },
           }
-        }
-      ).then().catch();
+        )
+        .then()
+        .catch();
 
       toast.success("Donated successfully!");
-    } catch(err) {
-      
-    }
+    } catch (err) {}
     setLoading(false);
-  }
+  };
 
   const goToPreview = () => {
     if (!account) {
@@ -180,8 +191,8 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
     if (+fiatCur.value <= 0) {
       toast.warn("Please correct donation amount");
     }
-    setPage('preview');
-  }
+    setPage("preview");
+  };
 
   const { data, loading, error } = useQuery<GetCharityListingDataQuery>(
     GET_CHARITY_LISTING_DATA
@@ -202,9 +213,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
   return (
     <div className="donate-container flex flex-col">
       <div className="donate-tab flex h-[60px] mb-6">
-        <div
-          className={`flex-1`}
-        >
+        <div className={`flex-1`}>
           <span className="text-[24px] text-black">Donate</span>
         </div>
       </div>
@@ -212,9 +221,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
         {!page ? (
           <>
             {" "}
-            <div
-              className="flex donate-item text-black items-center mb-4"
-            >
+            <div className="flex donate-item text-black items-center mb-4">
               <span className="text-md w-[80px] flex items-center gap-1">
                 {Currencies[fiatCur.active].icon({ className: "w-8 h-8 inline-block" })}
                 {Currencies[fiatCur.active].currency}
@@ -225,12 +232,14 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                     type="number"
                     className="w-full outline-none text-center"
                     value={fiatCur.value}
-                    onChange={(e) => +e.target.value > 0 ? setFiatCur({ ...fiatCur, value: e.target.value }) : null}
+                    onChange={(e) =>
+                      +e.target.value > 0
+                        ? setFiatCur({ ...fiatCur, value: e.target.value })
+                        : null
+                    }
                   />
                 </span>
-                <span
-                  onClick={() => setPage("currency")}
-                >
+                <span onClick={() => setPage("currency")}>
                   <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
                 </span>
               </div>
@@ -240,7 +249,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
               onClick={() => setPage("crypto")}
             >
               <span className="text-md w-[80px] flex items-center gap-1">
-                {Tokens[crypto.active].icon({ className: "w-8 h-8"})}
+                {Tokens[crypto.active].icon({ className: "w-8 h-8" })}
                 {Tokens[crypto.active].currency}
               </span>
               <div className="flex flex-1 justify-between items-center">
@@ -259,7 +268,9 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
             >
               <span className="text-md w-[120px]">Pay with</span>
               <div className="flex flex-1 justify-between items-center">
-                <span className="text-md">{account ? account?.slice(0,4) + '...' + account?.slice(-4) : "" }</span>
+                <span className="text-md">
+                  {account ? account?.slice(0, 4) + "..." + account?.slice(-4) : ""}
+                </span>
                 <ChevronRightIcon className="cursor-pointer h-[10px]" color="black" />
               </div>
             </div>
@@ -309,7 +320,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                       className="flex items-center px-2 py-4 cursor-pointer rounded-md hover:bg-[#F0F0F0]"
                       key={`donation-crypto-${index}`}
                       onClick={() => {
-                        setFiatCur({ active: index, value: ""});
+                        setFiatCur({ active: index, value: "" });
                         setPage(undefined);
                       }}
                     >
@@ -354,29 +365,33 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                         <span className="text-sm">{item.name}</span>
                         <span className="text-sm">{item.description}</span>
                       </div>
-                      <CheckIcon width={20} color={"#0021F5"}  />
+                      <CheckIcon width={20} color={"#0021F5"} />
                     </div>
                   ))}
                 </>
               ) : page === "paywith" ? (
                 <div className="flex flex-col h-full pt-2">
                   <div className="flex-1 pb-2 mb-2 border-b border-[#686868] cursor-pointer">
-                    
-                    {
-                      account ? (
-                        <div className="bg-[#EEEBEB] rounded-[5px] p-2">
-                          <span className="font-bold text-black">
-                            Wallet : <span className="text-[#00B412]">Connected</span>
+                    {account ? (
+                      <div className="bg-[#EEEBEB] rounded-[5px] p-2">
+                        <span className="font-bold text-black">
+                          Wallet : <span className="text-[#00B412]">Connected</span>
+                        </span>
+                        <div className="flex justify-between mt-2">
+                          <span className="w-[200px] break-all text-black">
+                            {account}
                           </span>
-                          <div className="flex justify-between mt-2">
-                            <span className="w-[200px] break-all text-black">
-                              {account}
-                            </span>
-                            <CheckIcon width={20} color={"#0021F5"} />
-                          </div>
+                          <CheckIcon width={20} color={"#0021F5"} />
                         </div>
-                      ) : <span className="btn btn-info" onClick={() => isAuth ? connectWallet("metamask", "switch") : null}>Please connect your wallet</span>
-                    }
+                      </div>
+                    ) : (
+                      <span
+                        className="btn btn-info"
+                        onClick={() => (isAuth ? connectWallet("metamask") : null)}
+                      >
+                        Please connect your wallet
+                      </span>
+                    )}
                   </div>
                   <button className="btn bg-[#EEEBEB] border border-[#D9D9D9] text-black capitalize font-bold text-md">
                     Add payment method
@@ -416,14 +431,16 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                       placeholder="Last Name*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
                       value={donor?.lastName}
-                      onChange={(e) => setDonor({ ...donor, lastName: e.target.value })}/>
+                      onChange={(e) => setDonor({ ...donor, lastName: e.target.value })}
+                    />
                     <input
                       type="email"
                       name="email"
                       placeholder="Email*"
                       className="input outline-none bg-transparent border border-black rounded-none text-black h-[37px] mt-2"
                       value={donor?.email}
-                      onChange={(e) => setDonor({ ...donor, email: e.target.value })}/>
+                      onChange={(e) => setDonor({ ...donor, email: e.target.value })}
+                    />
                     <input
                       type="text"
                       name="country"
@@ -500,9 +517,7 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                   </span>
                   <div className="flex w-full">
                     <span className="flex-1">Pay with</span>
-                    <span className="w-[250px] break-all">
-                      {account}
-                    </span>
+                    <span className="w-[250px] break-all">{account}</span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Recurring</span>
@@ -510,19 +525,29 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Price</span>
-                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${Number(rates[Currencies[fiatCur.active].currency]).toFixed(3)} / {Tokens[crypto.active].currency}</span>
+                    <span className="w-[250px] break-all">
+                      {Currencies[fiatCur.active].currency} $
+                      {Number(rates[Currencies[fiatCur.active].currency]).toFixed(3)} /{" "}
+                      {Tokens[crypto.active].currency}
+                    </span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Purchase</span>
-                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${fiatCur.value}</span>
+                    <span className="w-[250px] break-all">
+                      {Currencies[fiatCur.active].currency} ${fiatCur.value}
+                    </span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">GiveTree fee</span>
-                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} $0.00</span>
+                    <span className="w-[250px] break-all">
+                      {Currencies[fiatCur.active].currency} $0.00
+                    </span>
                   </div>
                   <div className="flex w-full mt-6">
                     <span className="flex-1">Total</span>
-                    <span className="w-[250px] break-all">{Currencies[fiatCur.active].currency} ${fiatCur.value}</span>
+                    <span className="w-[250px] break-all">
+                      {Currencies[fiatCur.active].currency} ${fiatCur.value}
+                    </span>
                   </div>
                   <button
                     className="btn bg-[#2151F5] text-white w-full border-none rounded-2xl-1 mt-8"
@@ -536,7 +561,11 @@ export const DonationForm: FC<DonationFormProps> = ({ charityAddress, charityNam
           </>
         )}
       </div>
-      { isLoading ? <LoadingContainer message={"Donating to " + charityName + ". . ."}/> : ""}
+      {isLoading ? (
+        <LoadingContainer message={"Donating to " + charityName + ". . ."} />
+      ) : (
+        ""
+      )}
     </div>
   );
 };
