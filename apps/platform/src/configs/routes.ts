@@ -21,6 +21,8 @@ export enum PlatformRoute {
   AssetDetails = "/asset/:network/:collection/:tokenId",
   Mint = "/mint/:collectionName",
   AuctionDetails = "/auction/:collectionName",
+
+  VerifyEmail = "/verification-email/:token",
 }
 
 export interface AppHeaderNavLink {
@@ -67,6 +69,6 @@ export const MenuList: AppHeaderNavLink[] = [
       { id: "temrs-of-use", title: "Terms of use", href: "" },
       { id: "privacy-policy", title: "Privacy policy", href: "" },
     ],
-    href: "/about/welcome"
+    href: "/about/welcome",
   },
 ];

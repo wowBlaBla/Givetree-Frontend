@@ -191,7 +191,7 @@ export const NewCollection: FC = () => {
         });
         toast.success("Collection is deployed successfully!");
         const res = await axios.post(
-          `${process.env.API_URL}/api/collections/`,
+          `${process.env.NEXT_PUBLIC_API}/api/collections/`,
           {
             name,
             description,
@@ -215,7 +215,7 @@ export const NewCollection: FC = () => {
         if (featuredImage) formData.append("featured", featuredImage);
         if (bannerImage) formData.append("banner", bannerImage);
         await axios.put(
-          `${process.env.API_URL}/api/collections/upload/${res.data.id}`,
+          `${process.env.NEXT_PUBLIC_API}/api/collections/upload/${res.data.id}`,
           formData,
           {
             headers: {
@@ -237,7 +237,7 @@ export const NewCollection: FC = () => {
           }
           if (_socials.length) {
             await axios.put(
-              `${process.env.API_URL}/api/collections/${res.data.id}`,
+              `${process.env.NEXT_PUBLIC_API}/api/collections/${res.data.id}`,
               {
                 socials: _socials,
               },

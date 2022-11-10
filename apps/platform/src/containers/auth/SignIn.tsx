@@ -1,32 +1,36 @@
 import React, { FC, useState } from "react";
 import { AuthType, useAuth } from "../../context/AuthContext";
 import { useWallet } from "../../context/WalletContext";
-import { usePrevious } from "../../hooks/usePrevious";
 import { ConnectWallet } from "../../components/ConnectWallet";
 import { GiveTreeLogo } from "../../components/GiveTreeLogo";
+import { useLocation } from "wouter";
 
 export const SignIn: FC = () => {
-  // const { address, networkName: network } = useWallet();
-  const { loading: authLoading, login } = useAuth();
-  const prevAuthLoading = usePrevious(authLoading);
+  const [_, setLocation] = useLocation();
 
-  const [selected, setSelected] = useState<boolean>(false);
+  const { address, provider } = useWallet();
+  const { isAuth, login } = useAuth();
+
   const [authType, setAuthType] = useState<AuthType>();
 
   const [emailorUserName, setEmailOrUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  // React.useEffect(() => {
-  //   if (selected && address && network) {
-  //     login({ address, network }, "wallet");
-  //   }
-  // }, [selected, address, network, login]);
-
   React.useEffect(() => {
-    if (prevAuthLoading === true && authLoading === false) {
-      setSelected(false);
+    if (isAuth) {
+      setLocation("/profile/home");
     }
-  }, [prevAuthLoading, authLoading]);
+  }, [isAuth]);
+
+  const handleLogin = async () => {
+    if (authType === "email") {
+      login({ email: emailorUserName, password }, "email");
+    } else {
+      if (provider) {
+        login({ address, network: "ethereum" }, "wallet");
+      }
+    }
+  };
 
   return (
     <div className="w-full auth-wallet">
@@ -103,7 +107,7 @@ export const SignIn: FC = () => {
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Select your account sign in wallet
             </span>
-            <ConnectWallet callback={() => setSelected(true)} />
+            <ConnectWallet callback={handleLogin} />
           </>
         )}
       </div>

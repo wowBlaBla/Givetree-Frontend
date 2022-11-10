@@ -24,6 +24,7 @@ import { SignIn } from "./containers/auth/SignIn";
 import { SignUp } from "./containers/auth/SignUp";
 import { useAuth } from "./context/AuthContext";
 import { PublicMintContainer } from "./containers/publicMint";
+import { VerifyEmailContainer } from "./containers/verifyEmail/VerifyEmailContainer";
 
 const Routes = () => {
   const { isAuth, initialized } = useAuth();
@@ -90,12 +91,14 @@ const Routes = () => {
               </Route> */}
 
               <Route path={PlatformRoute.AssetDetails}>
-                <SalesContainer/>
+                <SalesContainer />
               </Route>
               <Route path={PlatformRoute.Mint}>
                 <PublicMintContainer />
               </Route>
-
+              <Route path={PlatformRoute.VerifyEmail}>
+                {(param) => <VerifyEmailContainer token={param.token} />}
+              </Route>
               <Redirect to={"/explore/home"} />
             </Switch>
           </div>

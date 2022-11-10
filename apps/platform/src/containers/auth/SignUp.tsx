@@ -26,11 +26,9 @@ interface InnerType {
 
 export const SignUp: FC = () => {
   const [, setLocation] = useLocation();
-  const [selected, setSelected] = useState<boolean>(false);
 
-  const { address, networkName: network } = useWallet();
-  const { register, isAuth, loading: authLoading } = useAuth();
-  const prevAuthLoading = usePrevious(authLoading);
+  const { address, provider, signTransaction } = useWallet();
+  const { register, isAuth } = useAuth();
 
   const [step, setStep] = useState(0);
   const [authType, setAuthType] = useState<AuthType>();
@@ -52,22 +50,21 @@ export const SignUp: FC = () => {
   }, [authType]);
 
   React.useEffect(() => {
-    if (prevAuthLoading === true && authLoading === false) {
-      setSelected(false);
-    }
-  }, [prevAuthLoading, authLoading]);
-
-  React.useEffect(() => {
     if (isAuth && ((authType === "email" && step === 6) || authType === "wallet")) {
       setTimeout(() => setLocation("/profile/home"), 2000);
     }
   }, [isAuth, step, authType, setLocation]);
 
-  React.useEffect(() => {
-    if (step === 6) {
-      register({ username, email, password }, "email", false);
+  const handleRegister = async () => {
+    if (authType === "email") {
+      register({ username, email, password }, "email");
+    } else {
+      const signature = await signTransaction();
+      if (signature) {
+        register({ address, network: "ethereum", signature }, "wallet");
+      }
     }
-  }, [step, username, email, password]);
+  };
 
   const nextStep = async () => {
     if (step < 6) {
@@ -76,6 +73,9 @@ export const SignUp: FC = () => {
         return;
       }
       setStep(step + 1);
+      if (step === 5) {
+        handleRegister();
+      }
     }
   };
 
@@ -152,8 +152,8 @@ export const SignUp: FC = () => {
       //   `${process.env.NEXT_PUBLIC_API}/api/auth/validate-recaptcha`
       // );
       // if (res.data.success) {
-        setRecaptcha(true);
-        // return;
+      setRecaptcha(true);
+      // return;
       // }
     } else {
       setRecaptcha(false);
@@ -395,7 +395,7 @@ export const SignUp: FC = () => {
             <span className="text-[#646464] font-bold text-md text-center mb-6">
               Select your wallet
             </span>
-            <ConnectWallet callback={() => setSelected(true)} />
+            <ConnectWallet callback={handleRegister} />
           </>
         )}
       </div>

@@ -15,9 +15,11 @@ export type AuthRequestBody = {
   address?: string;
   network?: string;
   type?: string;
-  nonce?: string;
   signature?: string;
-  signType?: string;
+};
+
+export type EmailVerifyRequestBody = {
+  token: string;
 };
 
 export type AuthType = "email" | "wallet";
@@ -49,6 +51,7 @@ export type User = {
   profileImage: string;
   banner: string;
   visibility: "private" | "public";
+  isEmailVerified: boolean;
   tax: boolean;
   walletAddresses: WalletAddressData[];
   refreshTokens: string[];
@@ -67,8 +70,9 @@ interface IAuthProvider {
   initialized: boolean;
   authUser?: AUTH_USER;
   updateUserData: (data: Partial<User>) => void;
-  register: (body: AuthRequestBody, authType: AuthType, redirect?: boolean) => Promise<boolean>;
+  register: (body: AuthRequestBody, authType: AuthType) => Promise<boolean>;
   login: (body: AuthRequestBody, authType: AuthType) => Promise<boolean>;
+  verifyEmail: (token: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -76,8 +80,9 @@ const AuthContext = React.createContext<IAuthProvider>({
   loading: false,
   isAuth: false,
   initialized: false,
-  register: () => { return new Promise((resolve) => resolve(false)); },
-  login: () => { return new Promise((resolve) => resolve(false)); },
+  register: () => new Promise((resolve) => resolve(false)),
+  login: () => new Promise((resolve) => resolve(false)),
+  verifyEmail: () => new Promise((resolve) => resolve(false)),
   logout: () => {},
   updateUserData: () => {},
 });
@@ -92,8 +97,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
   const [loading, setLoading] = React.useState(false);
   const [authUser, setAuthUser] = React.useState<AUTH_USER>();
 
-  const register = 
-    async(body: AuthRequestBody, authType: AuthType, redirect?: boolean):Promise<boolean> => {
+  const register = React.useCallback(
+    async (body: AuthRequestBody, authType: AuthType): Promise<boolean> => {
       const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
         authType === "email" ? "register-email" : "register-wallet"
       }`;
@@ -104,32 +109,33 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
 
       setLoading(true);
       const status = await axios
-      .post(api, body)
-      .then((res: any) => {
-        toast.success("You have registered successfully!");
+        .post(api, body)
+        .then((res: any) => {
+          toast.success("You have registered successfully!");
 
-        localStorage.setItem("access_token", res.data.accessToken);
-        localStorage.setItem("refresh_token", res.data.refreshToken);
-        reset();
-        setAuthUser(res.data);
-        setIsAuth(true);
-        setLoading(false);
-        if (authType === "email") setLocation("/profile/home");
-        return true;
-      })
-      .catch((err) => {
-        console.log("cache-errr", err);
-        if (err?.response?.data?.message) {
-          toast.error(err?.response?.data?.message);
-        }
-        setLoading(false);
-        return false;
-      });
+          localStorage.setItem("access_token", res.data.accessToken);
+          localStorage.setItem("refresh_token", res.data.refreshToken);
+          reset();
+          setAuthUser(res.data);
+          setIsAuth(true);
+          setLoading(false);
+          return true;
+        })
+        .catch((err) => {
+          console.log("cache-errr", err);
+          if (err?.response?.data?.message) {
+            toast.error(err?.response?.data?.message);
+          }
+          setLoading(false);
+          return false;
+        });
       return status;
-    };
+    },
+    []
+  );
 
-  const login =
-    async(body: AuthRequestBody, authType: AuthType):Promise<boolean> => {
+  const login = React.useCallback(
+    async (body: AuthRequestBody, authType: AuthType): Promise<boolean> => {
       const api = `${process.env.NEXT_PUBLIC_API}/api/auth/${
         authType === "email" ? "login-email" : "login-wallet"
       }`;
@@ -137,7 +143,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
       if (authType === "wallet") {
         body.type = "auth";
       }
-      
+
       setLoading(true);
       return await axios
         .post(api, body)
@@ -149,7 +155,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           setAuthUser(res.data);
           setIsAuth(true);
           setLoading(false);
-          if (authType === "email") setLocation("/profile/home");
           return true;
         })
         .catch((err) => {
@@ -159,14 +164,39 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
           setLoading(false);
           return false;
         });
-  }
+    },
+    []
+  );
+
+  const verifyEmail = React.useCallback(async (token: string): Promise<boolean> => {
+    setLoading(true);
+    return await axios
+      .post(`${process.env.NEXT_PUBLIC_API}/api/auth/verify-email`, { token })
+      .then((res: any) => {
+        toast.success("You have logined successfully!");
+
+        localStorage.setItem("access_token", res.data.accessToken);
+        localStorage.setItem("refresh_token", res.data.refreshToken);
+        setAuthUser(res.data);
+        setIsAuth(true);
+        setLoading(false);
+        return true;
+      })
+      .catch((err) => {
+        if (err?.response?.data?.message) {
+          toast.error(err?.response?.data?.message);
+        }
+        setLoading(false);
+        return false;
+      });
+  }, []);
 
   const logout = React.useCallback(() => {
     localStorage.clear();
     setAuthUser(undefined);
     setIsAuth(false);
     setLocation("/explore/home");
-  }, [setLocation]);
+  }, []);
 
   const refreshAccount = React.useCallback(
     (refreshToken: string) => {
@@ -223,6 +253,7 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         register,
         login,
         logout,
+        verifyEmail,
         updateUserData,
       }}
     >

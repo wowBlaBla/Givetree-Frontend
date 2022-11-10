@@ -7,21 +7,42 @@ import { WalletConnectIcon } from "../components/icons/WalletConnectIcon";
 import { CoinbaseIcon } from "../components/icons/CoinbaseIcon";
 import { PhantomIcon } from "../components/icons/PhantomIcon";
 import { LoadingIcon } from "./icons/LoadingIcon";
-import { useRoute } from "wouter";
+import { usePrevious } from "../hooks/usePrevious";
 
 interface ConnectWalletProps {
-  callback?: () => void;
+  callback?: () => Promise<void>;
+  externalLoading?: boolean;
   className?: string;
 }
 
-export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) => {
-  const { loading, connectWallet } = useWallet();
-  const [matchLogin] = useRoute('/login');
-  const [matchRegister] = useRoute('/register');
+export const ConnectWallet: FC<ConnectWalletProps> = ({
+  callback,
+  className,
+  externalLoading,
+}) => {
+  const { loading, connectWallet, provider } = useWallet();
+
   // const [activeTabWallet, setActiveTabWallet] = useState<number>(0);
+  const [selected, setSelected] = React.useState<boolean>(false);
+
+  const prevLoading = usePrevious(loading);
+  React.useEffect(() => {
+    if (prevLoading === true && loading === false) {
+      setTimeout(() => setSelected(false), 1000);
+    }
+  }, [prevLoading, loading]);
+
+  React.useEffect(() => {
+    if (selected && provider) {
+      callback && callback();
+    }
+  }, [selected, provider]);
+
   const handleWallet = (wallet: Wallet) => () => {
-    connectWallet(wallet, matchLogin ? "signin" : matchRegister ? "register" : "switch");
-    callback && callback();
+    setSelected(true);
+    if (!provider) {
+      connectWallet(wallet);
+    }
   };
 
   return (
@@ -53,19 +74,20 @@ export const ConnectWallet: FC<ConnectWalletProps> = ({ callback, className }) =
       </div> */}
       <div className={cx("ethereum-wallet w-full flex-col flex")}>
         <button
-          className={cx("cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center",
+          className={cx(
+            "cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center",
             {
-              "bg-slate-400": loading
+              "bg-slate-400": loading,
             }
           )}
           onClick={handleWallet("metamask")}
-          disabled={loading}
+          disabled={loading || externalLoading}
         >
           <div className="flex gap-3">
             <MetaMaskIcon />
             <span>MetaMask</span>
           </div>
-          {loading ? <LoadingIcon className="w-6 h-6" /> : ""}
+          {loading || externalLoading ? <LoadingIcon className="w-6 h-6" /> : ""}
         </button>
         {/* <button
           className="cursor-pointer font-bold py-4 px-5 rounded-[2px] flex items-center gap-3 hover:bg-slate-400 flex justify-between items-center"
