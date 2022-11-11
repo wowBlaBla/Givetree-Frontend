@@ -172,10 +172,6 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
     []
   );
 
-  const requestVerifyEmail = React.useCallback(() => {
-    setLoading(true);
-  }, []);
-
   const verifyEmail = React.useCallback(async (token: string): Promise<boolean> => {
     setLoading(true);
     return await axios

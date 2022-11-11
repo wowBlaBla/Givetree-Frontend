@@ -16,6 +16,7 @@ import marketplaceABI from "../assets/jsons/abi/marketplace.json";
 import paymentTokenABI from "../assets/jsons/abi/erc20.json";
 import axios from "axios";
 import { useLocation } from "wouter";
+import { toast } from "react-toastify";
 
 export const Network = ["Ethereum", "Polygon", "Solana"];
 
@@ -87,13 +88,21 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   const updateWeb3 = React.useCallback(
     async (provider: WalletProvider) => {
       const web3 = new Web3(provider);
+      const networkID = await web3.eth.getChainId();
+      if (networkID !== 5) {
+        toast.error("We allow Goerli test net now.");
+        return;
+      }
+
       if (typeof provider != "string" && wallet) {
         provider
           .on("accountsChanged", (accounts: Array<string>) => {
             setAddress(accounts[0]);
           })
           .on("chainChanged", (chainID: string) => {
-            if (+chainID == 5 || +chainID == 80001) {
+            if (+chainID == 5) {
+              toast.error("We allow Goerli test net now.");
+              reset();
             }
           });
       }
@@ -115,7 +124,6 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         EthereumNetwork.address.paymentToken
       );
 
-      const networkID = await web3.eth.getChainId();
       setNetworkName(NetworkName[networkID.toString() as NetworkID]);
       setWeb3Instance(web3);
       setProvider(provider);
@@ -169,6 +177,20 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
         } catch (err) {}
         setLoading(false);
       }
+    } else {
+      toast.error(
+        <>
+          Please install Metamask extension{" "}
+          <a
+            className="text-[#3897F0]"
+            href="https://metamask.io/download/"
+            target={"_blank"}
+            rel="noreferrer"
+          >
+            here
+          </a>
+        </>
+      );
     }
   }, [updateWeb3]);
 
@@ -223,11 +245,10 @@ export const WalletProvider: React.FC<React.PropsWithChildren<{}>> = ({ children
   const reset = React.useCallback(() => {
     setAddress(undefined);
     setWallet(undefined);
-    updateWeb3(httpProvider);
-    // setProvider(undefined);
-    // setWeb3Instance(undefined);
-    // setContracts(undefined);
-  }, [updateWeb3]);
+    setProvider(undefined);
+    setWeb3Instance(undefined);
+    setContracts(undefined);
+  }, []);
 
   const signTransaction = React.useCallback(async () => {
     setLoading(true);
