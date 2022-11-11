@@ -73,6 +73,8 @@ interface IAuthProvider {
   register: (body: AuthRequestBody, authType: AuthType) => Promise<boolean>;
   login: (body: AuthRequestBody, authType: AuthType) => Promise<boolean>;
   verifyEmail: (token: string) => Promise<boolean>;
+  resetPassword: (token: string, password: string) => Promise<boolean>;
+  requestResetPassword: (email: string) => Promise<boolean>;
   logout: () => void;
 }
 
@@ -83,6 +85,8 @@ const AuthContext = React.createContext<IAuthProvider>({
   register: () => new Promise((resolve) => resolve(false)),
   login: () => new Promise((resolve) => resolve(false)),
   verifyEmail: () => new Promise((resolve) => resolve(false)),
+  resetPassword: () => new Promise((resolve) => resolve(false)),
+  requestResetPassword: () => new Promise((resolve) => resolve(false)),
   logout: () => {},
   updateUserData: () => {},
 });
@@ -168,6 +172,10 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
     []
   );
 
+  const requestVerifyEmail = React.useCallback(() => {
+    setLoading(true);
+  }, []);
+
   const verifyEmail = React.useCallback(async (token: string): Promise<boolean> => {
     setLoading(true);
     return await axios
@@ -189,6 +197,38 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         setLoading(false);
         return false;
       });
+  }, []);
+
+  const requestResetPassword = React.useCallback(async (email: string) => {
+    setLoading(true);
+    try {
+      const res = await axios.post<boolean>(
+        `${process.env.NEXT_PUBLIC_API}/api/auth/request-reset-password`,
+        { email }
+      );
+      setLoading(false);
+      return res.data;
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(err?.response?.data?.message);
+      return false;
+    }
+  }, []);
+
+  const resetPassword = React.useCallback(async (token: string, password: string) => {
+    setLoading(true);
+    try {
+      const res = await axios.post<boolean>(
+        `${process.env.NEXT_PUBLIC_API}/api/auth/reset-password`,
+        { token, password }
+      );
+      setLoading(false);
+      return res.data;
+    } catch (err: any) {
+      setLoading(false);
+      toast.error(err?.response?.data?.message);
+      return false;
+    }
   }, []);
 
   const logout = React.useCallback(() => {
@@ -255,6 +295,8 @@ export const AuthProvider: React.FC<React.PropsWithChildren<{}>> = ({ children }
         logout,
         verifyEmail,
         updateUserData,
+        resetPassword,
+        requestResetPassword,
       }}
     >
       {children}

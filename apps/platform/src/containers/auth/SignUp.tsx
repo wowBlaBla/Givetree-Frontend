@@ -126,7 +126,7 @@ export const SignUp: FC = () => {
           } else if (_errors.email) {
             toast.error(_errors.email);
           } else if (_errors.password) {
-            toast.error(_errors.passwordConfirmation);
+            toast.error(_errors.password);
           } else if (_errors.passwordConfirmation) {
             toast.error(_errors.passwordConfirmation);
           }
