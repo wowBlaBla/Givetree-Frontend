@@ -25,7 +25,7 @@ import { SignUp } from "./containers/auth/SignUp";
 import { useAuth } from "./context/AuthContext";
 import { PublicMintContainer } from "./containers/publicMint";
 import { VerifyEmailContainer } from "./containers/verifyEmail/VerifyEmailContainer";
-import { ForgotPassword } from "./containers/forgotPassword";
+import { ResetPassword } from "./containers/auth/ResetPassword";
 
 const Routes = () => {
   const { isAuth, initialized } = useAuth();
@@ -87,13 +87,6 @@ const Routes = () => {
                   );
                 }}
               </Route>
-              <Route path={PlatformRoute.ForgotPassword}>
-                <ForgotPassword/>
-              </Route>
-              {/* <Route path={PlatformRoute.About}>
-                <AboutPortal />
-              </Route> */}
-
               <Route path={PlatformRoute.AssetDetails}>
                 <SalesContainer />
               </Route>
@@ -102,6 +95,9 @@ const Routes = () => {
               </Route>
               <Route path={PlatformRoute.VerifyEmail}>
                 {(param) => <VerifyEmailContainer token={param.token} />}
+              </Route>
+              <Route path={PlatformRoute.ResetPassword}>
+                {(param) => <ResetPassword token={param.token} />}
               </Route>
               <Redirect to={"/explore/home"} />
             </Switch>

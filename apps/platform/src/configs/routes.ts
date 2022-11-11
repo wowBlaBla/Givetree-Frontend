@@ -23,7 +23,7 @@ export enum PlatformRoute {
   AuctionDetails = "/auction/:collectionName",
 
   VerifyEmail = "/verification-email/:token",
-  ForgotPassword = "/forgot",
+  ResetPassword = "/reset-password/:token",
 }
 
 export interface AppHeaderNavLink {
