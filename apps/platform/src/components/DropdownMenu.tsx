@@ -21,8 +21,7 @@ export const DropdownMenu: FC = () => {
               />
               :
               <div
-                className="w-12 h-12 rounded-full bg-white bg-no-repeat bg-center bg-50% "
-                style={{ backgroundImage: `url(${avatar.src})`}}
+                className="w-12 h-12 rounded-full bg-transparent"
               />
             }
           </div>
