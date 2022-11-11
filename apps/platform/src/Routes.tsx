@@ -25,6 +25,7 @@ import { SignUp } from "./containers/auth/SignUp";
 import { useAuth } from "./context/AuthContext";
 import { PublicMintContainer } from "./containers/publicMint";
 import { VerifyEmailContainer } from "./containers/verifyEmail/VerifyEmailContainer";
+import { ForgotPassword } from "./containers/forgotPassword";
 
 const Routes = () => {
   const { isAuth, initialized } = useAuth();
@@ -85,6 +86,9 @@ const Routes = () => {
                     <>{!isAuth ? <Redirect to={"/explore/home"} /> : <ProfilePortal />}</>
                   );
                 }}
+              </Route>
+              <Route path={PlatformRoute.ForgotPassword}>
+                <ForgotPassword/>
               </Route>
               {/* <Route path={PlatformRoute.About}>
                 <AboutPortal />
