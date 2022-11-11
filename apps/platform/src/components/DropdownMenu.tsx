@@ -11,7 +11,7 @@ export const DropdownMenu: FC = () => {
       <label tabIndex={0}>
         <div className="avatar online">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <div className="w-12 rounded-full border-2 border-grey-500 cursor-pointer bg-white">
+          <div className="w-12 rounded-full border-2 border-grey-500 cursor-pointer">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             {
               authUser?.user.profileImage ? 
