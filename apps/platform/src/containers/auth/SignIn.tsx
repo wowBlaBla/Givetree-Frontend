@@ -35,9 +35,11 @@ export const SignIn: FC = () => {
 
   const handleLogin = async () => {
     if (authType === "email") {
-      login({ email: emailorUserName, password }, "email");
+      if (emailorUserName && password) {
+        login({ email: emailorUserName, password }, "email");
+      }
     } else {
-      if (provider) {
+      if (provider && address) {
         login({ address, network: "ethereum" }, "wallet");
       }
     }
